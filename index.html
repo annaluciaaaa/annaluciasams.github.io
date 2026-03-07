@@ -1,124 +1,663 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Anna Lucia Sams</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600;700&family=Montserrat:wght@200;300&display=swap" rel="stylesheet"/>
+  <title>Michaela Guggenbichler – Hebamme in Zug</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+    :root {
+      --cream:     #fdf7f2;
+      --blush:     #f8ece5;
+      --pink:      #e8b4a0;
+      --pink-dark: #c47a60;
+      --pink-deep: #9a5040;
+      --sand:      #ede0d6;
+      --brown:     #3d2b22;
+      --text:      #4a3830;
+      --text-light:#8a7068;
+      --white:     #ffffff;
     }
 
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-family:'Nunito', sans-serif;
+      background:var(--cream);
+      color:var(--text);
+      overflow-x:hidden;
     }
 
-    /* Full screen green forest background */
-    .bg {
-      position: fixed;
-      inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1600&q=80');
-      background-size: cover;
-      background-position: center;
-      z-index: 0;
-      animation: slowZoom 20s ease-in-out infinite alternate;
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      padding:16px 56px;
+      display:flex; justify-content:space-between; align-items:center;
+      background:rgba(253,247,242,0.95);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(232,180,160,0.2);
+    }
+    .nav-logo {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.15rem; font-weight:600;
+      color:var(--pink-deep); letter-spacing:0.5px;
+    }
+    .nav-center {
+      display:flex; gap:36px; list-style:none;
+    }
+    .nav-center a {
+      text-decoration:none; font-size:0.82rem; font-weight:500;
+      letter-spacing:2px; text-transform:uppercase;
+      color:var(--text-light); transition:color 0.3s;
+    }
+    .nav-center a:hover { color:var(--pink-dark); }
+    .lang-toggle {
+      display:flex; gap:4px; align-items:center;
+    }
+    .lang-btn {
+      background:none; border:none; cursor:pointer;
+      font-family:'Nunito', sans-serif;
+      font-size:0.82rem; font-weight:600;
+      letter-spacing:1px; padding:6px 10px;
+      border-radius:20px; transition:all 0.2s;
+      color:var(--text-light);
+    }
+    .lang-btn.active {
+      background:var(--pink);
+      color:white;
+    }
+    .lang-sep { color:var(--sand); font-size:0.8rem; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh;
+      display:grid; grid-template-columns:1fr 1fr;
+      align-items:stretch; padding-top:60px;
+    }
+    .hero-left {
+      display:flex; flex-direction:column; justify-content:center;
+      padding:80px 60px 80px 72px;
+      animation:fadeInLeft 1s ease forwards; opacity:0;
+    }
+    @keyframes fadeInLeft {
+      from { opacity:0; transform:translateX(-24px); }
+      to   { opacity:1; transform:translateX(0); }
+    }
+    .hero-tag {
+      display:inline-block;
+      font-size:0.75rem; letter-spacing:3px; text-transform:uppercase;
+      color:var(--pink-dark); margin-bottom:20px;
+      padding:7px 18px; border:1px solid var(--pink);
+      border-radius:30px; width:fit-content;
+    }
+    .hero h1 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(2.6rem,4.5vw,4rem);
+      font-weight:400; line-height:1.15; color:var(--brown);
+      margin-bottom:20px;
+    }
+    .hero h1 em { font-style:italic; color:var(--pink-dark); }
+    .hero-sub {
+      font-size:1rem; font-weight:300; color:var(--text-light);
+      line-height:1.85; max-width:440px; margin-bottom:40px;
+    }
+    .btn-primary {
+      display:inline-block; background:var(--pink-dark);
+      color:white; text-decoration:none;
+      padding:15px 36px; border-radius:50px;
+      font-size:0.9rem; font-weight:600; letter-spacing:1px;
+      transition:all 0.3s; width:fit-content;
+    }
+    .btn-primary:hover { background:var(--pink-deep); transform:translateY(-2px); }
+
+    .hero-right {
+      position:relative; overflow:hidden;
+      animation:fadeInRight 1s ease 0.3s forwards; opacity:0;
+    }
+    @keyframes fadeInRight {
+      from { opacity:0; transform:translateX(24px); }
+      to   { opacity:1; transform:translateX(0); }
+    }
+    .hero-img {
+      width:100%; height:100%; object-fit:cover;
+      background-image:url('https://images.unsplash.com/photo-1609220136736-443140cffec6?w=900&q=80');
+      background-size:cover; background-position:center top;
+      min-height:600px;
+    }
+    .hero-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to right, rgba(253,247,242,0.15), transparent);
+    }
+    .hero-card {
+      position:absolute; bottom:48px; left:-24px;
+      background:white; border-radius:20px;
+      padding:20px 28px;
+      box-shadow:0 20px 60px rgba(60,30,20,0.12);
+      z-index:2;
+    }
+    .hero-card-icon { font-size:1.6rem; margin-bottom:6px; }
+    .hero-card-title {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.1rem; color:var(--brown); font-weight:600;
+    }
+    .hero-card-sub { font-size:0.8rem; color:var(--text-light); margin-top:2px; }
+
+    /* ── ABOUT ── */
+    .about {
+      background:var(--blush);
+      padding:100px 72px;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:80px; align-items:center;
+    }
+    .about-imgs {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:16px; position:relative;
+    }
+    .about-img {
+      border-radius:24px; overflow:hidden;
+      background-size:cover; background-position:center;
+    }
+    .about-img-1 {
+      background-image:url('https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=600&q=80');
+      aspect-ratio:3/4; border-radius:24px 24px 8px 24px;
+    }
+    .about-img-2 {
+      background-image:url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80');
+      aspect-ratio:3/4; border-radius:24px 24px 24px 8px;
+      margin-top:40px;
+    }
+    .section-eyebrow {
+      font-size:0.75rem; letter-spacing:3px; text-transform:uppercase;
+      color:var(--pink-dark); margin-bottom:14px; display:block;
+    }
+    .section-title {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(1.8rem,3vw,2.6rem);
+      font-weight:400; line-height:1.2; color:var(--brown);
+      margin-bottom:22px;
+    }
+    .section-title em { font-style:italic; color:var(--pink-dark); }
+    .body-text {
+      font-size:0.97rem; font-weight:300; color:var(--text-light);
+      line-height:1.9; margin-bottom:16px;
+    }
+    .pill-list {
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:28px;
+    }
+    .pill {
+      background:white; border:1px solid var(--pink);
+      color:var(--pink-deep); padding:7px 18px; border-radius:30px;
+      font-size:0.82rem; font-weight:500;
     }
 
-    @keyframes slowZoom {
-      from { transform: scale(1); }
-      to   { transform: scale(1.06); }
+    /* ── SERVICES ── */
+    .services {
+      padding:100px 72px; background:var(--cream);
+    }
+    .services-header { text-align:center; max-width:580px; margin:0 auto 60px; }
+    .services-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
+    }
+    .service-card {
+      background:white; border-radius:28px; overflow:hidden;
+      box-shadow:0 4px 30px rgba(60,30,20,0.06);
+      transition:transform 0.3s, box-shadow 0.3s;
+      border:1px solid rgba(232,180,160,0.15);
+    }
+    .service-card:hover {
+      transform:translateY(-6px);
+      box-shadow:0 24px 60px rgba(196,122,96,0.15);
+    }
+    .service-photo {
+      width:100%; height:200px;
+      background-size:cover; background-position:center;
+    }
+    .service-photo-1 {
+      background-image:url('https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&q=80');
+    }
+    .service-photo-2 {
+      background-image:url('https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=600&q=80');
+    }
+    .service-photo-3 {
+      background-image:url('https://images.unsplash.com/photo-1560328055-e938bb2ed50a?w=600&q=80');
+    }
+    .service-body { padding:32px; }
+    .service-title {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.4rem; color:var(--brown);
+      margin-bottom:12px; font-weight:600;
+    }
+    .service-text {
+      font-size:0.88rem; font-weight:300; color:var(--text-light);
+      line-height:1.8; margin-bottom:18px;
+    }
+    .service-list { list-style:none; }
+    .service-list li {
+      font-size:0.85rem; color:var(--text-light);
+      padding:5px 0; border-bottom:1px solid var(--blush);
+      display:flex; gap:8px; align-items:center;
+    }
+    .service-list li::before {
+      content:''; width:5px; height:5px;
+      border-radius:50%; background:var(--pink);
+      flex-shrink:0;
     }
 
-    /* Dark overlay */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.1) 0%,
-        rgba(0, 30, 0, 0.3) 50%,
-        rgba(0,0,0,0.6) 100%
-      );
-      z-index: 1;
+    /* ── PHOTO BAND ── */
+    .photo-band {
+      display:grid; grid-template-columns:1.2fr 0.8fr 1fr;
+      height:380px; overflow:hidden;
+    }
+    .band-img {
+      background-size:cover; background-position:center;
+      transition:transform 0.6s ease;
+    }
+    .band-img:hover { transform:scale(1.04); }
+    .band-1 { background-image:url('https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=800&q=80'); }
+    .band-2 { background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'); background-position:top; }
+    .band-3 { background-image:url('https://images.unsplash.com/photo-1609220136736-443140cffec6?w=700&q=80'); }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      background:var(--pink-deep); padding:80px 72px; text-align:center;
+    }
+    .quote-text {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(1.4rem,2.5vw,2.1rem);
+      font-style:italic; font-weight:300;
+      color:white; max-width:780px; margin:0 auto; line-height:1.65;
+    }
+    .quote-author {
+      margin-top:22px; font-size:0.8rem; letter-spacing:2px;
+      text-transform:uppercase; color:var(--pink);
     }
 
-    /* Content */
-    .content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 20px;
+    /* ── CONTACT ── */
+    .contact {
+      padding:100px 72px; background:var(--blush);
+      display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start;
+    }
+    .contact-info h2 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(1.8rem,3vw,2.6rem);
+      font-weight:400; color:var(--brown); margin-bottom:18px; line-height:1.2;
+    }
+    .contact-info h2 em { font-style:italic; color:var(--pink-dark); }
+    .contact-detail {
+      display:flex; align-items:flex-start; gap:16px; margin-bottom:20px;
+    }
+    .cd-icon {
+      width:46px; height:46px; background:white;
+      border-radius:14px; display:flex; align-items:center;
+      justify-content:center; font-size:1.1rem; flex-shrink:0;
+      box-shadow:0 4px 16px rgba(0,0,0,0.06);
+    }
+    .cd-label { font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-light); }
+    .cd-value { font-size:0.95rem; color:var(--text); margin-top:2px; font-weight:500; }
+
+    .contact-form {
+      background:white; border-radius:28px; padding:44px;
+      box-shadow:0 16px 60px rgba(60,30,20,0.07);
+    }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-group { margin-bottom:18px; }
+    .form-label {
+      display:block; font-size:0.75rem; font-weight:600;
+      letter-spacing:1.5px; text-transform:uppercase;
+      color:var(--text-light); margin-bottom:8px;
+    }
+    .form-input, .form-textarea, .form-select {
+      width:100%; padding:13px 16px;
+      border:1.5px solid var(--sand); border-radius:12px;
+      font-family:'Nunito', sans-serif; font-size:0.92rem;
+      color:var(--text); background:var(--cream);
+      transition:border-color 0.3s; outline:none;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color:var(--pink-dark);
+    }
+    .form-textarea { height:110px; resize:vertical; }
+    .form-submit {
+      width:100%; padding:15px; background:var(--pink-dark);
+      color:white; border:none; border-radius:50px;
+      font-family:'Nunito', sans-serif; font-size:0.92rem;
+      font-weight:600; letter-spacing:1px; cursor:pointer;
+      transition:all 0.3s; margin-top:4px;
+    }
+    .form-submit:hover { background:var(--pink-deep); transform:translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--brown); padding:36px 72px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .footer-logo {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.1rem; color:var(--cream);
+    }
+    .footer-text { font-size:0.8rem; color:rgba(253,247,242,0.45); }
+    .footer-heart { color:var(--pink); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      nav { padding:14px 20px; }
+      .nav-center { display:none; }
+      .hero { grid-template-columns:1fr; }
+      .hero-right { min-height:60vw; }
+      .hero-left { padding:36px 24px; }
+      .about, .contact { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
+      .services { padding:60px 24px; }
+      .services-grid { grid-template-columns:1fr; }
+      .photo-band { height:220px; }
+      .quote-section { padding:60px 24px; }
+      footer { padding:24px; flex-direction:column; gap:10px; text-align:center; }
+      .about-imgs { grid-template-columns:1fr 1fr; }
+      .form-row { grid-template-columns:1fr; }
     }
 
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(5rem, 15vw, 11rem);
-      font-weight: 300;
-      color: #ffffff;
-      letter-spacing: 8px;
-      line-height: 1;
-      text-shadow: 0 2px 40px rgba(0,0,0,0.5);
-      animation: fadeIn 2s ease 0.2s forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .there {
-      display: block;
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      letter-spacing: 14px;
-      font-size: clamp(2rem, 6vw, 4.5rem);
-      color: #ffffff;
-      margin-top: -10px;
-      text-shadow: 0 2px 40px rgba(0,0,0,0.5);
-      animation: fadeIn 2s ease 0.6s forwards;
-      opacity: 0;
-    }
-
-    .line {
-      width: 80px;
-      height: 1px;
-      background: rgba(255,255,255,0.6);
-      margin: 30px auto;
-      animation: fadeIn 2s ease 1s forwards;
-      opacity: 0;
-    }
-
-    .name {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 200;
-      font-size: clamp(0.7rem, 2vw, 1rem);
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.85);
-      animation: fadeIn 2s ease 1.3s forwards;
-      opacity: 0;
-    }
+    /* hidden class for language */
+    [data-lang] { display:none; }
+    .lang-de [data-lang="de"] { display:block; }
+    .lang-en [data-lang="en"] { display:block; }
+    .lang-de [data-lang="de"].inline { display:inline; }
+    .lang-en [data-lang="en"].inline { display:inline; }
+    .lang-de [data-lang="de"].flex { display:flex; }
+    .lang-en [data-lang="en"].flex { display:flex; }
+    .lang-de [data-lang="de"].grid { display:grid; }
+    .lang-en [data-lang="en"].grid { display:grid; }
+    /* nav links shown always */
+    .nav-center { display:flex !important; }
   </style>
 </head>
-<body>
+<body class="lang-de">
 
-  <div class="bg"></div>
-  <div class="overlay"></div>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Michaela Guggenbichler</div>
+    <ul class="nav-center">
+      <li><a href="#about" data-de="Über mich" data-en="About">
+        <span data-lang="de" class="inline">Über mich</span>
+        <span data-lang="en" class="inline">About</span>
+      </a></li>
+      <li><a href="#services">
+        <span data-lang="de" class="inline">Leistungen</span>
+        <span data-lang="en" class="inline">Services</span>
+      </a></li>
+      <li><a href="#contact">
+        <span data-lang="de" class="inline">Kontakt</span>
+        <span data-lang="en" class="inline">Contact</span>
+      </a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('de')">DE</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+  </nav>
 
-  <div class="content">
-    <h1>Hello</h1>
-    <span class="there">There!</span>
-    <div class="line"></div>
-    <p class="name">Anna Lucia Sams</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <span class="hero-tag">
+        <span data-lang="de" class="inline">Hebamme in Zug, Schweiz</span>
+        <span data-lang="en" class="inline">Midwife in Zug, Switzerland</span>
+      </span>
+      <h1>
+        <span data-lang="de">Für den schönsten<br>Beginn des <em>Lebens</em></span>
+        <span data-lang="en">For the most beautiful<br>beginning of <em>life</em></span>
+      </h1>
+      <p class="hero-sub">
+        <span data-lang="de">Ich begleite Sie einfühlsam und kompetent – von den ersten Wochen der Schwangerschaft über die Geburt bis ins Wochenbett. Mit Herz, Erfahrung und Vertrauen an Ihrer Seite.</span>
+        <span data-lang="en">I accompany you with care and expertise – from the first weeks of pregnancy through birth and into the postpartum period. With heart, experience and trust by your side.</span>
+      </p>
+      <a href="#contact" class="btn-primary">
+        <span data-lang="de" class="inline">Termin vereinbaren</span>
+        <span data-lang="en" class="inline">Book an appointment</span>
+      </a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-card">
+        <div class="hero-card-title">
+          <span data-lang="de" class="inline">Mit Liebe & Erfahrung</span>
+          <span data-lang="en" class="inline">With Love & Experience</span>
+        </div>
+        <div class="hero-card-sub">
+          <span data-lang="de" class="inline">Zug, Schweiz</span>
+          <span data-lang="en" class="inline">Zug, Switzerland</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-imgs">
+      <div class="about-img about-img-1"></div>
+      <div class="about-img about-img-2"></div>
+    </div>
+    <div>
+      <span class="section-eyebrow">
+        <span data-lang="de" class="inline">Über mich</span>
+        <span data-lang="en" class="inline">About me</span>
+      </span>
+      <h2 class="section-title">
+        <span data-lang="de">Ich bin <em>Michaela</em> –<br>Ihre Hebamme</span>
+        <span data-lang="en">I am <em>Michaela</em> –<br>your midwife</span>
+      </h2>
+      <p class="body-text">
+        <span data-lang="de">Als Hebamme in Zug ist es meine Berufung, Mütter und Familien in einem der bedeutsamsten Momente ihres Lebens zu begleiten. Mit Wärme, Geduld und fundiertem Fachwissen stehe ich Ihnen von Anfang an zur Seite.</span>
+        <span data-lang="en">As a midwife in Zug, it is my calling to accompany mothers and families during one of the most meaningful moments of their lives. With warmth, patience and professional expertise, I am by your side from the very beginning.</span>
+      </p>
+      <p class="body-text">
+        <span data-lang="de">Jede Schwangerschaft ist einzigartig – genauso wie jede Frau und jede Familie. Ich nehme mir die Zeit, Sie wirklich kennenzulernen, um eine Betreuung anzubieten, die ganz auf Ihre Bedürfnisse abgestimmt ist.</span>
+        <span data-lang="en">Every pregnancy is unique – just like every woman and every family. I take the time to truly get to know you, offering care that is completely tailored to your needs.</span>
+      </p>
+      <div class="pill-list">
+        <span class="pill"><span data-lang="de" class="inline">Einfühlsam</span><span data-lang="en" class="inline">Empathetic</span></span>
+        <span class="pill"><span data-lang="de" class="inline">Erfahren</span><span data-lang="en" class="inline">Experienced</span></span>
+        <span class="pill"><span data-lang="de" class="inline">Vertrauensvoll</span><span data-lang="en" class="inline">Trustworthy</span></span>
+        <span class="pill"><span data-lang="de" class="inline">Ganzheitlich</span><span data-lang="en" class="inline">Holistic</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-header">
+      <span class="section-eyebrow">
+        <span data-lang="de" class="inline">Meine Leistungen</span>
+        <span data-lang="en" class="inline">My Services</span>
+      </span>
+      <h2 class="section-title">
+        <span data-lang="de">Begleitung mit <em>Herz</em><br>in jeder Phase</span>
+        <span data-lang="en">Caring support <em>with heart</em><br>at every stage</span>
+      </h2>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-photo service-photo-1"></div>
+        <div class="service-body">
+          <h3 class="service-title">
+            <span data-lang="de" class="inline">Schwangerschaft</span>
+            <span data-lang="en" class="inline">Pregnancy</span>
+          </h3>
+          <p class="service-text">
+            <span data-lang="de">Einfühlsame Begleitung und Beratung während Ihrer gesamten Schwangerschaft.</span>
+            <span data-lang="en">Empathetic support and guidance throughout your entire pregnancy.</span>
+          </p>
+          <ul class="service-list">
+            <li><span data-lang="de" class="inline">Schwangerschaftsvorsorge</span><span data-lang="en" class="inline">Antenatal care</span></li>
+            <li><span data-lang="de" class="inline">Beratung & Unterstützung</span><span data-lang="en" class="inline">Counselling & support</span></li>
+            <li><span data-lang="de" class="inline">Geburtsvorbereitungskurs</span><span data-lang="en" class="inline">Birthing classes</span></li>
+            <li><span data-lang="de" class="inline">Ernährung & Wohlbefinden</span><span data-lang="en" class="inline">Nutrition & wellbeing</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-photo service-photo-2"></div>
+        <div class="service-body">
+          <h3 class="service-title">
+            <span data-lang="de" class="inline">Geburt</span>
+            <span data-lang="en" class="inline">Birth</span>
+          </h3>
+          <p class="service-text">
+            <span data-lang="de">Ich begleite Sie durch den schönsten und intensivsten Moment – die Geburt Ihres Kindes.</span>
+            <span data-lang="en">I accompany you through the most beautiful and intense moment – the birth of your child.</span>
+          </p>
+          <ul class="service-list">
+            <li><span data-lang="de" class="inline">Geburtsbegleitung</span><span data-lang="en" class="inline">Birth companionship</span></li>
+            <li><span data-lang="de" class="inline">Beleghebamme</span><span data-lang="en" class="inline">Hospital midwife</span></li>
+            <li><span data-lang="de" class="inline">Atemtechniken & Entspannung</span><span data-lang="en" class="inline">Breathing & relaxation</span></li>
+            <li><span data-lang="de" class="inline">Emotionale Unterstützung</span><span data-lang="en" class="inline">Emotional support</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-photo service-photo-3"></div>
+        <div class="service-body">
+          <h3 class="service-title">
+            <span data-lang="de" class="inline">Wochenbett</span>
+            <span data-lang="en" class="inline">Postnatal Care</span>
+          </h3>
+          <p class="service-text">
+            <span data-lang="de">Die Zeit nach der Geburt ist kostbar – ich unterstütze Sie beim Start ins neue Leben.</span>
+            <span data-lang="en">The time after birth is precious – I support you as you begin this new chapter.</span>
+          </p>
+          <ul class="service-list">
+            <li><span data-lang="de" class="inline">Wochenbettbetreuung</span><span data-lang="en" class="inline">Postnatal visits</span></li>
+            <li><span data-lang="de" class="inline">Stillberatung</span><span data-lang="en" class="inline">Breastfeeding support</span></li>
+            <li><span data-lang="de" class="inline">Babymassage</span><span data-lang="en" class="inline">Baby massage</span></li>
+            <li><span data-lang="de" class="inline">Rückbildungsgymnastik</span><span data-lang="en" class="inline">Postnatal exercises</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PHOTO BAND -->
+  <div class="photo-band">
+    <div class="band-img band-1"></div>
+    <div class="band-img band-2"></div>
+    <div class="band-img band-3"></div>
   </div>
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <p class="quote-text">
+      <span data-lang="de">"Die Geburt eines Kindes ist nicht nur der Beginn eines neuen Lebens – es ist auch die Geburt einer Mutter. Ich bin da, um Sie auf diesem wunderschönen Weg zu begleiten."</span>
+      <span data-lang="en">"The birth of a child is not only the beginning of a new life – it is also the birth of a mother. I am here to accompany you on this beautiful journey."</span>
+    </p>
+    <p class="quote-author">— Michaela Guggenbichler</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-info">
+      <span class="section-eyebrow">
+        <span data-lang="de" class="inline">Kontakt</span>
+        <span data-lang="en" class="inline">Contact</span>
+      </span>
+      <h2>
+        <span data-lang="de">Ich freue mich,<br>von <em>Ihnen</em> zu hören</span>
+        <span data-lang="en">I look forward<br>to hearing <em>from you</em></span>
+      </h2>
+      <p class="body-text">
+        <span data-lang="de">Haben Sie Fragen oder möchten Sie einen Termin vereinbaren? Schreiben Sie mir einfach – ich melde mich so schnell wie möglich bei Ihnen.</span>
+        <span data-lang="en">Do you have questions or would you like to book an appointment? Simply write to me – I will get back to you as soon as possible.</span>
+      </p>
+
+      <div class="contact-detail">
+        <div class="cd-icon">📍</div>
+        <div>
+          <div class="cd-label"><span data-lang="de" class="inline">Standort</span><span data-lang="en" class="inline">Location</span></div>
+          <div class="cd-value">Zug, Schweiz</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="cd-icon">📞</div>
+        <div>
+          <div class="cd-label"><span data-lang="de" class="inline">Telefon</span><span data-lang="en" class="inline">Phone</span></div>
+          <div class="cd-value">+41 79 883 83 39</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="cd-icon">✉️</div>
+        <div>
+          <div class="cd-label">E-Mail</div>
+          <div class="cd-value">info@michaela-hebamme.ch</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <form action="https://formspree.io/f/IHRE-ID" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">
+              <span data-lang="de" class="inline">Name</span>
+              <span data-lang="en" class="inline">Name</span>
+            </label>
+            <input type="text" class="form-input" name="name" required
+              placeholder="Maria Muster"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-Mail</label>
+            <input type="email" class="form-input" name="email" required
+              placeholder="maria@beispiel.ch"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <span data-lang="de" class="inline">Thema</span>
+            <span data-lang="en" class="inline">Topic</span>
+          </label>
+          <select class="form-select" name="thema">
+            <option><span data-lang="de" class="inline">Schwangerschaft</span><span data-lang="en" class="inline">Pregnancy</span></option>
+            <option><span data-lang="de" class="inline">Geburt</span><span data-lang="en" class="inline">Birth</span></option>
+            <option><span data-lang="de" class="inline">Wochenbett</span><span data-lang="en" class="inline">Postnatal</span></option>
+            <option><span data-lang="de" class="inline">Allgemeine Anfrage</span><span data-lang="en" class="inline">General enquiry</span></option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <span data-lang="de" class="inline">Nachricht</span>
+            <span data-lang="en" class="inline">Message</span>
+          </label>
+          <textarea class="form-textarea" name="nachricht" required
+            placeholder="..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">
+          <span data-lang="de" class="inline">Nachricht senden</span>
+          <span data-lang="en" class="inline">Send message</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Michaela Guggenbichler</div>
+    <div class="footer-text">
+      <span data-lang="de" class="inline">Hebamme in Zug, Schweiz</span>
+      <span data-lang="en" class="inline">Midwife in Zug, Switzerland</span>
+    </div>
+    <div class="footer-text">Made with <span class="footer-heart">♥</span></div>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.body.className = 'lang-' + lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+      });
+    }
+  </script>
 
 </body>
 </html>
