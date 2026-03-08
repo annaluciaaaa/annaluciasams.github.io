@@ -1,663 +1,600 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Michaela Guggenbichler – Hebamme in Zug</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --cream:     #fdf7f2;
-      --blush:     #f8ece5;
-      --pink:      #e8b4a0;
-      --pink-dark: #c47a60;
-      --pink-deep: #9a5040;
-      --sand:      #ede0d6;
-      --brown:     #3d2b22;
-      --text:      #4a3830;
-      --text-light:#8a7068;
-      --white:     #ffffff;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seeberghof Fuschl am See – Ferienwohnungen am Fuschlsee</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --lake:   #2e6b8a;
+  --lakeL:  #5b9ab8;
+  --lakeXL: #c8e8f4;
+  --pine:   #3b5e3f;
+  --pineLt: #d6e8d8;
+  --cream:  #f8f5f0;
+  --sand:   #ede8df;
+  --dark:   #1c2b20;
+  --gold:   #c49a3a;
+  --text:   #2d3b2f;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: var(--text); font-weight: 300; line-height: 1.6; }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-      font-family:'Nunito', sans-serif;
-      background:var(--cream);
-      color:var(--text);
-      overflow-x:hidden;
-    }
+/* ─ NAV ─ */
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+display: flex; align-items: center; justify-content: space-between;
+padding: 1rem 3rem;
+background: rgba(248,245,240,0.95); backdrop-filter: blur(12px);
+border-bottom: 1px solid rgba(46,107,138,0.15);
+}
+.logo { font-family: ‘Lora’, serif; font-size: 1.35rem; color: var(–lake); text-decoration: none; }
+.logo span { color: var(–pine); font-style: italic; }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; color: var(–text); text-decoration: none; opacity: 0.6; transition: opacity 0.2s, color 0.2s; }
+.nav-links a:hover { opacity: 1; color: var(–lake); }
+.nav-book { background: var(–lake); color: #fff; border: none; font-family: ‘Source Sans 3’, sans-serif; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; padding: 0.6rem 1.5rem; cursor: pointer; transition: background 0.2s; }
+.nav-book:hover { background: var(–pine); }
 
-    /* ── NAV ── */
-    nav {
-      position:fixed; top:0; left:0; right:0; z-index:100;
-      padding:16px 56px;
-      display:flex; justify-content:space-between; align-items:center;
-      background:rgba(253,247,242,0.95);
-      backdrop-filter:blur(16px);
-      border-bottom:1px solid rgba(232,180,160,0.2);
-    }
-    .nav-logo {
-      font-family:'Cormorant Garamond', serif;
-      font-size:1.15rem; font-weight:600;
-      color:var(--pink-deep); letter-spacing:0.5px;
-    }
-    .nav-center {
-      display:flex; gap:36px; list-style:none;
-    }
-    .nav-center a {
-      text-decoration:none; font-size:0.82rem; font-weight:500;
-      letter-spacing:2px; text-transform:uppercase;
-      color:var(--text-light); transition:color 0.3s;
-    }
-    .nav-center a:hover { color:var(--pink-dark); }
-    .lang-toggle {
-      display:flex; gap:4px; align-items:center;
-    }
-    .lang-btn {
-      background:none; border:none; cursor:pointer;
-      font-family:'Nunito', sans-serif;
-      font-size:0.82rem; font-weight:600;
-      letter-spacing:1px; padding:6px 10px;
-      border-radius:20px; transition:all 0.2s;
-      color:var(--text-light);
-    }
-    .lang-btn.active {
-      background:var(--pink);
-      color:white;
-    }
-    .lang-sep { color:var(--sand); font-size:0.8rem; }
+/* ─ HERO ─ */
+#hero { height: 100vh; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding-bottom: 5rem; }
+.hero-bg {
+position: absolute; inset: 0;
+background:
+linear-gradient(to top, rgba(28,43,32,0.78) 0%, rgba(28,43,32,0.25) 55%, rgba(28,43,32,0.08) 100%),
+url(‘https://assets.tourdata.at/1920x/127714/21BD158A5165471A00A97BB0B9152EE036D2E6810F09FC1586BB56D9D55F540D/sonnenuntergang-am-fuschlsee.jpg’) center/cover no-repeat;
+animation: hZoom 22s ease-in-out infinite alternate;
+}
+@keyframes hZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+.hero-inner { position: relative; z-index: 2; width: 100%; padding: 0 4rem; display: flex; justify-content: space-between; align-items: flex-end; }
+.hero-left { max-width: 580px; }
+.hero-pill {
+display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+color: var(–gold); border: 1px solid rgba(196,154,58,0.5); padding: 0.35rem 0.9rem; margin-bottom: 1.3rem;
+animation: fadeUp 0.8s 0.2s both;
+}
+.hero-h1 {
+font-family: ‘Lora’, serif; font-size: clamp(2.6rem, 5.5vw, 4.6rem); font-weight: 400; line-height: 1.1; color: #fff;
+animation: fadeUp 0.8s 0.35s both;
+}
+.hero-h1 em { font-style: italic; color: var(–lakeXL); }
+.hero-sub { font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin: 1.4rem 0 2rem; max-width: 440px; animation: fadeUp 0.8s 0.5s both; }
+.hero-ctas { display: flex; gap: 1rem; animation: fadeUp 0.8s 0.65s both; }
+.btn { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.85rem 2rem; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; border: none; }
+.btn-gold { background: var(–gold); color: #fff; }
+.btn-gold:hover { background: #a07c28; }
+.btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.5); }
+.btn-ghost:hover { background: rgba(255,255,255,0.1); }
+.hero-stats { display: flex; flex-direction: column; gap: 0.8rem; animation: fadeUp 0.8s 0.8s both; }
+.hero-stat { text-align: right; color: #fff; }
+.hero-stat strong { font-family: ‘Lora’, serif; font-size: 1.9rem; line-height: 1; display: block; }
+.hero-stat span { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-    /* ── HERO ── */
-    .hero {
-      min-height:100vh;
-      display:grid; grid-template-columns:1fr 1fr;
-      align-items:stretch; padding-top:60px;
-    }
-    .hero-left {
-      display:flex; flex-direction:column; justify-content:center;
-      padding:80px 60px 80px 72px;
-      animation:fadeInLeft 1s ease forwards; opacity:0;
-    }
-    @keyframes fadeInLeft {
-      from { opacity:0; transform:translateX(-24px); }
-      to   { opacity:1; transform:translateX(0); }
-    }
-    .hero-tag {
-      display:inline-block;
-      font-size:0.75rem; letter-spacing:3px; text-transform:uppercase;
-      color:var(--pink-dark); margin-bottom:20px;
-      padding:7px 18px; border:1px solid var(--pink);
-      border-radius:30px; width:fit-content;
-    }
-    .hero h1 {
-      font-family:'Cormorant Garamond', serif;
-      font-size:clamp(2.6rem,4.5vw,4rem);
-      font-weight:400; line-height:1.15; color:var(--brown);
-      margin-bottom:20px;
-    }
-    .hero h1 em { font-style:italic; color:var(--pink-dark); }
-    .hero-sub {
-      font-size:1rem; font-weight:300; color:var(--text-light);
-      line-height:1.85; max-width:440px; margin-bottom:40px;
-    }
-    .btn-primary {
-      display:inline-block; background:var(--pink-dark);
-      color:white; text-decoration:none;
-      padding:15px 36px; border-radius:50px;
-      font-size:0.9rem; font-weight:600; letter-spacing:1px;
-      transition:all 0.3s; width:fit-content;
-    }
-    .btn-primary:hover { background:var(--pink-deep); transform:translateY(-2px); }
+/* ─ STRIPE ─ */
+.stripe { background: var(–lake); color: #fff; padding: 0.9rem 3rem; display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; font-size: 0.79rem; letter-spacing: 0.06em; }
+.stripe span { display: flex; align-items: center; gap: 0.4rem; opacity: 0.85; }
+.stripe span::before { content: ‘✓’; color: var(–gold); font-weight: bold; }
 
-    .hero-right {
-      position:relative; overflow:hidden;
-      animation:fadeInRight 1s ease 0.3s forwards; opacity:0;
-    }
-    @keyframes fadeInRight {
-      from { opacity:0; transform:translateX(24px); }
-      to   { opacity:1; transform:translateX(0); }
-    }
-    .hero-img {
-      width:100%; height:100%; object-fit:cover;
-      background-image:url('https://images.unsplash.com/photo-1609220136736-443140cffec6?w=900&q=80');
-      background-size:cover; background-position:center top;
-      min-height:600px;
-    }
-    .hero-overlay {
-      position:absolute; inset:0;
-      background:linear-gradient(to right, rgba(253,247,242,0.15), transparent);
-    }
-    .hero-card {
-      position:absolute; bottom:48px; left:-24px;
-      background:white; border-radius:20px;
-      padding:20px 28px;
-      box-shadow:0 20px 60px rgba(60,30,20,0.12);
-      z-index:2;
-    }
-    .hero-card-icon { font-size:1.6rem; margin-bottom:6px; }
-    .hero-card-title {
-      font-family:'Cormorant Garamond', serif;
-      font-size:1.1rem; color:var(--brown); font-weight:600;
-    }
-    .hero-card-sub { font-size:0.8rem; color:var(--text-light); margin-top:2px; }
+/* ─ SECTIONS ─ */
+section { padding: 6rem 3rem; }
+.inner { max-width: 1120px; margin: 0 auto; }
+.eyebrow { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(–lake); display: block; margin-bottom: 0.7rem; }
+.h2 { font-family: ‘Lora’, serif; font-size: clamp(1.8rem, 3.5vw, 2.7rem); font-weight: 400; line-height: 1.2; color: var(–dark); margin-bottom: 1rem; }
+.h2 em { font-style: italic; color: var(–lake); }
+.rule { width: 44px; height: 3px; background: var(–gold); margin: 1rem 0 1.8rem; border-radius: 2px; }
+.lead { font-size: 0.97rem; line-height: 1.85; color: rgba(29,43,32,0.68); max-width: 560px; }
 
-    /* ── ABOUT ── */
-    .about {
-      background:var(--blush);
-      padding:100px 72px;
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:80px; align-items:center;
-    }
-    .about-imgs {
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:16px; position:relative;
-    }
-    .about-img {
-      border-radius:24px; overflow:hidden;
-      background-size:cover; background-position:center;
-    }
-    .about-img-1 {
-      background-image:url('https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=600&q=80');
-      aspect-ratio:3/4; border-radius:24px 24px 8px 24px;
-    }
-    .about-img-2 {
-      background-image:url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80');
-      aspect-ratio:3/4; border-radius:24px 24px 24px 8px;
-      margin-top:40px;
-    }
-    .section-eyebrow {
-      font-size:0.75rem; letter-spacing:3px; text-transform:uppercase;
-      color:var(--pink-dark); margin-bottom:14px; display:block;
-    }
-    .section-title {
-      font-family:'Cormorant Garamond', serif;
-      font-size:clamp(1.8rem,3vw,2.6rem);
-      font-weight:400; line-height:1.2; color:var(--brown);
-      margin-bottom:22px;
-    }
-    .section-title em { font-style:italic; color:var(--pink-dark); }
-    .body-text {
-      font-size:0.97rem; font-weight:300; color:var(--text-light);
-      line-height:1.9; margin-bottom:16px;
-    }
-    .pill-list {
-      display:flex; flex-wrap:wrap; gap:10px; margin-top:28px;
-    }
-    .pill {
-      background:white; border:1px solid var(--pink);
-      color:var(--pink-deep); padding:7px 18px; border-radius:30px;
-      font-size:0.82rem; font-weight:500;
-    }
+/* ─ DER HOF ─ */
+#hof { background: #fff; }
+.hof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.hof-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.hof-photos .main-photo { grid-column: 1 / -1; height: 260px; overflow: hidden; }
+.hof-photos .main-photo img { width: 100%; height: 100%; object-fit: cover; }
+.hof-photos .sub-photo { height: 190px; overflow: hidden; }
+.hof-photos .sub-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.hof-photos .sub-photo:hover img { transform: scale(1.04); }
+.hof-callout { margin: 1.8rem 0; padding: 1.2rem 1.5rem; border-left: 3px solid var(–lake); background: var(–lakeXL); font-size: 0.92rem; line-height: 1.8; color: var(–lake); font-style: italic; }
+.hof-features { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; margin-top: 1.5rem; }
+.hof-feat { font-size: 0.83rem; display: flex; align-items: center; gap: 0.5rem; color: var(–pine); }
+.hof-feat::before { content: ‘’; width: 6px; height: 6px; background: var(–gold); border-radius: 50%; flex-shrink: 0; }
 
-    /* ── SERVICES ── */
-    .services {
-      padding:100px 72px; background:var(--cream);
-    }
-    .services-header { text-align:center; max-width:580px; margin:0 auto 60px; }
-    .services-grid {
-      display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
-    }
-    .service-card {
-      background:white; border-radius:28px; overflow:hidden;
-      box-shadow:0 4px 30px rgba(60,30,20,0.06);
-      transition:transform 0.3s, box-shadow 0.3s;
-      border:1px solid rgba(232,180,160,0.15);
-    }
-    .service-card:hover {
-      transform:translateY(-6px);
-      box-shadow:0 24px 60px rgba(196,122,96,0.15);
-    }
-    .service-photo {
-      width:100%; height:200px;
-      background-size:cover; background-position:center;
-    }
-    .service-photo-1 {
-      background-image:url('https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&q=80');
-    }
-    .service-photo-2 {
-      background-image:url('https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=600&q=80');
-    }
-    .service-photo-3 {
-      background-image:url('https://images.unsplash.com/photo-1560328055-e938bb2ed50a?w=600&q=80');
-    }
-    .service-body { padding:32px; }
-    .service-title {
-      font-family:'Cormorant Garamond', serif;
-      font-size:1.4rem; color:var(--brown);
-      margin-bottom:12px; font-weight:600;
-    }
-    .service-text {
-      font-size:0.88rem; font-weight:300; color:var(--text-light);
-      line-height:1.8; margin-bottom:18px;
-    }
-    .service-list { list-style:none; }
-    .service-list li {
-      font-size:0.85rem; color:var(--text-light);
-      padding:5px 0; border-bottom:1px solid var(--blush);
-      display:flex; gap:8px; align-items:center;
-    }
-    .service-list li::before {
-      content:''; width:5px; height:5px;
-      border-radius:50%; background:var(--pink);
-      flex-shrink:0;
-    }
+/* ─ WOHNUNGEN ─ */
+#wohnungen { background: var(–cream); }
+.wohnungen-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 3.5rem; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+.card { background: #fff; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+.card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
+.card-img-wrap { position: relative; overflow: hidden; }
+.card-img { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.5s; }
+.card:hover .card-img { transform: scale(1.05); }
+.card-badge { position: absolute; bottom: 0; left: 0; background: var(–lake); color: #fff; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.4rem 1rem; }
+.card-body { padding: 1.6rem; }
+.card-name { font-family: ‘Lora’, serif; font-size: 1.35rem; color: var(–dark); margin-bottom: 0.25rem; }
+.card-size { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(–lake); margin-bottom: 0.9rem; }
+.card-desc { font-size: 0.86rem; line-height: 1.75; color: rgba(29,43,32,0.62); margin-bottom: 1.2rem; }
+.card-amenities { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.3rem; }
+.pill { font-size: 0.66rem; font-weight: 500; letter-spacing: 0.05em; background: var(–lakeXL); color: var(–lake); padding: 0.25rem 0.65rem; }
+.card-footer { border-top: 1px solid var(–pineLt); padding-top: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+.card-price { font-family: ‘Lora’, serif; font-size: 1.55rem; color: var(–dark); }
+.card-price small { font-size: 0.7rem; font-family: ‘Source Sans 3’, sans-serif; color: rgba(29,43,32,0.45); font-weight: 300; }
+.card-link { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(–lake); text-decoration: none; border-bottom: 1px solid var(–lake); padding-bottom: 1px; transition: color 0.2s; }
+.card-link:hover { color: var(–pine); border-color: var(–pine); }
 
-    /* ── PHOTO BAND ── */
-    .photo-band {
-      display:grid; grid-template-columns:1.2fr 0.8fr 1fr;
-      height:380px; overflow:hidden;
-    }
-    .band-img {
-      background-size:cover; background-position:center;
-      transition:transform 0.6s ease;
-    }
-    .band-img:hover { transform:scale(1.04); }
-    .band-1 { background-image:url('https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=800&q=80'); }
-    .band-2 { background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'); background-position:top; }
-    .band-3 { background-image:url('https://images.unsplash.com/photo-1609220136736-443140cffec6?w=700&q=80'); }
+/* ─ PREISE ─ */
+#preise { background: var(–dark); color: #fff; }
+.ph .h2 { color: #fff; }
+.ph .h2 em { color: var(–lakeXL); }
+.ph .lead { color: rgba(255,255,255,0.5); }
+.tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.12); margin: 2.5rem 0; }
+.tab { background: none; border: none; font-family: ‘Source Sans 3’, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.38); padding: 0.8rem 2rem; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s; }
+.tab.on { color: var(–lakeXL); border-bottom-color: var(–lakeXL); }
+.tab:hover:not(.on) { color: rgba(255,255,255,0.65); }
+.panel { display: none; }
+.panel.on { display: block; }
+.preis-table { width: 100%; border-collapse: collapse; }
+.preis-table thead th { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(255,255,255,0.38); padding: 0.8rem 1.2rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.preis-table thead th:not(:first-child) { text-align: center; }
+.preis-table tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s; }
+.preis-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+.preis-table td { padding: 1.2rem; font-size: 0.88rem; color: rgba(255,255,255,0.7); vertical-align: middle; }
+.preis-table td:not(:first-child) { text-align: center; }
+.apt-n { color: #fff; font-weight: 500; font-size: 0.95rem; }
+.apt-d { font-size: 0.75rem; color: rgba(255,255,255,0.38); margin-top: 0.15rem; }
+.pc { font-family: ‘Lora’, serif; font-size: 1.25rem; color: var(–lakeXL); }
+.pc.hi { color: var(–gold); }
+.extras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+.ex { border: 1px solid rgba(255,255,255,0.08); padding: 1.4rem; transition: border-color 0.2s; }
+.ex:hover { border-color: rgba(200,232,244,0.3); }
+.ex-icon { font-size: 1.4rem; margin-bottom: 0.7rem; }
+.ex-name { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 0.4rem; }
+.ex-val { font-family: ‘Lora’, serif; font-size: 1.2rem; color: var(–lakeXL); }
+.ex-note { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-top: 0.2rem; }
+.pnote { margin-top: 2.5rem; font-size: 0.78rem; line-height: 1.85; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.8rem; }
+.pnote strong { color: rgba(255,255,255,0.55); }
 
-    /* ── QUOTE ── */
-    .quote-section {
-      background:var(--pink-deep); padding:80px 72px; text-align:center;
-    }
-    .quote-text {
-      font-family:'Cormorant Garamond', serif;
-      font-size:clamp(1.4rem,2.5vw,2.1rem);
-      font-style:italic; font-weight:300;
-      color:white; max-width:780px; margin:0 auto; line-height:1.65;
-    }
-    .quote-author {
-      margin-top:22px; font-size:0.8rem; letter-spacing:2px;
-      text-transform:uppercase; color:var(--pink);
-    }
+/* ─ GALERIE ─ */
+#galerie { background: #fff; padding: 5rem 3rem; }
+.gal { max-width: 1120px; margin: 2.5rem auto 0; display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 280px 200px; gap: 0.7rem; }
+.gal-big { overflow: hidden; grid-row: 1 / 3; }
+.gal-big img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+.gal-big:hover img { transform: scale(1.03); }
+.gc { overflow: hidden; }
+.gc img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+.gc:hover img { transform: scale(1.05); }
 
-    /* ── CONTACT ── */
-    .contact {
-      padding:100px 72px; background:var(--blush);
-      display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start;
-    }
-    .contact-info h2 {
-      font-family:'Cormorant Garamond', serif;
-      font-size:clamp(1.8rem,3vw,2.6rem);
-      font-weight:400; color:var(--brown); margin-bottom:18px; line-height:1.2;
-    }
-    .contact-info h2 em { font-style:italic; color:var(--pink-dark); }
-    .contact-detail {
-      display:flex; align-items:flex-start; gap:16px; margin-bottom:20px;
-    }
-    .cd-icon {
-      width:46px; height:46px; background:white;
-      border-radius:14px; display:flex; align-items:center;
-      justify-content:center; font-size:1.1rem; flex-shrink:0;
-      box-shadow:0 4px 16px rgba(0,0,0,0.06);
-    }
-    .cd-label { font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-light); }
-    .cd-value { font-size:0.95rem; color:var(--text); margin-top:2px; font-weight:500; }
+/* ─ UMGEBUNG ─ */
+#umgebung { background: var(–cream); }
+.umb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.acts { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 2rem; }
+.act { display: flex; gap: 1.2rem; padding: 1.1rem 1.3rem; background: #fff; transition: background 0.2s; border-left: 3px solid transparent; }
+.act:hover { background: var(–lakeXL); border-left-color: var(–lake); }
+.act-icon { font-size: 1.4rem; flex-shrink: 0; }
+.act-t { font-weight: 600; font-size: 0.88rem; color: var(–dark); margin-bottom: 0.2rem; }
+.act-b { font-size: 0.82rem; line-height: 1.7; color: rgba(29,43,32,0.58); }
+.dists { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 1.2rem; }
+.dist { background: #fff; padding: 1rem 1.2rem; }
+.dist-l { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(–lake); margin-bottom: 0.2rem; }
+.dist-v { font-size: 0.9rem; color: var(–dark); }
 
-    .contact-form {
-      background:white; border-radius:28px; padding:44px;
-      box-shadow:0 16px 60px rgba(60,30,20,0.07);
-    }
-    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .form-group { margin-bottom:18px; }
-    .form-label {
-      display:block; font-size:0.75rem; font-weight:600;
-      letter-spacing:1.5px; text-transform:uppercase;
-      color:var(--text-light); margin-bottom:8px;
-    }
-    .form-input, .form-textarea, .form-select {
-      width:100%; padding:13px 16px;
-      border:1.5px solid var(--sand); border-radius:12px;
-      font-family:'Nunito', sans-serif; font-size:0.92rem;
-      color:var(--text); background:var(--cream);
-      transition:border-color 0.3s; outline:none;
-    }
-    .form-input:focus, .form-textarea:focus, .form-select:focus {
-      border-color:var(--pink-dark);
-    }
-    .form-textarea { height:110px; resize:vertical; }
-    .form-submit {
-      width:100%; padding:15px; background:var(--pink-dark);
-      color:white; border:none; border-radius:50px;
-      font-family:'Nunito', sans-serif; font-size:0.92rem;
-      font-weight:600; letter-spacing:1px; cursor:pointer;
-      transition:all 0.3s; margin-top:4px;
-    }
-    .form-submit:hover { background:var(--pink-deep); transform:translateY(-2px); }
+/* ─ KONTAKT ─ */
+#kontakt { background: #fff; }
+.kt-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; }
+.form-box { background: var(–cream); padding: 2.5rem; }
+.fg { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+.fg label { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(29,43,32,0.5); }
+.fg input, .fg select, .fg textarea { border: 1px solid #d8d2c8; padding: 0.78rem 1rem; background: #fff; font-family: ‘Source Sans 3’, sans-serif; font-size: 0.9rem; color: var(–dark); outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(–lake); }
+.fg textarea { min-height: 105px; resize: vertical; }
+.fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.btn-sub { width: 100%; background: var(–lake); color: #fff; border: none; font-family: ‘Source Sans 3’, sans-serif; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.95rem 2rem; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+.btn-sub:hover { background: var(–pine); }
+.kinfo h3 { font-family: ‘Lora’, serif; font-size: 1.6rem; color: var(–dark); margin-bottom: 2rem; }
+.irow { display: flex; gap: 1rem; margin-bottom: 1.3rem; }
+.iicon { font-size: 1rem; flex-shrink: 0; margin-top: 0.15rem; }
+.ilabel { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(–lake); margin-bottom: 0.2rem; }
+.ival { font-size: 0.88rem; color: rgba(29,43,32,0.7); line-height: 1.6; }
+.ival a { color: var(–lake); text-decoration: none; }
+.ival a:hover { text-decoration: underline; }
+.k-note { margin-top: 2rem; background: var(–pineLt); padding: 1.2rem 1.5rem; font-size: 0.83rem; line-height: 1.75; color: var(–pine); }
 
-    /* ── FOOTER ── */
-    footer {
-      background:var(--brown); padding:36px 72px;
-      display:flex; justify-content:space-between; align-items:center;
-    }
-    .footer-logo {
-      font-family:'Cormorant Garamond', serif;
-      font-size:1.1rem; color:var(--cream);
-    }
-    .footer-text { font-size:0.8rem; color:rgba(253,247,242,0.45); }
-    .footer-heart { color:var(--pink); }
+/* ─ FOOTER ─ */
+footer { background: var(–dark); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.75rem; color: rgba(255,255,255,0.35); }
+.footer-logo { font-family: ‘Lora’, serif; font-size: 1.2rem; color: #fff; }
+.footer-logo span { color: var(–lakeXL); font-style: italic; }
+.fl { display: flex; gap: 1.8rem; }
+.fl a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+.fl a:hover { color: var(–lakeXL); }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width:900px) {
-      nav { padding:14px 20px; }
-      .nav-center { display:none; }
-      .hero { grid-template-columns:1fr; }
-      .hero-right { min-height:60vw; }
-      .hero-left { padding:36px 24px; }
-      .about, .contact { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
-      .services { padding:60px 24px; }
-      .services-grid { grid-template-columns:1fr; }
-      .photo-band { height:220px; }
-      .quote-section { padding:60px 24px; }
-      footer { padding:24px; flex-direction:column; gap:10px; text-align:center; }
-      .about-imgs { grid-template-columns:1fr 1fr; }
-      .form-row { grid-template-columns:1fr; }
-    }
+/* ─ RESPONSIVE ─ */
+@media (max-width: 960px) {
+nav { padding: 1rem 1.5rem; }
+.nav-links { display: none; }
+section { padding: 4rem 1.5rem; }
+#hero { padding-bottom: 3rem; }
+.hero-inner { flex-direction: column; align-items: flex-start; gap: 2rem; padding: 0 2rem; }
+.hero-stats { flex-direction: row; gap: 2rem; }
+.hero-stat { text-align: left; }
+.hof-grid, .wohnungen-head, .umb-grid, .kt-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+.cards { grid-template-columns: 1fr; }
+.extras { grid-template-columns: 1fr 1fr; }
+.gal { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+.gal-big { grid-row: auto; }
+.gal-big img, .gc img { height: 200px; }
+}
+</style>
 
-    /* hidden class for language */
-    [data-lang] { display:none; }
-    .lang-de [data-lang="de"] { display:block; }
-    .lang-en [data-lang="en"] { display:block; }
-    .lang-de [data-lang="de"].inline { display:inline; }
-    .lang-en [data-lang="en"].inline { display:inline; }
-    .lang-de [data-lang="de"].flex { display:flex; }
-    .lang-en [data-lang="en"].flex { display:flex; }
-    .lang-de [data-lang="de"].grid { display:grid; }
-    .lang-en [data-lang="en"].grid { display:grid; }
-    /* nav links shown always */
-    .nav-center { display:flex !important; }
-  </style>
 </head>
-<body class="lang-de">
+<body>
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-logo">Michaela Guggenbichler</div>
-    <ul class="nav-center">
-      <li><a href="#about" data-de="Über mich" data-en="About">
-        <span data-lang="de" class="inline">Über mich</span>
-        <span data-lang="en" class="inline">About</span>
-      </a></li>
-      <li><a href="#services">
-        <span data-lang="de" class="inline">Leistungen</span>
-        <span data-lang="en" class="inline">Services</span>
-      </a></li>
-      <li><a href="#contact">
-        <span data-lang="de" class="inline">Kontakt</span>
-        <span data-lang="en" class="inline">Contact</span>
-      </a></li>
-    </ul>
-    <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('de')">DE</button>
-      <span class="lang-sep">|</span>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-    </div>
-  </nav>
+<!-- NAV -->
 
-  <!-- HERO -->
-  <section class="hero">
+<nav>
+  <a href="#hero" class="logo">Seeberghof <span>Fuschl</span></a>
+  <ul class="nav-links">
+    <li><a href="#hof">Der Hof</a></li>
+    <li><a href="#wohnungen">Wohnungen</a></li>
+    <li><a href="#preise">Preise</a></li>
+    <li><a href="#galerie">Fotos</a></li>
+    <li><a href="#umgebung">Umgebung</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <button class="nav-book" onclick="document.querySelector('#kontakt').scrollIntoView({behavior:'smooth'})">Anfragen</button>
+</nav>
+
+<!-- HERO -->
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
     <div class="hero-left">
-      <span class="hero-tag">
-        <span data-lang="de" class="inline">Hebamme in Zug, Schweiz</span>
-        <span data-lang="en" class="inline">Midwife in Zug, Switzerland</span>
-      </span>
-      <h1>
-        <span data-lang="de">Für den schönsten<br>Beginn des <em>Lebens</em></span>
-        <span data-lang="en">For the most beautiful<br>beginning of <em>life</em></span>
-      </h1>
-      <p class="hero-sub">
-        <span data-lang="de">Ich begleite Sie einfühlsam und kompetent – von den ersten Wochen der Schwangerschaft über die Geburt bis ins Wochenbett. Mit Herz, Erfahrung und Vertrauen an Ihrer Seite.</span>
-        <span data-lang="en">I accompany you with care and expertise – from the first weeks of pregnancy through birth and into the postpartum period. With heart, experience and trust by your side.</span>
-      </p>
-      <a href="#contact" class="btn-primary">
-        <span data-lang="de" class="inline">Termin vereinbaren</span>
-        <span data-lang="en" class="inline">Book an appointment</span>
-      </a>
-    </div>
-    <div class="hero-right">
-      <div class="hero-img"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-card">
-        <div class="hero-card-title">
-          <span data-lang="de" class="inline">Mit Liebe & Erfahrung</span>
-          <span data-lang="en" class="inline">With Love & Experience</span>
-        </div>
-        <div class="hero-card-sub">
-          <span data-lang="de" class="inline">Zug, Schweiz</span>
-          <span data-lang="en" class="inline">Zug, Switzerland</span>
-        </div>
+      <div class="hero-pill">Fuschl am See · Salzburg · Österreich</div>
+      <h1 class="hero-h1">Urlaub am <em>Fuschlsee</em> —<br>natürlich &amp; familiär</h1>
+      <p class="hero-sub">Erholung pur am familiär geführten Bauernhof — inmitten schöner Bergwelt und Seenlandschaft, nur 800 m vom Ortszentrum Fuschl am See.</p>
+      <div class="hero-ctas">
+        <a href="#wohnungen" class="btn btn-gold">Wohnungen ansehen</a>
+        <a href="#kontakt" class="btn btn-ghost">Anfragen</a>
       </div>
     </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="about-imgs">
-      <div class="about-img about-img-1"></div>
-      <div class="about-img about-img-2"></div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>8 min</strong><span>zum Badestrand</span></div>
+      <div class="hero-stat"><strong>800 m</strong><span>zum Ortszentrum</span></div>
+      <div class="hero-stat"><strong>3</strong><span>Ferienwohnungen</span></div>
     </div>
-    <div>
-      <span class="section-eyebrow">
-        <span data-lang="de" class="inline">Über mich</span>
-        <span data-lang="en" class="inline">About me</span>
-      </span>
-      <h2 class="section-title">
-        <span data-lang="de">Ich bin <em>Michaela</em> –<br>Ihre Hebamme</span>
-        <span data-lang="en">I am <em>Michaela</em> –<br>your midwife</span>
-      </h2>
-      <p class="body-text">
-        <span data-lang="de">Als Hebamme in Zug ist es meine Berufung, Mütter und Familien in einem der bedeutsamsten Momente ihres Lebens zu begleiten. Mit Wärme, Geduld und fundiertem Fachwissen stehe ich Ihnen von Anfang an zur Seite.</span>
-        <span data-lang="en">As a midwife in Zug, it is my calling to accompany mothers and families during one of the most meaningful moments of their lives. With warmth, patience and professional expertise, I am by your side from the very beginning.</span>
-      </p>
-      <p class="body-text">
-        <span data-lang="de">Jede Schwangerschaft ist einzigartig – genauso wie jede Frau und jede Familie. Ich nehme mir die Zeit, Sie wirklich kennenzulernen, um eine Betreuung anzubieten, die ganz auf Ihre Bedürfnisse abgestimmt ist.</span>
-        <span data-lang="en">Every pregnancy is unique – just like every woman and every family. I take the time to truly get to know you, offering care that is completely tailored to your needs.</span>
-      </p>
-      <div class="pill-list">
-        <span class="pill"><span data-lang="de" class="inline">Einfühlsam</span><span data-lang="en" class="inline">Empathetic</span></span>
-        <span class="pill"><span data-lang="de" class="inline">Erfahren</span><span data-lang="en" class="inline">Experienced</span></span>
-        <span class="pill"><span data-lang="de" class="inline">Vertrauensvoll</span><span data-lang="en" class="inline">Trustworthy</span></span>
-        <span class="pill"><span data-lang="de" class="inline">Ganzheitlich</span><span data-lang="en" class="inline">Holistic</span></span>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="services-header">
-      <span class="section-eyebrow">
-        <span data-lang="de" class="inline">Meine Leistungen</span>
-        <span data-lang="en" class="inline">My Services</span>
-      </span>
-      <h2 class="section-title">
-        <span data-lang="de">Begleitung mit <em>Herz</em><br>in jeder Phase</span>
-        <span data-lang="en">Caring support <em>with heart</em><br>at every stage</span>
-      </h2>
-    </div>
-    <div class="services-grid">
+<!-- INFO STRIPE -->
 
-      <div class="service-card">
-        <div class="service-photo service-photo-1"></div>
-        <div class="service-body">
-          <h3 class="service-title">
-            <span data-lang="de" class="inline">Schwangerschaft</span>
-            <span data-lang="en" class="inline">Pregnancy</span>
-          </h3>
-          <p class="service-text">
-            <span data-lang="de">Einfühlsame Begleitung und Beratung während Ihrer gesamten Schwangerschaft.</span>
-            <span data-lang="en">Empathetic support and guidance throughout your entire pregnancy.</span>
-          </p>
-          <ul class="service-list">
-            <li><span data-lang="de" class="inline">Schwangerschaftsvorsorge</span><span data-lang="en" class="inline">Antenatal care</span></li>
-            <li><span data-lang="de" class="inline">Beratung & Unterstützung</span><span data-lang="en" class="inline">Counselling & support</span></li>
-            <li><span data-lang="de" class="inline">Geburtsvorbereitungskurs</span><span data-lang="en" class="inline">Birthing classes</span></li>
-            <li><span data-lang="de" class="inline">Ernährung & Wohlbefinden</span><span data-lang="en" class="inline">Nutrition & wellbeing</span></li>
-          </ul>
+<div class="stripe">
+  <span>Ortstaxe inkl.</span>
+  <span>Freier Eintritt Fuschlseebad</span>
+  <span>Haustiere herzlich willkommen</span>
+  <span>Kostenloser Parkplatz</span>
+  <span>Kinderermäßigung auf Anfrage</span>
+</div>
+
+<!-- DER HOF -->
+
+<section id="hof">
+  <div class="inner">
+    <div class="hof-grid">
+      <div class="hof-photos">
+        <div class="main-photo">
+          <img src="https://assets.tourdata.at/1920x/127709/6D5CBB877AF32949FB9117E5688B951B4616C0DAF777B368A287F94BE9BAE038/hausfoto-seeberghof.jpg" alt="Seeberghof Hausansicht">
+        </div>
+        <div class="sub-photo">
+          <img src="https://assets.tourdata.at/1920x/127710/0499F5EF6DF205EA566C41341501CF4434AD946ACF69C1B4978448810E5BF93B/kaminraum.jpg" alt="Kaminraum">
+        </div>
+        <div class="sub-photo">
+          <img src="https://assets.tourdata.at/1920x/127711/32F428CF94430CCF32D8EC86E4BC44E03E98F42AD1D4AD94E6BCE6E75C2299EB/bauernhof.jpg" alt="Bauernhof">
         </div>
       </div>
-
-      <div class="service-card">
-        <div class="service-photo service-photo-2"></div>
-        <div class="service-body">
-          <h3 class="service-title">
-            <span data-lang="de" class="inline">Geburt</span>
-            <span data-lang="en" class="inline">Birth</span>
-          </h3>
-          <p class="service-text">
-            <span data-lang="de">Ich begleite Sie durch den schönsten und intensivsten Moment – die Geburt Ihres Kindes.</span>
-            <span data-lang="en">I accompany you through the most beautiful and intense moment – the birth of your child.</span>
-          </p>
-          <ul class="service-list">
-            <li><span data-lang="de" class="inline">Geburtsbegleitung</span><span data-lang="en" class="inline">Birth companionship</span></li>
-            <li><span data-lang="de" class="inline">Beleghebamme</span><span data-lang="en" class="inline">Hospital midwife</span></li>
-            <li><span data-lang="de" class="inline">Atemtechniken & Entspannung</span><span data-lang="en" class="inline">Breathing & relaxation</span></li>
-            <li><span data-lang="de" class="inline">Emotionale Unterstützung</span><span data-lang="en" class="inline">Emotional support</span></li>
-          </ul>
+      <div>
+        <span class="eyebrow">Herzlich Willkommen</span>
+        <h2 class="h2">Erholung pur am <em>Bauernhof</em></h2>
+        <div class="rule"></div>
+        <p class="lead">Der Seeberghof ist ein Bauernhof inmitten schöner Bergwelt und Seenlandschaft. Weg vom Stress — hier können Sie sich wunderbar erholen, entspannen, Ihre Kinder frei laufen lassen und die Ruhe genießen.</p>
+        <div class="hof-callout">„Unsere Gäste schätzen die ruhige und leicht erreichbare Lage — mit traumhaftem Ausblick auf Berge und Fuschlsee. Vielleicht machen Sie auch mit uns eine lustige Almfahrt zu unserem Jungvieh!"</div>
+        <div class="hof-features">
+          <div class="hof-feat">800 m zum Ortszentrum</div>
+          <div class="hof-feat">8 min zum Badestrand</div>
+          <div class="hof-feat">Freier Eintritt Fuschlseebad</div>
+          <div class="hof-feat">Kostenloser Parkplatz</div>
+          <div class="hof-feat">Haustiere willkommen</div>
+          <div class="hof-feat">Hypoallergene Bettwäsche</div>
+          <div class="hof-feat">Aufenthaltsraum mit Spielen</div>
+          <div class="hof-feat">Almfahrt auf Anfrage</div>
         </div>
       </div>
-
-      <div class="service-card">
-        <div class="service-photo service-photo-3"></div>
-        <div class="service-body">
-          <h3 class="service-title">
-            <span data-lang="de" class="inline">Wochenbett</span>
-            <span data-lang="en" class="inline">Postnatal Care</span>
-          </h3>
-          <p class="service-text">
-            <span data-lang="de">Die Zeit nach der Geburt ist kostbar – ich unterstütze Sie beim Start ins neue Leben.</span>
-            <span data-lang="en">The time after birth is precious – I support you as you begin this new chapter.</span>
-          </p>
-          <ul class="service-list">
-            <li><span data-lang="de" class="inline">Wochenbettbetreuung</span><span data-lang="en" class="inline">Postnatal visits</span></li>
-            <li><span data-lang="de" class="inline">Stillberatung</span><span data-lang="en" class="inline">Breastfeeding support</span></li>
-            <li><span data-lang="de" class="inline">Babymassage</span><span data-lang="en" class="inline">Baby massage</span></li>
-            <li><span data-lang="de" class="inline">Rückbildungsgymnastik</span><span data-lang="en" class="inline">Postnatal exercises</span></li>
-          </ul>
-        </div>
-      </div>
-
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PHOTO BAND -->
-  <div class="photo-band">
-    <div class="band-img band-1"></div>
-    <div class="band-img band-2"></div>
-    <div class="band-img band-3"></div>
+<!-- WOHNUNGEN -->
+
+<section id="wohnungen">
+  <div class="inner">
+    <div class="wohnungen-head">
+      <div>
+        <span class="eyebrow">Unsere Unterkünfte</span>
+        <h2 class="h2">Drei <em>Ferienwohnungen</em> — alle mit Seeblick</h2>
+        <div class="rule"></div>
+      </div>
+      <p class="lead">Jede unserer drei Wohnungen verfügt über einen sonnigen Balkon mit Seeblick, vollausgestattete Küche und liegt direkt am Seeberghof — mitten in der Natur.</p>
+    </div>
+    <div class="cards">
+
+```
+  <!-- Schober -->
+  <div class="card">
+    <div class="card-img-wrap">
+      <img src="https://assets.tourdata.at/1920x/127708/170C881826E64FA793CD306F670081CED2D782B164E82850E398BE0C1729F524/seeberghof.jpg" alt="Ferienwohnung Schober" class="card-img">
+      <div class="card-badge">Für Paare</div>
+    </div>
+    <div class="card-body">
+      <h3 class="card-name">Ferienwohnung Schober</h3>
+      <div class="card-size">40 m² · 1–2 Personen</div>
+      <p class="card-desc">Gemütliche Wohnung mit einem Schlafraum — auf Wunsch steht ein zweiter mit Verbindungstür zur Verfügung. Sonniger Balkon mit Seeblick und direktem Blick auf den Sonnenaufgang.</p>
+      <div class="card-amenities">
+        <span class="pill">1 Schlafzimmer</span>
+        <span class="pill">Küche</span>
+        <span class="pill">Dusche &amp; WC</span>
+        <span class="pill">Balkon mit Seeblick</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">ab 72 € <small>/ Tag</small></div>
+        <a href="#kontakt" class="card-link">Anfragen →</a>
+      </div>
+    </div>
   </div>
 
-  <!-- QUOTE -->
-  <section class="quote-section">
-    <p class="quote-text">
-      <span data-lang="de">"Die Geburt eines Kindes ist nicht nur der Beginn eines neuen Lebens – es ist auch die Geburt einer Mutter. Ich bin da, um Sie auf diesem wunderschönen Weg zu begleiten."</span>
-      <span data-lang="en">"The birth of a child is not only the beginning of a new life – it is also the birth of a mother. I am here to accompany you on this beautiful journey."</span>
-    </p>
-    <p class="quote-author">— Michaela Guggenbichler</p>
-  </section>
+  <!-- Seeblick -->
+  <div class="card">
+    <div class="card-img-wrap">
+      <img src="https://assets.tourdata.at/1920x/127715/1DFFFAE335DEBF174FC28D6E28021BB56B990EDC34877BB4AE3B949585A4CEE0/ausblick-vom-balkon.jpg" alt="Ferienwohnung Seeblick" class="card-img">
+      <div class="card-badge">Für Familien</div>
+    </div>
+    <div class="card-body">
+      <h3 class="card-name">Ferienwohnung Seeblick</h3>
+      <div class="card-size">70 m² · 2–6 Personen</div>
+      <p class="card-desc">Geräumige Familienwohnung mit drei Schlafzimmern, separatem Dusche &amp; WC und sonnigem Balkon mit herrlichem Seeblick — viel Platz für die ganze Familie.</p>
+      <div class="card-amenities">
+        <span class="pill">3 Schlafzimmer</span>
+        <span class="pill">Küche</span>
+        <span class="pill">Dusche &amp; WC getrennt</span>
+        <span class="pill">Balkon mit Seeblick</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">ab 88 € <small>/ Tag</small></div>
+        <a href="#kontakt" class="card-link">Anfragen →</a>
+      </div>
+    </div>
+  </div>
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="contact-info">
-      <span class="section-eyebrow">
-        <span data-lang="de" class="inline">Kontakt</span>
-        <span data-lang="en" class="inline">Contact</span>
-      </span>
-      <h2>
-        <span data-lang="de">Ich freue mich,<br>von <em>Ihnen</em> zu hören</span>
-        <span data-lang="en">I look forward<br>to hearing <em>from you</em></span>
-      </h2>
-      <p class="body-text">
-        <span data-lang="de">Haben Sie Fragen oder möchten Sie einen Termin vereinbaren? Schreiben Sie mir einfach – ich melde mich so schnell wie möglich bei Ihnen.</span>
-        <span data-lang="en">Do you have questions or would you like to book an appointment? Simply write to me – I will get back to you as soon as possible.</span>
-      </p>
+  <!-- Schafberg -->
+  <div class="card">
+    <div class="card-img-wrap">
+      <img src="https://assets.tourdata.at/1920x/127712/804EBF6BFD87E197E3EF2F43A50D6954BF36DDDFF5E00E1FA3DEA92EA18183C4/dscn9664-desktop-resolutie.jpg" alt="Ferienwohnung Schafberg" class="card-img">
+      <div class="card-badge">Für Gruppen</div>
+    </div>
+    <div class="card-body">
+      <h3 class="card-name">Ferienwohnung Schafberg</h3>
+      <div class="card-size">90 m² · 2–8 Personen</div>
+      <p class="card-desc">Die großzügige Wohnung für Großfamilien und Gruppen — drei Schlafzimmer, getrenntes Dusche &amp; WC, vollausgestattete Küche und der unvermeidliche Balkon mit Seeblick.</p>
+      <div class="card-amenities">
+        <span class="pill">3 Schlafzimmer</span>
+        <span class="pill">Küche</span>
+        <span class="pill">Dusche &amp; WC getrennt</span>
+        <span class="pill">Balkon mit Seeblick</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">ab 95 € <small>/ Tag</small></div>
+        <a href="#kontakt" class="card-link">Anfragen →</a>
+      </div>
+    </div>
+  </div>
 
-      <div class="contact-detail">
-        <div class="cd-icon">📍</div>
-        <div>
-          <div class="cd-label"><span data-lang="de" class="inline">Standort</span><span data-lang="en" class="inline">Location</span></div>
-          <div class="cd-value">Zug, Schweiz</div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- PREISE -->
+
+<section id="preise">
+  <div class="inner">
+    <div class="ph">
+      <span class="eyebrow" style="color:var(--lakeXL)">Preisübersicht 2025</span>
+      <h2 class="h2">Faire Preise — <em>transparent</em> &amp; aktuell</h2>
+      <div class="rule"></div>
+      <p class="lead">Alle Preise pro Ferienwohnung und Tag · ohne Verpflegung · inklusive Ortstaxe und kostenlosem Eintritt ins Fuschlseebad.</p>
+    </div>
+
+```
+<div class="tabs">
+  <button class="tab on" onclick="showTab('saison',this)">Saisonpreise 2025</button>
+  <button class="tab" onclick="showTab('extras',this)">Extras &amp; Konditionen</button>
+</div>
+
+<div class="panel on" id="p-saison">
+  <table class="preis-table">
+    <thead>
+      <tr>
+        <th>Wohnung</th>
+        <th>01.05. – 30.06.2025</th>
+        <th>01.07. – 31.08.2025 <span style="display:block;color:var(--gold);font-size:.58rem;letter-spacing:.04em">Hochsaison</span></th>
+        <th>01.09. – 01.11.2025</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="apt-n">Ferienwohnung Schober</div><div class="apt-d">40 m² · 1–2 Personen · 1 Schlafzimmer · Dusche &amp; WC · Balkon Seeblick</div></td>
+        <td><span class="pc">72 €</span></td>
+        <td><span class="pc hi">80 €</span></td>
+        <td><span class="pc">72 €</span></td>
+      </tr>
+      <tr>
+        <td><div class="apt-n">Ferienwohnung Seeblick</div><div class="apt-d">70 m² · 2–6 Personen · 3 Schlafzimmer · Dusche &amp; WC getrennt · Balkon Seeblick</div></td>
+        <td><span class="pc">88 €</span></td>
+        <td><span class="pc hi">95 €</span></td>
+        <td><span class="pc">88 €</span></td>
+      </tr>
+      <tr>
+        <td><div class="apt-n">Ferienwohnung Schafberg</div><div class="apt-d">90 m² · 2–8 Personen · 3 Schlafzimmer · Dusche &amp; WC getrennt · Balkon Seeblick</div></td>
+        <td><span class="pc">95 €</span></td>
+        <td><span class="pc hi">100 €</span></td>
+        <td><span class="pc">95 €</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pnote">
+    <strong>Inkludiert:</strong> Ortstaxe · Freier Eintritt ins Fuschlseebad · Bettwäsche &amp; Handtücher · Kostenloser Parkplatz am Hof ·
+    <strong>Zusätzlich:</strong> Endreinigung 40–50 € (je nach Wohnungsgröße) · Kinderermäßigung auf Anfrage · Haustiere willkommen ·
+    Preise für Zeiträume außerhalb der Saison (Nov.–Apr.) auf Anfrage bei <a href="mailto:seeberghof.fuschl@gmail.com" style="color:var(--lakeXL)">seeberghof.fuschl@gmail.com</a>
+  </div>
+</div>
+
+<div class="panel" id="p-extras">
+  <div class="extras">
+    <div class="ex"><div class="ex-icon">🧹</div><div class="ex-name">Endreinigung</div><div class="ex-val">40–50 €</div><div class="ex-note">Einmalig, je nach Wohnungsgröße</div></div>
+    <div class="ex"><div class="ex-icon">🐕</div><div class="ex-name">Haustiere</div><div class="ex-val">Willkommen!</div><div class="ex-note">Bitte bei Buchung angeben</div></div>
+    <div class="ex"><div class="ex-icon">👶</div><div class="ex-name">Kinderermäßigung</div><div class="ex-val">Auf Anfrage</div><div class="ex-note">Bitte bei Buchung erfragen</div></div>
+    <div class="ex"><div class="ex-icon">🏊</div><div class="ex-name">Fuschlseebad</div><div class="ex-val">Kostenlos</div><div class="ex-note">Freier Eintritt für alle Gäste</div></div>
+    <div class="ex"><div class="ex-icon">🚗</div><div class="ex-name">Parkplatz</div><div class="ex-val">Kostenlos</div><div class="ex-note">Direkt am Hof</div></div>
+    <div class="ex"><div class="ex-icon">🛏️</div><div class="ex-name">Bettwäsche</div><div class="ex-val">Inkludiert</div><div class="ex-note">Auch Allergiker-Bettwäsche möglich</div></div>
+    <div class="ex"><div class="ex-icon">🎲</div><div class="ex-name">Aufenthaltsraum</div><div class="ex-val">Kostenlos</div><div class="ex-note">Spieleklassiker zum Verleihen</div></div>
+    <div class="ex"><div class="ex-icon">⛰️</div><div class="ex-name">Almfahrt</div><div class="ex-val">Auf Anfrage</div><div class="ex-note">Mit Familie Pöckl, inkl. Almhütteneinkehr</div></div>
+  </div>
+  <div class="pnote">
+    Für unverbindliche Angebote und Stornobedingungen schreiben Sie uns jederzeit: <a href="mailto:seeberghof.fuschl@gmail.com" style="color:var(--lakeXL)">seeberghof.fuschl@gmail.com</a>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- GALERIE -->
+
+<section id="galerie">
+  <div class="inner">
+    <span class="eyebrow">Eindrücke</span>
+    <h2 class="h2">Der Seeberghof &amp; <em>seine Umgebung</em></h2>
+    <div class="rule"></div>
+  </div>
+  <div class="gal" style="max-width:1120px;margin:2.5rem auto 0">
+    <div class="gal-big">
+      <img src="https://assets.tourdata.at/1920x/127714/21BD158A5165471A00A97BB0B9152EE036D2E6810F09FC1586BB56D9D55F540D/sonnenuntergang-am-fuschlsee.jpg" alt="Sonnenuntergang am Fuschlsee">
+    </div>
+    <div class="gc"><img src="https://assets.tourdata.at/1920x/127709/6D5CBB877AF32949FB9117E5688B951B4616C0DAF777B368A287F94BE9BAE038/hausfoto-seeberghof.jpg" alt="Seeberghof Hausfoto"></div>
+    <div class="gc"><img src="https://assets.tourdata.at/1920x/127715/1DFFFAE335DEBF174FC28D6E28021BB56B990EDC34877BB4AE3B949585A4CEE0/ausblick-vom-balkon.jpg" alt="Ausblick vom Balkon"></div>
+    <div class="gc"><img src="https://assets.tourdata.at/1920x/127713/E3AE8718A0D047190051C3ABCE3971033CC530F07BD8C36EFA245715699E2F00/2008073154.jpg" alt="Familie am Hof"></div>
+    <div class="gc"><img src="https://assets.tourdata.at/1920x/127716/2F4C44116DDD324907F88D38D878DFA22E40D8FC68909FCD7713223C9B814A53/maja-fuschlsee.jpg" alt="Am Fuschlsee"></div>
+  </div>
+</section>
+
+<!-- UMGEBUNG -->
+
+<section id="umgebung">
+  <div class="inner">
+    <div class="umb-grid">
+      <div>
+        <span class="eyebrow">Die Region</span>
+        <h2 class="h2">Fuschlsee — <em>Natur pur</em> vor der Tür</h2>
+        <div class="rule"></div>
+        <p class="lead">Der Seeberghof ist der ideale Ausgangspunkt für viele schöne Wanderungen — der glasklare Fuschlsee liegt buchstäblich vor der Haustür.</p>
+        <div class="acts">
+          <div class="act"><span class="act-icon">🏊</span><div><div class="act-t">Naturbadestrand am Fuschlsee</div><div class="act-b">In nur 8 min. zu Fuß erreichbar — besonders familienfreundlich, da das Wasser langsam tiefer wird. Plus: freier Eintritt ins Fuschlseebad mit Parkplatz!</div></div></div>
+          <div class="act"><span class="act-icon">🥾</span><div><div class="act-t">Wandern &amp; Bergtouren</div><div class="act-b">Unzählige markierte Wege ab Haustür — Seeweg, Ruine Wartenfels, Schober (1.328 m), Ellmaustein, Filbling und vieles mehr.</div></div></div>
+          <div class="act"><span class="act-icon">🐄</span><div><div class="act-t">Almfahrt mit Familie Pöckl</div><div class="act-b">Eine lustige Almfahrt zu unserem Jungvieh, mit zünftiger Einkehr auf einer Almhütte — ein echtes Erlebnis für die ganze Familie!</div></div></div>
+          <div class="act"><span class="act-icon">🏰</span><div><div class="act-t">Salzburg &amp; Salzkammergut</div><div class="act-b">Salzburg ca. 30 km, Wolfgangsee und Mondsee schnell erreichbar, Schloss Fuschl direkt am Westufer des Sees.</div></div></div>
+          <div class="act"><span class="act-icon">⛷️</span><div><div class="act-t">Winter: Ski &amp; Schneeschuh</div><div class="act-b">Skigebiet Zwölferhorn (St. Gilgen, ca. 15 min), Gaissau-Hintersee ebenfalls in der Nähe. Schneeschuhwanderungen direkt ab Hof möglich.</div></div></div>
         </div>
       </div>
-      <div class="contact-detail">
-        <div class="cd-icon">📞</div>
-        <div>
-          <div class="cd-label"><span data-lang="de" class="inline">Telefon</span><span data-lang="en" class="inline">Phone</span></div>
-          <div class="cd-value">+41 79 883 83 39</div>
-        </div>
-      </div>
-      <div class="contact-detail">
-        <div class="cd-icon">✉️</div>
-        <div>
-          <div class="cd-label">E-Mail</div>
-          <div class="cd-value">info@michaela-hebamme.ch</div>
+      <div>
+        <img src="https://assets.tourdata.at/1920x/127711/32F428CF94430CCF32D8EC86E4BC44E03E98F42AD1D4AD94E6BCE6E75C2299EB/bauernhof.jpg" alt="Seeberghof von oben" style="width:100%;height:270px;object-fit:cover;display:block">
+        <img src="https://assets.tourdata.at/1920x/127716/2F4C44116DDD324907F88D38D878DFA22E40D8FC68909FCD7713223C9B814A53/maja-fuschlsee.jpg" alt="Fuschlsee" style="width:100%;height:175px;object-fit:cover;display:block;margin-top:0.7rem;margin-bottom:1.2rem">
+        <div class="dists">
+          <div class="dist"><div class="dist-l">Badestrand</div><div class="dist-v">8 min zu Fuß</div></div>
+          <div class="dist"><div class="dist-l">Ortszentrum</div><div class="dist-v">800 m</div></div>
+          <div class="dist"><div class="dist-l">Salzburg</div><div class="dist-v">ca. 30 km</div></div>
+          <div class="dist"><div class="dist-l">Zwölferhorn Ski</div><div class="dist-v">ca. 15 min</div></div>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="contact-form">
-      <form action="https://formspree.io/f/IHRE-ID" method="POST">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">
-              <span data-lang="de" class="inline">Name</span>
-              <span data-lang="en" class="inline">Name</span>
-            </label>
-            <input type="text" class="form-input" name="name" required
-              placeholder="Maria Muster"/>
+<!-- KONTAKT -->
+
+<section id="kontakt">
+  <div class="inner">
+    <div class="kt-grid">
+      <div>
+        <span class="eyebrow">Anfragen &amp; Buchung</span>
+        <h2 class="h2">Schreiben Sie <em>uns</em></h2>
+        <div class="rule"></div>
+        <div class="form-box">
+          <div class="fg-row">
+            <div class="fg"><label>Vorname</label><input type="text" placeholder="Maria"></div>
+            <div class="fg"><label>Nachname</label><input type="text" placeholder="Huber"></div>
           </div>
-          <div class="form-group">
-            <label class="form-label">E-Mail</label>
-            <input type="email" class="form-input" name="email" required
-              placeholder="maria@beispiel.ch"/>
+          <div class="fg"><label>E-Mail</label><input type="email" placeholder="ihre@email.at"></div>
+          <div class="fg-row">
+            <div class="fg"><label>Anreise</label><input type="date"></div>
+            <div class="fg"><label>Abreise</label><input type="date"></div>
           </div>
+          <div class="fg">
+            <label>Gewünschte Wohnung</label>
+            <select>
+              <option value="">Bitte wählen …</option>
+              <option>Schober — 40 m², 1–2 Personen</option>
+              <option>Seeblick — 70 m², 2–6 Personen</option>
+              <option>Schafberg — 90 m², 2–8 Personen</option>
+            </select>
+          </div>
+          <div class="fg"><label>Personen, Kinder, Nachricht</label><textarea placeholder="Anzahl Personen, Kinder, Haustiere, Sonderwünsche …"></textarea></div>
+          <button class="btn-sub" type="button">Anfrage absenden →</button>
         </div>
-        <div class="form-group">
-          <label class="form-label">
-            <span data-lang="de" class="inline">Thema</span>
-            <span data-lang="en" class="inline">Topic</span>
-          </label>
-          <select class="form-select" name="thema">
-            <option><span data-lang="de" class="inline">Schwangerschaft</span><span data-lang="en" class="inline">Pregnancy</span></option>
-            <option><span data-lang="de" class="inline">Geburt</span><span data-lang="en" class="inline">Birth</span></option>
-            <option><span data-lang="de" class="inline">Wochenbett</span><span data-lang="en" class="inline">Postnatal</span></option>
-            <option><span data-lang="de" class="inline">Allgemeine Anfrage</span><span data-lang="en" class="inline">General enquiry</span></option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">
-            <span data-lang="de" class="inline">Nachricht</span>
-            <span data-lang="en" class="inline">Message</span>
-          </label>
-          <textarea class="form-textarea" name="nachricht" required
-            placeholder="..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">
-          <span data-lang="de" class="inline">Nachricht senden</span>
-          <span data-lang="en" class="inline">Send message</span>
-        </button>
-      </form>
+      </div>
+      <div class="kinfo">
+        <h3>Seeberghof</h3>
+        <div class="irow"><span class="iicon">👩‍🌾</span><div><div class="ilabel">Gastgeberin</div><div class="ival">Mathilde Pöckl</div></div></div>
+        <div class="irow"><span class="iicon">📍</span><div><div class="ilabel">Adresse</div><div class="ival">Seestraße 88<br>5330 Fuschl am See<br>Salzburg, Österreich</div></div></div>
+        <div class="irow"><span class="iicon">📞</span><div><div class="ilabel">Telefon</div><div class="ival"><a href="tel:+4362268313">+43 6226 8313</a><br><a href="tel:+436644355160">+43 664 4355160</a> (Mobil)</div></div></div>
+        <div class="irow"><span class="iicon">✉️</span><div><div class="ilabel">E-Mail</div><div class="ival"><a href="mailto:seeberghof.fuschl@gmail.com">seeberghof.fuschl@gmail.com</a></div></div></div>
+        <div class="irow"><span class="iicon">🌐</span><div><div class="ilabel">Website</div><div class="ival"><a href="http://www.seeberghof-fuschl.at" target="_blank">www.seeberghof-fuschl.at</a></div></div></div>
+        <div class="irow"><span class="iicon">🕐</span><div><div class="ilabel">Check-in / Check-out</div><div class="ival">Anreise ab 14:00 Uhr<br>Abreise bis 10:00 Uhr</div></div></div>
+        <div class="k-note">Wir freuen uns auf Ihre Anfrage und melden uns schnellstmöglich zurück — auch unverbindliche Angebote jederzeit willkommen!</div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-logo">Michaela Guggenbichler</div>
-    <div class="footer-text">
-      <span data-lang="de" class="inline">Hebamme in Zug, Schweiz</span>
-      <span data-lang="en" class="inline">Midwife in Zug, Switzerland</span>
-    </div>
-    <div class="footer-text">Made with <span class="footer-heart">♥</span></div>
-  </footer>
+<!-- FOOTER -->
 
-  <script>
-    function setLang(lang) {
-      document.body.className = 'lang-' + lang;
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
-      });
-    }
-  </script>
+<footer>
+  <div class="footer-logo">Seeberghof <span>Fuschl am See</span></div>
+  <div>© 2025 Mathilde Pöckl · Seestraße 88 · 5330 Fuschl am See · Österreich</div>
+  <div class="fl">
+    <a href="#">Impressum</a>
+    <a href="#">Datenschutz</a>
+  </div>
+</footer>
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+  document.getElementById('p-' + name).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
 
 </body>
 </html>
