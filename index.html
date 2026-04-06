@@ -39,9 +39,9 @@ nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
   padding:16px 56px;
   display:flex; justify-content:space-between; align-items:center;
-  background:rgba(253,247,242,0.95);
+  background:rgba(253,245,238,0.95);
   backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(232,180,160,0.2);
+  border-bottom:1px solid rgba(212,132,90,0.2);
 }
 .nav-logo {
   font-family:'Cormorant Garamond', serif;
@@ -95,10 +95,6 @@ nav {
   font-weight:400; line-height:1.15; color:var(--brown); margin-bottom:20px;
 }
 .hero h1 em { font-style:normal; color:inherit; }
-.hero-sub {
-  font-size:1rem; font-weight:300; color:var(--text-light);
-  line-height:1.85; max-width:440px; margin-bottom:16px;
-}
 .hero-quote {
   font-family:'Cormorant Garamond', serif;
   font-size:1rem; font-style:italic; color:var(--text-light);
@@ -129,7 +125,7 @@ nav {
 }
 .hero-overlay {
   position:absolute; inset:0;
-  background:linear-gradient(to right, rgba(253,247,242,0.15), transparent);
+  background:linear-gradient(to right, rgba(253,245,238,0.15), transparent);
 }
 .hero-card {
   position:absolute; bottom:48px; left:-24px;
@@ -188,18 +184,13 @@ nav {
 }
 
 /* ── BEGLEITET ── */
-.begleitet {
-  background:var(--cream); padding:100px 72px;
-}
-.begleitet-inner {
-  max-width:800px; margin:0 auto; text-align:center;
-}
+.begleitet { background:var(--cream); padding:100px 72px; }
+.begleitet-inner { max-width:800px; margin:0 auto; text-align:center; }
 .begleitet-text {
   font-family:'Cormorant Garamond', serif;
   font-size:clamp(1.1rem,2vw,1.4rem);
   font-weight:300; font-style:italic;
-  color:var(--text-light); line-height:1.9;
-  margin-bottom:16px;
+  color:var(--text-light); line-height:1.9; margin-bottom:16px;
 }
 
 /* ── SERVICES ── */
@@ -213,11 +204,11 @@ nav {
   background:white; border-radius:28px; overflow:hidden;
   box-shadow:0 4px 30px rgba(60,30,20,0.06);
   transition:transform 0.3s, box-shadow 0.3s;
-  border:1px solid rgba(232,180,160,0.15);
+  border:1px solid rgba(212,132,90,0.15);
 }
 .service-card:hover {
   transform:translateY(-6px);
-  box-shadow:0 24px 60px rgba(196,122,96,0.15);
+  box-shadow:0 24px 60px rgba(184,98,46,0.15);
 }
 .service-photo {
   width:100%; height:200px;
@@ -258,7 +249,7 @@ nav {
 .test-card {
   background:white; border-radius:20px; padding:36px;
   box-shadow:0 4px 24px rgba(60,30,20,0.06);
-  border:1px solid rgba(232,180,160,0.1); position:relative;
+  border:1px solid rgba(212,132,90,0.1); position:relative;
 }
 .test-quote {
   font-family:'Cormorant Garamond', serif;
@@ -364,7 +355,7 @@ footer {
   display:flex; justify-content:space-between; align-items:center;
 }
 .footer-logo { font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:var(--cream); }
-.footer-text { font-size:0.8rem; color:rgba(253,247,242,0.45); }
+.footer-text { font-size:0.8rem; color:rgba(253,245,238,0.45); }
 .footer-heart { color:var(--pink); }
 
 /* ── RESPONSIVE ── */
@@ -432,8 +423,8 @@ footer {
         <span data-lang="en" class="inline">Midwife in Zug, Switzerland</span>
       </span>
       <h1>
-        <span data-lang="de">Mit Liebe, Freude<br>und <em>Leichtigkeit</em><br>ins neue Leben</span>
-        <span data-lang="en">With love, joy<br>and <em>lightness</em><br>into new life</span>
+        <span data-lang="de">Mit Liebe, Freude<br>und Leichtigkeit<br>ins neue Leben</span>
+        <span data-lang="en">With love, joy<br>and lightness<br>into new life</span>
       </h1>
       <p class="hero-quote">
         <span data-lang="de">"Es ist mir ein grosses Anliegen, für werdende Eltern einen Platz zu schaffen, wo ihre Babies in Sicherheit, Achtsamkeit und Freude geboren werden. Bei diesem besonderen Anfang möchte ich sie aus ganzem Herzen unterstützen."</span>
@@ -470,8 +461,8 @@ footer {
         <span data-lang="en" class="inline">About me</span>
       </span>
       <h2 class="section-title">
-        <span data-lang="de">Ich bin <em>Michaela</em> –<br>Ihre Hebamme</span>
-        <span data-lang="en">I am <em>Michaela</em> –<br>your midwife</span>
+        <span data-lang="de">Ich bin Michaela –<br>Ihre Hebamme</span>
+        <span data-lang="en">I am Michaela –<br>your midwife</span>
       </h2>
       <p class="body-text">
         <span data-lang="de">Ich habe mein Leben den Kleinsten, ihrem Weg und ihrer Ankunft im Leben verschrieben. Schon in Jugendjahren war mir dieser Wunsch klar und so nahm meine Ausbildung zur diplomierten Hebamme ihren Lauf. Nach schönen Jahren in Wien, wo ich u.a. die Geburtenstation einer renommierten Wiener Privatklinik aufbauen und über 10 Jahre leiten durfte, führte mich mein Weg in die Schweiz, wo ich nun an der Andreasklinik in Cham (Zug) tätig bin.</span>
@@ -499,8 +490,8 @@ footer {
         <span data-lang="en" class="inline">My care for you</span>
       </span>
       <h2 class="section-title" style="text-align:center; margin-bottom:36px;">
-        <span data-lang="de">Behütet &amp; <em>begleitet</em></span>
-        <span data-lang="en">Safe &amp; <em>supported</em></span>
+        <span data-lang="de">Behütet &amp; begleitet</span>
+        <span data-lang="en">Safe &amp; supported</span>
       </h2>
       <p class="begleitet-text">
         <span data-lang="de">Ich unterstütze Sie feinfühlig mit meinem Wissen, stärke Sie in Ihrer eigenen Kraft und begleite Sie durch diese spannende Zeit, bis Ihr Baby seinen Weg ins Leben sucht. In enger Zusammenarbeit bereiten wir gemeinsam Ihren Körper auf die Geburt vor, stärken Ihr Selbstvertrauen und binden liebevoll den werdenden Vater ein, dem eine bedeutende Rolle als vertrauensvolle Stütze zukommt.</span>
@@ -522,58 +513,52 @@ footer {
         <span data-lang="en" class="inline">My Services</span>
       </span>
       <h2 class="section-title">
-        <span data-lang="de">Begleitung mit <em>Herz</em><br>in jeder Phase</span>
-        <span data-lang="en">Caring support <em>with heart</em><br>at every stage</span>
+        <span data-lang="de">Begleitung mit Herz<br>in jeder Phase</span>
+        <span data-lang="en">Caring support with heart<br>at every stage</span>
       </h2>
     </div>
     <div class="services-grid">
-
-```
-  <div class="service-card">
-    <div class="service-photo service-photo-1"></div>
-    <div class="service-body">
-      <h3 class="service-title">
-        <span data-lang="de" class="inline">Schwangerschaft</span>
-        <span data-lang="en" class="inline">Pregnancy</span>
-      </h3>
-      <p class="service-text">
-        <span data-lang="de">Einfühlsame Begleitung und Beratung während Ihrer gesamten Schwangerschaft.</span>
-        <span data-lang="en">Empathetic support and guidance throughout your entire pregnancy.</span>
-      </p>
-      <ul class="service-list">
-        <li><span data-lang="de" class="inline">Geburtsvorbereitung für werdende Eltern</span><span data-lang="en" class="inline">Birth preparation for expectant parents</span></li>
-        <li><span data-lang="de" class="inline">Informationsabende zur Geburtshilfe</span><span data-lang="en" class="inline">Information evenings on obstetrics</span></li>
-        <li><span data-lang="de" class="inline">Mentale Geburtsvorbereitung</span><span data-lang="en" class="inline">Mental preparation for birth</span></li>
-        <li><span data-lang="de" class="inline">Körperarbeit durch den Partner</span><span data-lang="en" class="inline">Partner-supported bodywork</span></li>
-        <li><span data-lang="de" class="inline">Homöopathie & Schüssler Salze</span><span data-lang="en" class="inline">Homeopathy & Schuessler salts</span></li>
-      </ul>
+      <div class="service-card">
+        <div class="service-photo service-photo-1"></div>
+        <div class="service-body">
+          <h3 class="service-title">
+            <span data-lang="de" class="inline">Schwangerschaft</span>
+            <span data-lang="en" class="inline">Pregnancy</span>
+          </h3>
+          <p class="service-text">
+            <span data-lang="de">Einfühlsame Begleitung und Beratung während Ihrer gesamten Schwangerschaft.</span>
+            <span data-lang="en">Empathetic support and guidance throughout your entire pregnancy.</span>
+          </p>
+          <ul class="service-list">
+            <li><span data-lang="de" class="inline">Geburtsvorbereitung für werdende Eltern</span><span data-lang="en" class="inline">Birth preparation for expectant parents</span></li>
+            <li><span data-lang="de" class="inline">Informationsabende zur Geburtshilfe</span><span data-lang="en" class="inline">Information evenings on obstetrics</span></li>
+            <li><span data-lang="de" class="inline">Mentale Geburtsvorbereitung</span><span data-lang="en" class="inline">Mental preparation for birth</span></li>
+            <li><span data-lang="de" class="inline">Körperarbeit durch den Partner</span><span data-lang="en" class="inline">Partner-supported bodywork</span></li>
+            <li><span data-lang="de" class="inline">Homöopathie & Schüssler Salze</span><span data-lang="en" class="inline">Homeopathy & Schuessler salts</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-photo service-photo-2"></div>
+        <div class="service-body">
+          <h3 class="service-title">
+            <span data-lang="de" class="inline">Wochenbett</span>
+            <span data-lang="en" class="inline">Postnatal Care</span>
+          </h3>
+          <p class="service-text">
+            <span data-lang="de">Die Zeit nach der Geburt ist kostbar – ich unterstütze Sie liebevoll beim Start ins neue Leben.</span>
+            <span data-lang="en">The time after birth is precious – I lovingly support you as you begin this new chapter.</span>
+          </p>
+          <ul class="service-list">
+            <li><span data-lang="de" class="inline">Wochenbettbetreuung</span><span data-lang="en" class="inline">Postnatal visits</span></li>
+            <li><span data-lang="de" class="inline">Stillberatung</span><span data-lang="en" class="inline">Breastfeeding support</span></li>
+            <li><span data-lang="de" class="inline">Babymassage & Babypflege</span><span data-lang="en" class="inline">Baby massage & care</span></li>
+            <li><span data-lang="de" class="inline">Rückbildungs- & Beckenbodengymnastik</span><span data-lang="en" class="inline">Postnatal recovery exercises</span></li>
+            <li><span data-lang="de" class="inline">Aromatherapie & Ayurveda Fussmassage</span><span data-lang="en" class="inline">Aromatherapy & Ayurveda massage</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="service-card">
-    <div class="service-photo service-photo-2"></div>
-    <div class="service-body">
-      <h3 class="service-title">
-        <span data-lang="de" class="inline">Wochenbett</span>
-        <span data-lang="en" class="inline">Postnatal Care</span>
-      </h3>
-      <p class="service-text">
-        <span data-lang="de">Die Zeit nach der Geburt ist kostbar – ich unterstütze Sie liebevoll beim Start ins neue Leben.</span>
-        <span data-lang="en">The time after birth is precious – I lovingly support you as you begin this new chapter.</span>
-      </p>
-      <ul class="service-list">
-        <li><span data-lang="de" class="inline">Wochenbettbetreuung</span><span data-lang="en" class="inline">Postnatal visits</span></li>
-        <li><span data-lang="de" class="inline">Stillberatung</span><span data-lang="en" class="inline">Breastfeeding support</span></li>
-        <li><span data-lang="de" class="inline">Babymassage & Babypflege</span><span data-lang="en" class="inline">Baby massage & care</span></li>
-        <li><span data-lang="de" class="inline">Rückbildungs- & Beckenbodengymnastik</span><span data-lang="en" class="inline">Postnatal recovery exercises</span></li>
-        <li><span data-lang="de" class="inline">Aromatherapie & Ayurveda Fussmassage</span><span data-lang="en" class="inline">Aromatherapy & Ayurveda massage</span></li>
-      </ul>
-    </div>
-  </div>
-
-</div>
-```
-
   </section>
 
   <!-- TESTIMONIALS -->
@@ -585,8 +570,8 @@ footer {
         <span data-lang="en" class="inline">Testimonials</span>
       </span>
       <h2 class="section-title">
-        <span data-lang="de">Was Eltern über <em>mich</em> sagen</span>
-        <span data-lang="en">What parents say <em>about me</em></span>
+        <span data-lang="de">Was Eltern über mich sagen</span>
+        <span data-lang="en">What parents say about me</span>
       </h2>
     </div>
     <div class="test-grid">
@@ -630,8 +615,8 @@ footer {
         <span data-lang="en" class="inline">Contact</span>
       </span>
       <h2>
-        <span data-lang="de">Ich freue mich,<br>von <em>Ihnen</em> zu hören</span>
-        <span data-lang="en">I look forward<br>to hearing <em>from you</em></span>
+        <span data-lang="de">Ich freue mich,<br>von Ihnen zu hören</span>
+        <span data-lang="en">I look forward<br>to hearing from you</span>
       </h2>
       <p class="body-text">
         <span data-lang="de">Haben Sie Fragen oder möchten Sie einen Termin vereinbaren? Schreiben Sie mir – ich melde mich so schnell wie möglich bei Ihnen.</span>
@@ -655,7 +640,7 @@ footer {
         <div class="cd-icon">✉️</div>
         <div>
           <div class="cd-label">E-Mail</div>
-          <div class="cd-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="24494d474c4d0a43514343414a464d474c4841566446485141534d4a0a474c">[email&#160;protected]</a></div>
+          <div class="cd-value">michi.guggenbichler@bluewin.ch</div>
         </div>
       </div>
     </div>
@@ -698,9 +683,9 @@ footer {
     <p class="impressum-text">
       <strong>Michaela Guggenbichler</strong><br>
       Chamerstrasse 67 · 6300 Zug · Schweiz<br>
-      Tel: +41 79 883 83 39 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3855515b5051165f4d5f5f5d565a515b50545d4a785a544d5d4f5156165b50">[email&#160;protected]</a><br><br>
+      Tel: +41 79 883 83 39 · michi.guggenbichler@bluewin.ch<br><br>
       <strong>Haftungshinweis:</strong> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt von verlinkten Seiten sind ausschliesslich deren Betreiber verantwortlich.<br><br>
-      <strong>Datenschutz:</strong> Die Sicherheit Ihrer persönlichen Daten ist uns wichtig. Alle Ihre Angaben wie Name, Adresse oder E-Mailadresse werden streng vertraulich behandelt. Die von Ihnen zur Verfügung gestellten Informationen werden gemäss den Schweizer Datenschutzbestimmungen verarbeitet. Eine Weitergabe der Daten an Dritte erfolgt nicht.
+      <strong>Datenschutz:</strong> Die Sicherheit Ihrer persönlichen Daten ist uns wichtig. Alle Ihre Angaben werden streng vertraulich behandelt und gemäss den Schweizer Datenschutzbestimmungen verarbeitet. Eine Weitergabe der Daten an Dritte erfolgt nicht.
     </p>
   </section>
 
@@ -715,4 +700,14 @@ footer {
     <div class="footer-text">Made with <span class="footer-heart">♥</span></div>
   </footer>
 
-  <script data-c
+  <script>
+    function setLang(lang) {
+      document.body.className = 'lang-' + lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+      });
+    }
+  </script>
+
+</body>
+</html>
