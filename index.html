@@ -181,10 +181,22 @@ nav {
 
 /* ── BEGLEITET ── */
 .begleitet { background:var(--cream); padding:100px 72px; }
-.begleitet-inner { max-width:800px; margin:0 auto; text-align:center; }
+.begleitet-inner {
+  max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:72px; align-items:center;
+}
+.begleitet-img {
+  width:100%; aspect-ratio:3/4;
+  border-radius:24px;
+  background-image:url('Mimi-Portrait.jpg');
+  background-size:cover; background-position:center top;
+  box-shadow:0 20px 60px rgba(0,0,0,0.1);
+}
+.begleitet-content { text-align:left; }
 .begleitet-text {
   font-family:'Cormorant Garamond', serif;
-  font-size:clamp(1.1rem,2vw,1.4rem);
+  font-size:clamp(1rem,1.8vw,1.2rem);
   font-weight:300; font-style:italic;
   color:var(--text-light); line-height:1.9; margin-bottom:16px;
 }
@@ -207,17 +219,16 @@ nav {
   box-shadow:0 24px 60px rgba(184,98,46,0.15);
 }
 .service-photo {
-  width:100%; height:200px;
+  width:100%; height:240px;
   background-size:cover; background-position:center;
 }
 .service-photo-1 {
   background-image:url('Mimi-Baby-blau-Portrait.jpg');
-  background-position:center top;
-  background-size:80%;
+  background-position:center 20%;
 }
 .service-photo-2 {
   background-image:url('Mimi-Baby-gruen.JPG');
-  background-position:center top;
+  background-position:center 20%;
 }
 .service-body { padding:32px; }
 .service-title {
@@ -358,18 +369,28 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width:900px) {
   nav { padding:14px 20px; }
-  .nav-center { display:none; }
+  .nav-center { display:none !important; }
   .hero { grid-template-columns:1fr; }
-  .hero-right { min-height:60vw; }
+  .hero-right { min-height:70vw; max-height:500px; }
   .hero-left { padding:36px 24px; }
-  .about, .contact { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
-  .services, .testimonials, .begleitet { padding:60px 24px; }
+  .hero-img { background-position:center top; }
+  .about { grid-template-columns:1fr; padding:60px 24px; gap:32px; }
+  .about-imgs { grid-template-columns:1fr; }
+  .about-img-1 { aspect-ratio:4/3; }
+  .begleitet { padding:60px 24px; }
+  .begleitet-inner { grid-template-columns:1fr; gap:32px; }
+  .begleitet-img { aspect-ratio:4/3; }
+  .services { padding:60px 24px; }
+  .services-grid { grid-template-columns:1fr; }
+  .service-photo { height:260px; }
+  .testimonials { padding:60px 24px; }
   .test-grid { grid-template-columns:1fr; }
-  .photo-band { height:220px; }
+  .photo-band { height:200px; grid-template-columns:1fr 1fr; }
+  .photo-band .band-3 { display:none; }
   .quote-section { padding:60px 24px; }
+  .contact { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
   .impressum { padding:40px 24px; }
   footer { padding:24px; flex-direction:column; gap:10px; text-align:center; }
-  .about-imgs { grid-template-columns:1fr 1fr; }
   .form-row { grid-template-columns:1fr; }
 }
 
@@ -379,6 +400,8 @@ footer {
 .lang-en [data-lang="en"] { display:block; }
 .lang-de [data-lang="de"].inline { display:inline; }
 .lang-en [data-lang="en"].inline { display:inline; }
+.lang-de [data-lang="de"].grid { display:grid; }
+.lang-en [data-lang="en"].grid { display:grid; }
 .nav-center { display:flex !important; }
 ```
 
@@ -394,6 +417,10 @@ footer {
       <li><a href="#about">
         <span data-lang="de" class="inline">Über mich</span>
         <span data-lang="en" class="inline">About</span>
+      </a></li>
+      <li><a href="#begleitet">
+        <span data-lang="de" class="inline">Ich begleite euch</span>
+        <span data-lang="en" class="inline">My Care</span>
       </a></li>
       <li><a href="#services">
         <span data-lang="de" class="inline">Leistungen</span>
@@ -480,24 +507,27 @@ footer {
 
   <!-- BEHÜTET & BEGLEITET -->
 
-  <section class="begleitet">
+  <section class="begleitet" id="begleitet">
     <div class="begleitet-inner">
-      <span class="section-eyebrow" style="text-align:center; display:block;">
-        <span data-lang="de" class="inline">Ich begleite euch</span>
-        <span data-lang="en" class="inline">My care for you</span>
-      </span>
-      <h2 class="section-title" style="text-align:center; margin-bottom:36px;">
-        <span data-lang="de">Behütet &amp; begleitet</span>
-        <span data-lang="en">Safe &amp; supported</span>
-      </h2>
-      <p class="begleitet-text">
-        <span data-lang="de">Ich unterstütze Sie feinfühlig mit meinem Wissen, stärke Sie in Ihrer eigenen Kraft und begleite Sie durch diese spannende Zeit, bis Ihr Baby seinen Weg ins Leben sucht. In enger Zusammenarbeit bereiten wir gemeinsam Ihren Körper auf die Geburt vor, stärken Ihr Selbstvertrauen und binden liebevoll den werdenden Vater ein, dem eine bedeutende Rolle als vertrauensvolle Stütze zukommt.</span>
-        <span data-lang="en">I support you sensitively with my knowledge, strengthen you in your own power, and accompany you through this exciting time. Together we prepare your body for birth, build your confidence, and lovingly involve the father-to-be, who plays an important role as a trusted support.</span>
-      </p>
-      <p class="begleitet-text" style="margin-top:20px;">
-        <span data-lang="de">Wenn Sie dann Ihr Familienglück zu Hause geniessen, komme ich gern zu Ihnen und betreue Sie und Ihr Baby im Wochenbett – beim Stillen, bei der Babypflege, bei postnatalen Schwierigkeiten jeglicher Art, oder auch nur um Ihnen kleine Freiräume zu schaffen.</span>
-        <span data-lang="en">When you are enjoying your family happiness at home, I come to you and care for you and your baby during the postnatal period – with breastfeeding, baby care, postnatal challenges of any kind, or simply to give you a little breathing space.</span>
-      </p>
+      <div class="begleitet-img"></div>
+      <div class="begleitet-content">
+        <span class="section-eyebrow" style="display:block;">
+          <span data-lang="de" class="inline">Ich begleite euch</span>
+          <span data-lang="en" class="inline">My care for you</span>
+        </span>
+        <h2 class="section-title" style="margin-bottom:36px;">
+          <span data-lang="de">Behütet &amp; begleitet</span>
+          <span data-lang="en">Safe &amp; supported</span>
+        </h2>
+        <p class="begleitet-text">
+          <span data-lang="de">Ich unterstütze Sie feinfühlig mit meinem Wissen, stärke Sie in Ihrer eigenen Kraft und begleite Sie durch diese spannende Zeit, bis Ihr Baby seinen Weg ins Leben sucht. In enger Zusammenarbeit bereiten wir gemeinsam Ihren Körper auf die Geburt vor, stärken Ihr Selbstvertrauen und binden liebevoll den werdenden Vater ein, dem eine bedeutende Rolle als vertrauensvolle Stütze zukommt.</span>
+          <span data-lang="en">I support you sensitively with my knowledge, strengthen you in your own power, and accompany you through this exciting time. Together we prepare your body for birth, build your confidence, and lovingly involve the father-to-be, who plays an important role as a trusted support.</span>
+        </p>
+        <p class="begleitet-text" style="margin-top:20px;">
+          <span data-lang="de">Wenn Sie dann Ihr Familienglück zu Hause geniessen, komme ich gern zu Ihnen und betreue Sie und Ihr Baby im Wochenbett – beim Stillen, bei der Babypflege, bei postnatalen Schwierigkeiten jeglicher Art, oder auch nur um Ihnen kleine Freiräume zu schaffen.</span>
+          <span data-lang="en">When you are enjoying your family happiness at home, I come to you and care for you and your baby during the postnatal period – with breastfeeding, baby care, postnatal challenges of any kind, or simply to give you a little breathing space.</span>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -623,7 +653,7 @@ footer {
         <div class="cd-icon">📍</div>
         <div>
           <div class="cd-label"><span data-lang="de" class="inline">Adresse</span><span data-lang="en" class="inline">Address</span></div>
-          <div class="cd-value">Chamerstrasse 67, 6300 Zug</div>
+          <div class="cd-value">Blegistrasse 1, 6343 Rotkreuz</div>
         </div>
       </div>
       <div class="contact-detail">
@@ -637,7 +667,14 @@ footer {
         <div class="cd-icon">✉️</div>
         <div>
           <div class="cd-label">E-Mail</div>
-          <div class="cd-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1aca8a2a9a8efa6b4a6a6a4afa3a8a2a9ada4b381a3adb4a4b6a8afefa2a9">[email&#160;protected]</a></div>
+          <div class="cd-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="305d595358591e57455757555e525953585c554270525c455547595e1e5358">[email&#160;protected]</a></div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="cd-icon">💬</div>
+        <div>
+          <div class="cd-label">WhatsApp</div>
+          <div class="cd-value"><a href="https://wa.me/41798838339" style="color:inherit; text-decoration:none;">+41 79 883 83 39</a></div>
         </div>
       </div>
     </div>
@@ -679,7 +716,7 @@ footer {
     <h3 class="impressum-title">Impressum & Datenschutz</h3>
     <p class="impressum-text">
       <strong>Michaela Guggenbichler</strong><br>
-      Chamerstrasse 67 · 6300 Zug · Schweiz<br>
+      Blegistrasse 1 · 6343 Rotkreuz · Schweiz<br>
       Tel: +41 79 883 83 39 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8b5b1bbb0b1f6bfadbfbfbdb6bab1bbb0b4bdaa98bab4adbdafb1b6f6bbb0">[email&#160;protected]</a><br><br>
       <strong>Haftungshinweis:</strong> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt von verlinkten Seiten sind ausschliesslich deren Betreiber verantwortlich.<br><br>
       <strong>Datenschutz:</strong> Die Sicherheit Ihrer persönlichen Daten ist uns wichtig. Alle Ihre Angaben werden streng vertraulich behandelt und gemäss den Schweizer Datenschutzbestimmungen verarbeitet. Eine Weitergabe der Daten an Dritte erfolgt nicht.
@@ -692,9 +729,4 @@ footer {
     <div class="footer-logo">Michaela Guggenbichler</div>
     <div class="footer-text">
       <span data-lang="de" class="inline">Hebamme in Zug, Schweiz</span>
-      <span data-lang="en" class="inline">Midwife in Zug, Switzerland</span>
-    </div>
-    <div class="footer-text">Made with <span class="footer-heart">♥</span></div>
-  </footer>
-
-  <script data-c
+      <span data-lang="en" class="inline">Midwife in Zug, Switzerla
