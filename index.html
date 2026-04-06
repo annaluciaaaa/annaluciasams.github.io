@@ -223,12 +223,12 @@ nav {
   background-size:cover; background-position:center;
 }
 .service-photo-1 {
-  background-image:url('Mimi-Baby-blau-Portrait.jpg');
-  background-position:center 20%;
+  background-image:url('Schwangerschaft.jpg');
+  background-position:center;
 }
 .service-photo-2 {
-  background-image:url('Mimi-Baby-gruen.JPG');
-  background-position:center 20%;
+  background-image:url('Mimi-Familie.JPG');
+  background-position:center top;
 }
 .service-body { padding:32px; }
 .service-title {
@@ -366,6 +366,16 @@ footer {
 .footer-text { font-size:0.8rem; color:rgba(253,245,238,0.45); }
 .footer-heart { color:var(--pink); }
 
+/* Language */
+[data-lang] { display:none !important; }
+.lang-de [data-lang="de"] { display:block !important; }
+.lang-en [data-lang="en"] { display:block !important; }
+.lang-de [data-lang="de"].inline { display:inline !important; }
+.lang-en [data-lang="en"].inline { display:inline !important; }
+.lang-de [data-lang="de"].grid { display:grid !important; }
+.lang-en [data-lang="en"].grid { display:grid !important; }
+.nav-center { display:flex !important; }
+
 /* ── RESPONSIVE ── */
 @media (max-width:900px) {
   nav { padding:14px 20px; }
@@ -386,23 +396,13 @@ footer {
   .testimonials { padding:60px 24px; }
   .test-grid { grid-template-columns:1fr; }
   .photo-band { height:200px; grid-template-columns:1fr 1fr; }
-  .photo-band .band-3 { display:none; }
+  .photo-band .band-3 { display:none !important; }
   .quote-section { padding:60px 24px; }
   .contact { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
   .impressum { padding:40px 24px; }
   footer { padding:24px; flex-direction:column; gap:10px; text-align:center; }
   .form-row { grid-template-columns:1fr; }
 }
-
-/* Language */
-[data-lang] { display:none; }
-.lang-de [data-lang="de"] { display:block; }
-.lang-en [data-lang="en"] { display:block; }
-.lang-de [data-lang="de"].inline { display:inline; }
-.lang-en [data-lang="en"].inline { display:inline; }
-.lang-de [data-lang="de"].grid { display:grid; }
-.lang-en [data-lang="en"].grid { display:grid; }
-.nav-center { display:flex !important; }
 ```
 
   </style>
@@ -729,4 +729,19 @@ footer {
     <div class="footer-logo">Michaela Guggenbichler</div>
     <div class="footer-text">
       <span data-lang="de" class="inline">Hebamme in Zug, Schweiz</span>
-      <span data-lang="en" class="inline">Midwife in Zug, Switzerla
+      <span data-lang="en" class="inline">Midwife in Zug, Switzerland</span>
+    </div>
+    <div class="footer-text">Made with <span class="footer-heart">♥</span></div>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.body.className = 'lang-' + lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+      });
+    }
+  </script>
+
+</body>
+</html>
