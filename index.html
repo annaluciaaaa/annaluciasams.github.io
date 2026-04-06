@@ -12,15 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --cream:     #f5f0e8;
-      --blush:     #ede6d8;
-      --pink:      #c9a96e;
-      --pink-dark: #a8823a;
-      --pink-deep: #7a5c1e;
-      --sand:      #ddd4c0;
-      --brown:     #2e2a1e;
-      --text:      #3a3428;
-      --text-light:#8a7e68;
+      --cream:     #faf8f4;
+      --blush:     #f0ebe2;
+      --pink:      #b8a898;
+      --pink-dark: #8a7868;
+      --pink-deep: #5a4838;
+      --sand:      #e0d8cc;
+      --brown:     #2a2218;
+      --text:      #382e24;
+      --text-light:#8a7e72;
       --white:     #ffffff;
     }
 
@@ -212,11 +212,12 @@ nav {
 }
 .service-photo-1 {
   background-image:url('Mimi-Baby-blau-Portrait.jpg');
-  background-position:top;
+  background-position:center top;
+  background-size:80%;
 }
 .service-photo-2 {
   background-image:url('Mimi-Baby-gruen.JPG');
-  background-position:top;
+  background-position:center top;
 }
 .service-body { padding:32px; }
 .service-title {
@@ -636,7 +637,7 @@ footer {
         <div class="cd-icon">✉️</div>
         <div>
           <div class="cd-label">E-Mail</div>
-          <div class="cd-value">michi.guggenbichler@bluewin.ch</div>
+          <div class="cd-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1aca8a2a9a8efa6b4a6a6a4afa3a8a2a9ada4b381a3adb4a4b6a8afefa2a9">[email&#160;protected]</a></div>
         </div>
       </div>
     </div>
@@ -679,7 +680,7 @@ footer {
     <p class="impressum-text">
       <strong>Michaela Guggenbichler</strong><br>
       Chamerstrasse 67 · 6300 Zug · Schweiz<br>
-      Tel: +41 79 883 83 39 · michi.guggenbichler@bluewin.ch<br><br>
+      Tel: +41 79 883 83 39 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8b5b1bbb0b1f6bfadbfbfbdb6bab1bbb0b4bdaa98bab4adbdafb1b6f6bbb0">[email&#160;protected]</a><br><br>
       <strong>Haftungshinweis:</strong> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt von verlinkten Seiten sind ausschliesslich deren Betreiber verantwortlich.<br><br>
       <strong>Datenschutz:</strong> Die Sicherheit Ihrer persönlichen Daten ist uns wichtig. Alle Ihre Angaben werden streng vertraulich behandelt und gemäss den Schweizer Datenschutzbestimmungen verarbeitet. Eine Weitergabe der Daten an Dritte erfolgt nicht.
     </p>
@@ -696,14 +697,4 @@ footer {
     <div class="footer-text">Made with <span class="footer-heart">♥</span></div>
   </footer>
 
-  <script>
-    function setLang(lang) {
-      document.body.className = 'lang-' + lang;
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
-      });
-    }
-  </script>
-
-</body>
-</html>
+  <script data-c
