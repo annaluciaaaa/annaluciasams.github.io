@@ -311,7 +311,8 @@ nav {
   box-shadow:0 4px 16px rgba(0,0,0,0.06);
 }
 .cd-label { font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-light); }
-.cd-value { font-size:0.95rem; color:var(--text); margin-top:2px; font-weight:500; }
+.cd-value { font-size:0.95rem; color:var(--text); margin-top:2px; font-weight:500; text-decoration:none; }
+.cd-value a { color:var(--text); text-decoration:none; }
 .contact-form {
   background:white; border-radius:28px; padding:44px;
   box-shadow:0 16px 60px rgba(60,30,20,0.07);
@@ -688,17 +689,10 @@ footer {
         </div>
       </div>
       <div class="contact-detail">
-        <div class="cd-icon">📞</div>
-        <div>
-          <div class="cd-label"><span data-lang="de" class="inline">Telefon</span><span data-lang="en" class="inline">Phone</span></div>
-          <div class="cd-value">+41 79 883 83 39</div>
-        </div>
-      </div>
-      <div class="contact-detail">
         <div class="cd-icon">✉️</div>
         <div>
           <div class="cd-label">E-Mail</div>
-          <div class="cd-value">michi.guggenbichler@bluewin.ch</div>
+          <div class="cd-value" id="email-display">michi.guggenbichler@bluewin.ch</div>
         </div>
       </div>
       <div class="contact-detail">
@@ -709,7 +703,7 @@ footer {
         </div>
       </div>
       <div class="contact-buttons">
-        <a href="mailto:michi.guggenbichler@bluewin.ch" class="contact-btn contact-btn-email">
+        <a id="email-btn" href="#" class="contact-btn contact-btn-email">
           ✉️ <span data-lang="de" class="inline">E-Mail schreiben</span><span data-lang="en" class="inline">Send E-Mail</span>
         </a>
         <a href="https://wa.me/41798838339" target="_blank" class="contact-btn contact-btn-wa">
@@ -730,9 +724,9 @@ footer {
 ```
 <div data-lang="de">
   <p class="impressum-text">
-    <strong>Michaela Guggenbichler</strong><br>
+    <strong>Behütet &amp; Begleitet – Michaela Guggenbichler</strong><br>
     Blegistrasse 1 · 6343 Rotkreuz · Schweiz<br>
-    Tel: +41 79 883 83 39 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="620f0b010a0b4c05170505070c000b010a0e071022000e1707150b0c4c010a">[email&#160;protected]</a><br><br>
+    Tel: +41 79 883 83 39 · michi.guggenbichler@bluewin.ch<br><br>
     <strong>Haftungshinweis:</strong> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt von verlinkten Seiten sind ausschliesslich deren Betreiber verantwortlich.<br><br>
     <strong>Datenschutz:</strong> Die Sicherheit Ihrer persönlichen Daten ist uns wichtig. Alle Ihre Angaben werden streng vertraulich behandelt und gemäss den Schweizer Datenschutzbestimmungen verarbeitet. Eine Weitergabe der Daten an Dritte erfolgt nicht.
   </p>
@@ -740,9 +734,9 @@ footer {
 
 <div data-lang="en">
   <p class="impressum-text">
-    <strong>Michaela Guggenbichler</strong><br>
+    <strong>Behütet &amp; Begleitet – Michaela Guggenbichler</strong><br>
     Blegistrasse 1 · 6343 Rotkreuz · Switzerland<br>
-    Tel: +41 79 883 83 39 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5e33373d363770392b39393b303c373d36323b2c1e3c322b3b293730703d36">[email&#160;protected]</a><br><br>
+    Tel: +41 79 883 83 39 · michi.guggenbichler@bluewin.ch<br><br>
     <strong>Disclaimer:</strong> Despite careful review, we assume no liability for the content of external links. The operators of linked pages are solely responsible for their content.<br><br>
     <strong>Privacy:</strong> The security of your personal data is important to us. All information you provide is treated with strict confidentiality and processed in accordance with Swiss data protection law. Your data will not be passed on to third parties.
   </p>
@@ -757,4 +751,27 @@ footer {
     <div class="footer-logo">Michaela Guggenbichler</div>
     <div class="footer-text">
       <span data-lang="de" class="inline">Hebamme in Zug, Schweiz</span>
-      <span da
+      <span data-lang="en" class="inline">Midwife in Zug, Switzerland</span>
+    </div>
+    <div class="footer-text">Made with <span class="footer-heart">♥</span></div>
+  </footer>
+
+  <script>
+    var u = 'michi.guggenbichler';
+    var d = 'bluewin.ch';
+    var email = u + '@' + d;
+    var display = document.getElementById('email-display');
+    var btn = document.getElementById('email-btn');
+    if (display) display.textContent = email;
+    if (btn) btn.href = 'mailto:' + email;
+
+    function setLang(lang) {
+      document.body.className = 'lang-' + lang;
+      document.querySelectorAll('.lang-btn').forEach(function(b) {
+        b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang);
+      });
+    }
+  </script>
+
+</body>
+</html>
