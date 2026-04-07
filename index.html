@@ -411,23 +411,36 @@ footer {
   .hero-img { background-position:center top; }
   .about { grid-template-columns:1fr; padding:60px 24px; gap:32px; }
   .about-imgs { grid-template-columns:1fr; }
-  /* FIX: About photo not too tall on mobile */
   .about-img-1 { aspect-ratio:4/3; min-height:unset; max-height:320px; }
   .begleitet { padding:60px 24px; }
   .begleitet-inner { grid-template-columns:1fr; gap:32px; }
   .begleitet-img { aspect-ratio:4/3; }
   .services { padding:60px 24px; }
   .services-grid { grid-template-columns:1fr; }
-  .service-photo { height:260px; }
+  .service-photo { height:220px; }
   .testimonials { padding:60px 24px; }
   .test-grid { grid-template-columns:1fr; }
   .photo-band { height:200px; grid-template-columns:1fr 1fr; }
   .photo-band .band-3 { display:none !important; }
   .quote-section { padding:60px 24px; }
   .contact { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
+  .contact-img { min-height:320px; }
   .impressum { padding:40px 24px; }
   footer { padding:24px; flex-direction:column; gap:10px; text-align:center; }
   .form-row { grid-template-columns:1fr; }
+}
+
+/* ── IPAD PORTRAIT (768px–900px) ── */
+@media (min-width:768px) and (max-width:900px) {
+  .hero { grid-template-columns:1fr; }
+  .hero-right { min-height:50vw; max-height:440px; }
+  .hero-img { background-position:center 20%; }
+  .about-img-1 { aspect-ratio:16/9; max-height:380px; }
+  .service-photo { height:260px; }
+  .services-grid { grid-template-columns:1fr 1fr; }
+  .test-grid { grid-template-columns:1fr 1fr; }
+  .contact { grid-template-columns:1fr; }
+  .contact-img { min-height:380px; }
 }
 ```
 
@@ -477,8 +490,8 @@ footer {
         <span data-lang="en">With love, joy<br>and lightness<br>into new life</span>
       </h1>
       <p class="hero-quote">
-        <span data-lang="de">"Es ist mir ein grosses Anliegen, für werdende Eltern einen Platz zu schaffen, wo ihre Babies in Sicherheit, Achtsamkeit und Freude geboren werden. Bei diesem besonderen Anfang möchte ich sie aus ganzem Herzen unterstützen."</span>
-        <span data-lang="en">"It is my heartfelt wish to create a space where babies come into the world with safety, mindfulness and joy. I want to support you wholeheartedly at this very special beginning."</span>
+        <span data-lang="de">"Es ist mir ein grosses Anliegen, junge Familien in den ersten Wochen nach der Geburt liebevoll zu begleiten – denn das Wochenbett ist eine der prägendsten und kostbarsten Zeiten im Leben einer Familie."</span>
+        <span data-lang="en">"It is my heartfelt wish to lovingly accompany young families in the first weeks after birth – because the postnatal period is one of the most formative and precious times in a family's life."</span>
       </p>
       <a href="#contact" class="btn-primary">
         <span data-lang="de" class="inline">Kontaktieren Sie mich</span>
@@ -513,12 +526,12 @@ footer {
           <span data-lang="en">Safe &amp; supported</span>
         </h2>
         <p class="begleitet-text">
-          <span data-lang="de">Ich unterstütze Sie feinfühlig mit meinem Wissen, stärke Sie in Ihrer eigenen Kraft und begleite Sie durch diese spannende Zeit, bis Ihr Baby seinen Weg ins Leben sucht. In enger Zusammenarbeit bereiten wir gemeinsam Ihren Körper auf die Geburt vor, stärken Ihr Selbstvertrauen und binden liebevoll den werdenden Vater ein, dem eine bedeutende Rolle als vertrauensvolle Stütze zukommt.</span>
-          <span data-lang="en">I support you sensitively with my knowledge, strengthen you in your own power, and accompany you through this exciting time. Together we prepare your body for birth, build your confidence, and lovingly involve the father-to-be, who plays an important role as a trusted support.</span>
+          <span data-lang="de">Ich unterstütze Sie feinfühlig mit meinem Wissen und begleite Sie durch Schwangerschaft und Wochenbett. Während der Schwangerschaft bereiten wir Sie gemeinsam mental und körperlich auf die bevorstehende Geburt vor, stärken Ihr Selbstvertrauen und binden liebevoll den werdenden Vater ein.</span>
+          <span data-lang="en">I support you sensitively with my knowledge and accompany you through pregnancy and the postnatal period. During pregnancy, we prepare you together – mentally and physically – for the birth ahead, build your confidence, and lovingly involve the father-to-be.</span>
         </p>
         <p class="begleitet-text" style="margin-top:20px;">
-          <span data-lang="de">Wenn Sie dann Ihr Familienglück zu Hause geniessen, komme ich gern zu Ihnen und betreue Sie und Ihr Baby im Wochenbett – beim Stillen, bei der Babypflege, bei postnatalen Schwierigkeiten jeglicher Art, oder auch nur um Ihnen kleine Freiräume zu schaffen.</span>
-          <span data-lang="en">When you are enjoying your family happiness at home, I come to you and care for you and your baby during the postnatal period – with breastfeeding, baby care, postnatal challenges of any kind, or simply to give you a little breathing space.</span>
+          <span data-lang="de">Die Geburt selbst begleite ich nicht – aber sobald Ihr Baby da ist, komme ich zu Ihnen nach Hause und betreue Sie und Ihr Kleines einfühlsam durch das Wochenbett: beim Stillen, bei der Babypflege, bei postnatalen Schwierigkeiten jeglicher Art, oder einfach um Ihnen kleine Freiräume zu schaffen.</span>
+          <span data-lang="en">I do not attend the birth itself – but as soon as your baby has arrived, I come to your home and care for you and your little one through the postnatal period: with breastfeeding, baby care, postnatal challenges of any kind, or simply to give you a little breathing space.</span>
         </p>
       </div>
     </div>
@@ -545,8 +558,8 @@ footer {
         <span data-lang="en">I have devoted my life to the smallest ones and their arrival in the world. From a young age, this was my calling, and so I trained as a certified midwife. After wonderful years in Vienna, where I built and led the maternity ward of a renowned private clinic for over 10 years, my path led me to Switzerland. There I worked for many years at the Andreasklinik in Cham (Zug) – and now I am here for you as an independent midwife.</span>
       </p>
       <p class="body-text">
-        <span data-lang="de">Ich baue auf eine ganzheitliche Sichtweise der Frau, die die Geburt eines Kindes zu einem unvergesslichen, wunderschönen Ereignis werden lässt. Durch meine stete Fort- und Weiterbildung konnte ich mir dieses Wissen aneignen und Ihnen eine umfassende Betreuung garantieren. Werdende Eltern sollen sich und ihr Baby gut bei mir aufgehoben fühlen – dafür gebe ich mein Bestes.</span>
-        <span data-lang="en">I believe in a holistic approach that makes the birth of a child an unforgettable, beautiful event. Through continuous professional development I can guarantee you comprehensive care. Expecting parents should feel truly safe and at home with me – I give my very best for that.</span>
+        <span data-lang="de">Mein Herz schlägt für die Begleitung junger Familien – in der Schwangerschaft und ganz besonders im Wochenbett. Mit Einfühlungsvermögen, Fachwissen und ganzheitlichem Blick stehe ich Ihnen zur Seite, damit Sie und Ihr Baby den bestmöglichen Start ins gemeinsame Leben erleben. Durch meine stete Fort- und Weiterbildung kann ich Ihnen eine umfassende, liebevolle Betreuung garantieren – dafür gebe ich mein Bestes.</span>
+        <span data-lang="en">My heart beats for accompanying young families – during pregnancy and especially in the postnatal weeks. With empathy, expertise, and a holistic approach, I am by your side so that you and your baby can experience the best possible start to life together. Through continuous professional development, I can guarantee you comprehensive, loving care – I give my very best for that.</span>
       </p>
       <div class="pill-list">
         <span class="pill"><span data-lang="de" class="inline">Einfühlsam</span><span data-lang="en" class="inline">Empathetic</span></span>
@@ -581,14 +594,14 @@ footer {
             <span data-lang="en" class="inline">Pregnancy</span>
           </h3>
           <p class="service-text">
-            <span data-lang="de">Einfühlsame Begleitung und Beratung während Ihrer gesamten Schwangerschaft.</span>
-            <span data-lang="en">Empathetic support and guidance throughout your entire pregnancy.</span>
+            <span data-lang="de">Einfühlsame Begleitung und Beratung während Ihrer gesamten Schwangerschaft – damit Sie gut vorbereitet und gestärkt ins Wochenbett gehen.</span>
+            <span data-lang="en">Empathetic support and guidance throughout your entire pregnancy – so you feel well prepared and confident as you approach the postnatal period.</span>
           </p>
           <ul class="service-list">
-            <li><span data-lang="de" class="inline">Geburtsvorbereitung für werdende Eltern</span><span data-lang="en" class="inline">Birth preparation for expectant parents</span></li>
-            <li><span data-lang="de" class="inline">Informationsabende zur Geburtshilfe</span><span data-lang="en" class="inline">Information evenings on obstetrics</span></li>
-            <li><span data-lang="de" class="inline">Mentale Geburtsvorbereitung</span><span data-lang="en" class="inline">Mental preparation for birth</span></li>
-            <li><span data-lang="de" class="inline">Körperarbeit durch den Partner</span><span data-lang="en" class="inline">Partner-supported bodywork</span></li>
+            <li><span data-lang="de" class="inline">Schwangerschaftsbegleitung & Beratung</span><span data-lang="en" class="inline">Pregnancy support & counselling</span></li>
+            <li><span data-lang="de" class="inline">Mentale & körperliche Vorbereitung</span><span data-lang="en" class="inline">Mental & physical preparation</span></li>
+            <li><span data-lang="de" class="inline">Körperarbeit mit dem Partner</span><span data-lang="en" class="inline">Bodywork with the partner</span></li>
+            <li><span data-lang="de" class="inline">Atemtechniken</span><span data-lang="en" class="inline">Breathing techniques</span></li>
             <li><span data-lang="de" class="inline">Homöopathie & Schüssler Salze</span><span data-lang="en" class="inline">Homeopathy & Schuessler salts</span></li>
           </ul>
         </div>
@@ -610,6 +623,7 @@ footer {
             <li><span data-lang="de" class="inline">Babymassage & Babypflege</span><span data-lang="en" class="inline">Baby massage & care</span></li>
             <li><span data-lang="de" class="inline">Rückbildungs- & Beckenbodengymnastik</span><span data-lang="en" class="inline">Postnatal recovery exercises</span></li>
             <li><span data-lang="de" class="inline">Aromatherapie & Ayurveda Fussmassage</span><span data-lang="en" class="inline">Aromatherapy & Ayurveda massage</span></li>
+            <li><span data-lang="de" class="inline">Lasertherapie & Behandlung bei Rektusdiastase</span><span data-lang="en" class="inline">Laser therapy & treatment for diastasis recti</span></li>
           </ul>
         </div>
       </div>
@@ -660,8 +674,8 @@ footer {
 
   <section class="quote-section">
     <p class="quote-text">
-      <span data-lang="de">"Die Geburt eines Kindes ist nicht nur der Beginn eines neuen Lebens – es ist auch die Geburt einer Mutter. Ich bin da, um Sie auf diesem wunderschönen Weg aus ganzem Herzen zu begleiten."</span>
-      <span data-lang="en">"The birth of a child is not only the beginning of a new life – it is also the birth of a mother. I am here to accompany you on this beautiful journey with all my heart."</span>
+      <span data-lang="de">"Das Wochenbett ist eine der wertvollsten und verletzlichsten Zeiten im Leben einer Familie. Ich bin da, um Sie mit ganzem Herzen zu begleiten – damit dieser Beginn so schön und geborgen wird, wie er sein sollte."</span>
+      <span data-lang="en">"The postnatal period is one of the most precious and vulnerable times in a family's life. I am here to accompany you wholeheartedly – so that this beginning becomes as beautiful and safe as it should be."</span>
     </p>
     <p class="quote-author">— Michaela Guggenbichler</p>
   </section>
@@ -757,16 +771,22 @@ footer {
     <div class="footer-text">Made with <span class="footer-heart">♥</span></div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
+    var u = 'michi.guggenbichler';
+    var d = 'bluewin.ch';
+    var email = u + '@' + d;
+    var display = document.getElementById('email-display');
+    var btn = document.getElementById('email-btn');
+    if (display) display.textContent = email;
+    if (btn) btn.href = 'mailto:' + email;
 
-```
-var u = 'michi.guggenbichler';
-var d = 'bluewin.ch';
-var email = u + '@' + d;
-var display = document.getElementById('email-display');
-var btn = document.getElementById('email-btn');
-if (display) display.textContent = email;
-if (btn) btn.href = 'mailto:' + email;
+    function setLang(lang) {
+      document.body.className = 'lang-' + lang;
+      document.querySelectorAll('.lang-btn').forEach(function(b) {
+        b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang);
+      });
+    }
+  </script>
 
-function setLang(lang) {
-```
+</body>
+</html>
