@@ -1,792 +1,166 @@
 <!DOCTYPE html>
 
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Michaela Guggenbichler – Hebamme in Zug</title>
-  <meta name="description" content="Hebamme in Zug – Michaela Guggenbichler begleitet Sie einfühlsam durch Schwangerschaft und Wochenbett. Über 40 Jahre Erfahrung. Zug, Schweiz."/>
-  <meta name="keywords" content="Hebamme Zug, Hebamme Schweiz, Schwangerschaft Zug, Wochenbett Zug, Stillberatung Zug, Midwife Zug, Midwife Switzerland, Michaela Guggenbichler"/>
-  <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://hebamme-zug.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <title>Anna Lucia Sams</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Montserrat:wght@200;300&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --cream:     #faf8f4;
-      --blush:     #e4ddd2;
-      --pink:      #b8a898;
-      --pink-dark: #8a7868;
-      --pink-deep: #5a4838;
-      --sand:      #e0d8cc;
-      --brown:     #2a2218;
-      --text:      #382e24;
-      --text-light:#8a7e72;
-      --white:     #ffffff;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 ```
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
-  font-family:'Nunito', sans-serif;
-  background:var(--blush);
-  color:var(--text);
-  overflow-x:hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ── NAV ── */
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  padding:16px 56px;
-  display:flex; justify-content:space-between; align-items:center;
-  background:rgba(253,245,238,0.95);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(212,132,90,0.2);
-}
-.nav-logo {
-  font-family:'Cormorant Garamond', serif;
-  font-size:1.15rem; font-weight:600;
-  color:var(--pink-deep); letter-spacing:0.5px;
-}
-.nav-center { display:flex; gap:36px; list-style:none; }
-.nav-center a {
-  text-decoration:none; font-size:0.82rem; font-weight:500;
-  letter-spacing:2px; text-transform:uppercase;
-  color:var(--text-light); transition:color 0.3s;
-}
-.nav-center a:hover { color:var(--pink-dark); }
-.lang-toggle { display:flex; gap:4px; align-items:center; }
-.lang-btn {
-  background:none; border:none; cursor:pointer;
-  font-family:'Nunito', sans-serif;
-  font-size:0.82rem; font-weight:600;
-  letter-spacing:1px; padding:6px 10px;
-  border-radius:20px; transition:all 0.2s;
-  color:var(--text-light);
-}
-.lang-btn.active { background:var(--pink); color:white; }
-.lang-sep { color:var(--sand); font-size:0.8rem; }
-
-/* ── HERO ── */
-.hero {
-  min-height:100vh;
-  display:grid; grid-template-columns:1fr 1fr;
-  align-items:stretch; padding-top:60px;
-  background:var(--blush);
-}
-.hero-left {
-  display:flex; flex-direction:column; justify-content:center;
-  padding:80px 60px 80px 72px;
-  animation:fadeInLeft 1s ease forwards; opacity:0;
-}
-@keyframes fadeInLeft {
-  from { opacity:0; transform:translateX(-24px); }
-  to   { opacity:1; transform:translateX(0); }
-}
-.hero-tag {
-  display:inline-block;
-  font-size:0.75rem; letter-spacing:3px; text-transform:uppercase;
-  color:var(--pink-dark); margin-bottom:20px;
-  padding:7px 18px; border:1px solid var(--pink);
-  border-radius:30px; width:fit-content;
-}
-.hero h1 {
-  font-family:'Cormorant Garamond', serif;
-  font-size:clamp(2.6rem,4.5vw,4rem);
-  font-weight:400; line-height:1.15; color:var(--brown); margin-bottom:20px;
-}
-.hero h1 em { font-style:normal; color:inherit; }
-.hero-quote {
-  font-family:'Cormorant Garamond', serif;
-  font-size:1rem; font-style:italic; color:var(--text-light);
-  line-height:1.7; max-width:440px; margin-bottom:36px;
-  padding-left:16px; border-left:2px solid var(--pink);
-}
-.btn-primary {
-  display:inline-block; background:var(--pink-dark);
-  color:white; text-decoration:none;
-  padding:15px 36px; border-radius:50px;
-  font-size:0.9rem; font-weight:600; letter-spacing:1px;
-  transition:all 0.3s; width:fit-content;
-}
-.btn-primary:hover { background:var(--pink-deep); transform:translateY(-2px); }
-.hero-right {
-  position:relative; overflow:hidden;
-  animation:fadeInRight 1s ease 0.3s forwards; opacity:0;
-}
-@keyframes fadeInRight {
-  from { opacity:0; transform:translateX(24px); }
-  to   { opacity:1; transform:translateX(0); }
-}
-.hero-img {
-  width:100%; height:100%; object-fit:cover;
-  background-image:url('Mimi-Baby-hoch.JPG');
-  background-size:cover; background-position:center top;
-  min-height:600px;
-}
-.hero-overlay {
-  position:absolute; inset:0;
-  background:linear-gradient(to right, rgba(253,245,238,0.15), transparent);
-}
-.hero-card {
-  position:absolute; bottom:48px; left:-24px;
-  background:white; border-radius:20px; padding:20px 28px;
-  box-shadow:0 20px 60px rgba(60,30,20,0.12); z-index:2;
-}
-.hero-card-title {
-  font-family:'Cormorant Garamond', serif;
-  font-size:1.1rem; color:var(--brown); font-weight:600;
-}
-.hero-card-sub { font-size:0.8rem; color:var(--text-light); margin-top:2px; }
-
-/* ── ABOUT ── */
-.about {
-  background:var(--blush); padding:100px 72px;
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:80px; align-items:center;
-}
-.about-imgs {
-  display:grid; grid-template-columns:1fr;
-  gap:16px; position:relative;
-}
-.about-img {
-  border-radius:24px; overflow:hidden;
-  background-size:cover; background-position:center;
-}
-.about-img-1 {
-  background-image:url('Mimi-tanzen.JPG');
-  aspect-ratio:unset;
-  height:100%;
-  min-height:600px;
-  border-radius:24px;
-  background-position:center;
-}
-.about-img-2 { display:none; }
-.section-eyebrow {
-  font-size:0.75rem; letter-spacing:3px; text-transform:uppercase;
-  color:var(--pink-dark); margin-bottom:14px; display:block;
-}
-.section-title {
-  font-family:'Cormorant Garamond', serif;
-  font-size:clamp(1.8rem,3vw,2.6rem);
-  font-weight:400; line-height:1.2; color:var(--brown); margin-bottom:22px;
-}
-.section-title em { font-style:normal; color:inherit; }
-.body-text {
-  font-size:0.97rem; font-weight:300; color:var(--text-light);
-  line-height:1.9; margin-bottom:16px;
-}
-.pill-list { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
-.pill {
-  background:white; border:1px solid var(--pink);
-  color:var(--pink-deep); padding:7px 18px; border-radius:30px;
-  font-size:0.82rem; font-weight:500;
+/* Misty mountain sunrise background */
+.bg {
+  position: fixed;
+  inset: 0;
+  background-image: url('https://stockcake.com/i/misty-mountain-sunrise_1368542_1126596');
+  background-size: cover;
+  background-position: center 40%;
+  z-index: 0;
+  animation: slowZoom 25s ease-in-out infinite alternate;
 }
 
-/* ── BEGLEITET ── */
-.begleitet { background:var(--blush); padding:100px 72px; }
-.begleitet-inner {
-  max-width:800px; margin:0 auto; text-align:center;
-}
-.begleitet-img { display:none; }
-.begleitet-content { text-align:center; }
-.begleitet-text {
-  font-family:'Cormorant Garamond', serif;
-  font-size:clamp(1rem,1.8vw,1.2rem);
-  font-weight:300; font-style:italic;
-  color:var(--text-light); line-height:1.9; margin-bottom:16px;
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); }
 }
 
-/* ── SERVICES ── */
-.services { padding:100px 72px; background:var(--blush); }
-.services-header { text-align:center; max-width:580px; margin:0 auto 60px; }
-.services-grid {
-  display:grid; grid-template-columns:repeat(2,1fr); gap:28px;
-  max-width:900px; margin:0 auto;
-}
-.service-card {
-  background:white; border-radius:28px; overflow:hidden;
-  box-shadow:0 4px 30px rgba(60,30,20,0.06);
-  transition:transform 0.3s, box-shadow 0.3s;
-  border:1px solid rgba(212,132,90,0.15);
-}
-.service-card:hover {
-  transform:translateY(-6px);
-  box-shadow:0 24px 60px rgba(184,98,46,0.15);
-}
-.service-photo {
-  width:100%; height:240px;
-  background-size:cover; background-position:center;
-}
-.service-photo-1 {
-  background-image:url('Schwangerschaft.jpg');
-  background-position:center;
-}
-.service-photo-2 {
-  background-image:url('Mimi-Familie.JPG');
-  background-position:center top;
-}
-.service-body { padding:32px; }
-.service-title {
-  font-family:'Cormorant Garamond', serif;
-  font-size:1.4rem; color:var(--brown); margin-bottom:12px; font-weight:600;
-}
-.service-text {
-  font-size:0.88rem; font-weight:300; color:var(--text-light);
-  line-height:1.8; margin-bottom:18px;
-}
-.service-list { list-style:none; }
-.service-list li {
-  font-size:0.85rem; color:var(--text-light);
-  padding:5px 0; border-bottom:1px solid var(--blush);
-  display:flex; gap:8px; align-items:center;
-}
-.service-list li::before {
-  content:''; width:5px; height:5px;
-  border-radius:50%; background:var(--pink); flex-shrink:0;
+/* Warm golden overlay — matches sunrise palette */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 200, 120, 0.08) 0%,
+    rgba(180, 100, 40, 0.15) 40%,
+    rgba(30, 20, 10, 0.55) 100%
+  );
+  z-index: 1;
 }
 
-/* ── TESTIMONIALS ── */
-.testimonials { background:var(--blush); padding:100px 72px; }
-.test-header { text-align:center; max-width:560px; margin:0 auto 56px; }
-.test-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:28px; }
-.test-card {
-  background:white; border-radius:20px; padding:36px;
-  box-shadow:0 4px 24px rgba(60,30,20,0.06);
-  border:1px solid rgba(212,132,90,0.1); position:relative;
-}
-.test-quote {
-  font-family:'Cormorant Garamond', serif;
-  font-size:3rem; color:var(--blush); line-height:1;
-  position:absolute; top:20px; left:28px;
-}
-.test-text {
-  font-size:0.92rem; font-weight:300; color:var(--text-light);
-  line-height:1.85; margin-top:20px; font-style:italic;
-}
-.test-author {
-  margin-top:20px; font-size:0.78rem; font-weight:600;
-  color:var(--pink-dark); letter-spacing:1px; text-transform:uppercase;
+/* Content */
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
 }
 
-/* ── PHOTO BAND ── */
-.photo-band {
-  display:grid; grid-template-columns:1.2fr 0.8fr 1fr;
-  height:380px; overflow:hidden;
-}
-.band-img {
-  background-size:cover; background-position:center;
-  transition:transform 0.6s ease;
-}
-.band-img:hover { transform:scale(1.04); }
-.band-1 { background-image:url('Mimi-Familie.JPG'); }
-.band-2 { background-image:url('Mimi-Baby-hoch.JPG'); background-position:center; }
-.band-3 { background-image:url('Mimi-tanzen.JPG'); background-position:top; }
-
-/* ── QUOTE ── */
-.quote-section { background:var(--pink-deep); padding:80px 72px; text-align:center; }
-.quote-text {
-  font-family:'Cormorant Garamond', serif;
-  font-size:clamp(1.4rem,2.5vw,2.1rem);
-  font-style:italic; font-weight:300;
-  color:white; max-width:780px; margin:0 auto; line-height:1.65;
-}
-.quote-author { margin-top:22px; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; color:var(--pink); }
-
-/* ── CONTACT ── */
-.contact {
-  padding:100px 72px; background:var(--blush);
-  display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start;
-}
-.contact-info h2 {
-  font-family:'Cormorant Garamond', serif;
-  font-size:clamp(1.8rem,3vw,2.6rem);
-  font-weight:400; color:var(--brown); margin-bottom:18px; line-height:1.2;
-}
-.contact-info h2 em { font-style:normal; color:inherit; }
-.contact-detail { display:flex; align-items:flex-start; gap:16px; margin-bottom:20px; }
-.cd-icon {
-  width:46px; height:46px; background:white;
-  border-radius:14px; display:flex; align-items:center;
-  justify-content:center; font-size:1.1rem; flex-shrink:0;
-  box-shadow:0 4px 16px rgba(0,0,0,0.06);
-}
-.cd-label { font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-light); }
-.cd-value { font-size:0.95rem; color:var(--text); margin-top:2px; font-weight:500; text-decoration:none; }
-.cd-value a { color:var(--text); text-decoration:none; }
-.contact-form {
-  background:white; border-radius:28px; padding:44px;
-  box-shadow:0 16px 60px rgba(60,30,20,0.07);
-}
-.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.form-group { margin-bottom:18px; }
-.form-label {
-  display:block; font-size:0.75rem; font-weight:600;
-  letter-spacing:1.5px; text-transform:uppercase;
-  color:var(--text-light); margin-bottom:8px;
-}
-.form-input, .form-textarea, .form-select {
-  width:100%; padding:13px 16px;
-  border:1.5px solid var(--sand); border-radius:12px;
-  font-family:'Nunito', sans-serif; font-size:0.92rem;
-  color:var(--text); background:var(--cream);
-  transition:border-color 0.3s; outline:none;
-}
-.form-input:focus, .form-textarea:focus, .form-select:focus { border-color:var(--pink-dark); }
-.form-textarea { height:110px; resize:vertical; }
-.form-submit {
-  width:100%; padding:15px; background:var(--pink-dark);
-  color:white; border:none; border-radius:50px;
-  font-family:'Nunito', sans-serif; font-size:0.92rem;
-  font-weight:600; letter-spacing:1px; cursor:pointer;
-  transition:all 0.3s; margin-top:4px;
-}
-.form-submit:hover { background:var(--pink-deep); transform:translateY(-2px); }
-
-.contact-buttons {
-  display:flex; gap:16px; margin-top:36px; flex-wrap:wrap;
-}
-.contact-btn {
-  display:inline-flex; align-items:center; gap:10px;
-  padding:14px 28px; border-radius:50px;
-  font-family:'Nunito', sans-serif; font-size:0.9rem;
-  font-weight:600; text-decoration:none; letter-spacing:0.5px;
-  transition:all 0.3s;
-}
-.contact-btn-email {
-  background:var(--pink-dark); color:white;
-}
-.contact-btn-email:hover { background:var(--pink-deep); transform:translateY(-2px); }
-.contact-btn-wa {
-  background:#25D366; color:white;
-}
-.contact-btn-wa:hover { background:#1da851; transform:translateY(-2px); }
-.contact-image {
-  position:relative; overflow:hidden; border-radius:24px;
-}
-.contact-img {
-  width:100%; height:100%; min-height:500px;
-  background-image:url('Mimi-Baby-blau-Portrait.jpg');
-  background-size:cover; background-position:center top;
-  border-radius:24px;
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(5rem, 15vw, 11rem);
+  font-weight: 300;
+  color: #fff8f0;
+  letter-spacing: 8px;
+  line-height: 1;
+  text-shadow: 0 2px 50px rgba(200, 100, 20, 0.4), 0 4px 80px rgba(0,0,0,0.3);
+  animation: fadeUp 2s ease 0.2s forwards;
+  opacity: 0;
 }
 
-/* ── IMPRESSUM ── */
-.impressum {
-  padding:60px 72px; background:var(--blush);
-  border-top:1px solid var(--sand);
-}
-.impressum-title {
-  font-family:'Cormorant Garamond', serif;
-  font-size:1.3rem; color:var(--brown); margin-bottom:16px;
-}
-.impressum-text { font-size:0.78rem; color:var(--text-light); line-height:1.9; max-width:700px; }
-
-/* ── FOOTER ── */
-footer {
-  background:var(--brown); padding:36px 72px;
-  display:flex; justify-content:space-between; align-items:center;
-}
-.footer-logo { font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:var(--cream); }
-.footer-text { font-size:0.8rem; color:rgba(253,245,238,0.45); }
-.footer-heart { color:var(--pink); }
-
-/* Language */
-[data-lang] { display:none !important; }
-.lang-de [data-lang="de"] { display:block !important; }
-.lang-en [data-lang="en"] { display:block !important; }
-.lang-de [data-lang="de"].inline { display:inline !important; }
-.lang-en [data-lang="en"].inline { display:inline !important; }
-.lang-de [data-lang="de"].grid { display:grid !important; }
-.lang-en [data-lang="en"].grid { display:grid !important; }
-.nav-center { display:flex !important; }
-
-/* ── RESPONSIVE ── */
-@media (max-width:900px) {
-  nav { padding:14px 20px; }
-  .nav-center { display:none !important; }
-  .hero { grid-template-columns:1fr; }
-  .hero-right { min-height:70vw; max-height:500px; }
-  .hero-left { padding:36px 24px; }
-  .hero-img { background-position:center top; }
-  .about { grid-template-columns:1fr; padding:60px 24px; gap:32px; }
-  .about-imgs { grid-template-columns:1fr; }
-  .about-img-1 { aspect-ratio:4/3; min-height:unset; max-height:320px; }
-  .begleitet { padding:60px 24px; }
-  .begleitet-inner { grid-template-columns:1fr; gap:32px; }
-  .begleitet-img { aspect-ratio:4/3; }
-  .services { padding:60px 24px; }
-  .services-grid { grid-template-columns:1fr; }
-  .service-photo { height:220px; }
-  .testimonials { padding:60px 24px; }
-  .test-grid { grid-template-columns:1fr; }
-  .photo-band { height:200px; grid-template-columns:1fr 1fr; }
-  .photo-band .band-3 { display:none !important; }
-  .quote-section { padding:60px 24px; }
-  .contact { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
-  .contact-img { min-height:320px; }
-  .impressum { padding:40px 24px; }
-  footer { padding:24px; flex-direction:column; gap:10px; text-align:center; }
-  .form-row { grid-template-columns:1fr; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── IPAD PORTRAIT (768px–900px) ── */
-@media (min-width:768px) and (max-width:900px) {
-  .hero { grid-template-columns:1fr; }
-  .hero-right { min-height:50vw; max-height:440px; }
-  .hero-img { background-position:center 20%; }
-  .about-img-1 { aspect-ratio:16/9; max-height:380px; }
-  .service-photo { height:260px; }
-  .services-grid { grid-template-columns:1fr 1fr; }
-  .test-grid { grid-template-columns:1fr 1fr; }
-  .contact { grid-template-columns:1fr; }
-  .contact-img { min-height:380px; }
+.there {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: 14px;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  color: #ffe8c8;
+  margin-top: -10px;
+  text-shadow: 0 2px 40px rgba(200, 100, 20, 0.35), 0 4px 60px rgba(0,0,0,0.3);
+  animation: fadeUp 2s ease 0.6s forwards;
+  opacity: 0;
+}
+
+.line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,220,160,0.7), transparent);
+  margin: 28px auto;
+  animation: fadeUp 2s ease 1.1s forwards;
+  opacity: 0;
+}
+
+.name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: clamp(0.65rem, 1.8vw, 0.95rem);
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: rgba(255, 235, 200, 0.8);
+  animation: fadeUp 2s ease 1.4s forwards;
+  opacity: 0;
+}
+
+.coming-soon {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: clamp(0.6rem, 1.6vw, 0.85rem);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255, 220, 170, 0.6);
+  margin-top: 20px;
+  animation: fadeUp 2s ease 1.7s forwards;
+  opacity: 0;
+}
+
+.coming-soon .star {
+  color: rgba(255, 210, 130, 0.85);
+  margin-left: 6px;
+  font-size: 0.9em;
+}
+
+.bottom-note {
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(0.75rem, 1.8vw, 1rem);
+  color: rgba(255, 225, 185, 0.4);
+  letter-spacing: 2px;
+  animation: fadeUp 2s ease 2.1s forwards;
+  opacity: 0;
 }
 ```
 
   </style>
 </head>
-<body class="lang-de">
+<body>
 
-  <!-- NAV -->
+  <div class="bg"></div>
+  <div class="overlay"></div>
 
-  <nav>
-    <div class="nav-logo">Michaela Guggenbichler</div>
-    <ul class="nav-center">
-      <li><a href="#begleitet">
-        <span data-lang="de" class="inline">Ich begleite euch</span>
-        <span data-lang="en" class="inline">My Care</span>
-      </a></li>
-      <li><a href="#about">
-        <span data-lang="de" class="inline">Über mich</span>
-        <span data-lang="en" class="inline">About</span>
-      </a></li>
-      <li><a href="#services">
-        <span data-lang="de" class="inline">Leistungen</span>
-        <span data-lang="en" class="inline">Services</span>
-      </a></li>
-      <li><a href="#contact">
-        <span data-lang="de" class="inline">Kontakt</span>
-        <span data-lang="en" class="inline">Contact</span>
-      </a></li>
-    </ul>
-    <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('de')">DE</button>
-      <span class="lang-sep">|</span>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-
-  <section class="hero">
-    <div class="hero-left">
-      <span class="hero-tag">
-        <span data-lang="de" class="inline">Wochenbetthebamme in Zug, Schweiz</span>
-        <span data-lang="en" class="inline">Postnatal Midwife in Zug, Switzerland</span>
-      </span>
-      <h1>
-        <span data-lang="de">Mit Liebe, Freude<br>und Leichtigkeit<br>ins neue Leben</span>
-        <span data-lang="en">With love, joy<br>and lightness<br>into new life</span>
-      </h1>
-      <p class="hero-quote">
-        <span data-lang="de">"Es ist mir ein grosses Anliegen, junge Familien in den ersten Wochen nach der Geburt liebevoll zu begleiten – denn das Wochenbett ist eine der prägendsten und kostbarsten Zeiten im Leben einer Familie."</span>
-        <span data-lang="en">"It is my heartfelt wish to lovingly accompany young families in the first weeks after birth – because the postnatal period is one of the most formative and precious times in a family's life."</span>
-      </p>
-      <a href="#contact" class="btn-primary">
-        <span data-lang="de" class="inline">Kontaktieren Sie mich</span>
-        <span data-lang="en" class="inline">Get in touch</span>
-      </a>
-    </div>
-    <div class="hero-right">
-      <div class="hero-img"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-card">
-        <div class="hero-card-title">
-          <span data-lang="de" class="inline">Mit Liebe &amp; 40 Jahren Erfahrung</span>
-          <span data-lang="en" class="inline">With love &amp; 40 years of experience</span>
-        </div>
-        <div class="hero-card-sub">Zug, Schweiz</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BEHÜTET & BEGLEITET -->
-
-  <section class="begleitet" id="begleitet">
-    <div class="begleitet-inner">
-      <div class="begleitet-img"></div>
-      <div class="begleitet-content">
-        <span class="section-eyebrow" style="display:block;">
-          <span data-lang="de" class="inline">Ich begleite euch</span>
-          <span data-lang="en" class="inline">My care for you</span>
-        </span>
-        <h2 class="section-title" style="margin-bottom:36px;">
-          <span data-lang="de">Behütet &amp; begleitet</span>
-          <span data-lang="en">Safe &amp; supported</span>
-        </h2>
-        <p class="begleitet-text">
-          <span data-lang="de">Ich unterstütze Sie feinfühlig mit meinem Wissen und begleite Sie durch Schwangerschaft und Wochenbett. Während der Schwangerschaft bereiten wir Sie gemeinsam mental und körperlich auf die bevorstehende Geburt vor, stärken Ihr Selbstvertrauen und binden liebevoll den werdenden Vater ein.</span>
-          <span data-lang="en">I support you sensitively with my knowledge and accompany you through pregnancy and the postnatal period. During pregnancy, we prepare you together – mentally and physically – for the birth ahead, build your confidence, and lovingly involve the father-to-be.</span>
-        </p>
-        <p class="begleitet-text" style="margin-top:20px;">
-          <span data-lang="de">Die Geburt selbst begleite ich nicht – aber sobald Ihr Baby da ist, komme ich zu Ihnen nach Hause und betreue Sie und Ihr Kleines einfühlsam durch das Wochenbett: beim Stillen, bei der Babypflege, bei postnatalen Schwierigkeiten jeglicher Art, oder einfach um Ihnen kleine Freiräume zu schaffen.</span>
-          <span data-lang="en">I do not attend the birth itself – but as soon as your baby has arrived, I come to your home and care for you and your little one through the postnatal period: with breastfeeding, baby care, postnatal challenges of any kind, or simply to give you a little breathing space.</span>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-
-  <section class="about" id="about">
-    <div class="about-imgs">
-      <div class="about-img about-img-1"></div>
-      <div class="about-img about-img-2"></div>
-    </div>
-    <div>
-      <span class="section-eyebrow">
-        <span data-lang="de" class="inline">Über mich</span>
-        <span data-lang="en" class="inline">About me</span>
-      </span>
-      <h2 class="section-title">
-        <span data-lang="de">Ich bin Michaela –<br>Ihre Hebamme</span>
-        <span data-lang="en">I am Michaela –<br>your midwife</span>
-      </h2>
-      <p class="body-text">
-        <span data-lang="de">Ich habe mein Leben den Kleinsten, ihrem Weg und ihrer Ankunft im Leben verschrieben. Schon in Jugendjahren war mir dieser Wunsch klar und so nahm meine Ausbildung zur diplomierten Hebamme ihren Lauf. Nach schönen Jahren in Wien, wo ich u.a. die Geburtenstation einer renommierten Wiener Privatklinik aufbauen und über 10 Jahre leiten durfte, führte mich mein Weg in die Schweiz. Dort war ich viele Jahre lang an der Andreasklinik in Cham (Zug) tätig – und bin nun als selbständige Hebamme für Sie da.</span>
-        <span data-lang="en">I have devoted my life to the smallest ones and their arrival in the world. From a young age, this was my calling, and so I trained as a certified midwife. After wonderful years in Vienna, where I built and led the maternity ward of a renowned private clinic for over 10 years, my path led me to Switzerland. There I worked for many years at the Andreasklinik in Cham (Zug) – and now I am here for you as an independent midwife.</span>
-      </p>
-      <p class="body-text">
-        <span data-lang="de">Mein Herz schlägt für die Begleitung junger Familien – in der Schwangerschaft und ganz besonders im Wochenbett. Mit Einfühlungsvermögen, Fachwissen und ganzheitlichem Blick stehe ich Ihnen zur Seite, damit Sie und Ihr Baby den bestmöglichen Start ins gemeinsame Leben erleben. Durch meine stete Fort- und Weiterbildung kann ich Ihnen eine umfassende, liebevolle Betreuung garantieren – dafür gebe ich mein Bestes.</span>
-        <span data-lang="en">My heart beats for accompanying young families – during pregnancy and especially in the postnatal weeks. With empathy, expertise, and a holistic approach, I am by your side so that you and your baby can experience the best possible start to life together. Through continuous professional development, I can guarantee you comprehensive, loving care – I give my very best for that.</span>
-      </p>
-      <div class="pill-list">
-        <span class="pill"><span data-lang="de" class="inline">Einfühlsam</span><span data-lang="en" class="inline">Empathetic</span></span>
-        <span class="pill"><span data-lang="de" class="inline">Langjährige Erfahrung</span><span data-lang="en" class="inline">Years of experience</span></span>
-        <span class="pill"><span data-lang="de" class="inline">Wärme &amp; Vertrauen</span><span data-lang="en" class="inline">Warmth &amp; trust</span></span>
-        <span class="pill"><span data-lang="de" class="inline">Kompetenz</span><span data-lang="en" class="inline">Competence</span></span>
-        <span class="pill"><span data-lang="de" class="inline">Sicherheit</span><span data-lang="en" class="inline">Security</span></span>
-        <span class="pill"><span data-lang="de" class="inline">Ganzheitlich</span><span data-lang="en" class="inline">Holistic</span></span>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-
-  <section class="services" id="services">
-    <div class="services-header">
-      <span class="section-eyebrow">
-        <span data-lang="de" class="inline">Meine Leistungen</span>
-        <span data-lang="en" class="inline">My Services</span>
-      </span>
-      <h2 class="section-title">
-        <span data-lang="de">Begleitung mit Herz<br>in jeder Phase</span>
-        <span data-lang="en">Caring support with heart<br>at every stage</span>
-      </h2>
-    </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-photo service-photo-1"></div>
-        <div class="service-body">
-          <h3 class="service-title">
-            <span data-lang="de" class="inline">Schwangerschaft</span>
-            <span data-lang="en" class="inline">Pregnancy</span>
-          </h3>
-          <p class="service-text">
-            <span data-lang="de">Einfühlsame Begleitung und Beratung während Ihrer gesamten Schwangerschaft – damit Sie gut vorbereitet und gestärkt ins Wochenbett gehen.</span>
-            <span data-lang="en">Empathetic support and guidance throughout your entire pregnancy – so you feel well prepared and confident as you approach the postnatal period.</span>
-          </p>
-          <ul class="service-list">
-            <li><span data-lang="de" class="inline">Schwangerschaftsbegleitung & Beratung</span><span data-lang="en" class="inline">Pregnancy support & counselling</span></li>
-            <li><span data-lang="de" class="inline">Mentale & körperliche Vorbereitung</span><span data-lang="en" class="inline">Mental & physical preparation</span></li>
-            <li><span data-lang="de" class="inline">Körperarbeit mit dem Partner</span><span data-lang="en" class="inline">Bodywork with the partner</span></li>
-            <li><span data-lang="de" class="inline">Atemtechniken</span><span data-lang="en" class="inline">Breathing techniques</span></li>
-            <li><span data-lang="de" class="inline">Homöopathie & Schüssler Salze</span><span data-lang="en" class="inline">Homeopathy & Schuessler salts</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-photo service-photo-2"></div>
-        <div class="service-body">
-          <h3 class="service-title">
-            <span data-lang="de" class="inline">Wochenbett</span>
-            <span data-lang="en" class="inline">Postnatal Care</span>
-          </h3>
-          <p class="service-text">
-            <span data-lang="de">Die Zeit nach der Geburt ist kostbar – ich unterstütze Sie liebevoll beim Start ins neue Leben.</span>
-            <span data-lang="en">The time after birth is precious – I lovingly support you as you begin this new chapter.</span>
-          </p>
-          <ul class="service-list">
-            <li><span data-lang="de" class="inline">Wochenbettbetreuung</span><span data-lang="en" class="inline">Postnatal visits</span></li>
-            <li><span data-lang="de" class="inline">Stillberatung</span><span data-lang="en" class="inline">Breastfeeding support</span></li>
-            <li><span data-lang="de" class="inline">Babymassage & Babypflege</span><span data-lang="en" class="inline">Baby massage & care</span></li>
-            <li><span data-lang="de" class="inline">Rückbildungs- & Beckenbodengymnastik</span><span data-lang="en" class="inline">Postnatal recovery exercises</span></li>
-            <li><span data-lang="de" class="inline">Aromatherapie & Ayurveda Fussmassage</span><span data-lang="en" class="inline">Aromatherapy & Ayurveda massage</span></li>
-            <li><span data-lang="de" class="inline">Lasertherapie & Behandlung bei Rektusdiastase</span><span data-lang="en" class="inline">Laser therapy & treatment for diastasis recti</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-
-  <section class="testimonials">
-    <div class="test-header">
-      <span class="section-eyebrow">
-        <span data-lang="de" class="inline">Stimmen</span>
-        <span data-lang="en" class="inline">Testimonials</span>
-      </span>
-      <h2 class="section-title">
-        <span data-lang="de">Was Eltern über mich sagen</span>
-        <span data-lang="en">What parents say about me</span>
-      </h2>
-    </div>
-    <div class="test-grid">
-      <div class="test-card">
-        <div class="test-quote">"</div>
-        <p class="test-text">Michaela hat uns mit ihrer liebevollen, so kompetenten Führung ganz viel Sicherheit gegeben. Sie hat die Geburten unserer 3 Kinder von Anfang an fürsorglich und überaus professionell begleitet – wir sind absolute Fans und ihr sehr dankbar, dass sie uns mit ihrer ganzheitlichen Erfahrung so grossartig begleitet und geführt hat.</p>
-        <div class="test-author">Karin &amp; Freddy, Wien — 3 Kinder</div>
-      </div>
-      <div class="test-card">
-        <div class="test-quote">"</div>
-        <p class="test-text">Michaela ist eine wunderbare Hebamme, die die gesamte Geburt über mit grossem Fachwissen und Herz zur Seite stand! Auch ihre kompetente Begleitung während der Schwangerschaft und nach der Geburt im Wochenbett waren sehr hilfreich für uns. Bei beiden Jungs!</p>
-        <div class="test-author">Heidi &amp; Rudi, Klosterneuburg — 2 Kinder</div>
-      </div>
-      <div class="test-card">
-        <div class="test-quote">"</div>
-        <p class="test-text">Michaela gab uns mit ihrer positiven Ausstrahlung einfach das Gefühl, dass alles okay ist. Sie stärkte uns und führte uns liebevoll mit unserem Baby durch das Wochenbett. Es ist eine wahre Freude, dass es sie gibt!</p>
-        <div class="test-author">Familie M., Zug</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PHOTO BAND -->
-
-  <div class="photo-band">
-    <div class="band-img band-1"></div>
-    <div class="band-img band-2"></div>
-    <div class="band-img band-3"></div>
+  <div class="content">
+    <h1>Hello</h1>
+    <span class="there">There!</span>
+<div class="line"></div>
+    <p class="name">Anna Lucia Sams</p>
+    <p class="coming-soon">Coming Soon <span class="star">✦</span></p>
   </div>
 
-  <!-- QUOTE -->
-
-  <section class="quote-section">
-    <p class="quote-text">
-      <span data-lang="de">"Das Wochenbett ist eine der wertvollsten und verletzlichsten Zeiten im Leben einer Familie. Ich bin da, um Sie mit ganzem Herzen zu begleiten – damit dieser Beginn so schön und geborgen wird, wie er sein sollte."</span>
-      <span data-lang="en">"The postnatal period is one of the most precious and vulnerable times in a family's life. I am here to accompany you wholeheartedly – so that this beginning becomes as beautiful and safe as it should be."</span>
-    </p>
-    <p class="quote-author">— Michaela Guggenbichler</p>
-  </section>
-
-  <!-- CONTACT -->
-
-  <section class="contact" id="contact">
-    <div class="contact-info">
-      <span class="section-eyebrow">
-        <span data-lang="de" class="inline">Kontakt</span>
-        <span data-lang="en" class="inline">Contact</span>
-      </span>
-      <h2>
-        <span data-lang="de">Ich freue mich,<br>von Ihnen zu hören</span>
-        <span data-lang="en">I look forward<br>to hearing from you</span>
-      </h2>
-      <p class="body-text">
-        <span data-lang="de">Haben Sie Fragen oder möchten Sie einen Termin vereinbaren? Schreiben Sie mir – ich melde mich so schnell wie möglich bei Ihnen.</span>
-        <span data-lang="en">Do you have questions or would you like to book an appointment? Write to me – I will get back to you as soon as possible.</span>
-      </p>
-      <div class="contact-detail">
-        <div class="cd-icon">📍</div>
-        <div>
-          <div class="cd-label"><span data-lang="de" class="inline">Adresse</span><span data-lang="en" class="inline">Address</span></div>
-          <div class="cd-value">Blegistrasse 1, 6343 Rotkreuz</div>
-        </div>
-      </div>
-      <div class="contact-detail">
-        <div class="cd-icon">✉️</div>
-        <div>
-          <div class="cd-label">E-Mail</div>
-          <div class="cd-value" id="email-display"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4d9ddd7dcdd9ad3c1d3d3d1dad6ddd7dcd8d1c6f4d6d8c1d1c3ddda9ad7dc">[email&#160;protected]</a></div>
-        </div>
-      </div>
-      <div class="contact-detail">
-        <div class="cd-icon">💬</div>
-        <div>
-          <div class="cd-label">WhatsApp</div>
-          <div class="cd-value">+41 79 883 83 39</div>
-        </div>
-      </div>
-      <div class="contact-buttons">
-        <a id="email-btn" href="#" class="contact-btn contact-btn-email">
-          ✉️ <span data-lang="de" class="inline">E-Mail schreiben</span><span data-lang="en" class="inline">Send E-Mail</span>
-        </a>
-        <a href="https://wa.me/41798838339" target="_blank" class="contact-btn contact-btn-wa">
-          💬 WhatsApp
-        </a>
-      </div>
-    </div>
-    <div class="contact-image">
-      <div class="contact-img"></div>
-    </div>
-  </section>
-
-  <!-- IMPRESSUM -->
-
-  <section class="impressum">
-    <h3 class="impressum-title">Impressum & Datenschutz</h3>
-
-```
-<div data-lang="de">
-  <p class="impressum-text">
-    <strong>Behütet &amp; Begleitet – Michaela Guggenbichler</strong><br>
-    Blegistrasse 1 · 6343 Rotkreuz · Schweiz<br>
-    Tel: +41 79 883 83 39 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cfa2a6aca7a6e1a8baa8a8aaa1ada6aca7a3aabd8fada3baaab8a6a1e1aca7">[email&#160;protected]</a><br><br>
-    <strong>Haftungshinweis:</strong> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt von verlinkten Seiten sind ausschliesslich deren Betreiber verantwortlich.<br><br>
-    <strong>Datenschutz:</strong> Die Sicherheit Ihrer persönlichen Daten ist uns wichtig. Alle Ihre Angaben werden streng vertraulich behandelt und gemäss den Schweizer Datenschutzbestimmungen verarbeitet. Eine Weitergabe der Daten an Dritte erfolgt nicht.
-  </p>
-</div>
-
-<div data-lang="en">
-  <p class="impressum-text">
-    <strong>Behütet &amp; Begleitet – Michaela Guggenbichler</strong><br>
-    Blegistrasse 1 · 6343 Rotkreuz · Switzerland<br>
-    Tel: +41 79 883 83 39 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b5652585352155c4e5c5c5e5559525853575e497b59574e5e4c5255155853">[email&#160;protected]</a><br><br>
-    <strong>Disclaimer:</strong> Despite careful review, we assume no liability for the content of external links. The operators of linked pages are solely responsible for their content.<br><br>
-    <strong>Privacy:</strong> The security of your personal data is important to us. All information you provide is treated with strict confidentiality and processed in accordance with Swiss data protection law. Your data will not be passed on to third parties.
-  </p>
-</div>
-```
-
-  </section>
-
-  <!-- FOOTER -->
-
-  <footer>
-    <div class="footer-logo">Michaela Guggenbichler</div>
-    <div class="footer-text">
-      <span data-lang="de" class="inline">Wochenbetthebamme in Zug, Schweiz</span>
-      <span data-lang="en" class="inline">Postnatal Midwife in Zug, Switzerland</span>
-    </div>
-    <div class="footer-text">Made with <span class="footer-heart">♥</span></div>
-  </footer>
-
-  <script>
-    var u = 'michi.guggenbichler';
-    var d = 'bluewin.ch';
-    var email = u + '@' + d;
-    var display = document.getElementById('email-display');
-    var btn = document.getElementById('email-btn');
-    if (display) display.textContent = email;
-    if (btn) btn.href = 'mailto:' + email;
-
-    function setLang(lang) {
-      document.body.className = 'lang-' + lang;
-      document.querySelectorAll('.lang-btn').forEach(function(b) {
-        b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang);
-      });
-    }
-  </script>
+  <p class="bottom-note">maybe not so soon — but sometime<br>when the time is right</p>
 
 </body>
 </html>
