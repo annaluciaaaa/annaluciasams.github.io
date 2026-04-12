@@ -17,7 +17,8 @@
 
 ```
 /* NAV */
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; overflow: visible; background: rgba(255,255,255,0.08); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,0.12); }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; overflow: visible; background: rgba(0,0,0,0.25); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.3s, border-color 0.3s; }
+nav.scrolled { background: rgba(42,65,44,0.97); border-bottom: 1px solid rgba(255,255,255,0.08); }
 .nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; padding: 0 2rem; height: 58px; position: relative; }
 .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--cream); display: flex; align-items: center; justify-content: center; text-decoration: none; letter-spacing: 0.04em; position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; order: 2; pointer-events: auto; }
 .nav-logo em { font-style: italic; color: var(--sage); margin-left: 0.4rem; }
@@ -46,7 +47,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; overflow: visibl
 
 /* HERO */
 .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,38,21,0.5) 0%, rgba(45,74,46,0.15) 50%, rgba(20,38,21,0.65) 100%), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80') center/cover no-repeat; }
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5) 100%), url('Seeberghof Titelbild.jpeg') center/cover no-repeat; }
 .hero-content { position: relative; text-align: center; padding: 0 1.5rem; }
 .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.2rem; font-weight: 500; }
 .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); color: #fff; line-height: 1.07; margin-bottom: 0.5rem; }
