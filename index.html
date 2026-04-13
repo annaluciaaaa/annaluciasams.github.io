@@ -288,6 +288,10 @@ h2 {
   gap: 20px;
 }
 
+@media (max-width: 600px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+}
+
 .project-card {
   background: var(--white);
   border-radius: 16px;
@@ -508,18 +512,8 @@ footer a:hover { color: rgba(255,255,255,0.7); }
 
   <footer>
     <p>© 2026 Anna Sams · Web Design · Salzburg</p>
-    <a href="#impressum">Impressum</a>
+    <a href="legal.html">Impressum & Datenschutz</a>
   </footer>
-
-  <section class="impressum" id="impressum">
-    <p class="section-eyebrow">Impressum</p>
-    <p>
-      Anna Sams<br>
-      Rettenpacherstraße 6/36<br>
-      5020 Salzburg, Austria<br>
-      <a href="mailto:anna.sams98@gmail.com">anna.sams98@gmail.com</a>
-    </p>
-  </section>
 
 </body>
 </html>
