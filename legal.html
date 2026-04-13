@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Impressum & Datenschutz – Anna Sams</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #f7f4ee;
+      --sage-dark: #4a6e4e;
+      --sage: #7a9e7e;
+      --sage-light: #c8d9c9;
+      --text: #2a2a22;
+      --muted: #7a7a6a;
+      --white: #ffffff;
+      --sand: #ede8dc;
+    }
+
+```
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--cream); color: var(--text); font-family: 'Montserrat', sans-serif; font-weight: 300; }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 8vw;
+  background: var(--cream);
+  border-bottom: 1px solid rgba(122,158,126,0.15);
+}
+
+.nav-back {
+  font-size: 0.68rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s;
+}
+.nav-back::before { content: '←'; }
+.nav-back:hover { color: var(--sage-dark); }
+
+.nav-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: 2px;
+}
+
+.page-header {
+  background: var(--sage-dark);
+  padding: 80px 8vw 60px;
+  color: var(--white);
+}
+
+.page-header p {
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--sage-light);
+  margin-bottom: 16px;
+}
+
+.page-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--white);
+}
+
+.content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 8vw;
+}
+
+.block {
+  margin-bottom: 64px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid rgba(122,158,126,0.15);
+}
+.block:last-child { border-bottom: none; }
+
+.block-label {
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.block-label::before { content: ''; width: 20px; height: 1px; background: var(--sage); }
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+a { color: var(--sage-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+footer {
+  background: var(--sage-dark);
+  padding: 24px 8vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer p { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+footer a { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; }
+footer a:hover { color: rgba(255,255,255,0.7); }
+
+@media (max-width: 768px) {
+  footer { flex-direction: column; gap: 12px; text-align: center; }
+}
+```
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">Back</a>
+    <span class="nav-name">Anna Sams</span>
+  </nav>
+
+  <div class="page-header">
+    <p>Legal</p>
+    <h1>Impressum &amp;<br>Datenschutz</h1>
+  </div>
+
+  <div class="content">
+
+```
+<!-- IMPRESSUM -->
+<div class="block" id="impressum">
+  <p class="block-label">Impressum</p>
+  <h2>Angaben gemäß § 5 ECG</h2>
+  <p>
+    Anna Sams<br>
+    Rettenpacherstraße 6/36<br>
+    5020 Salzburg, Österreich
+  </p>
+  <p>
+    E-Mail: <a href="mailto:anna.sams98@gmail.com">anna.sams98@gmail.com</a>
+  </p>
+  <p>
+    Diese Website dient der Präsentation von Webdesign-Dienstleistungen.
+  </p>
+</div>
+
+<!-- DATENSCHUTZ -->
+<div class="block" id="datenschutz">
+  <p class="block-label">Datenschutz</p>
+  <h2>Datenschutzerklärung</h2>
+
+  <p><strong style="font-weight:400; color:var(--text);">Allgemein</strong><br>
+  Der Schutz Ihrer persönlichen Daten ist mir ein wichtiges Anliegen. Diese Datenschutzerklärung informiert Sie darüber, wie mit Ihren Daten auf dieser Website umgegangen wird.</p>
+
+  <p><strong style="font-weight:400; color:var(--text);">Keine Datenerhebung</strong><br>
+  Diese Website verwendet keine Cookies, kein Tracking und keine Analyse-Tools. Es werden keine personenbezogenen Daten automatisch gesammelt oder gespeichert.</p>
+
+  <p><strong style="font-weight:400; color:var(--text);">Kontaktaufnahme</strong><br>
+  Wenn Sie per E-Mail, WhatsApp oder Instagram Kontakt aufnehmen, werden Ihre übermittelten Daten (z. B. Name, E-Mail-Adresse, Nachricht) ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben.</p>
+
+  <p><strong style="font-weight:400; color:var(--text);">Externe Links</strong><br>
+  Diese Website enthält Links zu externen Seiten (z. B. hebamme-zug.com). Für deren Inhalte und Datenschutzpraktiken wird keine Verantwortung übernommen.</p>
+
+  <p><strong style="font-weight:400; color:var(--text);">Hosting</strong><br>
+  Diese Website wird über GitHub Pages gehostet. Dabei können technische Zugriffsdaten (z. B. IP-Adresse) durch GitHub verarbeitet werden. Weitere Informationen finden Sie in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank">Datenschutzerklärung von GitHub</a>.</p>
+
+  <p><strong style="font-weight:400; color:var(--text);">Ihre Rechte</strong><br>
+  Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer Daten. Bei Fragen wenden Sie sich an: <a href="mailto:anna.sams98@gmail.com">anna.sams98@gmail.com</a></p>
+
+  <p>Stand: April 2026</p>
+</div>
+```
+
+  </div>
+
+  <footer>
+    <p>© 2026 Anna Sams · Salzburg</p>
+    <a href="index.html">Zurück zur Homepage</a>
+  </footer>
+
+</body>
+</html>
