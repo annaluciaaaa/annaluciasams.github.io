@@ -8,17 +8,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #f5f3f0;
-      --text: #1a1a18;
-      --muted: #8a8680;
-      --accent: #b5a898;
+      --cream: #f7f4ee;
+      --sage: #7a9e7e;
+      --sage-light: #c8d9c9;
+      --sage-dark: #4a6e4e;
+      --gold: #c9a84c;
+      --gold-light: #f0e0a8;
+      --text: #2a2a22;
+      --muted: #7a7a6a;
       --white: #ffffff;
+      --sand: #ede8dc;
     }
 
 ```
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; }
+body { background: var(--cream); color: var(--text); font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; }
 
 /* NAV */
 nav {
@@ -28,18 +33,14 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 28px 8vw;
-  background: rgba(245, 243, 240, 0.88);
+  padding: 24px 8vw;
+  background: rgba(247, 244, 238, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(181, 168, 152, 0.15);
+  border-bottom: 1px solid rgba(122, 158, 126, 0.15);
 }
 
-.nav-links {
-  display: flex;
-  gap: 48px;
-  list-style: none;
-}
+.nav-links { display: flex; gap: 48px; list-style: none; }
 
 .nav-links a {
   font-size: 0.68rem;
@@ -50,17 +51,15 @@ nav {
   transition: color 0.3s;
   position: relative;
 }
-
 .nav-links a::after {
   content: '';
   position: absolute;
   bottom: -4px; left: 0;
   width: 0; height: 1px;
-  background: var(--text);
+  background: var(--sage);
   transition: width 0.3s;
 }
-
-.nav-links a:hover { color: var(--text); }
+.nav-links a:hover { color: var(--sage-dark); }
 .nav-links a:hover::after { width: 100%; }
 
 /* HERO */
@@ -71,55 +70,94 @@ nav {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 120px 8vw 60px;
+  padding: 120px 8vw 80px;
   position: relative;
+  overflow: hidden;
 }
+
+/* decorative circles */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 217, 201, 0.35) 0%, transparent 70%);
+  top: -100px; right: -150px;
+  pointer-events: none;
+}
+
 .hero::after {
   content: '';
   position: absolute;
-  right: 0; top: 0;
-  width: 38vw; height: 100%;
-  background: linear-gradient(135deg, #e8e2da 0%, #d6cfc6 100%);
-  z-index: 0;
-  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+  bottom: 0; left: -100px;
+  pointer-events: none;
 }
-.hero-content { position: relative; z-index: 1; max-width: 700px; }
 
-.eyebrow {
-  font-size: 0.7rem;
-  letter-spacing: 6px;
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sage-light);
+  color: var(--sage-dark);
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-size: 0.68rem;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 28px;
+  margin-bottom: 36px;
   opacity: 0;
-  animation: fadeUp 1s ease 0.2s forwards;
+  animation: fadeUp 1s ease 0.1s forwards;
+}
+
+.badge-dot {
+  width: 6px; height: 6px;
+  background: var(--sage);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
 }
 
 h1 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  line-height: 1.35;
-  letter-spacing: 1px;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  line-height: 1.2;
+  letter-spacing: 0px;
   color: var(--text);
   opacity: 0;
-  animation: fadeUp 1s ease 0.4s forwards;
+  animation: fadeUp 1s ease 0.3s forwards;
 }
 
 h1 em {
   font-style: italic;
-  font-weight: 300;
-  color: var(--muted);
+  color: var(--sage-dark);
+}
+
+h1 .gold { color: var(--gold); }
+
+.hero-line {
+  width: 48px; height: 1px;
+  background: linear-gradient(to right, var(--sage), var(--gold));
+  margin: 28px auto;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.5s forwards;
 }
 
 .hero-sub {
-  margin-top: 28px;
-  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-size: 0.95rem;
   color: var(--muted);
-  line-height: 1.7;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
+  line-height: 1.8;
+  max-width: 440px;
+  margin: 0 auto;
   opacity: 0;
   animation: fadeUp 1s ease 0.6s forwards;
 }
@@ -127,61 +165,132 @@ h1 em {
 .hero-cta {
   display: inline-block;
   margin-top: 40px;
-  padding: 14px 36px;
-  border: 1px solid var(--text);
+  padding: 15px 40px;
+  background: var(--sage-dark);
+  color: var(--white);
   font-size: 0.7rem;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: var(--text);
   text-decoration: none;
-  transition: background 0.3s, color 0.3s;
+  border-radius: 2px;
+  transition: background 0.3s, transform 0.2s;
   opacity: 0;
   animation: fadeUp 1s ease 0.8s forwards;
 }
-.hero-cta:hover { background: var(--text); color: var(--white); }
+.hero-cta:hover { background: var(--sage); transform: translateY(-2px); }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* SECTIONS */
-section { padding: 100px 8vw; }
+/* ABOUT */
+.about {
+  background: var(--sand);
+  padding: 100px 8vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
 
-.section-label {
+.about::after {
+  content: '✦';
+  position: absolute;
+  right: 8vw; top: 60px;
+  font-size: 5rem;
+  color: rgba(122, 158, 126, 0.1);
+  pointer-events: none;
+}
+
+.section-eyebrow {
   font-size: 0.65rem;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 48px;
+  color: var(--sage);
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
-.section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--accent); }
+.section-eyebrow::before {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--sage);
+}
 
 h2 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.2;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
-/* ABOUT */
-.about { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-.about-text p { color: var(--muted); line-height: 1.8; font-size: 0.95rem; margin-top: 20px; }
-.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-.stat { border-top: 1px solid var(--accent); padding-top: 20px; }
-.stat-number { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; line-height: 1; }
-.stat-label { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.about-text p {
+  color: var(--muted);
+  line-height: 1.85;
+  font-size: 0.92rem;
+  margin-top: 14px;
+}
+
+.about-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+  transition: transform 0.3s;
+}
+.about-card:hover { transform: translateX(6px); }
+
+.about-card-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.about-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  margin-bottom: 3px;
+}
+
+.about-card p {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
 
 /* PORTFOLIO */
-.portfolio { background: var(--bg); }
-.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin-top: 8px; }
+.portfolio {
+  padding: 100px 8vw;
+  background: var(--cream);
+}
+
+.portfolio-header { margin-bottom: 48px; }
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
 
 .project-card {
   background: var(--white);
+  border-radius: 16px;
   padding: 40px 36px;
   text-decoration: none;
   color: var(--text);
@@ -189,61 +298,101 @@ h2 {
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(122,158,126,0.1);
 }
 .project-card::before {
   content: '';
   position: absolute;
-  bottom: 0; left: 0;
-  width: 100%; height: 2px;
-  background: var(--text);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: linear-gradient(to bottom, var(--sage), var(--gold));
+  transition: height 0.4s ease;
 }
-.project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
-.project-card:hover::before { transform: scaleX(1); }
+.project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+.project-card:hover::before { height: 100%; }
 
-.project-tag { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
-.project-title { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.6rem; line-height: 1.2; margin-bottom: 12px; }
-.project-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
-.project-arrow { margin-top: 28px; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+.project-tag { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); margin-bottom: 16px; }
+.project-title { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.7rem; line-height: 1.2; margin-bottom: 12px; }
+.project-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+.project-arrow {
+  margin-top: 28px; font-size: 0.7rem; letter-spacing: 3px;
+  text-transform: uppercase; display: flex; align-items: center; gap: 8px;
+  color: var(--sage-dark);
+}
 .project-arrow::after { content: '→'; transition: transform 0.2s; }
 .project-card:hover .project-arrow::after { transform: translateX(4px); }
 
+.project-card-soon {
+  background: linear-gradient(135deg, var(--sage-light) 0%, var(--gold-light) 100%);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: default;
+  min-height: 200px;
+}
+.project-card-soon:hover { transform: none; box-shadow: none; }
+.project-card-soon .project-title { color: var(--sage-dark); }
+.project-card-soon .project-desc { color: var(--sage-dark); opacity: 0.7; }
+.project-card-soon .project-arrow { color: var(--sage-dark); }
+
 /* CONTACT */
-.contact { background: var(--text); color: var(--white); text-align: center; }
-.contact .section-label { color: var(--accent); justify-content: center; }
-.contact .section-label::after { display: none; }
+.contact {
+  background: var(--sage-dark);
+  padding: 100px 8vw;
+  color: var(--white);
+  text-align: center;
+}
+
+.contact .section-eyebrow { color: var(--gold-light); }
+.contact .section-eyebrow::before { background: var(--gold); }
 .contact h2 { color: var(--white); }
-.contact-sub { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-bottom: 56px; letter-spacing: 1px; }
+.contact-sub { font-size: 0.92rem; color: rgba(255,255,255,0.6); line-height: 1.8; margin-top: 16px; margin-bottom: 48px; }
 
 .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
+
 .contact-link {
   display: flex; align-items: center; gap: 10px;
   padding: 16px 32px;
   border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 0;
   color: var(--white);
   text-decoration: none;
   font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
   transition: border-color 0.3s, background 0.3s;
+  background: transparent;
 }
-.contact-link:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+.contact-link:hover { border-color: var(--white); background: rgba(255,255,255,0.08); transform: none; }
 .contact-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 
 /* FOOTER */
 footer {
-  background: var(--text);
+  background: var(--sage-dark);
   border-top: 1px solid rgba(255,255,255,0.08);
   padding: 24px 8vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-footer p { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+footer p { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+footer a { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.3s; }
+footer a:hover { color: rgba(255,255,255,0.7); }
+
+/* IMPRESSUM */
+.impressum {
+  background: #3a5a3e;
+  padding: 60px 8vw;
+}
+.impressum .section-eyebrow { color: var(--sage-light); margin-bottom: 24px; }
+.impressum .section-eyebrow::before { background: var(--sage-light); }
+.impressum p { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 2; }
+.impressum a { color: rgba(255,255,255,0.45); text-decoration: none; }
+.impressum a:hover { color: rgba(255,255,255,0.7); }
 
 @media (max-width: 768px) {
-  .hero::after { display: none; }
   .about { grid-template-columns: 1fr; gap: 48px; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .contact { grid-template-columns: 1fr; gap: 48px; }
   footer { flex-direction: column; gap: 12px; text-align: center; }
 }
 ```
@@ -261,30 +410,65 @@ footer p { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; c
     </ul>
   </nav>
 
+  <!-- HERO -->
+
   <section class="hero" id="home">
     <div class="hero-content">
-      <p class="eyebrow">Web Design · Anna Sams</p>
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Available for new projects
+      </div>
       <h1>
         Beautiful websites,<br>
         <em>thoughtfully</em> made.
       </h1>
-      <p class="hero-sub">I build clean, modern websites for people who care about how they show up online. Let's create something you're proud of.</p>
+      <div class="hero-line"></div>
+      <p class="hero-sub">Hi, I'm Anna — a web designer from Salzburg. I create clean, personal websites that feel just right.</p>
       <a href="#contact" class="hero-cta">Get in touch</a>
     </div>
   </section>
 
+  <!-- ABOUT -->
+
   <section class="about" id="about">
     <div class="about-text">
-      <p class="section-label">About</p>
+      <p class="section-eyebrow">About</p>
       <h2>Hi, I'm Anna.</h2>
-      <p>I'm a web designer based in Austria, passionate about creating beautiful, functional websites that feel right. Every project is built with care — from the first idea to the final detail.</p>
-      <p style="margin-top:12px;">Whether you need a personal page, a business site, or something in between — I'd love to help bring your vision to life.</p>
+      <p>I'm a web designer based in Salzburg, Austria. I love building websites that feel personal, look beautiful, and actually work.</p>
+      <p>Every project starts with listening — to understand what you need and what feels right for you.</p>
+    </div>
+    <div class="about-visual">
+      <div class="about-card">
+        <div class="about-card-icon" style="background:#e8f0e8;">🌿</div>
+        <div>
+          <h4>Custom & handcrafted</h4>
+          <p>No templates — every site is built from scratch</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon" style="background:#f5f0e0;">✦</div>
+        <div>
+          <h4>Personal approach</h4>
+          <p>I work closely with each client from start to finish</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon" style="background:#e8f0e8;">🌍</div>
+        <div>
+          <h4>Bilingual capable</h4>
+          <p>DE/EN websites — no problem</p>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- PORTFOLIO -->
+
   <section class="portfolio" id="work">
-    <p class="section-label">Portfolio</p>
-    <h2>Recent work</h2>
+    <div class="portfolio-header">
+      <p class="section-eyebrow">Portfolio</p>
+      <h2>Recent work</h2>
+    </div>
     <div class="portfolio-grid">
 
 ```
@@ -295,11 +479,11 @@ footer p { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; c
     <p class="project-arrow">Visit site</p>
   </a>
 
-  <div class="project-card" style="background:#f5f3f0; cursor:default;">
+  <div class="project-card project-card-soon">
     <p class="project-tag">Coming up</p>
-    <h3 class="project-title" style="color:#b5a898;">More to come ✦</h3>
+    <h3 class="project-title">More to come ✦</h3>
     <p class="project-desc">New projects on the way. Get in touch if you'd like yours to be next.</p>
-    <p class="project-arrow" style="color:#b5a898;">Say hello</p>
+    <p class="project-arrow">Say hello</p>
   </div>
 
 </div>
@@ -307,38 +491,33 @@ footer p { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; c
 
   </section>
 
+  <!-- CONTACT -->
+
   <section class="contact" id="contact">
-    <p class="section-label">Contact</p>
-    <h2>Let's work together.</h2>
-    <p class="contact-sub">Reach out — I'd love to hear about your project.</p>
+    <div>
+      <p class="section-eyebrow">Contact</p>
+      <h2>Let's work together.</h2>
+      <p class="contact-sub">Have a project in mind? I'd love to hear about it. Reach out however feels easiest.</p>
+    </div>
     <div class="contact-links">
-      <a href="/cdn-cgi/l/email-protection#16777878773865777b652f2e56717b777f7a3875797b" class="contact-link">
-        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        Email
-      </a>
-      <a href="https://instagram.com/anna.louuuuuu" target="_blank" class="contact-link">
-        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        Instagram
-      </a>
-      <a href="https://wa.me/4369911104917" target="_blank" class="contact-link">
-        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        WhatsApp
-      </a>
+      <a href="mailto:anna.sams98@gmail.com" class="contact-link">Email</a>
+      <a href="https://instagram.com/anna.louuuuuu" target="_blank" class="contact-link">Instagram</a>
+      <a href="https://wa.me/4369911104917" target="_blank" class="contact-link">WhatsApp</a>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 Anna Sams · Web Design · Austria</p>
-    <a href="#impressum" style="font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.25); text-decoration:none;">Impressum</a>
+    <p>© 2026 Anna Sams · Web Design · Salzburg</p>
+    <a href="#impressum">Impressum</a>
   </footer>
 
-  <section id="impressum" style="background:#f5f3f0; padding:60px 8vw; border-top:1px solid #e0dbd4;">
-    <p style="font-size:0.65rem; letter-spacing:5px; text-transform:uppercase; color:#b5a898; margin-bottom:28px;">Impressum</p>
-    <p style="font-size:0.85rem; color:#8a8680; line-height:2;">
+  <section class="impressum" id="impressum">
+    <p class="section-eyebrow">Impressum</p>
+    <p>
       Anna Sams<br>
       Rettenpacherstraße 6/36<br>
       5020 Salzburg, Austria<br>
-      <a href="mailto:anna.sams98@gmail.com" style="color:#8a8680; text-decoration:none;">anna.sams98@gmail.com</a>
+      <a href="mailto:anna.sams98@gmail.com">anna.sams98@gmail.com</a>
     </p>
   </section>
 
