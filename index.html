@@ -1,403 +1,215 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Anna Sams – Web Design</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seeberghof · Fuschl am See</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --cream: #f7f4ee;
-      --sage: #7a9e7e;
-      --sage-light: #c8d9c9;
-      --sage-dark: #4a6e4e;
-      --gold: #c9a84c;
-      --gold-light: #f0e0a8;
-      --text: #2a2a22;
-      --muted: #7a7a6a;
-      --white: #ffffff;
-      --sand: #ede8dc;
+      --forest: #4a7355; --moss: #5e8a60; --sage: #a0c48a;
+      --cream: #f7f3ec; --warm: #e8dfc8; --stone: #6b6256; --gold: #b5913a;
     }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; font-weight: 300; background: var(--cream); color: var(--forest); overflow-x: hidden; }
 
 ```
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background: var(--cream); color: var(--text); font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; }
-
 /* NAV */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px 8vw;
-  background: rgba(247, 244, 238, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(122, 158, 126, 0.15);
-}
-
-.nav-links { display: flex; gap: 48px; list-style: none; }
-
-.nav-links a {
-  font-size: 0.68rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.3s;
-  position: relative;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px; left: 0;
-  width: 0; height: 1px;
-  background: var(--sage);
-  transition: width 0.3s;
-}
-.nav-links a:hover { color: var(--sage-dark); }
-.nav-links a:hover::after { width: 100%; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; overflow: visible; background: rgba(0,0,0,0.25); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.3s, border-color 0.3s; }
+nav.scrolled { background: rgba(42,65,44,0.97); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; padding: 0 2rem; height: 58px; position: relative; }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--cream); display: flex; align-items: center; justify-content: center; text-decoration: none; letter-spacing: 0.04em; position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; order: 2; pointer-events: auto; }
+.nav-logo em { font-style: italic; color: var(--sage); margin-left: 0.4rem; }
+.nav-menu { display: flex; list-style: none; }
+.nav-menu > li { position: relative; }
+.nav-menu > li > a { display: flex; align-items: center; gap: 0.3rem; padding: 1.15rem 1rem; color: rgba(255,255,255,0.82); text-decoration: none; font-size: 0.76rem; font-weight: 400; letter-spacing: 0.13em; text-transform: uppercase; transition: color 0.2s, background 0.2s; white-space: nowrap; }
+.nav-menu > li > a:hover, .nav-menu > li:hover > a { color: #fff; background: rgba(255,255,255,0.07); }
+.chevron { font-size: 0.58rem; opacity: 0.55; transition: transform 0.2s; }
+.nav-menu > li:hover .chevron { transform: rotate(180deg); }
+.dropdown { position: absolute; top: 100%; left: 0; background: rgba(40,55,42,0.97); backdrop-filter: blur(12px); min-width: 195px; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity 0.2s, transform 0.2s; border-top: 2px solid var(--sage); z-index: 300; }
+.nav-menu > li:hover .dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+.dropdown li { list-style: none; }
+.dropdown a { display: block; padding: 0.72rem 1.2rem; color: rgba(255,255,255,0.72); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.07em; transition: background 0.15s, color 0.15s; }
+.dropdown a:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 1rem 0; }
+.nav-burger span { display: block; width: 22px; height: 1.5px; background: #fff; }
+.nav-mobile { display: none; flex-direction: column; background: rgba(40,55,42,0.97); backdrop-filter: blur(12px); }
+.nav-mobile.open { display: flex; }
+.nav-mobile a { padding: 0.72rem 2rem; color: rgba(255,255,255,0.78); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.07em; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.nav-mobile a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-right { display: flex; align-items: center; justify-content: flex-end; gap: 1rem; margin-left: auto; }
+.nav-lang { display: flex; align-items: center; gap: 0.5rem; }
+.lang-btn { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.15em; font-weight: 500; transition: color 0.2s; }
+.lang-btn:hover, .lang-btn.active { color: #fff; }
+.lang-sep { color: rgba(255,255,255,0.25); font-size: 0.65rem; }
 
 /* HERO */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 120px 8vw 80px;
-  position: relative;
-  overflow: hidden;
-}
+.hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5) 100%), url('Seeberghof Titelbild.jpeg') center/cover no-repeat; }
+.hero-content { position: relative; text-align: center; padding: 0 1.5rem; }
+.hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.2rem; font-weight: 500; }
+.hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); color: #fff; line-height: 1.07; margin-bottom: 0.5rem; }
+.hero-title em { font-style: italic; color: var(--sage); }
+.hero-sub { font-size: clamp(0.9rem, 2vw, 1.1rem); color: rgba(255,255,255,0.78); letter-spacing: 0.07em; margin-bottom: 2.5rem; }
+.hero-cta { display: inline-block; padding: 0.9rem 2.5rem; border: 1.5px solid rgba(255,255,255,0.65); color: #fff; text-decoration: none; font-size: 0.77rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; transition: background 0.3s, border-color 0.3s; }
+.hero-cta:hover { background: rgba(255,255,255,0.14); border-color: #fff; }
+.hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.5); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; }
+.scroll-line { width: 1px; height: 46px; background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:.35;transform:scaleY(.7)} 50%{opacity:1;transform:scaleY(1)} }
 
-/* decorative circles */
-.hero::before {
-  content: '';
-  position: absolute;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200, 217, 201, 0.35) 0%, transparent 70%);
-  top: -100px; right: -150px;
-  pointer-events: none;
-}
+/* STRIP */
+.intro-strip { background: #4a7355; padding: 3.5rem 2rem; display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr; align-items: center; }
+.strip-div { background: rgba(255,255,255,0.14); height: 52px; }
+.strip-item { text-align: center; padding: 0 2rem; }
+.strip-num { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--sage); line-height: 1; }
+.strip-item p { color: rgba(255,255,255,0.58); font-size: 0.73rem; letter-spacing: 0.13em; text-transform: uppercase; margin-top: 0.4rem; }
 
-.hero::after {
-  content: '';
-  position: absolute;
-  width: 400px; height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
-  bottom: 0; left: -100px;
-  pointer-events: none;
-}
-
-.hero-content { position: relative; z-index: 1; max-width: 680px; }
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--sage-light);
-  color: var(--sage-dark);
-  border-radius: 100px;
-  padding: 8px 20px;
-  font-size: 0.68rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 36px;
-  opacity: 0;
-  animation: fadeUp 1s ease 0.1s forwards;
-}
-
-.badge-dot {
-  width: 6px; height: 6px;
-  background: var(--sage);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.7); }
-}
-
-h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-size: clamp(2.8rem, 6vw, 5rem);
-  line-height: 1.2;
-  letter-spacing: 0px;
-  color: var(--text);
-  opacity: 0;
-  animation: fadeUp 1s ease 0.3s forwards;
-}
-
-h1 em {
-  font-style: italic;
-  color: var(--sage-dark);
-}
-
-h1 .gold { color: var(--gold); }
-
-.hero-line {
-  width: 48px; height: 1px;
-  background: linear-gradient(to right, var(--sage), var(--gold));
-  margin: 28px auto;
-  opacity: 0;
-  animation: fadeUp 1s ease 0.5s forwards;
-}
-
-.hero-sub {
-  font-size: 0.95rem;
-  color: var(--muted);
-  line-height: 1.8;
-  max-width: 440px;
-  margin: 0 auto;
-  opacity: 0;
-  animation: fadeUp 1s ease 0.6s forwards;
-}
-
-.hero-cta {
-  display: inline-block;
-  margin-top: 40px;
-  padding: 15px 40px;
-  background: var(--sage-dark);
-  color: var(--white);
-  font-size: 0.7rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: background 0.3s, transform 0.2s;
-  opacity: 0;
-  animation: fadeUp 1s ease 0.8s forwards;
-}
-.hero-cta:hover { background: var(--sage); transform: translateY(-2px); }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+/* SECTIONS */
+section { padding: 6rem 0; }
+.section-inner { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+.section-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem; font-weight: 500; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.7rem); line-height: 1.15; color: var(--forest); }
+.section-title em { font-style: italic; color: var(--moss); }
+.section-body { color: var(--stone); font-size: 1rem; line-height: 1.85; max-width: 560px; margin-top: 1.2rem; }
 
 /* ABOUT */
-.about {
-  background: var(--sand);
-  padding: 100px 8vw;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 4rem; }
+.about-img-wrap { position: relative; }
+.about-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+.about-img-accent { position: absolute; bottom: -2rem; right: -2rem; width: 52%; aspect-ratio: 1; background: url('https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600&q=80') center/cover; border: 6px solid var(--cream); }
+.about-tag { display: inline-block; background: var(--warm); padding: 0.3rem 0.9rem; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--moss); margin-bottom: 1.4rem; }
 
-.about::after {
-  content: '✦';
-  position: absolute;
-  right: 8vw; top: 60px;
-  font-size: 5rem;
-  color: rgba(122, 158, 126, 0.1);
-  pointer-events: none;
-}
+/* LANDSCAPE */
+.landscape { height: 44vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.landscape-bg { position: absolute; inset: 0; background: linear-gradient(rgba(20,38,21,0.52), rgba(20,38,21,0.52)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800&q=80') center/cover fixed; }
+.landscape-quote { position: relative; text-align: center; font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.3rem, 3vw, 2rem); color: #fff; max-width: 680px; padding: 0 2rem; line-height: 1.55; }
+.landscape-quote cite { display: block; font-style: normal; font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-top: 1rem; }
 
-.section-eyebrow {
-  font-size: 0.65rem;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: var(--sage);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.section-eyebrow::before {
-  content: '';
-  width: 24px; height: 1px;
-  background: var(--sage);
-}
+/* APARTMENTS */
+.apartments { background: var(--warm); }
+.apt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+.apt-card { background: var(--cream); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s; }
+.apt-card:hover { transform: translateY(-5px); box-shadow: 0 18px 45px rgba(45,74,46,0.14); }
+.apt-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+.apt-body { padding: 1.6rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.apt-size { font-size: 0.67rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.2rem; }
+.apt-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 0.5rem; }
+.apt-desc { font-size: 0.85rem; color: var(--stone); line-height: 1.7; margin-bottom: 1rem; }
+.apt-features { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.3rem; }
+.apt-feat { font-size: 0.67rem; letter-spacing: 0.09em; text-transform: uppercase; background: var(--warm); padding: 0.27rem 0.72rem; color: var(--moss); }
+.apt-prices { margin-top: auto; }
+.apt-prices-title { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.55rem; font-weight: 500; }
+.price-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.42rem 0; border-bottom: 1px solid rgba(107,98,86,0.14); font-size: 0.82rem; }
+.price-row:last-child { border-bottom: none; }
+.price-period { color: var(--stone); font-size: 0.77rem; }
+.price-amount { font-weight: 500; color: var(--forest); }
+.apt-cta { display: block; margin-top: 1.2rem; text-align: center; background: var(--forest); color: #fff; text-decoration: none; padding: 0.72rem 1rem; font-size: 0.73rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; transition: background 0.2s; }
+.apt-cta:hover { background: var(--moss); }
 
-h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.2;
-  margin-bottom: 20px;
-}
+/* MODAL */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 500; align-items: center; justify-content: center; padding: 1.5rem; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--cream); max-width: 860px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: modalIn 0.3s ease; }
+@keyframes modalIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.modal-close { position: sticky; top: 0; float: right; margin: 1rem 1rem 0 0; background: var(--forest); color: #fff; border: none; width: 36px; height: 36px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; }
+.modal-close:hover { background: var(--moss); }
+.modal-hero { width: 100%; aspect-ratio: 16/7; object-fit: cover; display: block; }
+.modal-body { padding: 2rem 2.2rem 2.5rem; }
+.modal-size { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.3rem; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 0.8rem; }
+.modal-features { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
+.modal-feat { font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; background: var(--warm); padding: 0.3rem 0.8rem; color: var(--moss); }
+.modal-desc { font-size: 0.95rem; color: var(--stone); line-height: 1.85; margin-bottom: 1.8rem; }
+.modal-prices { margin-bottom: 1.8rem; }
+.modal-prices h4 { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.7rem; font-weight: 500; }
+.modal-price-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(107,98,86,0.14); font-size: 0.88rem; }
+.modal-price-row:last-child { border-bottom: none; }
+.modal-price-period { color: var(--stone); }
+.modal-price-amt { font-weight: 500; color: var(--forest); }
+.modal-gallery { margin-bottom: 1.8rem; }
+.modal-gallery h4 { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.9rem; font-weight: 500; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+.gallery-grid img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; cursor: pointer; transition: opacity 0.2s; }
+.gallery-grid img:hover { opacity: 0.85; }
+.gallery-placeholder { width: 100%; aspect-ratio: 4/3; background: var(--warm); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; cursor: pointer; border: 2px dashed rgba(107,98,86,0.3); transition: background 0.2s; }
+.gallery-placeholder:hover { background: #ddd8c0; }
+.gallery-placeholder span { font-size: 1.5rem; }
+.gallery-placeholder p { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); }
+.modal-cta { display: inline-block; background: var(--forest); color: #fff; text-decoration: none; padding: 0.9rem 2.2rem; font-size: 0.77rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; transition: background 0.2s; }
+.modal-cta:hover { background: var(--moss); }
+/* make cards clickable */
+.apt-card { cursor: pointer; }
 
-.about-text p {
-  color: var(--muted);
-  line-height: 1.85;
-  font-size: 0.92rem;
-  margin-top: 14px;
-}
+/* info box */
+.apt-info-box { margin-top: 2.5rem; background: var(--forest); color: rgba(255,255,255,0.7); padding: 1.7rem 2rem; display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; }
+.info-item { font-size: 0.86rem; line-height: 1.7; }
+.info-item strong { color: var(--sage); display: block; font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.2rem; }
 
-.about-visual {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+/* ACTIVITIES */
+.act-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; margin-top: 1.8rem; }
+.act-card { padding: 2rem 1.5rem; border: 1px solid rgba(74,103,65,0.2); transition: background 0.3s, border-color 0.3s; }
+.act-card:hover { background: var(--warm); border-color: var(--sage); }
+.act-icon { font-size: 1.8rem; margin-bottom: 0.85rem; }
+.act-title { font-family: 'Playfair Display', serif; font-size: 1.08rem; margin-bottom: 0.45rem; }
+.act-desc { font-size: 0.82rem; color: var(--stone); line-height: 1.72; }
 
-.about-card {
-  background: var(--white);
-  border-radius: 12px;
-  padding: 24px 28px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-  transition: transform 0.3s;
-}
-.about-card:hover { transform: translateX(6px); }
-
-.about-card-icon {
-  width: 42px; height: 42px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-.about-card h4 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 400;
-  font-size: 1.05rem;
-  margin-bottom: 3px;
-}
-
-.about-card p {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-/* PORTFOLIO */
-.portfolio {
-  padding: 100px 8vw;
-  background: var(--cream);
-}
-
-.portfolio-header { margin-bottom: 48px; }
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-@media (max-width: 600px) {
-  .portfolio-grid { grid-template-columns: 1fr; }
-}
-
-.project-card {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 40px 36px;
-  text-decoration: none;
-  color: var(--text);
-  display: block;
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(122,158,126,0.1);
-}
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 3px; height: 0;
-  background: linear-gradient(to bottom, var(--sage), var(--gold));
-  transition: height 0.4s ease;
-}
-.project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
-.project-card:hover::before { height: 100%; }
-
-.project-tag { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); margin-bottom: 16px; }
-.project-title { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.7rem; line-height: 1.2; margin-bottom: 12px; }
-.project-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
-.project-arrow {
-  margin-top: 28px; font-size: 0.7rem; letter-spacing: 3px;
-  text-transform: uppercase; display: flex; align-items: center; gap: 8px;
-  color: var(--sage-dark);
-}
-.project-arrow::after { content: '→'; transition: transform 0.2s; }
-.project-card:hover .project-arrow::after { transform: translateX(4px); }
-
-.project-card-soon {
-  background: linear-gradient(135deg, var(--sage-light) 0%, var(--gold-light) 100%);
-  border: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  cursor: default;
-  min-height: 200px;
-}
-.project-card-soon:hover { transform: none; box-shadow: none; }
-.project-card-soon .project-title { color: var(--sage-dark); }
-.project-card-soon .project-desc { color: var(--sage-dark); opacity: 0.7; }
-.project-card-soon .project-arrow { color: var(--sage-dark); }
+/* region */
+.region-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; margin-top: 1.5rem; }
+.region-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1.3rem 1.1rem; border: 1px solid rgba(74,103,65,0.2); transition: background 0.3s; }
+.region-item:hover { background: var(--warm); }
+.region-icon { font-size: 1.4rem; flex-shrink: 0; }
+.region-item strong { display: block; font-weight: 500; font-size: 0.9rem; margin-bottom: 0.22rem; }
+.region-item p { font-size: 0.79rem; color: var(--stone); line-height: 1.62; }
 
 /* CONTACT */
-.contact {
-  background: var(--sage-dark);
-  padding: 100px 8vw;
-  color: var(--white);
-  text-align: center;
-}
-
-.contact .section-eyebrow { color: var(--gold-light); }
-.contact .section-eyebrow::before { background: var(--gold); }
-.contact h2 { color: var(--white); }
-.contact-sub { font-size: 0.92rem; color: rgba(255,255,255,0.6); line-height: 1.8; margin-top: 16px; margin-bottom: 48px; }
-
-.contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
-
-.contact-link {
-  display: flex; align-items: center; gap: 10px;
-  padding: 16px 32px;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 0;
-  color: var(--white);
-  text-decoration: none;
-  font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
-  transition: border-color 0.3s, background 0.3s;
-  background: transparent;
-}
-.contact-link:hover { border-color: var(--white); background: rgba(255,255,255,0.08); transform: none; }
-.contact-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.contact { background: var(--forest); }
+.contact .section-title { color: var(--cream); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 3.5rem; align-items: start; }
+.c-text { color: rgba(255,255,255,0.6); font-size: 0.93rem; line-height: 1.85; margin-bottom: 2rem; }
+.contact-detail { display: flex; gap: 1rem; margin-bottom: 1.1rem; }
+.contact-detail .icon { font-size: 1rem; margin-top: 0.15rem; }
+.contact-detail .text { color: rgba(255,255,255,0.7); font-size: 0.87rem; line-height: 1.65; }
+.contact-detail a { color: var(--sage); text-decoration: none; }
+.contact-detail a:hover { color: #fff; }
+.contact-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.contact-form input, .contact-form textarea { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.13); color: #fff; padding: 0.82rem 1.1rem; font-family: 'Jost', sans-serif; font-size: 0.87rem; outline: none; width: 100%; transition: border-color 0.2s; }
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,255,255,0.28); }
+.contact-form input:focus, .contact-form textarea:focus { border-color: var(--sage); }
+.contact-form textarea { min-height: 128px; resize: vertical; }
+.btn-send { background: var(--sage); color: var(--forest); border: none; padding: 0.9rem 2.2rem; font-family: 'Jost', sans-serif; font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; align-self: flex-start; }
+.btn-send:hover { background: #a0c490; }
 
 /* FOOTER */
-footer {
-  background: var(--sage-dark);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding: 24px 8vw;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-footer p { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
-footer a { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.3s; }
-footer a:hover { color: rgba(255,255,255,0.7); }
+footer { background: #2e4a38; padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+.footer-logo { font-family: 'Playfair Display', serif; color: var(--sage); font-size: 1.1rem; }
+footer p { color: rgba(255,255,255,0.3); font-size: 0.72rem; }
 
-/* IMPRESSUM */
-.impressum {
-  background: #3a5a3e;
-  padding: 60px 8vw;
-}
-.impressum .section-eyebrow { color: var(--sage-light); margin-bottom: 24px; }
-.impressum .section-eyebrow::before { background: var(--sage-light); }
-.impressum p { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 2; }
-.impressum a { color: rgba(255,255,255,0.45); text-decoration: none; }
-.impressum a:hover { color: rgba(255,255,255,0.7); }
+/* ANIMATIONS */
+.fade-up { opacity: 1; transform: none; }
 
-@media (max-width: 768px) {
-  .about { grid-template-columns: 1fr; gap: 48px; }
-  .portfolio-grid { grid-template-columns: 1fr; }
-  .contact { grid-template-columns: 1fr; gap: 48px; }
-  footer { flex-direction: column; gap: 12px; text-align: center; }
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .nav-menu { display: none; }
+  .nav-inner { grid-template-columns: 1fr auto; }
+  .nav-logo { justify-content: flex-start; }
+  .nav-burger { display: flex; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-img-accent { display: none; }
+  .intro-strip { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 2rem; }
+  .strip-div { display: none; }
+  .apt-grid { grid-template-columns: 1fr; }
+  .act-grid { grid-template-columns: 1fr 1fr; }
+  .region-grid { grid-template-columns: 1fr 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  footer { flex-direction: column; text-align: center; }
+}
+@media (max-width: 580px) {
+  .act-grid { grid-template-columns: 1fr; }
+  .region-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
 }
 ```
 
@@ -405,115 +217,382 @@ footer a:hover { color: rgba(255,255,255,0.7); }
 </head>
 <body>
 
-  <nav>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#contact">Contact</a></li>
+<!-- NAV -->
+
+<nav>
+  <div class="nav-inner">
+    <!-- LEFT: menu links -->
+    <ul class="nav-menu">
+      <li><a href="#ueber-uns">Über uns</a></li>
+      <li>
+        <a href="#ferienwohnungen">Ferienwohnungen <span class="chevron">▾</span></a>
+        <ul class="dropdown">
+          <li><a href="#schober">Schober — 40 m²</a></li>
+          <li><a href="#seeblick-apt">Seeblick — 70 m²</a></li>
+          <li><a href="#schafberg">Schafberg — 90 m²</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#aktivitaeten">Aktivitäten <span class="chevron">▾</span></a>
+        <ul class="dropdown">
+          <li><a href="#am-hof">Am Seeberghof</a></li>
+          <li><a href="#ausflugsziele">Ausflugsziele</a></li>
+        </ul>
+      </li>
+      <li><a href="#kontakt">Kontakt</a></li>
     </ul>
-  </nav>
-
-  <!-- HERO -->
-
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        Available for new projects
-      </div>
-      <h1>
-        Beautiful websites,<br>
-        <em>thoughtfully</em> made.
-      </h1>
-      <div class="hero-line"></div>
-      <p class="hero-sub">Hi, I'm Anna — a web designer from Salzburg. I create clean, personal websites that feel just right.</p>
-      <a href="#contact" class="hero-cta">Get in touch</a>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-
-  <section class="about" id="about">
-    <div class="about-text">
-      <p class="section-eyebrow">About</p>
-      <h2>Hi, I'm Anna.</h2>
-      <p>I'm a web designer based in Salzburg, Austria. I love building websites that feel personal, look beautiful, and actually work.</p>
-      <p>Every project starts with listening — to understand what you need and what feels right for you.</p>
-    </div>
-    <div class="about-visual">
-      <div class="about-card">
-        <div class="about-card-icon" style="background:#e8f0e8;">🌿</div>
-        <div>
-          <h4>Custom & handcrafted</h4>
-          <p>No templates — every site is built from scratch</p>
-        </div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon" style="background:#f5f0e0;">✦</div>
-        <div>
-          <h4>Personal approach</h4>
-          <p>I work closely with each client from start to finish</p>
-        </div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon" style="background:#e8f0e8;">🌍</div>
-        <div>
-          <h4>Bilingual capable</h4>
-          <p>DE/EN websites — no problem</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTFOLIO -->
-
-  <section class="portfolio" id="work">
-    <div class="portfolio-header">
-      <p class="section-eyebrow">Portfolio</p>
-      <h2>Recent work</h2>
-    </div>
-    <div class="portfolio-grid">
+    <!-- CENTER: logo -->
+    <a href="#" class="nav-logo">Seeberghof <em>Fuschl am See</em></a>
+    <!-- RIGHT: language + burger -->
+    <div class="nav-right">
 
 ```
-  <a href="https://hebamme-zug.com" target="_blank" class="project-card">
-    <p class="project-tag">Midwife · Bilingual · CH</p>
-    <h3 class="project-title">Behütet &amp; Begleitet</h3>
-    <p class="project-desc">A bilingual DE/EN website for a postnatal midwife in Zug, Switzerland. Clean, warm design with full SEO and structured data.</p>
-    <p class="project-arrow">Visit site</p>
-  </a>
-
-  <div class="project-card project-card-soon">
-    <p class="project-tag">Coming up</p>
-    <h3 class="project-title">More to come ✦</h3>
-    <p class="project-desc">New projects on the way. Get in touch if you'd like yours to be next.</p>
-    <p class="project-arrow">Say hello</p>
-  </div>
-
+  <button class="nav-burger" onclick="document.querySelector('.nav-mobile').classList.toggle('open')" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
 </div>
 ```
 
-  </section>
+  </div>
+  <div class="nav-mobile">
+    <a href="#ueber-uns">Über uns</a>
+    <a href="#ferienwohnungen">Ferienwohnungen</a>
+    <a href="#schober" style="padding-left:3rem;font-size:0.8rem;opacity:0.8">↳ Schober (40 m²)</a>
+    <a href="#seeblick-apt" style="padding-left:3rem;font-size:0.8rem;opacity:0.8">↳ Seeblick (70 m²)</a>
+    <a href="#schafberg" style="padding-left:3rem;font-size:0.8rem;opacity:0.8">↳ Schafberg (90 m²)</a>
+    <a href="#aktivitaeten">Aktivitäten</a>
+    <a href="#am-hof" style="padding-left:3rem;font-size:0.8rem;opacity:0.8">↳ Am Seeberghof</a>
+    <a href="#ausflugsziele" style="padding-left:3rem;font-size:0.8rem;opacity:0.8">↳ Ausflugsziele</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+</nav>
 
-  <!-- CONTACT -->
+<!-- HERO -->
 
-  <section class="contact" id="contact">
-    <div>
-      <p class="section-eyebrow">Contact</p>
-      <h2>Let's work together.</h2>
-      <p class="contact-sub">Have a project in mind? I'd love to hear about it. Reach out however feels easiest.</p>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Fuschl am See · Salzkammergut · Österreich</p>
+    <h1 class="hero-title">Willkommen am<br><em>Seeberghof</em></h1>
+    <p class="hero-sub">Urlaub am familiär geführten Bauernhof — inmitten von Bergen &amp; Seen</p>
+    <a href="#ueber-uns" class="hero-cta">Mehr entdecken</a>
+  </div>
+
+</section>
+
+<!-- STRIP -->
+
+<div class="intro-strip">
+  <div class="strip-item fade-up">
+    <div class="strip-num">800m</div>
+    <p>vom Ortszentrum</p>
+  </div>
+  <div class="strip-div"></div>
+  <div class="strip-item fade-up">
+    <div class="strip-num">3</div>
+    <p>Ferienwohnungen</p>
+  </div>
+  <div class="strip-div"></div>
+  <div class="strip-item fade-up">
+    <div class="strip-num">∞</div>
+    <p>Ruhe &amp; Erholung</p>
+  </div>
+</div>
+
+<!-- ÜBER UNS -->
+
+<section id="ueber-uns">
+  <div class="section-inner">
+    <p class="section-label fade-up">Unser Hof</p>
+    <h2 class="section-title fade-up">Erholung pur —<br><em>mitten in der Natur</em></h2>
+    <div class="about-grid">
+      <div class="about-img-wrap fade-up">
+        <img class="about-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Seeberghof Bauernhaus" />
+        <div class="about-img-accent"></div>
+      </div>
+      <div class="fade-up">
+        <span class="about-tag">Familie Pöckl</span>
+        <h3 class="section-title" style="font-size:1.65rem">Ihr Zuhause auf Zeit<br><em>im Salzkammergut</em></h3>
+        <p class="section-body">Der Seeberghof liegt in idyllischer Lage in Fuschl am See, eingebettet in die malerische Landschaft des Salzkammerguts, umrahmt vom Osterhorn-Gebirge und dem kristallklaren Fuschlsee.</p>
+        <p class="section-body" style="margin-top:1rem">Nur 800 Meter vom Ortszentrum entfernt genießen Sie einen traumhaften Ausblick auf die Berge und den See. Hier lassen Sie den Alltagsstress hinter sich — die Kinder toben frei im Grünen, während Sie die Stille der Natur genießen.</p>
+        <p class="section-body" style="margin-top:1rem">Als familiengeführter Bauernhof legen wir besonderen Wert auf persönliche Herzlichkeit und Authentizität. Auch Ihre Haustiere sind herzlich willkommen! 🐾</p>
+        <p style="margin-top:1.8rem;font-family:'Playfair Display',serif;font-style:italic;color:var(--moss);font-size:1.1rem">— Mathilde Pöckl &amp; Familie</p>
+      </div>
     </div>
-    <div class="contact-links">
-      <a href="mailto:anna.sams98@gmail.com" class="contact-link">Email</a>
-      <a href="https://instagram.com/anna.louuuuuu" target="_blank" class="contact-link">Instagram</a>
-      <a href="https://wa.me/4369911104917" target="_blank" class="contact-link">WhatsApp</a>
+  </div>
+</section>
+
+<!-- LANDSCAPE -->
+
+<div class="landscape">
+  <div class="landscape-bg"></div>
+  <blockquote class="landscape-quote">
+    „Weg vom Stress — die schönsten Tage des Jahres verbringen Sie bei uns."
+    <cite>Seeberghof · Fuschl am See</cite>
+  </blockquote>
+</div>
+
+<!-- FERIENWOHNUNGEN -->
+
+<section class="apartments" id="ferienwohnungen">
+  <div class="section-inner">
+    <p class="section-label fade-up">Unterkunft</p>
+    <h2 class="section-title fade-up">Unsere <em>Ferienwohnungen</em></h2>
+    <p class="section-body fade-up">Komfortabel eingerichtete Ferienwohnungen mit sonnigem Balkon und Seeblick — für Paare, Familien und Gruppen.</p>
+
+```
+<div class="apt-grid">
+
+  <!-- SCHOBER -->
+  <div class="apt-card fade-up" id="schober" onclick="openModal('modal-schober')">
+    <img class="apt-img" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Ferienwohnung Schober" />
+    <div class="apt-body">
+      <div class="apt-size">40 m²</div>
+      <h3 class="apt-name">Schober</h3>
+      <p class="apt-desc">Gemütliche Wohnung für Paare mit sonnigem Balkon und traumhaftem Seeblick auf den Fuschlsee.</p>
+      <div class="apt-features">
+        <span class="apt-feat">2 Personen</span>
+        <span class="apt-feat">1 Schlafzimmer</span>
+        <span class="apt-feat">Küche</span>
+        <span class="apt-feat">Dusche &amp; WC</span>
+        <span class="apt-feat">Balkon · Seeblick</span>
+      </div>
+      <div class="apt-prices">
+        <p class="apt-prices-title">Preise pro Tag (inkl. Ortstaxe)</p>
+        <div class="price-row">
+          <span class="price-period">01.05. – 30.06.2025</span>
+          <span class="price-amount">ab € 72,–</span>
+        </div>
+        <div class="price-row">
+          <span class="price-period">01.07. – 31.08.2025</span>
+          <span class="price-amount">ab € 80,–</span>
+        </div>
+        <div class="price-row">
+          <span class="price-period">01.09. – 01.11.2025</span>
+          <span class="price-amount">ab € 72,–</span>
+        </div>
+      </div>
+      <div style="margin-top:1rem;text-align:center;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--moss);opacity:0.8">Details &amp; Galerie ansehen ↗</div>
     </div>
-  </section>
+  </div>
 
-  <footer>
-    <p>© 2026 Anna Sams · Web Design · Salzburg</p>
-    <a href="legal.html">Impressum & Datenschutz</a>
-  </footer>
+  <!-- SEEBLICK -->
+  <div class="apt-card fade-up" id="seeblick-apt" onclick="openModal('modal-seeblick')">
+    <img class="apt-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80" alt="Ferienwohnung Seeblick" />
+    <div class="apt-body">
+      <div class="apt-size">70 m²</div>
+      <h3 class="apt-name">Seeblick</h3>
+      <p class="apt-desc">Helle, großzügige Wohnung für Familien — mit zwei getrennten Schlafzimmern und sonnigem Seeblick-Balkon.</p>
+      <div class="apt-features">
+        <span class="apt-feat">2–6 Personen</span>
+        <span class="apt-feat">2 Schlafzimmer</span>
+        <span class="apt-feat">Küche</span>
+        <span class="apt-feat">Dusche &amp; WC getrennt</span>
+        <span class="apt-feat">Balkon · Seeblick</span>
+      </div>
+      <div class="apt-prices">
+        <p class="apt-prices-title">Preise pro Tag (inkl. Ortstaxe)</p>
+        <div class="price-row">
+          <span class="price-period">01.05. – 30.06.2025</span>
+          <span class="price-amount">ab € 88,–</span>
+        </div>
+        <div class="price-row">
+          <span class="price-period">01.07. – 31.08.2025</span>
+          <span class="price-amount">ab € 95,–</span>
+        </div>
+        <div class="price-row">
+          <span class="price-period">01.09. – 01.11.2025</span>
+          <span class="price-amount">ab € 88,–</span>
+        </div>
+      </div>
+      <div style="margin-top:1rem;text-align:center;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--moss);opacity:0.8">Details &amp; Galerie ansehen ↗</div>
+    </div>
+  </div>
 
-</body>
-</html>
+  <!-- SCHAFBERG -->
+  <div class="apt-card fade-up" id="schafberg" onclick="openModal('modal-schafberg')">
+    <img class="apt-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Ferienwohnung Schafberg" />
+    <div class="apt-body">
+      <div class="apt-size">90 m²</div>
+      <h3 class="apt-name">Schafberg</h3>
+      <p class="apt-desc">Unsere größte Wohnung — viel Platz für die ganze Familie, drei Schlafzimmer und sonniger Balkon mit Seeblick.</p>
+      <div class="apt-features">
+        <span class="apt-feat">2–8 Personen</span>
+        <span class="apt-feat">3 Schlafzimmer</span>
+        <span class="apt-feat">Küche</span>
+        <span class="apt-feat">Dusche &amp; WC getrennt</span>
+        <span class="apt-feat">Balkon · Seeblick</span>
+      </div>
+      <div class="apt-prices">
+        <p class="apt-prices-title">Preise pro Tag (inkl. Ortstaxe)</p>
+        <div class="price-row">
+          <span class="price-period">01.05. – 30.06.2025</span>
+          <span class="price-amount">ab € 95,–</span>
+        </div>
+        <div class="price-row">
+          <span class="price-period">01.07. – 31.08.2025</span>
+          <span class="price-amount">ab € 100,–</span>
+        </div>
+        <div class="price-row">
+          <span class="price-period">01.09. – 01.11.2025</span>
+          <span class="price-amount">ab € 95,–</span>
+        </div>
+      </div>
+      <a href="#kontakt" class="apt-cta">Anfrage senden</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Info-Box -->
+<div class="apt-info-box fade-up">
+  <div class="info-item">
+    <strong>Ortstaxe</strong>
+    Wird zusätzlich zum Mietpreis verrechnet
+  </div>
+  <div class="info-item">
+    <strong>Endreinigung</strong>
+    € 40,– bis € 50,–
+  </div>
+  <div class="info-item">
+    <strong>Kinderermäßigung</strong>
+    Auf Anfrage — wir beraten Sie gerne
+  </div>
+  <div class="info-item">
+    <strong>Haustiere</strong>
+    Herzlich willkommen! 🐾
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- AKTIVITÄTEN -->
+
+<section id="aktivitaeten">
+  <div class="section-inner">
+    <p class="section-label fade-up">Spaß &amp; Erholung</p>
+    <h2 class="section-title fade-up">Am Hof &amp; <em>in der Region</em></h2>
+
+```
+<div style="margin-top:2.8rem" id="am-hof">
+  <p class="section-label fade-up">Direkt am Seeberghof</p>
+</div>
+<div class="act-grid fade-up">
+  <div class="act-card">
+    <div class="act-icon">🏓</div>
+    <h4 class="act-title">Spielhalle</h4>
+    <p class="act-desc">Tischtennis und Tischfußball — für Kinder und Erwachsene, bei jedem Wetter ein Riesenspaß.</p>
+  </div>
+  <div class="act-card">
+    <div class="act-icon">🏎️</div>
+    <h4 class="act-title">Go-Kart</h4>
+    <p class="act-desc">Im Freien mit dem Go-Kart über den Hof flitzen — Begeisterung garantiert, nicht nur für die Kleinen.</p>
+  </div>
+  <div class="act-card">
+    <div class="act-icon">🏊</div>
+    <h4 class="act-title">Fuschlsee</h4>
+    <p class="act-desc">Nur 800 m bis zum kristallklaren Fuschlsee — ideal zum Schwimmen und Entspannen.</p>
+  </div>
+  <div class="act-card">
+    <div class="act-icon">🥾</div>
+    <h4 class="act-title">Wandern &amp; Rad</h4>
+    <p class="act-desc">Traumhafte Wege durch das Osterhorn-Gebirge und rund um den See für jeden Konditionsstand.</p>
+  </div>
+</div>
+
+<div style="margin-top:4rem" id="ausflugsziele">
+  <p class="section-label fade-up">Ausflugsziele</p>
+  <h3 class="section-title fade-up" style="font-size:1.55rem">Empfehlungen <em>in der Region</em></h3>
+</div>
+<div class="region-grid fade-up">
+  <div class="region-item">
+    <span class="region-icon">🏰</span>
+    <div><strong>Salzburg</strong><p>Mozarts Geburtshaus, Getreidegasse, Salzburger Dom, Haus der Natur</p></div>
+  </div>
+  <div class="region-item">
+    <span class="region-icon">🚂</span>
+    <div><strong>Schafbergbahn</strong><p>Historische Zahnradbahn auf den Schafberg — unvergesslicher Ausblick über das Salzkammergut</p></div>
+  </div>
+  <div class="region-item">
+    <span class="region-icon">⛏️</span>
+    <div><strong>Hallein – Salzbergwerk</strong><p>Abenteuerliche Erkundung eines historischen Salzbergwerks, ideal für die ganze Familie</p></div>
+  </div>
+  <div class="region-item">
+    <span class="region-icon">🧊</span>
+    <div><strong>Werfen</strong><p>Eisriesenwelt (größte Eishöhle der Welt) &amp; Burg Hohenwerfen</p></div>
+  </div>
+  <div class="region-item">
+    <span class="region-icon">🧀</span>
+    <div><strong>Museen &amp; Besonderes</strong><p>Käsewelt, Freilichtmuseum und viele weitere Entdeckungen im Salzkammergut</p></div>
+  </div>
+  <div class="region-item">
+    <span class="region-icon">⛷️</span>
+    <div><strong>Skigebiet Gaissau-Hintersee</strong><p>Familienfreundliches Skigebiet in unmittelbarer Nähe — perfekt für den Winterurlaub</p></div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- KONTAKT -->
+
+<section class="contact" id="kontakt">
+  <div class="section-inner">
+    <p class="section-label fade-up">Anfrage &amp; Anreise</p>
+    <h2 class="section-title fade-up">Wir freuen uns <em>auf Sie</em></h2>
+    <div class="contact-grid">
+      <div class="fade-up">
+        <p class="c-text">Haben Sie Fragen zu Verfügbarkeit, Preisen oder Anreise? Schreiben Sie uns — wir antworten persönlich und unkompliziert.</p>
+        <div class="contact-detail">
+          <span class="icon">📍</span>
+          <div class="text">Seestraße 88<br>5330 Fuschl am See, Österreich</div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">📞</span>
+          <div class="text">
+            <a href="tel:+4362268313">+43 6226 8313</a><br>
+            <a href="tel:+436644355160">+43 664 4355160</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">✉️</span>
+          <div class="text"><a href="/cdn-cgi/l/email-protection#4a392f2f282f382d22252c642c3f392922260a2d272b232664292527"><span class="__cf_email__" data-cfemail="06756363646374616e696028607375656e6a46616b676f6a2865696b">[email&#160;protected]</span></a></div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">👤</span>
+          <div class="text">Ansprechpartnerin: Mathilde Pöckl</div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="contact-form">
+          <div class="form-row">
+            <input type="text" placeholder="Ihr Name" />
+            <input type="email" placeholder="Ihre E-Mail" />
+          </div>
+          <input type="text" placeholder="Gewünschte Wohnung (Schober / Seeblick / Schafberg)" />
+          <input type="text" placeholder="Reisezeitraum (z.B. 10.–17. Juli 2025)" />
+          <textarea placeholder="Ihre Nachricht — Personenanzahl, Haustiere, Fragen …"></textarea>
+          <button class="btn-send">Anfrage senden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-logo">Seeberghof</div>
+  <p>© 2025 Seeberghof · Familie Pöckl · Fuschl am See</p>
+  <p>Seestraße 88 · 5330 Fuschl am See · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87f4e2e2e5e2f5e0efe8e1a9e1f2f4e4efebc7e0eae6eeeba9e4e8ea">[email&#160;protected]</a></p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+const obs = new IntersectionObserver((entries) => {
+entries.forEach((e, i) => {
+if (e.isIntersecting) {
+setTimeout(() =
