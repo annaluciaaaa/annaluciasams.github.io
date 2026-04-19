@@ -102,7 +102,7 @@ nav {
 }
 .mobile-menu a:last-child { border-bottom: none; }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .nav-links { display: none; }
   .hamburger { display: flex; }
   nav { padding: 1rem 1.2rem; }
@@ -247,6 +247,9 @@ footer {
 @media (max-width: 900px) {
   .interests-grid { grid-template-columns: repeat(3, 1fr); }
 }
+@media (max-width: 700px) {
+  .interests-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 500px) {
   .interests-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -289,7 +292,7 @@ footer {
   </div>
 </section>
 
-<div class="wavy">
+<div class="wavy" style="background: var(--cream);">
   <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:60px;">
     <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f0e8da"/>
   </svg>
