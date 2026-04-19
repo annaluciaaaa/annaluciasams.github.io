@@ -95,8 +95,7 @@ section { position: relative; z-index: 1; }
 
 /* HERO */
 .hero {
-  padding: 5rem 2rem 3rem;
-  position: relative;
+  padding: 4rem 2rem 3rem;
 }
 .hero-inner {
   max-width: 800px; margin: 0 auto; width: 100%;
@@ -112,6 +111,12 @@ section { position: relative; z-index: 1; }
   color: var(--ink); display: block;
   font-size: clamp(1.4rem, 4vw, 3rem);
   margin-top: 0.3rem;
+}
+.hero-intro-line {
+  font-size: clamp(0.95rem, 1.8vw, 1.08rem);
+  line-height: 2; color: var(--muted);
+  max-width: 620px; margin: 1.2rem 0 1.5rem;
+  opacity: 0; animation: fadeUp 1s 0.5s forwards;
 }
 .hero-sub {
   font-size: clamp(0.95rem, 1.8vw, 1.08rem);
@@ -302,24 +307,24 @@ footer { padding: 1.8rem; text-align: center; background: var(--sand); border-to
 </div>
 
 <section class="hero">
-  <div class="shape shape-1"></div>
-  <div class="shape shape-2"></div>
   <div class="hero-inner">
     <h1 class="hero-name">
-      Hello, I'm Anna
-      <span>and I'm interested in way too many things.</span>
+      Have you ever felt like you think too much?
     </h1>
-    <p class="hero-sub">
-      This is my personal page. Like a diary, with some of my deepest thoughts and personal feelings.
+    <p class="hero-intro-line">Hello, I'm Anna and I'm interested in way too many things.
+    This is my personal page. Like a diary, with some of my deepest thoughts and personal feelings.
       Writing was always a way for me to deal with things and process my life.
       I lost that habit for a very long time and now I am on a journey to find it again, to think, to feel and to be creative.
       I've always felt the pull to write, to place thoughts somewhere outside of myself, so that I could look at them clearly.
       Even though no one ever read them.
-      Some people have the urge to leave a trace and this is mine.
-    </p>
-    <p class="hero-note">
-      Some people may think I am crazy. Some people may think I am a genius. And that is okay because everyone tells a different story.
-    </p>
+      Some people have the urge to leave a trace and this is mine.</p>
+
+```
+<p class="hero-note">
+  Some people may think I am crazy. Some people may think I am a genius. And that is okay because everyone tells a different story.
+</p>
+```
+
   </div>
 </section>
 
