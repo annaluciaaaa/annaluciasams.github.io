@@ -35,7 +35,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: nowrap;        /* never wrap */
+  flex-wrap: nowrap;
   padding: 1rem 2rem;
   background: rgba(250,246,240,0.92);
   backdrop-filter: blur(10px);
@@ -48,7 +48,7 @@ nav {
   font-size: 0.85rem;
   color: var(--rust);
   letter-spacing: 0.02em;
-  white-space: nowrap;      /* never break the title */
+  white-space: nowrap;
   flex-shrink: 1;
   min-width: 0;
 }
@@ -56,7 +56,7 @@ nav {
   display: flex;
   gap: 1.5rem;
   list-style: none;
-  flex-shrink: 0;           /* links never shrink away */
+  flex-shrink: 0;
 }
 .nav-links a {
   font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
@@ -65,7 +65,6 @@ nav {
 }
 .nav-links a:hover { color: var(--rust); }
 
-/* HAMBURGER — always on the right, only visible on small screens */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -75,7 +74,7 @@ nav {
   background: none;
   border: none;
   flex-shrink: 0;
-  margin-left: auto;        /* pushes it to the right */
+  margin-left: auto;
 }
 .hamburger span {
   display: block; width: 22px; height: 2px;
@@ -103,7 +102,6 @@ nav {
 }
 .mobile-menu a:last-child { border-bottom: none; }
 
-/* Switch to hamburger only on phones (≤ 600px) */
 @media (max-width: 600px) {
   .nav-links { display: none; }
   .hamburger { display: flex; }
@@ -278,7 +276,6 @@ footer {
   <div class="hero-inner">
     <h1 class="hero-name">Have you ever felt like<br>you think too much?</h1>
     <p class="hero-text">
-      Hello, I'm Anna and I'm interested in way too many things.
       This is my personal page. Like a diary, with some of my deepest thoughts and personal feelings.
       Writing was always a way for me to deal with things and process my life.
       I lost that habit for a very long time and now I am on a journey to find it again, to think, to feel and to be creative.
@@ -331,18 +328,18 @@ footer {
     <p class="section-eyebrow reveal">What moves me</p>
     <h2 class="reveal">The things I think about.</h2>
     <div class="interests-grid">
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Philosophy of Self</p><p class="interest-desc">Identity beneath the surface. What's left when the labels dissolve.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Writing & Feeling</p><p class="interest-desc">Language as a tool for excavation. Words as the only honest mirror.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Time & Impermanence</p><p class="interest-desc">Rivers flow. Everything changes. And yet something stays.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Photography</p><p class="interest-desc">I tell stories with images. Photography is another language for seeing the world.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Travel</p><p class="interest-desc">Every place has its own story. I go looking for them.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Finance</p><p class="interest-desc">What we do with money says a lot about what we value.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Feminism</p><p class="interest-desc">Equality is not a trend. It is a necessity.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Psychology</p><p class="interest-desc">Why do we feel what we feel? Why do we do what we do?</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Sociology</p><p class="interest-desc">We are shaped by the world around us more than we think.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Art</p><p class="interest-desc">Art says what words cannot. It asks what logic refuses to answer.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Building Websites</p><p class="interest-desc">I build homepages for people. There is something satisfying about creating a space for someone online.</p></div>
-      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Reading</p><p class="interest-desc">Books take you somewhere else. I love getting lost in them.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Philosophy of Self</p><p class="interest-desc">I keep asking who I am when no one is watching. I'm not sure I'll ever find out.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Writing & Feeling</p><p class="interest-desc">Writing is how I make sense of things. It's cheaper than therapy and more honest.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Time & Impermanence</p><p class="interest-desc">Everything passes. I find that both terrifying and comforting.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Photography</p><p class="interest-desc">Some moments disappear before you even realize they happened. I try to catch them.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Travel</p><p class="interest-desc">I travel to find out what I think when everything familiar is gone.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Finance</p><p class="interest-desc">Money is not everything. But pretending it doesn't matter is a luxury I can't afford.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Feminism</p><p class="interest-desc">I shouldn't have to explain why this matters. But I will, as many times as it takes.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Psychology</p><p class="interest-desc">People fascinate me. Especially the ones who have no idea why they do what they do.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Sociology</p><p class="interest-desc">We think we make our own choices. We mostly don't.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Art</p><p class="interest-desc">Art is the only place where not making sense is completely fine.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Building Websites</p><p class="interest-desc">I like building little homes for people on the internet. There's something quietly satisfying about that.</p></div>
+      <div class="interest-card"><span class="interest-dot"></span><p class="interest-title">Reading</p><p class="interest-desc">Books are the only place I can fully disappear.</p></div>
     </div>
   </div>
 </section>
