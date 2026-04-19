@@ -11,7 +11,6 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      color-scheme: light only;
       --cream:  #faf6f0;
       --sand:   #f0e8da;
       --rust:   #9c5a47;
@@ -30,21 +29,15 @@
     }
 
 ```
-/* ANIMATED BG */
-#bg-canvas {
-  position: fixed; inset: 0; z-index: 0;
-  pointer-events: none; opacity: 0.45;
-}
-
 /* NAV */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   display: flex; justify-content: space-between; align-items: center;
   padding: 1.1rem 2.5rem;
-  background: rgba(250,246,240,0.9);
+  background: rgba(250,246,240,0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(232,221,208,0.5);
+  border-bottom: 1px solid rgba(232,221,208,0.6);
 }
 .nav-mark {
   font-family: 'Lora', serif;
@@ -87,14 +80,18 @@ nav {
 }
 .mobile-menu a:last-child { border-bottom: none; }
 
-section { position: relative; z-index: 1; }
-
-/* HERO — padding-top clears the fixed nav */
+/* HERO */
 .hero {
   padding-top: 80px;
-  padding-bottom: 3rem;
+  padding-bottom: 4rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  /* Pure CSS gradient — no canvas, no JS */
+  background:
+    radial-gradient(ellipse at 15% 40%, rgba(201,137,122,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(156,90,71,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(201,137,122,0.10) 0%, transparent 45%),
+    var(--cream);
 }
 .hero-inner { max-width: 800px; margin: 0 auto; }
 
@@ -103,7 +100,6 @@ section { position: relative; z-index: 1; }
   font-size: clamp(2rem, 6vw, 4.8rem);
   font-weight: 400; line-height: 1.15;
   color: var(--rust);
-  /* NO animation-delay so Safari doesn't hide it */
 }
 .hero-text {
   font-size: clamp(0.93rem, 1.7vw, 1.06rem);
@@ -119,7 +115,7 @@ section { position: relative; z-index: 1; }
 }
 
 /* WAVE */
-.wavy { width: 100%; overflow: hidden; line-height: 0; position: relative; z-index: 1; }
+.wavy { width: 100%; overflow: hidden; line-height: 0; }
 .wavy svg { display: block; width: 100%; }
 
 /* QUESTIONS */
@@ -230,21 +226,11 @@ footer {
   .interests-grid { grid-template-columns: repeat(2, 1fr); }
   nav { padding: 1rem 1.4rem; }
 }
-
-@media (prefers-color-scheme: dark) {
-  body { background: var(--cream) !important; color: var(--ink) !important; }
-  .questions-section { background: var(--sand) !important; }
-  .interests-section, footer { background: var(--cream) !important; }
-  .interest-card, .coming-soon { background: white !important; }
-  nav, .mobile-menu { background: rgba(250,246,240,0.97) !important; }
-}
 ```
 
   </style>
 </head>
 <body>
-
-<canvas id="bg-canvas"></canvas>
 
 <nav>
   <span class="nav-mark">Anna Lucia Sams — My Trace</span>
@@ -354,41 +340,7 @@ footer {
     document.querySelector('.hamburger').classList.remove('open');
   }
 
-  // Animated background
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, circles;
-  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  function initCircles() {
-    circles = Array.from({length: 6}, () => ({
-      x: Math.random() * W, y: Math.random() * H,
-      r: 80 + Math.random() * 160,
-      dx: (Math.random() - 0.5) * 0.3,
-      dy: (Math.random() - 0.5) * 0.3,
-      rgb: Math.random() > 0.5 ? '156,90,71' : '201,137,122',
-      alpha: 0.05 + Math.random() * 0.07
-    }));
-  }
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    circles.forEach(c => {
-      c.x += c.dx; c.y += c.dy;
-      if (c.x < -c.r) c.x = W + c.r;
-      if (c.x > W + c.r) c.x = -c.r;
-      if (c.y < -c.r) c.y = H + c.r;
-      if (c.y > H + c.r) c.y = -c.r;
-      const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, c.r);
-      g.addColorStop(0, `rgba(${c.rgb},${c.alpha})`);
-      g.addColorStop(1, 'transparent');
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2); ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  resize(); initCircles(); draw();
-  window.addEventListener('resize', () => { resize(); initCircles(); });
-
-  // Scroll reveals — only for elements NOT in the hero
+  // Scroll reveals
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
