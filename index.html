@@ -89,8 +89,8 @@ nav {
 
 section { position: relative; z-index: 1; }
 
-/* HERO */
-.hero { padding: 5.5rem 2rem 4rem; }
+/* HERO — padding-top just clears the fixed nav (~58px) + small breathing room */
+.hero { padding: 5rem 2rem 3rem; }
 .hero-inner { max-width: 800px; margin: 0 auto; }
 
 .hero-name {
@@ -238,6 +238,8 @@ footer {
   .hamburger { display: flex; }
   .interests-grid { grid-template-columns: repeat(2, 1fr); }
   nav { padding: 1rem 1.4rem; }
+  /* on mobile the nav is slightly shorter, keep top padding tight */
+  .hero { padding-top: 4.5rem; }
 }
 
 @media (prefers-color-scheme: dark) {
