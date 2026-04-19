@@ -89,8 +89,13 @@ nav {
 
 section { position: relative; z-index: 1; }
 
-/* HERO — padding-top just clears the fixed nav (~58px) + small breathing room */
-.hero { padding: 5rem 2rem 3rem; }
+/* HERO — padding-top clears the fixed nav */
+.hero {
+  padding-top: 80px;
+  padding-bottom: 3rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
 .hero-inner { max-width: 800px; margin: 0 auto; }
 
 .hero-name {
@@ -98,20 +103,12 @@ section { position: relative; z-index: 1; }
   font-size: clamp(2rem, 6vw, 4.8rem);
   font-weight: 400; line-height: 1.15;
   color: var(--rust);
-  animation: fadeUp 0.9s 0.1s both;
-}
-.hero-tagline {
-  font-family: 'Lora', serif;
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
-  font-weight: 400; color: var(--ink);
-  margin-top: 0.5rem;
-  animation: fadeUp 0.9s 0.3s both;
+  /* NO animation-delay so Safari doesn't hide it */
 }
 .hero-text {
   font-size: clamp(0.93rem, 1.7vw, 1.06rem);
   line-height: 2; color: var(--muted);
   max-width: 620px; margin: 2rem 0 1.8rem;
-  animation: fadeUp 0.9s 0.5s both;
 }
 .hero-note {
   font-family: 'Lora', serif;
@@ -119,7 +116,6 @@ section { position: relative; z-index: 1; }
   color: var(--rust); max-width: 540px;
   line-height: 1.75; border-left: 2px solid var(--rose);
   padding-left: 1.2rem;
-  animation: fadeUp 0.9s 0.7s both;
 }
 
 /* WAVE */
@@ -225,11 +221,6 @@ footer {
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s, transform 0.7s; }
 .reveal.visible { opacity: 1; transform: none; }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: none; }
-}
-
 @media (max-width: 900px) {
   .interests-grid { grid-template-columns: repeat(3, 1fr); }
 }
@@ -238,8 +229,6 @@ footer {
   .hamburger { display: flex; }
   .interests-grid { grid-template-columns: repeat(2, 1fr); }
   nav { padding: 1rem 1.4rem; }
-  /* on mobile the nav is slightly shorter, keep top padding tight */
-  .hero { padding-top: 4.5rem; }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -276,8 +265,8 @@ footer {
 <section class="hero">
   <div class="hero-inner">
     <h1 class="hero-name">Have you ever felt like<br>you think too much?</h1>
-    <p class="hero-tagline">Hello, I'm Anna and I'm interested in way too many things.</p>
     <p class="hero-text">
+      Hello, I'm Anna and I'm interested in way too many things.
       This is my personal page. Like a diary, with some of my deepest thoughts and personal feelings.
       Writing was always a way for me to deal with things and process my life.
       I lost that habit for a very long time and now I am on a journey to find it again, to think, to feel and to be creative.
@@ -399,7 +388,7 @@ footer {
   resize(); initCircles(); draw();
   window.addEventListener('resize', () => { resize(); initCircles(); });
 
-  // Scroll reveals
+  // Scroll reveals — only for elements NOT in the hero
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
