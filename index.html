@@ -32,28 +32,50 @@
 /* NAV */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1.1rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;        /* never wrap */
+  padding: 1rem 2rem;
   background: rgba(250,246,240,0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(232,221,208,0.6);
+  min-height: 58px;
 }
 .nav-mark {
   font-family: 'Lora', serif;
-  font-size: 0.9rem; color: var(--rust); letter-spacing: 0.02em;
+  font-size: 0.85rem;
+  color: var(--rust);
+  letter-spacing: 0.02em;
+  white-space: nowrap;      /* never break the title */
+  flex-shrink: 1;
+  min-width: 0;
 }
-.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  flex-shrink: 0;           /* links never shrink away */
+}
 .nav-links a {
-  font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--muted); text-decoration: none; transition: color 0.3s;
+  white-space: nowrap;
 }
 .nav-links a:hover { color: var(--rust); }
 
-/* HAMBURGER */
+/* HAMBURGER — always on the right, only visible on small screens */
 .hamburger {
-  display: none; flex-direction: column; gap: 5px;
-  cursor: pointer; padding: 4px; background: none; border: none;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+  margin-left: auto;        /* pushes it to the right */
 }
 .hamburger span {
   display: block; width: 22px; height: 2px;
@@ -65,7 +87,8 @@ nav {
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .mobile-menu {
-  display: none; position: fixed; top: 58px; left: 0; right: 0;
+  display: none;
+  position: fixed; top: 58px; left: 0; right: 0;
   background: rgba(250,246,240,0.97);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--light);
@@ -80,13 +103,19 @@ nav {
 }
 .mobile-menu a:last-child { border-bottom: none; }
 
+/* Switch to hamburger only on phones (≤ 600px) */
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  nav { padding: 1rem 1.2rem; }
+}
+
 /* HERO */
 .hero {
   padding-top: 80px;
   padding-bottom: 4rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  /* Pure CSS gradient — no canvas, no JS */
   background:
     radial-gradient(ellipse at 15% 40%, rgba(201,137,122,0.18) 0%, transparent 55%),
     radial-gradient(ellipse at 85% 20%, rgba(156,90,71,0.12) 0%, transparent 50%),
@@ -220,11 +249,8 @@ footer {
 @media (max-width: 900px) {
   .interests-grid { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 640px) {
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
+@media (max-width: 500px) {
   .interests-grid { grid-template-columns: repeat(2, 1fr); }
-  nav { padding: 1rem 1.4rem; }
 }
 ```
 
@@ -340,7 +366,6 @@ footer {
     document.querySelector('.hamburger').classList.remove('open');
   }
 
-  // Scroll reveals
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
