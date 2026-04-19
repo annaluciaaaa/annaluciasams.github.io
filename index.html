@@ -4,343 +4,278 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A Trace</title>
+  <title>Anna Lucia Sams — My Trace</title>
   <meta name="color-scheme" content="light only" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Crimson+Pro:ital,wght@0,300;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { color-scheme: light only; }
+    :root {
+      color-scheme: light only;
+      --cream:     #faf6f0;
+      --sand:      #f0e8da;
+      --terracotta:#9c5a47;
+      --terra-lt:  #c9897a;
+      --rose:      #c9897a;
+      --ink:       #1e1810;
+      --muted:     #7a6a5a;
+      --light:     #e8ddd0;
+      --white:     #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
 
 ```
-:root {
-  --bg:        #f5efe6;
-  --bg2:       #ede4d7;
-  --ink:       #2c2318;
-  --ink-soft:  #6b5a47;
-  --accent:    #a0785a;
-  --line:      rgba(160,120,90,0.25);
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+/* CANVAS */
+#bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; opacity: 0.5;
 }
 
-html { scroll-behavior: smooth; }
-
-body {
-  background-color: var(--bg);
-  background-image: var(--grain);
-  color: var(--ink);
-  font-family: 'Crimson Pro', Georgia, serif;
-  font-weight: 300;
-  font-size: 1.15rem;
-  line-height: 1.85;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ── NAV ── */
+/* NAV */
 nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.4rem 3rem;
-  background: linear-gradient(to bottom, var(--bg) 60%, transparent);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.2rem 2.5rem;
+  background: rgba(250,246,240,0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(232,221,208,0.6);
 }
 .nav-mark {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0;
-  animation: fadeUp 1s 0.4s forwards;
+  font-family: 'Lora', serif;
+  font-size: 0.92rem; color: var(--terracotta); letter-spacing: 0.02em;
 }
-.nav-links {
-  display: flex; gap: 2rem;
-  list-style: none;
-  opacity: 0;
-  animation: fadeUp 1s 0.6s forwards;
-}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
 .nav-links a {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.82rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  text-decoration: none;
-  transition: color 0.3s;
+  font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.3s;
 }
-.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover { color: var(--terracotta); }
 
-/* ── HERO ── */
+/* HAMBURGER */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 4px; background: none; border: none;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--terracotta); border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none; position: fixed; top: 60px; left: 0; right: 0;
+  background: rgba(250,246,240,0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--light);
+  z-index: 199; padding: 1.5rem 2rem;
+  flex-direction: column; gap: 1.2rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; padding: 0.4rem 0;
+  border-bottom: 1px solid var(--light);
+}
+.mobile-menu a:last-child { border-bottom: none; }
+
+section { position: relative; z-index: 1; }
+
+/* HERO */
 .hero {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 8rem 2rem 4rem;
-  position: relative;
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; padding: 7rem 2rem 5rem;
 }
-
 .hero-inner {
-  max-width: 680px;
-  text-align: center;
+  max-width: 800px; margin: 0 auto; width: 100%;
 }
-.hero-eyebrow {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.8rem;
-  opacity: 0;
-  animation: fadeUp 1s 0.2s forwards;
+.hero-name {
+  font-family: 'Lora', serif;
+  font-size: clamp(2.2rem, 7vw, 5.5rem);
+  font-weight: 400; line-height: 1.12;
+  color: var(--terracotta);
+  opacity: 0; animation: fadeUp 1s 0.2s forwards;
 }
-h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.2rem, 6vw, 4rem);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--ink);
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeUp 1.2s 0.6s forwards;
-}
-h1 em {
-  font-style: normal;
-  color: var(--accent);
-}
-.hero-intro {
-  font-family: 'Crimson Pro', serif;
-  font-size: 1rem;
-  color: var(--ink-soft);
-  letter-spacing: 0.04em;
-  margin-bottom: 1.4rem;
-  opacity: 0;
-  animation: fadeUp 1s 0.4s forwards;
+.hero-name span {
+  color: var(--ink); display: block;
+  font-size: clamp(1.4rem, 4vw, 3rem);
+  margin-top: 0.3rem;
 }
 .hero-sub {
-  font-size: 1.1rem;
-  color: var(--ink-soft);
-  max-width: 480px;
-  margin: 0 auto 3rem;
-  opacity: 0;
-  animation: fadeUp 1s 0.7s forwards;
-}
-.hero-intro-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.2rem;
-  opacity: 0;
-  animation: fadeUp 1s 0.55s forwards;
+  font-size: clamp(0.95rem, 1.8vw, 1.08rem);
+  line-height: 2; color: var(--muted);
+  max-width: 620px; margin: 2.2rem 0 1.8rem;
+  opacity: 0; animation: fadeUp 1s 0.5s forwards;
 }
 .hero-note {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  margin-top: 1.8rem;
-  margin-bottom: 1.2rem;
-  opacity: 0;
-  animation: fadeUp 1s 1s forwards;
+  font-family: 'Lora', serif;
+  font-size: clamp(0.92rem, 1.6vw, 1.08rem);
+  font-weight: 400; color: var(--terracotta);
+  max-width: 540px; line-height: 1.7;
+  border-left: 2px solid var(--rose);
+  padding-left: 1.2rem;
+  opacity: 0; animation: fadeUp 1s 0.8s forwards;
 }
-.scroll-hint {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0;
-  animation: fadeUp 1s 1.1s forwards;
+.shape {
+  position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+}
+.shape-1 {
+  width: clamp(180px,35vw,320px); height: clamp(180px,35vw,320px);
+  background: radial-gradient(circle, rgba(181,82,42,0.15), transparent 70%);
+  top: 8%; right: -5%;
+  animation: floatShape 9s ease-in-out infinite;
+}
+.shape-2 {
+  width: clamp(120px,22vw,220px); height: clamp(120px,22vw,220px);
+  background: radial-gradient(circle, rgba(201,137,122,0.13), transparent 70%);
+  bottom: 15%; left: -3%;
+  animation: floatShape 12s ease-in-out infinite reverse;
+}
+@keyframes floatShape {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-24px); }
 }
 
-/* ── SECTIONS ── */
-section {
-  padding: 6rem 2rem;
-}
-.container {
-  max-width: 700px;
-  margin: 0 auto;
-}
-.section-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-}
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--line);
+/* WAVE */
+.wavy { width: 100%; overflow: hidden; line-height: 0; position: relative; z-index: 1; }
+.wavy svg { display: block; width: 100%; }
+
+/* QUESTIONS */
+.questions-section { background: var(--sand); padding: 5rem 1.5rem; }
+.container { max-width: 720px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--terra-lt); margin-bottom: 0.8rem;
 }
 h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
-  font-weight: 300;
-  line-height: 1.2;
-  margin-bottom: 1.8rem;
-  color: var(--ink);
+  font-family: 'Lora', serif;
+  font-size: clamp(1.5rem, 4vw, 2.6rem);
+  font-weight: 400; line-height: 1.3;
+  color: var(--terracotta); margin-bottom: 2.2rem;
 }
-h2 em { font-style: normal; color: var(--accent); }
-
-p { margin-bottom: 1.4rem; color: var(--ink-soft); }
-p:last-child { margin-bottom: 0; }
-
-/* ── QUESTIONS ── */
-.questions-section {
-  background: var(--bg2);
-  background-image: var(--grain);
-}
-.question-list {
-  list-style: none;
-  margin-top: 2rem;
-}
+.question-list { list-style: none; counter-reset: q; }
 .question-list li {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.2rem, 3vw, 1.65rem);
-  font-weight: 300;
-  font-style: normal;
-  color: var(--ink);
-  padding: 1.4rem 0;
-  border-bottom: 1px solid var(--line);
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s, transform 0.7s;
+  font-family: 'Lora', serif;
+  font-size: clamp(0.98rem, 2vw, 1.25rem);
+  color: var(--ink); padding: 1rem 0;
+  border-bottom: 1px solid var(--light);
+  display: flex; align-items: baseline; gap: 1rem;
+  opacity: 0; transform: translateX(-16px);
+  transition: opacity 0.6s, transform 0.6s;
 }
-.question-list li.visible {
-  opacity: 1;
-  transform: none;
-}
+.question-list li.visible { opacity: 1; transform: none; }
 .question-list li::before {
-  content: '—';
-  color: var(--accent);
-  margin-right: 0.8rem;
+  content: counter(q, decimal-leading-zero);
+  counter-increment: q;
+  font-size: 0.66rem; color: var(--terra-lt);
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.08em; min-width: 1.8rem; flex-shrink: 0;
 }
+.coming-soon {
+  margin-top: 2.2rem; padding: 1.4rem 1.8rem;
+  background: var(--white); border-radius: 14px;
+  border: 1px solid var(--light);
+}
+.coming-soon p {
+  color: var(--muted); font-size: 0.9rem;
+  line-height: 1.8; margin-bottom: 0.6rem;
+}
+.coming-soon p:last-child { margin-bottom: 0; }
 
-/* ── INTERESTS ── */
+/* INTERESTS */
+.interests-section { padding: 5rem 1.5rem; background: var(--cream); }
 .interests-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem; margin-top: 2rem;
 }
 .interest-card {
-  background: var(--bg2);
-  background-image: var(--grain);
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  padding: 1.8rem 1.5rem;
-  transition: transform 0.3s, border-color 0.3s;
+  background: var(--white); border: 1px solid var(--light);
+  border-radius: 18px; padding: 1.4rem 1.1rem;
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 0.5s, transform 0.5s, box-shadow 0.3s, border-color 0.3s;
 }
+.interest-card.visible { opacity: 1; transform: translateY(0); }
 .interest-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
+  transform: translateY(-5px) rotate(-0.3deg);
+  box-shadow: 0 12px 32px rgba(181,82,42,0.11);
+  border-color: var(--rose);
 }
-.interest-icon {
-  font-size: 1.4rem;
-  margin-bottom: 0.8rem;
-}
+.interest-icon { font-size: 0.9rem; margin-bottom: 0.6rem; display: block; }
 .interest-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 0.4rem;
+  font-family: 'Lora', serif;
+  font-size: 0.9rem; color: var(--terracotta); margin-bottom: 0.35rem;
 }
-.interest-desc {
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-  line-height: 1.6;
-  margin: 0;
-}
+.interest-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
 
-/* ── TRACE QUOTE ── */
-.trace-section {
-  text-align: center;
-  padding: 8rem 2rem;
-  background: var(--bg2);
-  background-image: var(--grain);
+/* QUOTE */
+.quote-section {
+  background: var(--terracotta); padding: 5rem 1.5rem;
+  text-align: center; position: relative; overflow: hidden;
+}
+.quote-section::before {
+  content: '"'; font-family: 'Lora', serif; font-size: 16rem;
+  color: rgba(255,255,255,0.07); position: absolute;
+  top: -3rem; left: 50%; transform: translateX(-50%);
+  line-height: 1; pointer-events: none;
 }
 blockquote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.6rem, 4.5vw, 2.6rem);
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.4;
-  color: var(--ink);
-  max-width: 640px;
-  margin: 0 auto 1.5rem;
-  position: relative;
-}
-blockquote::before {
-  content: '"';
-  font-size: 6rem;
-  color: var(--line);
-  position: absolute;
-  top: -2rem; left: -1rem;
-  line-height: 1;
-  font-family: Georgia, serif;
+  font-family: 'Lora', serif;
+  font-size: clamp(1.2rem, 3vw, 1.9rem);
+  font-weight: 400; color: white;
+  max-width: 540px; margin: 0 auto 1.2rem;
+  line-height: 1.6; position: relative; z-index: 1;
 }
 .quote-attr {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
+  font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); position: relative; z-index: 1;
 }
 
-/* ── FOOTER ── */
-footer {
-  padding: 3rem 2rem;
-  text-align: center;
-  border-top: 1px solid var(--line);
-}
+footer { padding: 1.8rem; text-align: center; background: var(--sand); border-top: 1px solid var(--light); }
 .footer-mark {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
+  font-size: 0.76rem; letter-spacing: 0.1em;
+  color: var(--muted);
 }
 
-/* ── ANIMATIONS ── */
-@media (prefers-color-scheme: dark) {
-  body, nav, section, footer, .questions-section, .trace-section, .interest-card {
-    background-color: var(--bg) !important;
-    color: var(--ink) !important;
-  }
-  p { color: var(--ink-soft) !important; }
-}
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s, transform 0.7s; }
+.reveal.visible { opacity: 1; transform: none; }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
 }
 
-/* ── SCROLLED REVEALS ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .interests-grid { grid-template-columns: repeat(3, 1fr); }
 }
-.reveal.visible {
-  opacity: 1;
-  transform: none;
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .interests-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-name { font-size: clamp(2rem, 9vw, 3rem); }
+  nav { padding: 1rem 1.4rem; }
+}
+@media (max-width: 380px) {
+  .interests-grid { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
 }
 
-@media (max-width: 600px) {
-  nav { padding: 1.2rem 1.5rem; }
-  .nav-links { gap: 1.2rem; }
+@media (prefers-color-scheme: dark) {
+  body, .questions-section, .interests-section { background: var(--cream) !important; }
+  .interest-card, .coming-soon { background: var(--white) !important; color: var(--ink) !important; }
+  nav { background: rgba(250,246,240,0.95) !important; }
 }
 ```
 
@@ -348,176 +283,185 @@ footer {
 </head>
 <body>
 
-  <nav>
-    <span class="nav-mark">Anna Lucia Sams — My Trace</span>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#questions">Questions</a></li>
-      <li><a href="#interests">Interests</a></li>
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+  <span class="nav-mark">Anna Lucia Sams — My Trace</span>
+  <ul class="nav-links">
+    <li><a href="#questions">Questions</a></li>
+    <li><a href="#interests">Interests</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#questions" onclick="closeMenu()">Questions</a>
+  <a href="#interests" onclick="closeMenu()">Interests</a>
+</div>
+
+<section class="hero">
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+  <div class="hero-inner">
+    <h1 class="hero-name">
+      Hello, I'm Anna
+      <span>and I'm interested in way too many things.</span>
+    </h1>
+    <p class="hero-sub">
+      This is my personal page. Like a diary, with some of my deepest thoughts and personal feelings.
+      Writing was always a way for me to deal with things and process my life.
+      I lost that habit for a very long time and now I am on a journey to find it again, to think, to feel and to be creative.
+      I've always felt the pull to write, to place thoughts somewhere outside of myself, so that I could look at them clearly.
+      Even though no one ever read them.
+      Some people have the urge to leave a trace and this is mine.
+    </p>
+    <p class="hero-note">
+      Some people may think I am crazy. Some people may think I am a genius. And that is okay because everyone tells a different story.
+    </p>
+  </div>
+</section>
+
+<div class="wavy">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:60px;">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f0e8da"/>
+  </svg>
+</div>
+
+<section id="questions" class="questions-section">
+  <div class="container">
+    <p class="section-eyebrow reveal">What I keep asking</p>
+    <h2 class="reveal">The questions I cannot stop returning to.</h2>
+    <ul class="question-list">
+      <li>Who am I?</li>
+      <li>Who are we when nobody is there?</li>
+      <li>Do we all feel the same?</li>
+      <li>What is true?</li>
+      <li>What remains when nothing is left?</li>
+      <li>What would I do if nobody judged me?</li>
+      <li>What would I be without the people who shaped me?</li>
+      <li>Do we live one life, or many at the same time?</li>
+      <li>What is fair?</li>
     </ul>
-  </nav>
-
-  <!-- HERO -->
-
-  <section class="hero">
-    <div class="hero-inner">
-      <p class="hero-eyebrow">Hello, I'm Anna and I'm interested in way too many things.</p>
-      <p class="hero-sub">
-        This is my personal page. Like a diary, with some of my deepest thoughts and personal feelings.
-        Writing was always a way for me to deal with things and process my life.
-        I lost that habit for a very long time and now I am on a journey to find it again, to think, to feel and to be creative.
-        I've always felt the pull to write, to place thoughts somewhere outside of myself, so that I could look at them clearly.
-        Even though no one ever read them.
-        Some people have the urge to leave a trace and this is mine.
-      </p>
-      <p class="hero-note">Some people may think I am crazy. Some people may think I am a genius. And that is okay because everyone tells a different story.</p>
+    <div class="coming-soon reveal">
+      <p>My thoughts on each of these questions are coming soon. Some answers take time. Some may never come.</p>
+      <p>Not everyone asks these questions. Not because they cannot feel deeply, but because nobody ever taught them to stop and look inward. This page is an invitation to do exactly that.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- QUESTIONS -->
+<div class="wavy" style="background:#f0e8da;">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:60px;">
+    <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="#faf6f0"/>
+  </svg>
+</div>
 
-  <section id="questions" class="questions-section">
-    <div class="container">
-      <p class="section-label">What I keep asking</p>
-      <h2 class="reveal">The questions<br>I can't <em>stop</em> returning to.</h2>
-      <ul class="question-list">
-        <li>Who am I?</li>
-        <li>Who are we when nobody is there?</li>
-        <li>Do we all feel the same?</li>
-        <li>What is true?</li>
-        <li>What remains when nothing is left?</li>
-        <li>What would I do if nobody judged me?</li>
-        <li>What would I be without the people who shaped me?</li>
-        <li>Do we live one life, or many at the same time?</li>
-        <li>What is fair?</li>
-      </ul>
-      <p class="reveal" style="margin-top: 2.5rem; font-size: 1rem;">
-        My thoughts on each of these questions are coming soon.
-        Some answers take time. Some may never come.
-      </p>
-      <p class="reveal" style="font-size: 1rem;">
-        Not everyone asks these questions. Not because they cannot feel deeply,
-        but because nobody ever taught them to stop and look inward.
-        This page is an invitation to do exactly that.
-      </p>
+<section id="interests" class="interests-section">
+  <div class="container">
+    <p class="section-eyebrow reveal">What moves me</p>
+    <h2 class="reveal">The things I think about.</h2>
+    <div class="interests-grid">
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Philosophy of Self</p><p class="interest-desc">Identity beneath the surface. What's left when the labels dissolve.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Writing & Feeling</p><p class="interest-desc">Language as a tool for excavation. Words as the only honest mirror.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Time & Impermanence</p><p class="interest-desc">Rivers flow. Everything changes. And yet something stays.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Photography</p><p class="interest-desc">I tell stories with images. Photography is another language for seeing the world.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Travel</p><p class="interest-desc">Every place has its own story. I go looking for them.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Finance</p><p class="interest-desc">What we do with money says a lot about what we value.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Feminism</p><p class="interest-desc">Equality is not a trend. It is a necessity.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Psychology</p><p class="interest-desc">Why do we feel what we feel? Why do we do what we do?</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Sociology</p><p class="interest-desc">We are shaped by the world around us more than we think.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Art</p><p class="interest-desc">Art says what words cannot. It asks what logic refuses to answer.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Building Websites</p><p class="interest-desc">I build homepages for people. There is something satisfying about creating a space for someone online.</p></div>
+      <div class="interest-card"><span class="interest-icon" style="color:var(--terra-lt);font-size:1rem;">●</span><p class="interest-title">Reading</p><p class="interest-desc">Books take you somewhere else. I love getting lost in them.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- INTERESTS -->
+<section class="quote-section">
+  <blockquote class="reveal">The unexamined life is not worth living.</blockquote>
+  <p class="quote-attr reveal">Socrates</p>
+</section>
 
-  <section id="interests">
-    <div class="container">
-      <p class="section-label">What moves me</p>
-      <h2 class="reveal">The things I think about<br>at <em>odd hours.</em></h2>
-      <div class="interests-grid">
-        <div class="interest-card reveal">
-          <div class="interest-icon">◎</div>
-          <p class="interest-title">Philosophy of Self</p>
-          <p class="interest-desc">Identity beneath the surface. What's left when the labels dissolve.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">◇</div>
-          <p class="interest-title">Writing & Feeling</p>
-          <p class="interest-desc">Language as a tool for excavation. Words as the only honest mirror.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">○</div>
-          <p class="interest-title">Time & Impermanence</p>
-          <p class="interest-desc">Rivers flow. Everything changes. And yet something stays.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">◉</div>
-          <p class="interest-title">Photography</p>
-          <p class="interest-desc">I tell stories with images. Photography is another language for seeing the world.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">◬</div>
-          <p class="interest-title">Travel</p>
-          <p class="interest-desc">Every place has its own story. I go looking for them.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">◈</div>
-          <p class="interest-title">Finance</p>
-          <p class="interest-desc">What we do with money says a lot about what we value.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">♀</div>
-          <p class="interest-title">Feminism</p>
-          <p class="interest-desc">Equality is not a trend. It is a necessity.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">◎</div>
-          <p class="interest-title">Psychology</p>
-          <p class="interest-desc">Why do we feel what we feel? Why do we do what we do?</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">◇</div>
-          <p class="interest-title">Sociology</p>
-          <p class="interest-desc">We are shaped by the world around us more than we think.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">○</div>
-          <p class="interest-title">Art</p>
-          <p class="interest-desc">Art says what words cannot. It asks what logic refuses to answer.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">◻</div>
-          <p class="interest-title">Building Websites</p>
-          <p class="interest-desc">I build homepages for people. There is something satisfying about creating a space for someone online.</p>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-icon">◈</div>
-          <p class="interest-title">Reading</p>
-          <p class="interest-desc">Books take you somewhere else. I love getting lost in them.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<footer>
+  <p class="footer-mark">© Anna Lucia Sams</p>
+</footer>
 
-  <!-- TRACE QUOTE -->
+<script>
+  // Mobile menu
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.querySelector('.hamburger');
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.querySelector('.hamburger').classList.remove('open');
+  }
 
-  <section class="trace-section">
-    <blockquote class="reveal">
-      The unexamined life is not worth living.
-    </blockquote>
-    <p class="quote-attr reveal">Socrates</p>
-  </section>
+  // Animated background
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, circles;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  function initCircles() {
+    circles = Array.from({length: 7}, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      r: 80 + Math.random() * 180,
+      dx: (Math.random() - 0.5) * 0.3,
+      dy: (Math.random() - 0.5) * 0.3,
+      rgb: Math.random() > 0.5 ? '181,82,42' : '201,137,122',
+      alpha: 0.05 + Math.random() * 0.08
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    circles.forEach(c => {
+      c.x += c.dx; c.y += c.dy;
+      if (c.x < -c.r) c.x = W + c.r;
+      if (c.x > W + c.r) c.x = -c.r;
+      if (c.y < -c.r) c.y = H + c.r;
+      if (c.y > H + c.r) c.y = -c.r;
+      const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, c.r);
+      g.addColorStop(0, `rgba(${c.rgb},${c.alpha})`);
+      g.addColorStop(1, 'transparent');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2); ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  resize(); initCircles(); draw();
+  window.addEventListener('resize', () => { resize(); initCircles(); });
 
-  <footer>
-    <p class="footer-mark">© Anna Lucia Sams</p>
-  </footer>
+  // Scroll reveals
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  <script>
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          // stagger question items
-          if (e.target.tagName === 'LI') return;
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.15 });
+  const qObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('li').forEach((li, i) => setTimeout(() => li.classList.add('visible'), i * 90));
+        qObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  const ql = document.querySelector('.question-list');
+  if (ql) qObs.observe(ql);
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // Staggered question list
-    const qObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const items = entry.target.querySelectorAll('li');
-          items.forEach((li, i) => {
-            setTimeout(() => li.classList.add('visible'), i * 140);
-          });
-          qObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    const qList = document.querySelector('.question-list');
-    if (qList) qObserver.observe(qList);
-  </script>
+  const cardObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.interest-card').forEach((c, i) => setTimeout(() => c.classList.add('visible'), i * 60));
+        cardObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  const grid = document.querySelector('.interests-grid');
+  if (grid) cardObs.observe(grid);
+</script>
 
 </body>
 </html>
