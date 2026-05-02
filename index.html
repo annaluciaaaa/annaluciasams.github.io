@@ -11,9 +11,9 @@
 
 ```
 :root {
-  --white: #ffffff;
-  --off: #faf7f2;
-  --light: #f2ede5;
+  --white: #fdf8f0;
+  --off: #f7f0e4;
+  --light: #ede4d6;
   --mid: #cdc3b2;
   --stone: #8a7f72;
   --dark: #2a2520;
@@ -183,7 +183,7 @@ body {
 /* YouTube iframe — no-interaction approach */
 .hero-video-wrap {
   position: absolute; inset: 0; z-index: 1;
-  pointer-events: none; overflow: hidden;
+  overflow: hidden;
 }
 .hero-video {
   position: absolute;
@@ -194,12 +194,14 @@ body {
   min-height: 100vh;
   min-width: 177.78vh;
   border: none;
+  pointer-events: none;
 }
-/* Full blocker sits on top of the video and captures all pointer events */
+/* Blocker covers entire hero, sits above video, captures all pointer events */
 .hero-blocker {
   position: absolute; inset: 0; z-index: 2;
   cursor: default;
   background: transparent;
+  pointer-events: all;
 }
 .hero-overlay {
   position: absolute; inset: 0; z-index: 3;
@@ -523,31 +525,76 @@ footer {
 .modal-cta-btn:hover { background: var(--green-light); }
 
 /* ══ RESPONSIVE ══ */
-@media (max-width: 1024px) {
-  .about-grid { grid-template-columns: 1fr; gap: 4rem; }
-  .about-img-accent { display: none; }
-  .region-intro { grid-template-columns: 1fr; gap: 2rem; }
-  .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
-  .contact-section::before { display: none; }
+
+/* Tablet landscape & small desktop (≤1280px) */
+@media (max-width: 1280px) {
+  .about-grid { gap: 4rem; }
+  .contact-grid { gap: 4rem; }
 }
+
+/* Tablet portrait (≤1024px) */
 @media (max-width: 1024px) {
+  /* Nav */
   .nav-links { display: none; }
   .nav-burger { display: flex; }
+  .nav-bar { padding: 0 1.5rem; }
+  /* Layout */
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-img-accent { display: none; }
+  .about-badge--right { bottom: 1rem; right: 1rem; }
+  .region-intro { grid-template-columns: 1fr; gap: 2rem; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .contact-section::before { display: none; }
+  /* Grids */
+  .apt-grid { grid-template-columns: 1fr 1fr; }
+  .act-grid { grid-template-columns: 1fr 1fr; }
+  .region-grid { grid-template-columns: 1fr 1fr; }
+  /* Hero */
+  .hero-meta { display: none; }
+  /* Sections */
+  .section { padding: 5rem 0; }
+  .section-inner { padding: 0 3vw; }
+}
+
+/* Large phone (≤768px) */
+@media (max-width: 768px) {
   .apt-grid { grid-template-columns: 1fr; }
   .act-grid { grid-template-columns: 1fr; }
-  .region-grid { grid-template-columns: 1fr 1fr; }
-  .hero-meta { display: none; }
-}    @media (max-width: 600px) {
-  .region-grid { grid-template-columns: 1fr; }
+  .apts-header { flex-direction: column; align-items: flex-start; }
+  .landscape { height: 45vh; }
+  .hero-title { font-size: clamp(2rem, 8vw, 3.2rem); }
+  .display-title { font-size: clamp(1.8rem, 5vw, 2.6rem); }
+  .section { padding: 4rem 0; }
+  .contact-grid { gap: 2.5rem; }
   .form-row { grid-template-columns: 1fr; }
-  .modal-body { padding: 1.5rem; }
-  .gal-grid { grid-template-columns: 1fr 1fr; }
-  footer { flex-direction: column; text-align: center; }
-  .footer-links { justify-content: center; flex-wrap: wrap; }
-  .apt-body { padding: 1.4rem 1.2rem 1.4rem; }
-  .apt-name { font-size: 1.5rem; }
-  .apts-note { text-align: left; }
+  footer { flex-direction: column; text-align: center; gap: 1.5rem; }
+  .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
 }
+
+/* Small phone (≤480px) */
+@media (max-width: 480px) {
+  .nav-bar { padding: 0 1rem; height: 62px; }
+  .nav-logo svg { width: 170px; }
+  .section { padding: 3rem 0; }
+  .section-inner { padding: 0 1.2rem; }
+  .hero-title { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+  .hero-content { padding: 0 1.2rem 4vh; }
+  .display-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+  .region-grid { grid-template-columns: 1fr; }
+  .info-row { flex-direction: column; }
+  .apt-body { padding: 1.2rem; }
+  .modal-body { padding: 1.2rem; }
+  .modal-title { font-size: 1.5rem; }
+  .gal-grid { grid-template-columns: 1fr 1fr; }
+  .about-badge--right { width: 70px; height: 70px; font-size: 0.5rem; }
+  .about-badge--right strong { font-size: 1.1rem; }
+  .landscape-quote { font-size: clamp(1.1rem, 5vw, 1.6rem); padding: 0 1rem; }
+  .impressum-inner { padding: 0 1rem; }
+  .impressum-section { padding: 3rem 1.2rem; }
+  .region-intro { margin-top: 3rem; }
+  .btn-send { width: 100%; justify-content: center; text-align: center; align-self: stretch; }
+}
+
 
 /* ══ IMAGE PLACEHOLDERS ══ */
 .img-ph {
@@ -578,36 +625,36 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <nav id="nav">
   <div class="nav-bar">
-    <!-- LEFT: lang toggle + nav links -->
-    <!-- Language toggle -->
-    <div class="lang-toggle">
-      <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
-      <div class="lang-divider"></div>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
-    </div>
-    <ul class="nav-links">
-      <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
-      <li>
-        <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span> <span class="chev">▾</span></a>
-        <ul class="sub-menu">
-          <li><a href="#" onclick="openModal('m-schober');return false;">Schober — 40 m²</a></li>
-          <li><a href="#" onclick="openModal('m-seeblick');return false;">Seeblick — 70 m²</a></li>
-          <li><a href="#" onclick="openModal('m-schafberg');return false;">Schafberg — 90 m²</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#aktivitaeten"><span class="lang-de">Aktivitäten</span><span class="lang-en">Activities</span> <span class="chev">▾</span></a>
-        <ul class="sub-menu">
-          <li><a href="#am-hof"><span class="lang-de">Am Seeberghof</span><span class="lang-en">On the farm</span></a></li>
-          <li><a href="#ausflugsziele"><span class="lang-de">Ausflugsziele</span><span class="lang-en">Excursions</span></a></li>
-        </ul>
-      </li>
-    </ul>
 
 ```
-<!-- CENTER: SVG LOGO -->
+<!-- LEFT: DE/EN + nav links -->
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
+  <div class="lang-divider"></div>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+</div>
+<ul class="nav-links">
+  <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
+  <li>
+    <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span> <span class="chev">▾</span></a>
+    <ul class="sub-menu">
+      <li><a href="#" onclick="openModal('m-schober');return false;">Schober — 40 m²</a></li>
+      <li><a href="#" onclick="openModal('m-seeblick');return false;">Seeblick — 70 m²</a></li>
+      <li><a href="#" onclick="openModal('m-schafberg');return false;">Schafberg — 90 m²</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="#aktivitaeten"><span class="lang-de">Aktivitäten</span><span class="lang-en">Activities</span> <span class="chev">▾</span></a>
+    <ul class="sub-menu">
+      <li><a href="#am-hof"><span class="lang-de">Am Seeberghof</span><span class="lang-en">On the farm</span></a></li>
+      <li><a href="#ausflugsziele"><span class="lang-de">Ausflugsziele</span><span class="lang-en">Excursions</span></a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- CENTER: logo (bigger) -->
 <a href="#" class="nav-logo" aria-label="Seeberghof">
-  <svg width="210" height="56" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg">
+  <svg width="240" height="64" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg">
     <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
     <polygon points="4,38 16,16 26,30 34,20 46,38" fill="white" opacity="0.06"/>
     <rect x="2" y="39" width="48" height="9" fill="white" opacity="0.07" rx="0"/>
@@ -615,13 +662,13 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
     <line x1="8" y1="45" x2="40" y2="45" stroke="white" stroke-width="0.5" opacity="0.18"/>
     <polyline points="10,49 16,42 22,47" stroke="white" stroke-width="0.8" fill="none" stroke-linejoin="round" opacity="0.2"/>
     <line x1="56" y1="12" x2="56" y2="48" stroke="white" stroke-width="0.5" opacity="0.2"/>
-    <text x="66" y="27" font-family="Cormorant Garamond, serif" font-size="17" font-weight="300" fill="white" letter-spacing="2.5">SEEBERGHOF</text>
+    <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="white" letter-spacing="2.5">SEEBERGHOF</text>
     <line x1="66" y1="31" x2="208" y2="31" stroke="white" stroke-width="0.4" opacity="0.2"/>
-    <text x="66" y="42" font-family="Outfit, sans-serif" font-size="7" font-weight="300" fill="white" letter-spacing="4" opacity="0.6">FUSCHL AM SEE</text>
+    <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="white" letter-spacing="4" opacity="0.6">FUSCHL AM SEE</text>
   </svg>
 </a>
 
-<!-- RIGHT: burger only -->
+<!-- RIGHT: burger -->
 <div class="nav-right">
   <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
     <span></span><span></span><span></span>
