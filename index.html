@@ -418,9 +418,10 @@ body {
   content: '';
   position: absolute; top: 0; right: 0;
   width: 45%; height: 100%;
-  background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=70') center/cover;
-  opacity: 0.18;
+  background: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=70') center/cover;
+  opacity: 0.12;
 }
+@media (max-width: 1024px) { .contact-section::before { display: none; } }
 .contact-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 7rem; align-items: start; position: relative; z-index: 1;
@@ -429,11 +430,11 @@ body {
 .contact-label::before { background: var(--gold-light); }
 .contact-title { color: var(--white); }
 .contact-title em { color: var(--gold-light); }
-.contact-body-text { color: rgba(255,255,255,0.5); margin-top: 1.4rem; max-width: 400px; }
+.contact-body-text { color: rgba(255,255,255,0.6); margin-top: 1.4rem; max-width: 400px; }
 .contact-details { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
 .c-row { display: flex; gap: 1rem; }
-.c-icon { font-size: 1rem; margin-top: 0.1rem; opacity: 0.6; }
-.c-text { font-size: 0.88rem; line-height: 1.65; color: rgba(255,255,255,0.65); }
+.c-icon { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; margin-top: 0.3rem; min-width: 48px; }
+.c-text { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.75); }
 .c-text a { color: var(--gold-light); text-decoration: none; transition: color 0.2s; }
 .c-text a:hover { color: var(--white); }
 
@@ -488,15 +489,15 @@ footer {
    MODAL
 ══════════════════════════════ */
 .modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.75); z-index: 600;
-  align-items: flex-start; justify-content: center;
-  padding: 2.5rem 1rem; overflow-y: auto;
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.78); z-index: 1000;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
 }
-.modal-overlay.open { display: flex; }
+.modal-overlay.open { display: block; }
 .modal {
-  background: var(--white); width: 100%; max-width: 940px;
-  margin: auto; position: relative;
+  background: var(--white); width: calc(100% - 2rem); max-width: 900px;
+  margin: 2rem auto 3rem;
+  position: relative;
   animation: mIn 0.3s ease;
 }
 @keyframes mIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
@@ -553,7 +554,7 @@ footer {
   .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
   .contact-section::before { display: none; }
 }
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .apt-grid { grid-template-columns: 1fr; }
@@ -865,10 +866,10 @@ footer {
         <h2 class="display-title contact-title">Wir freuen uns<br><em>auf Sie</em></h2>
         <p class="body-text contact-body-text">Haben Sie Fragen zu Verfügbarkeit, Preisen oder Anreise? Schreiben Sie uns — wir antworten persönlich und unkompliziert.</p>
         <div class="contact-details">
-          <div class="c-row"><span class="c-icon">📍</span><div class="c-text">Seestraße 88<br>5330 Fuschl am See, Österreich</div></div>
-          <div class="c-row"><span class="c-icon">📞</span><div class="c-text"><a href="tel:+4362268313">+43 6226 8313</a><br><a href="tel:+436644355160">+43 664 4355160</a></div></div>
-          <div class="c-row"><span class="c-icon">✉️</span><div class="c-text"><a href="mailto:seeberghof.fuschl@gmail.com">seeberghof.fuschl@gmail.com</a></div></div>
-          <div class="c-row"><span class="c-icon">👤</span><div class="c-text" style="color:rgba(255,255,255,0.5)">Ansprechpartnerin: Mathilde Pöckl</div></div>
+          <div class="c-row"><span class="c-icon">Adresse</span><div class="c-text">Seestraße 88<br>5330 Fuschl am See, Österreich</div></div>
+          <div class="c-row"><span class="c-icon">Telefon</span><div class="c-text"><a href="tel:+4362268313">+43 6226 8313</a><br><a href="tel:+436644355160">+43 664 4355160</a></div></div>
+          <div class="c-row"><span class="c-icon">E-Mail</span><div class="c-text"><a href="mailto:seeberghof.fuschl@gmail.com">seeberghof.fuschl@gmail.com</a></div></div>
+          <div class="c-row"><span class="c-icon">Kontakt</span><div class="c-text" style="color:rgba(255,255,255,0.5)">Ansprechpartnerin: Mathilde Pöckl</div></div>
         </div>
       </div>
       <div>
