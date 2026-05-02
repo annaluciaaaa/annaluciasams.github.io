@@ -148,8 +148,15 @@ body {
 .hero-media { position: absolute; inset: 0; }
 .hero-fallback { position: absolute; inset: 0; background: url('Seeberghof Titelbild.jpeg') center/cover; }
 .hero-video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: cover;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 56.25vw; /* 16:9 */
+  min-height: 100vh;
+  min-width: 177.78vh; /* 16:9 */
+  pointer-events: none;
+  border: none;
 }
 .hero-overlay {
   position: absolute; inset: 0;
@@ -652,9 +659,12 @@ footer {
 <section class="hero">
   <div class="hero-media">
     <div class="hero-fallback"></div>
-    <video class="hero-video" autoplay muted loop playsinline poster="Seeberghof Titelbild.jpeg">
-      <source src="Seeberghof Video.mp4" type="video/mp4">
-    </video>
+    <iframe class="hero-video" id="yt-player"
+      src="https://www.youtube.com/embed/3f8HDwzr3rA?autoplay=1&mute=1&loop=1&playlist=3f8HDwzr3rA&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&vq=hd1080"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-content">
