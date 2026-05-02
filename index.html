@@ -189,6 +189,9 @@ body {
   position: absolute; inset: 0; z-index: 1;
   overflow: hidden;
 }
+.hero-video-wrap iframe {
+  pointer-events: none;
+}
 .hero-video {
   position: absolute;
   top: 50%; left: 50%;
@@ -202,13 +205,13 @@ body {
 }
 /* Blocker: sits above iframe, intercepts ALL pointer events so YouTube UI never shows */
 .hero-blocker {
-  position: absolute; inset: 0; z-index: 10;
+  position: absolute; inset: 0; z-index: 99;
   cursor: default;
   background: transparent;
   pointer-events: all;
 }
 .hero-overlay {
-  position: absolute; inset: 0; z-index: 11;
+  position: absolute; inset: 0; z-index: 100;
   background: linear-gradient(
     to bottom,
     rgba(0,0,0,0.2) 0%,
@@ -217,7 +220,7 @@ body {
   );
 }
 .hero-content {
-  position: relative; z-index: 12;
+  position: relative; z-index: 101;
   width: 100%; padding: 0 6vw 7vh;
   display: flex; align-items: flex-end; justify-content: space-between;
 }
