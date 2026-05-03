@@ -226,8 +226,8 @@ body {
 
 /* ══ APARTMENTS ══ */
 .apts-section { background: var(--off); }
-.apts-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.5rem; }
-.apts-note { font-size: 0.82rem; color: var(--stone); line-height: 1.7; max-width: 280px; }
+.apts-header { margin-bottom: 3.5rem; }
+.apts-note { font-size: 0.92rem; color: var(--stone); line-height: 1.7; margin-top: 1rem; max-width: 480px; }
 
 .apt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
 .apt-card { background: var(--white); cursor: pointer; display: flex; flex-direction: column; transition: box-shadow 0.3s, transform 0.3s; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
@@ -388,7 +388,7 @@ footer {
 }
 @media (max-width: 768px) {
   .apt-grid { grid-template-columns: 1fr; }
-  .apts-header { flex-direction: column; align-items: flex-start; }
+  .apts-header { margin-bottom: 2rem; }
   .landscape { height: 45vh; }
   .form-row { grid-template-columns: 1fr; }
   footer { flex-direction: column; text-align: center; gap: 1.5rem; }
@@ -424,11 +424,14 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="nav-bar">
     <!-- Logo links -->
     <a href="#" class="nav-logo" aria-label="Seeberghof">
-      <svg width="260" height="64" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg" style="overflow:hidden;display:block;">
+      <svg width="260" height="56" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg" style="overflow:hidden;display:block;">
+        <clipPath id="logo-clip"><rect width="210" height="56"/></clipPath>
+        <g clip-path="url(#logo-clip)">
         <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
         <polygon points="4,38 16,16 26,30 34,20 46,38" fill="white" opacity="0.06"/>
         <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="white" letter-spacing="2.5">SEEBERGHOF</text>
         <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="white" letter-spacing="4" opacity="0.6">FUSCHL AM SEE</text>
+        </g>
       </svg>
     </a>
 
@@ -624,7 +627,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="apt-card" onclick="openModal('m-schober')">
     <div class="apt-img-wrap">
       <img class="apt-img" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Schober" />
-      <div class="apt-season-badge">ab € 72,–/Tag</div>
+      <div class="apt-season-badge">ab € 72,–/Nacht</div>
     </div>
     <div class="apt-body">
       <p class="apt-tag lang-de">40 m² · 2 Personen</p>
@@ -648,7 +651,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="apt-card" onclick="openModal('m-seeblick')">
     <div class="apt-img-wrap">
       <img class="apt-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80" alt="Seeblick" />
-      <div class="apt-season-badge">ab € 88,–/Tag</div>
+      <div class="apt-season-badge">ab € 88,–/Nacht</div>
     </div>
     <div class="apt-body">
       <p class="apt-tag lang-de">70 m² · 2–6 Personen</p>
@@ -672,7 +675,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="apt-card" onclick="openModal('m-schafberg')">
     <div class="apt-img-wrap">
       <img class="apt-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Schafberg" />
-      <div class="apt-season-badge">ab € 95,–/Tag</div>
+      <div class="apt-season-badge">ab € 95,–/Nacht</div>
     </div>
     <div class="apt-body">
       <p class="apt-tag lang-de">90 m² · 2–8 Personen</p>
@@ -981,7 +984,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <p class="modal-desc lang-de">Die Ferienwohnung Schober ist eine gemütliche, kompakte Wohnung — ideal für Paare. Der sonnige Balkon bietet einen wunderschönen Blick auf den Fuschlsee und die umliegenden Berge. Die voll ausgestattete Küche erlaubt es Ihnen, sich selbst zu versorgen.</p>
       <p class="modal-desc lang-en">Apartment Schober is a cosy, compact unit — ideal for couples. The sunny balcony offers a beautiful view of the Fuschlsee and surrounding mountains. The fully equipped kitchen lets you cater for yourselves.</p>
       <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Tag</span><span class="lang-en">Prices per day</span></h4>
+        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
         <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 72,–</span></div>
         <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 80,–</span></div>
         <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 72,–</span></div>
@@ -1029,7 +1032,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <p class="modal-desc lang-de">Die Ferienwohnung Seeblick bietet mit 70 m² großzügigen Platz für Familien und kleine Gruppen. Zwei separate Schlafzimmer und getrennte Dusche und WC sorgen für angenehme Privatsphäre. Der helle Balkon mit direktem Blick auf den Fuschlsee lädt zum Verweilen ein.</p>
       <p class="modal-desc lang-en">At 70 m², Apartment Seeblick offers generous space for families and small groups. Two separate bedrooms and separate shower and WC provide comfortable privacy. The bright balcony with a direct view of the Fuschlsee is perfect for lingering.</p>
       <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Tag</span><span class="lang-en">Prices per day</span></h4>
+        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
         <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 88,–</span></div>
         <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 95,–</span></div>
         <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 88,–</span></div>
@@ -1077,7 +1080,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <p class="modal-desc lang-de">Die Ferienwohnung Schafberg ist unsere größte Wohnung — ideal für größere Familien. Auf 90 m² finden Sie drei separate Schlafzimmer, eine voll ausgestattete Küche und getrennte Dusche und WC. Der großzügige Balkon mit Panoramablick auf den Fuschlsee ist das Herzstück dieser Wohnung.</p>
       <p class="modal-desc lang-en">Apartment Schafberg is our largest unit — ideal for bigger families. Across 90 m² you'll find three separate bedrooms, a fully equipped kitchen and separate shower and WC. The generous balcony with panoramic views of the Fuschlsee is the centrepiece of this apartment.</p>
       <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Tag</span><span class="lang-en">Prices per day</span></h4>
+        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
         <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 95,–</span></div>
         <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 100,–</span></div>
         <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 95,–</span></div>
