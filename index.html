@@ -181,6 +181,16 @@ body {
   display: flex; align-items: center; gap: 0.8rem;
 }
 .section-inner .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+.section-inner .label[style*="center"]::before,
+.section-inner .label[style*="center"]::after { display: none; }
+#geschichte .label { color: #b8922e; }
+#geschichte .label::before { background: #b8922e; }
+#ferienwohnungen .label { color: #7a6e5a; }
+#ferienwohnungen .label::before { background: #7a6e5a; }
+#region .label { color: #6e7e5a; }
+#region .label::before { background: #6e7e5a; }
+#kontakt .label { color: #8c6d3f; }
+#kontakt .label::before { background: #8c6d3f; }
 .nav-links-desktop .label::before { display: none; }
 .display-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 300; line-height: 1.15; color: var(--dark); }
 .body-text { font-size: 1rem; line-height: 1.88; color: var(--stone); max-width: 520px; margin-top: 1.4rem; }
@@ -188,7 +198,7 @@ body {
 
 /* ══ ABOUT ══ */
 .about-section { background: var(--white); }
-.about-grid { display: block; max-width: 680px; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
 .about-image-stack { position: relative; }
 .about-img-main { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 4px; }
 .about-img-accent {
@@ -259,7 +269,7 @@ body {
 .info-cell strong { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; font-weight: 500; }
 
 /* ══ CONTACT ══ */
-.contact-section { background: #ede4d6; }
+.contact-section { background: #e8dfd4; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
 .contact-title em { color: var(--accent); font-style: normal; }
 .contact-body-text { color: var(--stone); margin-top: 1.4rem; max-width: 400px; }
@@ -345,7 +355,7 @@ footer {
 
 /* ══ RESPONSIVE ══ */
 @media (max-width: 1024px) {
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .about-img-accent { display: none; }
   .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
   .apt-grid { grid-template-columns: 1fr 1fr; }
@@ -404,6 +414,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 <!-- Desktop nav links -->
 <ul class="nav-links-desktop">
   <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
+  <li><a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a></li>
   <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
   <li><a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a></li>
   <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
@@ -430,6 +441,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <button id="mbtn-en" onclick="setLang('en')">EN</button>
     </div>
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
+    <a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a>
     <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
     <a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a>
     <a href="#kontakt"><span class="lang-de">Kontakt & Anfrage</span><span class="lang-en">Contact & Enquiry</span></a>
@@ -496,10 +508,10 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <!-- ══ GESCHICHTE ══ -->
 
-<section class="section" id="geschichte" style="background: var(--white);">
+<section class="section" id="geschichte" style="background: #f5efe6;">
   <div class="section-inner">
     <div style="max-width: 780px; margin: 0 auto; text-align: center;">
-      <p class="label" style="justify-content: center;">
+      <p class="label" style="justify-content: center; gap: 0;">
         <span class="lang-de">Unsere Geschichte</span>
         <span class="lang-en">Our Story</span>
       </p>
@@ -568,7 +580,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <!-- ══ FERIENWOHNUNGEN ══ -->
 
-<section class="section apts-section" id="ferienwohnungen">
+<section class="section apts-section" id="ferienwohnungen" style="background: var(--white);">
   <div class="section-inner">
     <div class="apts-header">
       <div>
@@ -673,7 +685,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <!-- ══ SEHENSWÜRDIGKEITEN ══ -->
 
-<section class="section region-section" id="region">
+<section class="section region-section" id="region" style="background: #f0ece4;">
   <div class="section-inner">
     <p class="label">
       <span class="lang-de">Die Region</span>
@@ -858,6 +870,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   </svg>
   <div class="footer-links">
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
+    <a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a>
     <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
     <a href="#kontakt">Kontakt</a>
   </div>
