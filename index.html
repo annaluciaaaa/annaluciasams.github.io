@@ -12,15 +12,18 @@
 ```
 :root {
   --white: #fdf8f0;
-  --off: #f7f0e4;
-  --light: #ede4d6;
+  --off: #f5ede0;
+  --light: #e8dccb;
   --mid: #cdc3b2;
   --stone: #8a7f72;
   --dark: #2a2520;
-  --green: #5e7d62;
-  --green-light: #7a9e7e;
+  --green: #4a6e52;
+  --green-light: #6a9472;
+  --green-pale: #e8f0e9;
   --gold: #a8874a;
   --gold-light: #c4a46a;
+  --warm: #b5622e;
+  --warm-pale: #f5ede0;
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -40,205 +43,69 @@ body {
 #nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 300;
   transition: background 0.4s, box-shadow 0.4s;
-  overflow: visible;
 }
 #nav.scrolled {
-  background: rgba(255,255,255,0.97);
+  background: rgba(253,248,240,0.97);
   box-shadow: 0 1px 0 rgba(0,0,0,0.08);
 }
 
-/* Grid: left | center | right */
 .nav-bar {
   max-width: 1400px; margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 0 2.5rem; height: 72px;
 }
 
-/* LEFT: lang toggle */
-.nav-left {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
+.nav-left { display: flex; align-items: center; flex: 1; }
+.nav-logo { display: flex; align-items: center; justify-content: center; text-decoration: none; flex: 0 0 auto; }
+.nav-right { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
 
-/* CENTER: logo */
-.nav-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  flex: 0 0 auto;
-}
-
-/* RIGHT: burger */
-.nav-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex: 1;
-}
-
-.nav-links { display: none; } /* hide desktop nav links - burger only */
-.nav-links > li { position: relative; }
-.chev { display: none; }
-.nav-links > li > a {
-  display: block; padding: 0.5rem 1.1rem;
-  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.88); text-decoration: none;
-  transition: color 0.2s;
-  font-family: 'DM Sans', sans-serif;
-}
-#nav.scrolled .nav-links > li > a { color: var(--dark); }
-.nav-links > li > a:hover { color: var(--gold-light); }
-#nav.scrolled .nav-links > li > a:hover { color: var(--green); }
-
-.sub-menu {
-  position: absolute; top: calc(100% + 8px); right: 0;
-  background: var(--white); min-width: 210px;
-  border-top: 2px solid var(--green);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-  opacity: 0; pointer-events: none;
-  transform: translateY(-8px);
-  transition: opacity 0.22s, transform 0.22s;
-  z-index: 400;
-}
-.nav-links > li:hover .sub-menu { opacity: 1; pointer-events: all; transform: translateY(0); }
-.sub-menu li { list-style: none; }
-.sub-menu a {
-  display: block; padding: 0.75rem 1.3rem;
-  font-size: 0.78rem; color: var(--stone); text-decoration: none; letter-spacing: 0.05em;
-  transition: color 0.15s, padding-left 0.15s;
-  border-bottom: 1px solid var(--light);
-}
-.sub-menu li:last-child a { border-bottom: none; }
-.sub-menu a:hover { color: var(--green); padding-left: 1.6rem; }
-
-/* Language toggle — pill */
-.lang-toggle {
-  display: flex; align-items: center; gap: 0;
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 50px; overflow: hidden;
-}
+.lang-toggle { display: flex; align-items: center; gap: 0; border: 1px solid rgba(255,255,255,0.35); border-radius: 50px; overflow: hidden; }
 #nav.scrolled .lang-toggle { border-color: var(--mid); }
 .lang-btn {
   background: none; border: none; cursor: pointer;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400;
-  padding: 0.38rem 0.75rem;
-  color: rgba(255,255,255,0.6);
-  transition: background 0.2s, color 0.2s;
-  border-radius: 50px;
+  padding: 0.38rem 0.75rem; color: rgba(255,255,255,0.6);
+  transition: background 0.2s, color 0.2s; border-radius: 50px;
 }
-.lang-btn.active {
-  background: rgba(255,255,255,0.22);
-  color: #fff;
-}
+.lang-btn.active { background: rgba(255,255,255,0.22); color: #fff; }
 #nav.scrolled .lang-btn { color: var(--stone); }
 #nav.scrolled .lang-btn.active { background: var(--green); color: #fff; }
-#nav.scrolled .lang-toggle { border-color: var(--mid); }
-#nav .label::before { display: none; }
 .lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
 #nav.scrolled .lang-divider { background: var(--mid); }
+
+.nav-burger { display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-burger span { display: block; width: 24px; height: 2px; background: #fff; transition: background 0.3s; border-radius: 2px; }
 #nav.scrolled .nav-burger span { background: var(--dark); }
 
-.nav-burger {
-  display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center;
-  background: none; border: none; cursor: pointer; padding: 8px;
-}
-.nav-burger span { display: block; width: 24px; height: 2px; background: #fff; transition: background 0.3s; border-radius: 2px; }
-.nav-burger span::before, .nav-burger span::after { content: none; display: none; }
-
-.mobile-nav {
-  display: none; flex-direction: column;
-  background: var(--white); border-top: 1px solid var(--light);
-  padding: 1rem 0 1.5rem;
-  position: relative; z-index: 299;
-}
+.mobile-nav { display: none; flex-direction: column; background: var(--white); border-top: 1px solid var(--light); padding: 1rem 0 1.5rem; position: relative; z-index: 299; }
 .mobile-nav.open { display: flex; }
-.mobile-nav a {
-  padding: 0.8rem 2rem; color: var(--dark); text-decoration: none;
-  font-size: 0.85rem; letter-spacing: 0.06em;
-  border-bottom: 1px solid var(--light);
-  transition: color 0.15s;
-}
+.mobile-nav a { padding: 0.8rem 2rem; color: var(--dark); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.06em; border-bottom: 1px solid var(--light); transition: color 0.15s; }
 .mobile-nav a:hover { color: var(--green); }
-.mobile-nav a.sub { padding-left: 3.2rem; font-size: 0.78rem; color: var(--stone); }
-
-/* Mobile lang toggle */
-.mobile-lang {
-  display: flex; gap: 0.5rem; padding: 1rem 2rem;
-  border-bottom: 1px solid var(--light);
-}
-.mobile-lang button {
-  background: none; border: 1px solid var(--mid); cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 0.35rem 0.9rem; color: var(--stone);
-  border-radius: 50px;
-  transition: background 0.2s, color 0.2s;
-}
+.mobile-lang { display: flex; gap: 0.5rem; padding: 1rem 2rem; border-bottom: 1px solid var(--light); }
+.mobile-lang button { background: none; border: 1px solid var(--mid); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.9rem; color: var(--stone); border-radius: 50px; transition: background 0.2s, color 0.2s; }
 .mobile-lang button.active { background: var(--green); border-color: var(--green); color: #fff; }
 
-.chev { display: none !important; }
-.nav-links > li:hover .chev { display: none !important; }
-
 /* ══ HERO ══ */
-.hero {
-  height: 100vh; position: relative;
-  display: flex; align-items: flex-end;
-  overflow: hidden;
-}
-.hero-media { position: absolute; inset: 0; }
+.hero { height: 100vh; position: relative; display: flex; align-items: flex-end; overflow: hidden; }
 .hero-fallback { position: absolute; inset: 0; background: url('Seeberghof Titelbild.jpeg') center/cover; }
-
-.hero-video-wrap {
-  position: absolute; inset: 0; z-index: 1;
-  overflow: hidden;
-}
-.hero-video-wrap iframe {
-  pointer-events: none;
-}
+.hero-video-wrap { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
 .hero-video {
-  position: absolute;
-  top: 50%; left: 50%;
+  position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 56.25vw;
-  min-height: 100vh;
-  min-width: 177.78vh;
-  border: none;
-  pointer-events: none;
-  object-fit: cover;
+  width: 100vw; height: 56.25vw;
+  min-height: 100vh; min-width: 177.78vh;
+  border: none; pointer-events: none; object-fit: cover;
 }
-video.hero-video::-webkit-media-controls { display: none !important; }
-video.hero-video::-webkit-media-controls-enclosure { display: none !important; }
-video.hero-video::-webkit-media-controls-panel { display: none !important; }
-/* Blocker: sits above iframe, intercepts ALL pointer events so YouTube UI never shows */
-.hero-blocker {
-  position: absolute; inset: 0; z-index: 99;
-  cursor: default;
-  background: transparent;
-  pointer-events: all;
-}
+.hero-blocker { position: absolute; inset: 0; z-index: 99; cursor: default; background: transparent; pointer-events: all; }
 .hero-overlay {
   position: absolute; inset: 0; z-index: 100;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.2) 0%,
-    rgba(0,0,0,0.05) 40%,
-    rgba(0,0,0,0.55) 100%
-  );
+  background: linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.04) 40%, rgba(0,0,0,0.58) 100%);
 }
 .hero-content {
   position: relative; z-index: 101;
   width: 100%; padding: 0 6vw 7vh;
   display: flex; align-items: flex-end; justify-content: space-between;
-}
-.hero-eyebrow {
-  font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(255,255,255,0.65); margin-bottom: 1rem;
 }
 .hero-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -246,39 +113,50 @@ video.hero-video::-webkit-media-controls-panel { display: none !important; }
   font-weight: 300; color: #fff; line-height: 1.15;
   margin-bottom: 1.5rem; letter-spacing: 0.02em;
 }
-.hero-cta {
-  display: inline-flex; align-items: center; gap: 0.8rem;
-  background: var(--green); color: #fff; text-decoration: none;
-  padding: 0.9rem 2rem;
-  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 400;
-  transition: background 0.25s;
-}
-.hero-cta:hover { background: var(--green-light); }
-.hero-meta {
-  text-align: right; color: rgba(255,255,255,0.6);
-  font-size: 0.72rem; letter-spacing: 0.1em; line-height: 2;
-}
+.hero-meta { text-align: right; color: rgba(255,255,255,0.6); font-size: 0.72rem; letter-spacing: 0.1em; line-height: 2; }
 .hero-meta strong { display: block; color: rgba(255,255,255,0.88); font-weight: 400; font-size: 0.85rem; }
 
-/* ══ TICKER ══ */
-.ticker {
-  background: var(--green); overflow: hidden;
-  padding: 0.85rem 0;
-  display: flex; align-items: center;
+/* ══ REGION ══ */
+.region-section { background: var(--off); }
+.region-tabs {
+  display: flex; gap: 0; flex-wrap: wrap;
+  border-bottom: 2px solid var(--light); margin-bottom: 2.5rem;
 }
-.ticker-track {
-  display: flex; gap: 0;
-  animation: ticker 28s linear infinite;
-  white-space: nowrap;
+.region-tab {
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 400;
+  letter-spacing: 0.04em; color: var(--stone);
+  padding: 0.9rem 1.6rem;
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s; white-space: nowrap;
 }
-.ticker-item {
-  display: inline-flex; align-items: center; gap: 1.5rem;
-  padding: 0 2.5rem;
-  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
+.region-tab:hover { color: var(--dark); }
+.region-tab.active { color: var(--green); border-bottom-color: var(--green); font-weight: 500; }
+.tab-dist { font-size: 0.72rem; color: var(--mid); }
+.region-panel { display: none; }
+.region-panel.active { display: block; }
+.sight-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.sight-card {
+  background: var(--white); border-radius: 10px; padding: 1.4rem 1.6rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex; flex-direction: column;
 }
-.ticker-dot { width: 3px; height: 3px; background: rgba(255,255,255,0.4); border-radius: 50%; }
-@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.sight-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-2px); }
+.sight-card-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.5rem; }
+.sight-icon { font-size: 1.2rem; flex-shrink: 0; }
+.sight-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--dark); }
+.sight-card p { font-size: 0.82rem; color: var(--stone); line-height: 1.65; flex: 1; }
+.sight-link {
+  display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.9rem;
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--green); text-decoration: none; font-weight: 400;
+  transition: color 0.2s;
+}
+.sight-link:hover { color: var(--dark); }
+.sight-link::after { content: ' →'; }
+@media (max-width: 900px) { .sight-list { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .sight-list { grid-template-columns: 1fr; } }
 
 /* ══ SHARED ══ */
 .section { padding: 7rem 0; }
@@ -289,67 +167,59 @@ video.hero-video::-webkit-media-controls-panel { display: none !important; }
   display: flex; align-items: center; gap: 0.8rem;
 }
 .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--green); }
-.display-title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
-  font-weight: 300; line-height: 1.15; color: var(--dark);
-}
-.display-title em { font-style: normal; color: inherit; }
+.display-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 300; line-height: 1.15; color: var(--dark); }
 .body-text { font-size: 1rem; line-height: 1.88; color: var(--stone); max-width: 520px; margin-top: 1.4rem; }
 .divider { width: 40px; height: 1px; background: var(--mid); margin: 2rem 0; }
 
 /* ══ ABOUT ══ */
+.about-section { background: var(--white); }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center; }
 .about-image-stack { position: relative; }
-.about-img-main { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
+.about-img-main { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 4px; }
 .about-img-accent {
   position: absolute; bottom: -3rem; right: -3rem;
   width: 55%; aspect-ratio: 1; object-fit: cover;
   border: 8px solid var(--white);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12); border-radius: 4px;
 }
 .about-badge {
-  position: absolute; top: 2rem; left: -2rem;
+  position: absolute; bottom: 2rem; right: -2rem;
   background: var(--green); color: #fff;
   width: 90px; height: 90px; border-radius: 50%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center;
-  font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5;
+  text-align: center; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5;
 }
 .about-badge strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 300; display: block; line-height: 1; }
-.about-badge--right { top: auto; left: auto; bottom: 2rem; right: -2rem; }
-.title-accent { color: var(--green); font-style: normal; }
-.signature { font-family: 'DM Sans', sans-serif; font-style: normal; font-size: 1.1rem; font-weight: 300; color: var(--green); margin-top: 2rem; }
-.pet-note { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.6rem 1.1rem; border: 1px solid var(--light); font-size: 0.8rem; color: var(--stone); }
+.title-accent { color: var(--green); }
+.signature { font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; font-weight: 300; color: var(--green); margin-top: 2rem; }
+.pet-note { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.6rem 1.2rem; background: var(--green-pale); border-radius: 50px; font-size: 0.82rem; color: var(--green); }
+
+
 
 /* ══ LANDSCAPE ══ */
-.landscape { height: 55vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.landscape { height: 52vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .landscape-img {
   position: absolute; inset: 0;
-  background: linear-gradient(rgba(30,40,30,0.48), rgba(30,40,30,0.48)),
+  background: linear-gradient(rgba(25,38,28,0.52), rgba(25,38,28,0.52)),
     url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800&q=80') center/cover;
 }
 .landscape-content { position: relative; text-align: center; }
-.landscape-quote {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-style: normal; font-size: clamp(1.3rem, 3vw, 2.2rem);
-  font-weight: 300; color: #fff; line-height: 1.55;
-  max-width: 750px; padding: 0 2rem;
-}
+.landscape-quote { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 3vw, 2.1rem); color: #fff; line-height: 1.55; max-width: 720px; padding: 0 2rem; }
 .landscape-line { width: 40px; height: 1px; background: var(--gold-light); margin: 1.5rem auto; }
-.landscape-cite { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.landscape-cite { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
 
 /* ══ APARTMENTS ══ */
 .apts-section { background: var(--off); }
 .apts-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.5rem; }
-.apts-note { font-size: 0.82rem; color: var(--stone); line-height: 1.7; text-align: left; }
+.apts-note { font-size: 0.82rem; color: var(--stone); line-height: 1.7; max-width: 280px; }
 
-.apt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; background: transparent; }
-.apt-card { background: var(--white); cursor: pointer; display: flex; flex-direction: column; transition: box-shadow 0.3s; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-.apt-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.12); z-index: 2; }
-.apt-card:hover .apt-img { transform: scale(1.04); }
-.apt-img-wrap { overflow: hidden; aspect-ratio: 4/3; flex-shrink: 0; }
-.apt-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.apt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.apt-card { background: var(--white); cursor: pointer; display: flex; flex-direction: column; transition: box-shadow 0.3s, transform 0.3s; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
+.apt-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.13); transform: translateY(-4px); }
+.apt-card:hover .apt-img { transform: scale(1.05); }
+.apt-img-wrap { overflow: hidden; aspect-ratio: 4/3; flex-shrink: 0; position: relative; }
+.apt-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
+.apt-season-badge { position: absolute; top: 12px; right: 12px; background: var(--green); color: #fff; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.28rem 0.7rem; border-radius: 50px; }
 .apt-body { padding: 2rem 1.8rem 1.8rem; flex: 1; display: flex; flex-direction: column; }
 .apt-tag { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; font-weight: 400; }
 .apt-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.7rem; line-height: 1.1; }
@@ -362,40 +232,21 @@ video.hero-video::-webkit-media-controls-panel { display: none !important; }
 .apt-open-btn {
   display: flex; align-items: center; justify-content: center; gap: 0.5rem;
   margin-top: 1.3rem; padding: 0.75rem 1.5rem;
-  background: var(--off); color: var(--dark);
+  background: var(--green-pale); color: var(--green);
   font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
-  border: 1px solid var(--light); border-radius: 50px; cursor: pointer; width: 100%;
+  border: 1px solid rgba(74,110,82,0.2); border-radius: 50px; cursor: pointer; width: 100%;
   font-family: 'DM Sans', sans-serif; font-weight: 400;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .apt-open-btn:hover { background: var(--green); color: var(--white); border-color: var(--green); }
 
-.info-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; background: transparent; }
-.info-cell { background: var(--light); color: var(--stone); flex: 1; min-width: 180px; padding: 1.4rem 2rem; font-size: 0.82rem; line-height: 1.7; border-radius: 12px; }
-.info-cell strong { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; font-weight: 400; }
-
-/* ══ ACTIVITIES ══ */
-.act-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; background: transparent; margin-top: 3.5rem; }
-.act-card { background: var(--white); padding: 2.5rem 2.2rem; transition: box-shadow 0.25s; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-.act-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); background: var(--white); }
-.act-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3rem; font-weight: 200; color: var(--mid); line-height: 1; margin-bottom: 0.8rem; }
-.act-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; font-weight: 500; margin-bottom: 0.6rem; }
-.act-desc { font-size: 0.87rem; color: var(--stone); line-height: 1.75; }
-
-.region-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; margin-top: 5rem; margin-bottom: 3rem; }
-.region-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; background: transparent; }
-.region-card { background: var(--white); padding: 1.8rem 1.6rem; transition: box-shadow 0.2s; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-.region-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); background: var(--white); }
-.region-icon { font-size: 1.5rem; margin-bottom: 0.8rem; display: block; }
-.region-card strong { display: block; font-size: 0.95rem; font-weight: 500; margin-bottom: 0.35rem; color: var(--dark); }
-.region-card p { font-size: 0.8rem; color: var(--stone); line-height: 1.65; }
+.info-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.8rem; }
+.info-cell { background: var(--white); flex: 1; min-width: 180px; padding: 1.5rem 2rem; font-size: 0.82rem; line-height: 1.7; border-radius: 12px; border-left: 3px solid var(--green); }
+.info-cell strong { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; font-weight: 500; }
 
 /* ══ CONTACT ══ */
-.contact-section { background: var(--light); position: relative; overflow: hidden; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; position: relative; z-index: 1; }
-.contact-label { color: var(--green); }
-.contact-label::before { background: var(--green); }
-.contact-title { color: var(--dark); }
+.contact-section { background: var(--light); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
 .contact-title em { color: var(--green); font-style: normal; }
 .contact-body-text { color: var(--stone); margin-top: 1.4rem; max-width: 400px; }
 .contact-details { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
@@ -404,6 +255,7 @@ video.hero-video::-webkit-media-controls-panel { display: none !important; }
 .c-text { font-size: 0.9rem; line-height: 1.7; color: var(--stone); }
 .c-text a { color: var(--green); text-decoration: none; transition: color 0.2s; }
 .c-text a:hover { color: var(--dark); }
+
 .contact-form { display: flex; flex-direction: column; gap: 1rem; padding-top: 0.5rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .contact-form input, .contact-form textarea, .contact-form select {
@@ -414,96 +266,34 @@ video.hero-video::-webkit-media-controls-panel { display: none !important; }
 }
 .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--mid); }
 .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: var(--green); }
-.contact-form select option { background: var(--white); color: var(--dark); }
 .contact-form textarea { min-height: 120px; resize: vertical; }
 .btn-send {
   background: var(--green); color: #fff; border: none;
   padding: 1rem 2.5rem; border-radius: 50px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
   cursor: pointer; align-self: flex-start; transition: background 0.25s;
 }
 .btn-send:hover { background: var(--green-light); }
 
 /* ══ FOOTER ══ */
 footer {
-  background: var(--light); padding: 2.5rem 4vw;
+  background: var(--dark); padding: 2.5rem 4vw;
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-  border-top: 1px solid var(--mid);
 }
-.footer-logo { display: flex; align-items: center; }
 .footer-links { display: flex; gap: 2rem; }
-.footer-links a { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--green); }
-.footer-copy { font-size: 0.7rem; color: var(--mid); }
-
-/* Impressum */
-.impressum-section {
-  background: var(--off); border-top: 1px solid var(--light);
-  padding: 4rem 4vw;
-}
-.impressum-inner { max-width: 800px; margin: 0 auto; }
-.impressum-inner h3 {
-  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300;
-  font-size: 1.8rem; color: var(--dark); margin-bottom: 1.5rem;
-}
-.impressum-inner p, .impressum-inner address {
-  font-size: 0.88rem; color: var(--stone); line-height: 1.9;
-  font-style: normal; margin-bottom: 1rem;
-}
-.impressum-inner a { color: var(--green); text-decoration: none; }
-.impressum-inner a:hover { text-decoration: underline; }
+.footer-links a { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: rgba(255,255,255,0.9); }
+.footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
 
 /* ══ MODAL ══ */
-.modal-overlay {
-  display: none;
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.78);
-  z-index: 1000;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  isolation: isolate;
-}
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.78); z-index: 1000; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .modal-overlay.open { display: block; }
-
-.modal {
-  background: var(--white);
-  width: calc(100% - 2rem);
-  max-width: 900px;
-  margin: 2rem auto 3rem;
-  position: relative;
-  isolation: isolate;
-  border-radius: 16px;
-  animation: mIn 0.3s ease;
-}
-.modal-inner { border-radius: 16px; overflow: hidden; }
+.modal { background: var(--white); width: calc(100% - 2rem); max-width: 900px; margin: 2rem auto 3rem; position: relative; border-radius: 16px; animation: mIn 0.3s ease; overflow: hidden; }
 @keyframes mIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-
-.modal-close {
-  position: fixed; top: 1.2rem; right: 1.2rem; z-index: 1100;
-  background: rgba(30,25,20,0.7); color: #fff; border: none;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  font-size: 0.9rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-  backdrop-filter: blur(4px);
-}
+.modal-close { position: fixed; top: 1.2rem; right: 1.2rem; z-index: 1100; background: rgba(30,25,20,0.7); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; backdrop-filter: blur(4px); }
 .modal-close:hover { background: var(--dark); }
-
-.modal-hero-img {
-  width: 100%;
-  aspect-ratio: 16/7;
-  object-fit: cover;
-  display: block;
-}
-
-.modal-body {
-  padding: 2.5rem 3rem 3rem;
-  background: var(--white);
-  position: relative;
-}
-
+.modal-hero-img { width: 100%; aspect-ratio: 16/7; object-fit: cover; display: block; }
+.modal-body { padding: 2.5rem 3rem 3rem; background: var(--white); }
 .modal-tag { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
 .modal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2rem; font-weight: 400; color: var(--dark); margin-bottom: 1rem; }
 .modal-feats { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
@@ -517,83 +307,41 @@ footer {
 .m-amt { font-weight: 500; color: var(--dark); }
 .modal-gallery { margin-bottom: 2rem; }
 .modal-gallery h4 { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.9rem; }
-.gal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.gal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; border-radius: 8px; overflow: hidden; }
 .gal-grid img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
-.gal-ph {
-  aspect-ratio: 4/3; background: var(--off);
-  border: 1.5px dashed var(--mid);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem;
-}
+.gal-ph { aspect-ratio: 4/3; background: var(--off); border: 1.5px dashed var(--mid); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; }
 .gal-ph span { font-size: 1.5rem; opacity: 0.4; }
 .gal-ph p { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
-.modal-cta-btn {
-  background: var(--green); color: #fff; border: none;
-  padding: 0.95rem 2.5rem; border-radius: 50px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-  cursor: pointer; transition: background 0.2s;
-}
+.modal-cta-btn { background: var(--green); color: #fff; border: none; padding: 0.95rem 2.5rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
 .modal-cta-btn:hover { background: var(--green-light); }
 
 /* ══ RESPONSIVE ══ */
-@media (max-width: 1280px) {
-  .about-grid { gap: 4rem; }
-  .contact-grid { gap: 4rem; }
-}
-
 @media (max-width: 1024px) {
-  .nav-links { display: none; }
-  .nav-burger { display: flex; }
-  .nav-bar { padding: 0 1.5rem; }
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .about-img-accent { display: none; }
-  .about-badge--right { bottom: 1rem; right: 1rem; }
-  .region-intro { grid-template-columns: 1fr; gap: 2rem; }
   .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .contact-section::before { display: none; }
   .apt-grid { grid-template-columns: 1fr 1fr; }
-  .act-grid { grid-template-columns: 1fr 1fr; }
-  .region-grid { grid-template-columns: 1fr 1fr; }
   .hero-meta { display: none; }
   .section { padding: 5rem 0; }
-  .section-inner { padding: 0 3vw; }
 }
-
 @media (max-width: 768px) {
   .apt-grid { grid-template-columns: 1fr; }
-  .act-grid { grid-template-columns: 1fr; }
   .apts-header { flex-direction: column; align-items: flex-start; }
   .landscape { height: 45vh; }
-  .hero-title { font-size: clamp(2rem, 8vw, 3.2rem); }
-  .display-title { font-size: clamp(1.8rem, 5vw, 2.6rem); }
-  .section { padding: 4rem 0; }
-  .contact-grid { gap: 2.5rem; }
   .form-row { grid-template-columns: 1fr; }
   footer { flex-direction: column; text-align: center; gap: 1.5rem; }
   .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+  .region-panel.active { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 480px) {
   .nav-bar { padding: 0 1rem; height: 62px; }
-  .nav-logo svg { width: 200px; }
-  .section { padding: 3rem 0; }
   .section-inner { padding: 0 1.2rem; }
-  .hero-title { font-size: clamp(1.8rem, 8vw, 2.8rem); }
   .hero-content { padding: 0 1.2rem 4vh; }
-  .display-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
-  .region-grid { grid-template-columns: 1fr; }
-  .info-row { flex-direction: column; }
-  .apt-body { padding: 1.2rem; }
   .modal-body { padding: 1.2rem; }
   .modal-title { font-size: 1.5rem; }
   .gal-grid { grid-template-columns: 1fr 1fr; }
-  .about-badge--right { width: 70px; height: 70px; font-size: 0.5rem; }
-  .about-badge--right strong { font-size: 1.1rem; }
-  .landscape-quote { font-size: clamp(1.1rem, 5vw, 1.6rem); padding: 0 1rem; }
-  .impressum-inner { padding: 0 1rem; }
-  .impressum-section { padding: 3rem 1.2rem; }
-  .region-intro { margin-top: 3rem; }
-  .btn-send { width: 100%; justify-content: center; text-align: center; align-self: stretch; }
+  .btn-send { width: 100%; text-align: center; align-self: stretch; }
+  .region-tab { padding: 0.8rem 1rem; font-size: 0.7rem; }
 }
 
 /* ══ LANGUAGE ══ */
@@ -613,18 +361,15 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <nav id="nav">
   <div class="nav-bar">
+    <div class="nav-left">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
+        <div class="lang-divider"></div>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
 
 ```
-<!-- LEFT: DE/EN -->
-<div class="nav-left">
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
-    <div class="lang-divider"></div>
-    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
-  </div>
-</div>
-
-<!-- CENTER: Logo -->
 <a href="#" class="nav-logo" aria-label="Seeberghof">
   <svg width="280" height="72" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg">
     <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
@@ -640,7 +385,6 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   </svg>
 </a>
 
-<!-- RIGHT: Hamburger only -->
 <div class="nav-right">
   <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
     <span></span><span></span><span></span>
@@ -650,8 +394,6 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
   </div>
 
-  <!-- Mobile nav -->
-
   <div class="mobile-nav">
     <div class="mobile-lang">
       <button class="active" id="mbtn-de" onclick="setLang('de')">DE</button>
@@ -659,6 +401,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
     </div>
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
     <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
+    <a href="#region"><span class="lang-de">Sehenswürdigkeiten</span><span class="lang-en">Sights</span></a>
     <a href="#kontakt"><span class="lang-de">Kontakt & Anfrage</span><span class="lang-en">Contact & Enquiry</span></a>
   </div>
 </nav>
@@ -667,7 +410,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <section class="hero">
   <div class="hero-media">
-    <div class="hero-fallback" style="background: #f7f0e4;"></div>
+    <div class="hero-fallback"></div>
     <div class="hero-video-wrap">
       <video class="hero-video" autoplay muted loop playsinline preload="auto">
         <source src="seeberghof.mp4" type="video/mp4">
@@ -694,7 +437,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <!-- ══ ÜBER UNS ══ -->
 
-<section class="section" id="ueber-uns">
+<section class="section about-section" id="ueber-uns">
   <div class="section-inner">
     <div class="about-grid">
       <div>
@@ -720,7 +463,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <div class="about-image-stack">
         <img class="about-img-main" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Seeberghof" />
         <img class="about-img-accent" src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600&q=80" alt="Fuschlsee" />
-        <div class="about-badge about-badge--right">
+        <div class="about-badge">
           <strong>800m</strong>
           <span class="lang-de">zum See</span>
           <span class="lang-en">to lake</span>
@@ -730,7 +473,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   </div>
 </section>
 
-<!-- ══ LANDSCAPE ══ -->
+<!-- ══ LANDSCAPE QUOTE ══ -->
 
 <div class="landscape">
   <div class="landscape-img"></div>
@@ -755,8 +498,8 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
           <span class="lang-en">Accommodation</span>
         </p>
         <h2 class="display-title">
-          <span class="lang-de">Unsere <em>Ferienwohnungen</em></span>
-          <span class="lang-en">Our <em>Apartments</em></span>
+          <span class="lang-de">Unsere <em style="color:var(--green);font-style:normal">Ferienwohnungen</em></span>
+          <span class="lang-en">Our <em style="color:var(--green);font-style:normal">Apartments</em></span>
         </h2>
       </div>
       <p class="apts-note lang-de">Alle Wohnungen mit sonnigem Balkon und direktem Seeblick. Klicken Sie für mehr Details &amp; Fotos.</p>
@@ -769,6 +512,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="apt-card" onclick="openModal('m-schober')">
     <div class="apt-img-wrap">
       <img class="apt-img" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Schober" />
+      <div class="apt-season-badge">ab € 72,–/Tag</div>
     </div>
     <div class="apt-body">
       <p class="apt-tag lang-de">40 m² · 2 Personen</p>
@@ -782,12 +526,9 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       </div>
       <div class="apt-prices">
         <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 72,–</span></div>
-        <div class="price-row"><span class="price-period lang-de">Jul – Aug</span><span class="price-period lang-en">Jul – Aug</span><span class="price-amt">ab € 80,–</span></div>
+        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 80,–</span></div>
       </div>
-      <button class="apt-open-btn">
-        <span class="lang-de">Details &amp; Fotos ansehen →</span>
-        <span class="lang-en">View details &amp; photos →</span>
-      </button>
+      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
     </div>
   </div>
 
@@ -795,6 +536,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="apt-card" onclick="openModal('m-seeblick')">
     <div class="apt-img-wrap">
       <img class="apt-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80" alt="Seeblick" />
+      <div class="apt-season-badge">ab € 88,–/Tag</div>
     </div>
     <div class="apt-body">
       <p class="apt-tag lang-de">70 m² · 2–6 Personen</p>
@@ -808,12 +550,9 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       </div>
       <div class="apt-prices">
         <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 88,–</span></div>
-        <div class="price-row"><span class="price-period lang-de">Jul – Aug</span><span class="price-period lang-en">Jul – Aug</span><span class="price-amt">ab € 95,–</span></div>
+        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 95,–</span></div>
       </div>
-      <button class="apt-open-btn">
-        <span class="lang-de">Details &amp; Fotos ansehen →</span>
-        <span class="lang-en">View details &amp; photos →</span>
-      </button>
+      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
     </div>
   </div>
 
@@ -821,6 +560,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="apt-card" onclick="openModal('m-schafberg')">
     <div class="apt-img-wrap">
       <img class="apt-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Schafberg" />
+      <div class="apt-season-badge">ab € 95,–/Tag</div>
     </div>
     <div class="apt-body">
       <p class="apt-tag lang-de">90 m² · 2–8 Personen</p>
@@ -834,22 +574,144 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       </div>
       <div class="apt-prices">
         <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 95,–</span></div>
-        <div class="price-row"><span class="price-period lang-de">Jul – Aug</span><span class="price-period lang-en">Jul – Aug</span><span class="price-amt">ab € 100,–</span></div>
+        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 100,–</span></div>
       </div>
-      <button class="apt-open-btn">
-        <span class="lang-de">Details &amp; Fotos ansehen →</span>
-        <span class="lang-en">View details &amp; photos →</span>
-      </button>
+      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
     </div>
   </div>
 </div>
 
-<!-- Info row -->
 <div class="info-row">
   <div class="info-cell"><strong><span class="lang-de">Ortstaxe</span><span class="lang-en">Tourist tax</span></strong><span class="lang-de">Wird zusätzlich zum Mietpreis verrechnet</span><span class="lang-en">Charged in addition to the rental price</span></div>
   <div class="info-cell"><strong><span class="lang-de">Endreinigung</span><span class="lang-en">Final cleaning</span></strong>€ 40,– <span class="lang-de">bis</span><span class="lang-en">to</span> € 50,–</div>
   <div class="info-cell"><strong><span class="lang-de">Kinderermäßigung</span><span class="lang-en">Child discount</span></strong><span class="lang-de">Auf Anfrage</span><span class="lang-en">On request</span></div>
   <div class="info-cell"><strong><span class="lang-de">Haustiere</span><span class="lang-en">Pets</span></strong><span class="lang-de">Herzlich willkommen 🐾</span><span class="lang-en">Warmly welcome 🐾</span></div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ SEHENSWÜRDIGKEITEN ══ -->
+
+<section class="section region-section" id="region">
+  <div class="section-inner">
+    <p class="label">
+      <span class="lang-de">Die Region</span>
+      <span class="lang-en">The Region</span>
+    </p>
+    <h2 class="display-title" style="margin-bottom:0.5rem">
+      <span class="lang-de">Sehenswürdigkeiten <em style="color:var(--green);font-style:normal">in der Nähe</em></span>
+      <span class="lang-en">Sights <em style="color:var(--green);font-style:normal">nearby</em></span>
+    </h2>
+    <p class="body-text" style="margin-bottom:2.5rem">
+      <span class="lang-de">Vom Seeberghof aus erreichen Sie einige der schönsten Orte des Salzkammerguts bequem mit dem Auto.</span>
+      <span class="lang-en">From Seeberghof, some of the most beautiful places in the Salzkammergut are easily reached by car.</span>
+    </p>
+
+```
+<div class="region-tabs">
+  <button class="region-tab active" onclick="showRegion('bad-ischl',this)">Bad Ischl <span class="tab-dist">· 20 min</span></button>
+  <button class="region-tab" onclick="showRegion('salzburg',this)">Salzburg <span class="tab-dist">· 40 min</span></button>
+  <button class="region-tab" onclick="showRegion('wolfgangsee',this)">Wolfgangsee <span class="tab-dist">· 15 min</span></button>
+  <button class="region-tab" onclick="showRegion('hallstatt',this)">Hallstatt <span class="tab-dist">· 45 min</span></button>
+  <button class="region-tab" onclick="showRegion('mondsee',this)">Mondsee <span class="tab-dist">· 25 min</span></button>
+</div>
+
+<!-- BAD ISCHL -->
+<div class="region-panel active" id="panel-bad-ischl">
+  <div class="sight-list">
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🏛️</span><h4><span class="lang-de">Kaiservilla</span><span class="lang-en">Imperial Villa</span></h4></div>
+      <p class="lang-de">Sommerresidenz von Kaiser Franz Joseph I. — über 60 Jahre seine kaiserliche Sommerfrische. Heute Museum mit kaiserlichen Erinnerungsstücken und schönem Schlosspark.</p>
+      <p class="lang-en">Summer residence of Emperor Franz Joseph I. for over 60 years. Today a museum with imperial memorabilia and a beautiful palace park.</p>
+      <a class="sight-link" href="https://www.kaiservilla.at" target="_blank" rel="noopener">kaiservilla.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🎂</span><h4>Café Zauner</h4></div>
+      <p class="lang-de">Eine der bekanntesten Konditoreien Österreichs seit 1832. Legendärer Zaunerstollen und kaiserliche Mehlspeisen — absolutes Muss bei jedem Besuch in Bad Ischl.</p>
+      <p class="lang-en">One of Austria's most famous patisseries since 1832. The legendary Zaunerstollen and imperial pastries — an absolute must on any visit to Bad Ischl.</p>
+      <a class="sight-link" href="https://www.zauner.at" target="_blank" rel="noopener">zauner.at</a>
+    </div>
+  </div>
+</div>
+
+<!-- SALZBURG -->
+<div class="region-panel" id="panel-salzburg">
+  <div class="sight-list">
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🎵</span><h4><span class="lang-de">Mozarts Geburtshaus</span><span class="lang-en">Mozart's Birthplace</span></h4></div>
+      <p class="lang-de">Getreidegasse 9 — hier wurde Wolfgang Amadeus Mozart 1756 geboren. Museum mit Originalinstrumenten, Portraits und persönlichen Gegenständen.</p>
+      <p class="lang-en">Getreidegasse 9 — where Wolfgang Amadeus Mozart was born in 1756. Museum with original instruments, portraits and personal items.</p>
+      <a class="sight-link" href="https://www.mozarteum.at/museen/mozarts-geburtshaus" target="_blank" rel="noopener">mozarteum.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🏰</span><h4><span class="lang-de">Festung Hohensalzburg</span><span class="lang-en">Hohensalzburg Fortress</span></h4></div>
+      <p class="lang-de">Eine der größten erhaltenen Burganlagen Europas, hoch über der Stadt. Erbaut 1077 — mit atemberaubendem Panoramablick über Salzburg und die Alpen.</p>
+      <p class="lang-en">One of the largest preserved fortresses in Europe, high above the city. Built in 1077 — with breathtaking panoramic views over Salzburg and the Alps.</p>
+      <a class="sight-link" href="https://www.salzburg-burgen.at" target="_blank" rel="noopener">salzburg-burgen.at</a>
+    </div>
+  </div>
+</div>
+
+<!-- WOLFGANGSEE -->
+<div class="region-panel" id="panel-wolfgangsee">
+  <div class="sight-list">
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🚂</span><h4><span class="lang-de">Schafbergbahn</span><span class="lang-en">Schafberg Railway</span></h4></div>
+      <p class="lang-de">Historische Zahnradbahn seit 1893 auf den 1.783 m hohen Schafberg — einer der schönsten Aussichtspunkte des Salzkammerguts mit Blick auf bis zu 13 Seen.</p>
+      <p class="lang-en">Historic rack railway since 1893 up to the 1,783 m Schafberg — one of the finest viewpoints in the Salzkammergut with views of up to 13 lakes.</p>
+      <a class="sight-link" href="https://www.schafbergbahn.at" target="_blank" rel="noopener">schafbergbahn.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">⛵</span><h4><span class="lang-de">Schifffahrt Wolfgangsee</span><span class="lang-en">Lake Wolfgang Boats</span></h4></div>
+      <p class="lang-de">Verbindet St. Wolfgang, St. Gilgen und Strobl auf dem kristallklaren Bergsee — entspannt das Salzkammergut vom Wasser aus erleben.</p>
+      <p class="lang-en">Connecting St. Wolfgang, St. Gilgen and Strobl on the crystal-clear mountain lake — experience the Salzkammergut relaxed from the water.</p>
+      <a class="sight-link" href="https://www.schafbergbahn.at" target="_blank" rel="noopener">schafbergbahn.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🏔️</span><h4>Zwölferhorn</h4></div>
+      <p class="lang-de">Seilbahn von St. Gilgen auf das 1.522 m hohe Zwölferhorn — grandioser Panoramablick auf den Wolfgangsee und die Bergwelt. Im Sommer Wandern und Paragliding.</p>
+      <p class="lang-en">Cable car from St. Gilgen to the 1,522 m Zwölferhorn — grand panoramic views of the Wolfgangsee and mountains. Hiking and paragliding in summer.</p>
+      <a class="sight-link" href="https://www.zwoelferhorn.at" target="_blank" rel="noopener">zwoelferhorn.at</a>
+    </div>
+  </div>
+</div>
+
+<!-- HALLSTATT -->
+<div class="region-panel" id="panel-hallstatt">
+  <div class="sight-list">
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🏘️</span><h4><span class="lang-de">Hallstatt Dorf</span><span class="lang-en">Hallstatt Village</span></h4></div>
+      <p class="lang-de">Eines der schönsten Dörfer der Welt — UNESCO-Welterbe, malerisch am Hallstätter See. Bunte Häuser, enge Gassen und traumhafter Seeblick.</p>
+      <p class="lang-en">One of the most beautiful villages in the world — UNESCO World Heritage, set on the Hallstätter See. Colourful houses, narrow lanes and stunning lake views.</p>
+      <a class="sight-link" href="https://www.hallstatt.net" target="_blank" rel="noopener">hallstatt.net</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">⛏️</span><h4><span class="lang-de">Salzwelten</span><span class="lang-en">Salt Mine</span></h4></div>
+      <p class="lang-de">Das älteste Salzbergwerk der Welt — seit über 7.000 Jahren. Faszinierende Unterwelt mit Bergmanns-Zug, Rutschen und unterirdischem Salzsee.</p>
+      <p class="lang-en">The world's oldest salt mine — for over 7,000 years. Fascinating underground world with miners' train, slides and underground salt lake.</p>
+      <a class="sight-link" href="https://www.salzwelten.at" target="_blank" rel="noopener">salzwelten.at</a>
+    </div>
+  </div>
+</div>
+
+<!-- MONDSEE -->
+<div class="region-panel" id="panel-mondsee">
+  <div class="sight-list">
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">⛪</span><h4><span class="lang-de">Basilika St. Michael</span><span class="lang-en">Basilica St. Michael</span></h4></div>
+      <p class="lang-de">Weltberühmt durch „The Sound of Music" — hier wurde die Hochzeitsszene gedreht. Prachtvoller vergoldeter Barockaltar und beeindruckendes Mittelschiff.</p>
+      <p class="lang-en">World-famous through "The Sound of Music" — the wedding scene was filmed here. Magnificent gilded baroque altar and impressive nave.</p>
+      <a class="sight-link" href="https://www.pfarre-mondsee.at" target="_blank" rel="noopener">pfarre-mondsee.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🌊</span><h4><span class="lang-de">Mondsee Baden</span><span class="lang-en">Mondsee Swimming</span></h4></div>
+      <p class="lang-de">Einer der wärmsten Seen des Salzkammerguts — perfekt zum Baden im Sommer. Liegewiesen, Bootsverleihe und Blick auf die Drachenwand.</p>
+      <p class="lang-en">One of the warmest lakes in the Salzkammergut — perfect for swimming. Lawns, boat rentals and views of the Drachenwand rock face.</p>
+      <a class="sight-link" href="https://www.mondsee.at" target="_blank" rel="noopener">mondsee.at</a>
+    </div>
+  </div>
 </div>
 ```
 
@@ -862,7 +724,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="section-inner">
     <div class="contact-grid">
       <div>
-        <p class="label contact-label">
+        <p class="label">
           <span class="lang-de">Kontakt &amp; Anfrage</span>
           <span class="lang-en">Contact &amp; Enquiry</span>
         </p>
@@ -906,20 +768,15 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 <!-- ══ FOOTER ══ -->
 
 <footer>
-  <div class="footer-logo">
-    <svg width="180" height="48" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="#4d6b54" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-      <polygon points="4,38 16,16 26,30 34,20 46,38" fill="#4d6b54" opacity="0.08"/>
-      <rect x="2" y="39" width="48" height="9" fill="#4d6b54" opacity="0.07" rx="0"/>
-      <line x1="4" y1="42" x2="46" y2="42" stroke="#4d6b54" stroke-width="0.7" opacity="0.4"/>
-      <line x1="8" y1="45" x2="40" y2="45" stroke="#4d6b54" stroke-width="0.5" opacity="0.25"/>
-      <polyline points="10,49 16,42 22,47" stroke="#4d6b54" stroke-width="0.8" fill="none" stroke-linejoin="round" opacity="0.25"/>
-      <line x1="56" y1="12" x2="56" y2="48" stroke="#c8bfb0" stroke-width="0.5" opacity="0.8"/>
-      <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="#2a2520" letter-spacing="2.5">SEEBERGHOF</text>
-      <line x1="66" y1="31" x2="208" y2="31" stroke="#c8bfb0" stroke-width="0.4" opacity="0.8"/>
-      <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="#8a7f72" letter-spacing="4">FUSCHL AM SEE</text>
-    </svg>
-  </div>
+  <svg width="180" height="48" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="#6a9472" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+    <polygon points="4,38 16,16 26,30 34,20 46,38" fill="#6a9472" opacity="0.1"/>
+    <line x1="4" y1="42" x2="46" y2="42" stroke="#6a9472" stroke-width="0.7" opacity="0.4"/>
+    <line x1="56" y1="12" x2="56" y2="48" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="rgba(255,255,255,0.85)" letter-spacing="2.5">SEEBERGHOF</text>
+    <line x1="66" y1="31" x2="208" y2="31" stroke="rgba(255,255,255,0.1)" stroke-width="0.4"/>
+    <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="rgba(255,255,255,0.4)" letter-spacing="4">FUSCHL AM SEE</text>
+  </svg>
   <div class="footer-links">
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
     <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
@@ -930,15 +787,12 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <!-- ══ MODALS ══ -->
 
-<!-- Schober -->
-
 <div class="modal-overlay" id="m-schober">
   <button class="modal-close" onclick="closeModal('m-schober')">✕</button>
   <div class="modal">
     <img class="modal-hero-img" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80" alt="Schober" />
     <div class="modal-body">
-      <p class="modal-tag lang-de">40 m² · 2 Personen</p>
-      <p class="modal-tag lang-en">40 m² · 2 Persons</p>
+      <p class="modal-tag lang-de">40 m² · 2 Personen</p><p class="modal-tag lang-en">40 m² · 2 Persons</p>
       <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schober</h2>
       <div class="modal-feats">
         <span class="modal-feat lang-de">2 Personen</span><span class="modal-feat lang-en">2 Persons</span>
@@ -948,8 +802,8 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
         <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
         <span class="modal-feat">Seeblick</span>
       </div>
-      <p class="modal-desc lang-de">Die Ferienwohnung Schober ist eine gemütliche, kompakte Wohnung — ideal für Paare. Der sonnige Balkon bietet einen wunderschönen Blick auf den Fuschlsee und die umliegenden Berge. Die voll ausgestattete Küche erlaubt es Ihnen, sich selbst zu versorgen. Dusche und WC befinden sich im kombinierten Badezimmer.</p>
-      <p class="modal-desc lang-en">Apartment Schober is a cosy, compact unit — ideal for couples. The sunny balcony offers a beautiful view of the Fuschlsee and surrounding mountains. The fully equipped kitchen lets you cater for yourselves. Shower and WC are combined in one bathroom.</p>
+      <p class="modal-desc lang-de">Die Ferienwohnung Schober ist eine gemütliche, kompakte Wohnung — ideal für Paare. Der sonnige Balkon bietet einen wunderschönen Blick auf den Fuschlsee und die umliegenden Berge. Die voll ausgestattete Küche erlaubt es Ihnen, sich selbst zu versorgen.</p>
+      <p class="modal-desc lang-en">Apartment Schober is a cosy, compact unit — ideal for couples. The sunny balcony offers a beautiful view of the Fuschlsee and surrounding mountains. The fully equipped kitchen lets you cater for yourselves.</p>
       <div class="modal-prices">
         <h4><span class="lang-de">Preise pro Tag</span><span class="lang-en">Prices per day</span></h4>
         <div class="m-price-row"><span class="m-period">01.05. – 30.06.2025</span><span class="m-amt">ab € 72,–</span></div>
@@ -974,15 +828,12 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   </div>
 </div>
 
-<!-- Seeblick -->
-
 <div class="modal-overlay" id="m-seeblick">
   <button class="modal-close" onclick="closeModal('m-seeblick')">✕</button>
   <div class="modal">
     <img class="modal-hero-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80" alt="Seeblick" />
     <div class="modal-body">
-      <p class="modal-tag lang-de">70 m² · 2–6 Personen</p>
-      <p class="modal-tag lang-en">70 m² · 2–6 Persons</p>
+      <p class="modal-tag lang-de">70 m² · 2–6 Personen</p><p class="modal-tag lang-en">70 m² · 2–6 Persons</p>
       <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Seeblick</h2>
       <div class="modal-feats">
         <span class="modal-feat lang-de">2–6 Personen</span><span class="modal-feat lang-en">2–6 Persons</span>
@@ -1018,15 +869,12 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   </div>
 </div>
 
-<!-- Schafberg -->
-
 <div class="modal-overlay" id="m-schafberg">
   <button class="modal-close" onclick="closeModal('m-schafberg')">✕</button>
   <div class="modal">
     <img class="modal-hero-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" alt="Schafberg" />
     <div class="modal-body">
-      <p class="modal-tag lang-de">90 m² · 2–8 Personen</p>
-      <p class="modal-tag lang-en">90 m² · 2–8 Persons</p>
+      <p class="modal-tag lang-de">90 m² · 2–8 Personen</p><p class="modal-tag lang-en">90 m² · 2–8 Persons</p>
       <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schafberg</h2>
       <div class="modal-feats">
         <span class="modal-feat lang-de">2–8 Personen</span><span class="modal-feat lang-en">2–8 Persons</span>
@@ -1063,37 +911,36 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 </div>
 
 <script>
-  // ── Nav scroll
+  // Region tabs
+  function showRegion(id, btn) {
+    document.querySelectorAll('.region-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.region-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Nav scroll
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 80);
   });
 
-  // ── Logo color on scroll
+  // Logo color on scroll
   window.addEventListener('scroll', () => {
-    const stroked = document.querySelectorAll('#logo-svg polyline, #logo-svg line');
-    const filled  = document.querySelectorAll('#logo-svg rect, #logo-svg polygon');
-    const texts   = document.querySelectorAll('#logo-svg text');
     const s = window.scrollY > 80;
-    stroked.forEach(el => el.setAttribute('stroke', s ? '#4d6b54' : 'white'));
-    filled.forEach(el  => el.setAttribute('fill',   s ? '#4d6b54' : 'white'));
-    texts.forEach(el   => el.setAttribute('fill',   s ? '#2a2520' : 'white'));
+    document.querySelectorAll('#logo-svg polyline, #logo-svg line').forEach(el => el.setAttribute('stroke', s ? '#4a6e52' : 'white'));
+    document.querySelectorAll('#logo-svg polygon, #logo-svg rect').forEach(el => el.setAttribute('fill', s ? '#4a6e52' : 'white'));
+    document.querySelectorAll('#logo-svg text').forEach((el, i) => el.setAttribute('fill', s ? (i === 0 ? '#2a2520' : '#8a7f72') : (i === 0 ? 'white' : 'rgba(255,255,255,0.6)')));
   });
 
-  // ── Mobile nav: close on non-sub link click
-  document.querySelectorAll('.mobile-nav a:not(.sub)').forEach(a => {
+  // Mobile nav
+  document.querySelectorAll('.mobile-nav a').forEach(a => {
     a.addEventListener('click', () => document.querySelector('.mobile-nav').classList.remove('open'));
   });
 
-  // ── Modals
-  function openModal(id) {
-    document.getElementById(id).classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal(id) {
-    document.getElementById(id).classList.remove('open');
-    document.body.style.overflow = '';
-  }
+  // Modals
+  function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
   });
@@ -1101,7 +948,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
     if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
   });
 
-  // ── Language toggle
+  // Language
   function setLang(lang) {
     document.body.classList.toggle('en', lang === 'en');
     document.getElementById('btn-de').classList.toggle('active', lang === 'de');
