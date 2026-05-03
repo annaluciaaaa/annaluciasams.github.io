@@ -40,6 +40,7 @@ body {
 #nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 300;
   transition: background 0.4s, box-shadow 0.4s;
+  overflow: visible;
 }
 #nav.scrolled {
   background: rgba(255,255,255,0.97);
@@ -79,9 +80,9 @@ body {
   flex: 1;
 }
 
-.nav-bar > * { min-width: 0; }
 .nav-links { display: none; } /* hide desktop nav links - burger only */
 .nav-links > li { position: relative; }
+.chev { display: none; }
 .nav-links > li > a {
   display: block; padding: 0.5rem 1.1rem;
   font-size: 0.72rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
@@ -136,15 +137,18 @@ body {
 }
 #nav.scrolled .lang-btn { color: var(--stone); }
 #nav.scrolled .lang-btn.active { background: var(--green); color: #fff; }
-#nav .lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); display: block; }
+#nav .label::before { display: none; }
+.lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
 #nav.scrolled .lang-divider { background: var(--mid); }
 
 .nav-burger {
   display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center;
   background: none; border: none; cursor: pointer; padding: 8px;
 }
-.nav-burger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: background 0.3s; }
+.nav-burger span { display: block; width: 24px; height: 2px; background: #fff; transition: background 0.3s; border-radius: 2px; }
 #nav.scrolled .nav-burger span { background: var(--dark); }
+/* Prevent any stray quote characters from empty spans */
+.nav-burger span::before, .nav-burger span::after { content: none; display: none; }
 
 .mobile-nav {
   display: none; flex-direction: column;
