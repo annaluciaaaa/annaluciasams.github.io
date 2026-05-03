@@ -11,19 +11,21 @@
 
 ```
 :root {
-  --white: #fdf8f0;
-  --off: #f5ede0;
-  --light: #e8dccb;
-  --mid: #cdc3b2;
-  --stone: #8a7f72;
-  --dark: #2a2520;
-  --green: #4a6e52;
-  --green-light: #6a9472;
-  --green-pale: #e8f0e9;
-  --gold: #a8874a;
-  --gold-light: #c4a46a;
-  --warm: #b5622e;
-  --warm-pale: #f5ede0;
+  --white: #faf9f6;
+  --off: #f3f5f0;
+  --light: #dde5d8;
+  --mid: #b2c0aa;
+  --stone: #728068;
+  --dark: #2e3828;
+  --green: #6b8f62;
+  --green-light: #88ab7e;
+  --green-pale: #e8f0e4;
+  --gold: #c8a45a;
+  --gold-light: #dab96e;
+  --warm: #88ab7e;
+  --warm-pale: #eef4eb;
+  --accent: #6b8f62;
+  --accent-pale: #e8f0e4;
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -37,7 +39,7 @@ body {
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--light); }
-::-webkit-scrollbar-thumb { background: var(--green); }
+::-webkit-scrollbar-thumb { background: var(--accent); }
 
 /* ══ NAV ══ */
 #nav {
@@ -45,7 +47,7 @@ body {
   transition: background 0.4s, box-shadow 0.4s;
 }
 #nav.scrolled {
-  background: rgba(253,248,240,0.97);
+  background: rgba(243,245,240,0.97);
   box-shadow: 0 1px 0 rgba(0,0,0,0.08);
 }
 
@@ -131,7 +133,7 @@ body {
   transition: color 0.2s, border-color 0.2s; white-space: nowrap;
 }
 .region-tab:hover { color: var(--dark); }
-.region-tab.active { color: var(--green); border-bottom-color: var(--green); font-weight: 500; }
+.region-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
 .tab-dist { font-size: 0.72rem; color: var(--mid); }
 .region-panel { display: none; }
 .region-panel.active { display: block; }
@@ -150,7 +152,7 @@ body {
 .sight-link {
   display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.9rem;
   font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--green); text-decoration: none; font-weight: 400;
+  color: var(--accent); text-decoration: none; font-weight: 400;
   transition: color 0.2s;
 }
 .sight-link:hover { color: var(--dark); }
@@ -163,10 +165,10 @@ body {
 .section-inner { max-width: 1280px; margin: 0 auto; padding: 0 4vw; }
 .label {
   font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--green); margin-bottom: 1.1rem; font-weight: 400;
+  color: var(--accent); margin-bottom: 1.1rem; font-weight: 400;
   display: flex; align-items: center; gap: 0.8rem;
 }
-.label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--green); }
+.label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
 .display-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 300; line-height: 1.15; color: var(--dark); }
 .body-text { font-size: 1rem; line-height: 1.88; color: var(--stone); max-width: 520px; margin-top: 1.4rem; }
 .divider { width: 40px; height: 1px; background: var(--mid); margin: 2rem 0; }
@@ -190,9 +192,9 @@ body {
   text-align: center; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5;
 }
 .about-badge strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 300; display: block; line-height: 1; }
-.title-accent { color: var(--green); }
-.signature { font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; font-weight: 300; color: var(--green); margin-top: 2rem; }
-.pet-note { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.6rem 1.2rem; background: var(--green-pale); border-radius: 50px; font-size: 0.82rem; color: var(--green); }
+.title-accent { color: var(--accent); }
+.signature { font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; font-weight: 300; color: var(--accent); margin-top: 2rem; }
+.pet-note { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.6rem 1.2rem; background: var(--accent-pale); border-radius: 50px; font-size: 0.82rem; color: var(--accent); }
 
 
 
@@ -219,7 +221,7 @@ body {
 .apt-card:hover .apt-img { transform: scale(1.05); }
 .apt-img-wrap { overflow: hidden; aspect-ratio: 4/3; flex-shrink: 0; position: relative; }
 .apt-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
-.apt-season-badge { position: absolute; top: 12px; right: 12px; background: var(--green); color: #fff; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.28rem 0.7rem; border-radius: 50px; }
+.apt-season-badge { position: absolute; top: 12px; right: 12px; background: var(--accent); color: #fff; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.28rem 0.7rem; border-radius: 50px; }
 .apt-body { padding: 2rem 1.8rem 1.8rem; flex: 1; display: flex; flex-direction: column; }
 .apt-tag { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; font-weight: 400; }
 .apt-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.7rem; line-height: 1.1; }
@@ -232,22 +234,22 @@ body {
 .apt-open-btn {
   display: flex; align-items: center; justify-content: center; gap: 0.5rem;
   margin-top: 1.3rem; padding: 0.75rem 1.5rem;
-  background: var(--green-pale); color: var(--green);
+  background: var(--accent-pale); color: var(--accent);
   font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
-  border: 1px solid rgba(74,110,82,0.2); border-radius: 50px; cursor: pointer; width: 100%;
+  border: 1px solid rgba(192,120,80,0.2); border-radius: 50px; cursor: pointer; width: 100%;
   font-family: 'DM Sans', sans-serif; font-weight: 400;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
-.apt-open-btn:hover { background: var(--green); color: var(--white); border-color: var(--green); }
+.apt-open-btn:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
 
 .info-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.8rem; }
-.info-cell { background: var(--white); flex: 1; min-width: 180px; padding: 1.5rem 2rem; font-size: 0.82rem; line-height: 1.7; border-radius: 12px; border-left: 3px solid var(--green); }
+.info-cell { background: var(--white); flex: 1; min-width: 180px; padding: 1.5rem 2rem; font-size: 0.82rem; line-height: 1.7; border-radius: 12px; border-left: 3px solid var(--accent); }
 .info-cell strong { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; font-weight: 500; }
 
 /* ══ CONTACT ══ */
-.contact-section { background: var(--light); }
+.contact-section { background: #dfe8da; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
-.contact-title em { color: var(--green); font-style: normal; }
+.contact-title em { color: var(--accent); font-style: normal; }
 .contact-body-text { color: var(--stone); margin-top: 1.4rem; max-width: 400px; }
 .contact-details { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
 .c-row { display: flex; gap: 1rem; }
@@ -277,7 +279,7 @@ body {
 
 /* ══ FOOTER ══ */
 footer {
-  background: var(--dark); padding: 2.5rem 4vw;
+  background: #2e3828; padding: 2.5rem 4vw;
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
 }
 .footer-links { display: flex; gap: 2rem; }
