@@ -636,14 +636,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 <div class="nav-right">
   <ul class="nav-links">
     <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
-    <li>
-      <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span> <span class="chev">▾</span></a>
-      <ul class="sub-menu">
-        <li><a href="#" onclick="openModal('m-schober');return false;">Schober — 40 m²</a></li>
-        <li><a href="#" onclick="openModal('m-seeblick');return false;">Seeblick — 70 m²</a></li>
-        <li><a href="#" onclick="openModal('m-schafberg');return false;">Schafberg — 90 m²</a></li>
-      </ul>
-    </li>
+    <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
     <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
   </ul>
   <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
@@ -662,10 +655,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <button id="mbtn-en" onclick="setLang('en')">EN</button>
     </div>
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
-    <a href="#ferienwohnungen"><span class="lang-de">Ferienwohnungen</span><span class="lang-en">Apartments</span></a>
-    <a class="sub" href="#" onclick="openModal('m-schober');this.closest('.mobile-nav').classList.remove('open');return false;">↳ Schober (40 m²)</a>
-    <a class="sub" href="#" onclick="openModal('m-seeblick');this.closest('.mobile-nav').classList.remove('open');return false;">↳ Seeblick (70 m²)</a>
-    <a class="sub" href="#" onclick="openModal('m-schafberg');this.closest('.mobile-nav').classList.remove('open');return false;">↳ Schafberg (90 m²)</a>
+    <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
     <a href="#kontakt"><span class="lang-de">Kontakt & Anfrage</span><span class="lang-en">Contact & Enquiry</span></a>
   </div>
 </nav>
@@ -674,11 +664,12 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <section class="hero">
   <div class="hero-media">
-    <div class="hero-fallback"></div>
+    <div class="hero-fallback" style="background: #f7f0e4;"></div>
     <div class="hero-video-wrap">
       <video class="hero-video" autoplay muted loop playsinline preload="auto">
         <source src="seeberghof.mp4" type="video/mp4">
       </video>
+      <div class="hero-blocker"></div>
     </div>
     <div class="hero-blocker"></div>
     <div class="hero-overlay"></div>
