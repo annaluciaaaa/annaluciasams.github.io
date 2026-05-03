@@ -302,9 +302,9 @@ footer {
 .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
 
 /* ══ MODAL ══ */
-.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.78); z-index: 1000; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-.modal-overlay.open { display: block; }
-.modal { background: var(--white); width: calc(100% - 2rem); max-width: 900px; margin: 2rem auto 3rem; position: relative; border-radius: 16px; animation: mIn 0.3s ease; overflow: hidden; }
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.82); z-index: 1000; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; padding: 2rem 1rem 3rem; }
+.modal { background: var(--white); width: 100%; max-width: 900px; position: relative; border-radius: 16px; animation: mIn 0.3s ease; overflow: hidden; flex-shrink: 0; }
 @keyframes mIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 .modal-close { position: fixed; top: 1.2rem; right: 1.2rem; z-index: 1100; background: rgba(30,25,20,0.7); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; backdrop-filter: blur(4px); }
 .modal-close:hover { background: var(--dark); }
@@ -394,7 +394,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="nav-bar">
     <!-- Logo links -->
     <a href="#" class="nav-logo" aria-label="Seeberghof">
-      <svg width="260" height="64" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg">
+      <svg width="260" height="64" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg" style="overflow:hidden;display:block;">
         <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
         <polygon points="4,38 16,16 26,30 34,20 46,38" fill="white" opacity="0.06"/>
         <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="white" letter-spacing="2.5">SEEBERGHOF</text>
