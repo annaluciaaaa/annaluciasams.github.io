@@ -55,11 +55,12 @@ body {
   padding: 0 2.5rem; height: 72px;
 }
 
-/* LEFT: lang toggle */
+/* LEFT: nav links */
 .nav-left {
   display: flex;
   align-items: center;
 }
+.nav-left .nav-links { display: flex; list-style: none; gap: 0; }
 
 /* CENTER: logo */
 .nav-logo {
@@ -137,7 +138,7 @@ body {
 #nav.scrolled .lang-divider { background: var(--mid); }
 
 .nav-burger {
-  display: none; flex-direction: column; gap: 5px;
+  display: flex; flex-direction: column; gap: 5px;
   background: none; border: none; cursor: pointer; padding: 4px; margin-left: 1rem;
 }
 .nav-burger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: background 0.3s; }
@@ -607,7 +608,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="nav-bar">
 
 ```
-<!-- LEFT: DE/EN toggle -->
+<!-- LEFT: DE/EN -->
 <div class="nav-left">
   <div class="lang-toggle">
     <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
@@ -616,7 +617,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   </div>
 </div>
 
-<!-- CENTER: Logo (bigger) -->
+<!-- CENTER: Logo -->
 <a href="#" class="nav-logo" aria-label="Seeberghof">
   <svg width="280" height="72" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg">
     <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
@@ -632,14 +633,9 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   </svg>
 </a>
 
-<!-- RIGHT: Nav links + burger -->
+<!-- RIGHT: Hamburger only -->
 <div class="nav-right">
-  <ul class="nav-links">
-    <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
-    <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
-    <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
-  </ul>
-  <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
+  <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü" style="display:flex;">
     <span></span><span></span><span></span>
   </button>
 </div>
