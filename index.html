@@ -137,17 +137,17 @@ body {
 }
 #nav.scrolled .lang-btn { color: var(--stone); }
 #nav.scrolled .lang-btn.active { background: var(--green); color: #fff; }
+#nav.scrolled .lang-toggle { border-color: var(--mid); }
 #nav .label::before { display: none; }
 .lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
 #nav.scrolled .lang-divider { background: var(--mid); }
+#nav.scrolled .nav-burger span { background: var(--dark); }
 
 .nav-burger {
   display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center;
   background: none; border: none; cursor: pointer; padding: 8px;
 }
 .nav-burger span { display: block; width: 24px; height: 2px; background: #fff; transition: background 0.3s; border-radius: 2px; }
-#nav.scrolled .nav-burger span { background: var(--dark); }
-/* Prevent any stray quote characters from empty spans */
 .nav-burger span::before, .nav-burger span::after { content: none; display: none; }
 
 .mobile-nav {
@@ -181,8 +181,8 @@ body {
 }
 .mobile-lang button.active { background: var(--green); border-color: var(--green); color: #fff; }
 
-.chev { font-size: 0.55rem; opacity: 0.5; margin-left: 0.2rem; display: inline-block; transition: transform 0.2s; }
-.nav-links > li:hover .chev { transform: rotate(180deg); }
+.chev { display: none !important; }
+.nav-links > li:hover .chev { display: none !important; }
 
 /* ══ HERO ══ */
 .hero {
