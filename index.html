@@ -11,21 +11,21 @@
 
 ```
 :root {
-  --white: #faf9f6;
-  --off: #f3f5f0;
-  --light: #dde5d8;
-  --mid: #b2c0aa;
-  --stone: #728068;
-  --dark: #2e3828;
-  --green: #6b8f62;
-  --green-light: #88ab7e;
-  --green-pale: #e8f0e4;
-  --gold: #c8a45a;
-  --gold-light: #dab96e;
-  --warm: #88ab7e;
-  --warm-pale: #eef4eb;
-  --accent: #6b8f62;
-  --accent-pale: #e8f0e4;
+  --white: #fdfaf5;
+  --off: #f7f2ea;
+  --light: #ede4d6;
+  --mid: #c8baa8;
+  --stone: #8a7d6c;
+  --dark: #33281c;
+  --green: #7a6e5a;
+  --green-light: #9a8e78;
+  --green-pale: #f0ebe2;
+  --gold: #b8922e;
+  --gold-light: #d4aa48;
+  --warm: #9a8e78;
+  --warm-pale: #f5f0e8;
+  --accent: #8c6d3f;
+  --accent-pale: #f2ebe0;
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -47,7 +47,7 @@ body {
   transition: background 0.4s, box-shadow 0.4s;
 }
 #nav.scrolled {
-  background: rgba(243,245,240,0.97);
+  background: rgba(253,250,245,0.97);
   box-shadow: 0 1px 0 rgba(0,0,0,0.08);
 }
 
@@ -57,9 +57,21 @@ body {
   padding: 0 2.5rem; height: 72px;
 }
 
-.nav-left { display: flex; align-items: center; flex: 1; }
-.nav-logo { display: flex; align-items: center; justify-content: center; text-decoration: none; flex: 0 0 auto; }
-.nav-right { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
+.nav-logo { display: flex; align-items: center; text-decoration: none; flex: 0 0 auto; margin-right: 2.5rem; }
+.nav-links-desktop {
+  display: flex; align-items: center; gap: 0; list-style: none; flex: 1;
+}
+.nav-links-desktop li a {
+  display: block; padding: 0.4rem 1rem;
+  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.85); text-decoration: none;
+  font-family: 'DM Sans', sans-serif;
+  transition: color 0.2s;
+}
+.nav-links-desktop li a:hover { color: #fff; }
+#nav.scrolled .nav-links-desktop li a { color: var(--stone); }
+#nav.scrolled .nav-links-desktop li a:hover { color: var(--dark); }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
 
 .lang-toggle { display: flex; align-items: center; gap: 0; border: 1px solid rgba(255,255,255,0.35); border-radius: 50px; overflow: hidden; }
 #nav.scrolled .lang-toggle { border-color: var(--mid); }
@@ -76,7 +88,7 @@ body {
 .lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
 #nav.scrolled .lang-divider { background: var(--mid); }
 
-.nav-burger { display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-burger { display: none; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 8px; }
 .nav-burger span { display: block; width: 24px; height: 2px; background: #fff; transition: background 0.3s; border-radius: 2px; }
 #nav.scrolled .nav-burger span { background: var(--dark); }
 
@@ -194,7 +206,6 @@ body {
 .about-badge strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 300; display: block; line-height: 1; }
 .title-accent { color: var(--accent); }
 .signature { font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; font-weight: 300; color: var(--accent); margin-top: 2rem; }
-.pet-note { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.6rem 1.2rem; background: var(--accent-pale); border-radius: 50px; font-size: 0.82rem; color: var(--accent); }
 
 
 
@@ -247,7 +258,7 @@ body {
 .info-cell strong { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; font-weight: 500; }
 
 /* ══ CONTACT ══ */
-.contact-section { background: #dfe8da; }
+.contact-section { background: #ede4d6; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
 .contact-title em { color: var(--accent); font-style: normal; }
 .contact-body-text { color: var(--stone); margin-top: 1.4rem; max-width: 400px; }
@@ -279,7 +290,7 @@ body {
 
 /* ══ FOOTER ══ */
 footer {
-  background: #2e3828; padding: 2.5rem 4vw;
+  background: #33281c; padding: 2.5rem 4vw;
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
 }
 .footer-links { display: flex; gap: 2rem; }
@@ -294,7 +305,28 @@ footer {
 @keyframes mIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 .modal-close { position: fixed; top: 1.2rem; right: 1.2rem; z-index: 1100; background: rgba(30,25,20,0.7); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; backdrop-filter: blur(4px); }
 .modal-close:hover { background: var(--dark); }
-.modal-hero-img { width: 100%; aspect-ratio: 16/7; object-fit: cover; display: block; }
+/* Modal slider */
+.modal-slider { position: relative; width: 100%; aspect-ratio: 16/7; overflow: hidden; background: var(--light); }
+.modal-slider-track { display: flex; height: 100%; transition: transform 0.4s ease; }
+.modal-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
+.modal-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.modal-slide-ph { width: 100%; height: 100%; background: var(--off); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
+.modal-slide-ph span { font-size: 2rem; opacity: 0.3; }
+.modal-slide-ph p { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); }
+.slider-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.88); border: none; cursor: pointer;
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--dark); z-index: 5;
+  transition: background 0.2s; box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.slider-btn:hover { background: white; }
+.slider-btn.prev { left: 12px; }
+.slider-btn.next { right: 12px; }
+.slider-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+.slider-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
+.slider-dot.active { background: white; }
 .modal-body { padding: 2.5rem 3rem 3rem; background: var(--white); }
 .modal-tag { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
 .modal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2rem; font-weight: 400; color: var(--dark); margin-bottom: 1rem; }
@@ -307,13 +339,6 @@ footer {
 .m-price-row:last-child { border-bottom: none; }
 .m-period { color: var(--stone); }
 .m-amt { font-weight: 500; color: var(--dark); }
-.modal-gallery { margin-bottom: 2rem; }
-.modal-gallery h4 { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.9rem; }
-.gal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; border-radius: 8px; overflow: hidden; }
-.gal-grid img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
-.gal-ph { aspect-ratio: 4/3; background: var(--off); border: 1.5px dashed var(--mid); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; }
-.gal-ph span { font-size: 1.5rem; opacity: 0.4; }
-.gal-ph p { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
 .modal-cta-btn { background: var(--green); color: #fff; border: none; padding: 0.95rem 2.5rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
 .modal-cta-btn:hover { background: var(--green-light); }
 
@@ -323,6 +348,8 @@ footer {
   .about-img-accent { display: none; }
   .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
   .apt-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links-desktop { display: none; }
+  .nav-burger { display: flex !important; }
   .hero-meta { display: none; }
   .section { padding: 5rem 0; }
 }
@@ -341,7 +368,6 @@ footer {
   .hero-content { padding: 0 1.2rem 4vh; }
   .modal-body { padding: 1.2rem; }
   .modal-title { font-size: 1.5rem; }
-  .gal-grid { grid-template-columns: 1fr 1fr; }
   .btn-send { width: 100%; text-align: center; align-self: stretch; }
   .region-tab { padding: 0.8rem 1rem; font-size: 0.7rem; }
 }
@@ -363,31 +389,38 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <nav id="nav">
   <div class="nav-bar">
-    <div class="nav-left">
-      <div class="lang-toggle">
-        <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
-        <div class="lang-divider"></div>
-        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
-      </div>
-    </div>
+    <!-- Logo links -->
+    <a href="#" class="nav-logo" aria-label="Seeberghof">
+      <svg width="260" height="64" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg">
+        <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+        <polygon points="4,38 16,16 26,30 34,20 46,38" fill="white" opacity="0.06"/>
+        <rect x="2" y="39" width="48" height="9" fill="white" opacity="0.07" rx="0"/>
+        <line x1="4" y1="42" x2="46" y2="42" stroke="white" stroke-width="0.7" opacity="0.3"/>
+        <line x1="8" y1="45" x2="40" y2="45" stroke="white" stroke-width="0.5" opacity="0.18"/>
+        <polyline points="10,49 16,42 22,47" stroke="white" stroke-width="0.8" fill="none" stroke-linejoin="round" opacity="0.2"/>
+        <line x1="56" y1="12" x2="56" y2="48" stroke="white" stroke-width="0.5" opacity="0.2"/>
+        <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="white" letter-spacing="2.5">SEEBERGHOF</text>
+        <line x1="66" y1="31" x2="208" y2="31" stroke="white" stroke-width="0.4" opacity="0.2"/>
+        <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="white" letter-spacing="4" opacity="0.6">FUSCHL AM SEE</text>
+      </svg>
+    </a>
 
 ```
-<a href="#" class="nav-logo" aria-label="Seeberghof">
-  <svg width="280" height="72" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg">
-    <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-    <polygon points="4,38 16,16 26,30 34,20 46,38" fill="white" opacity="0.06"/>
-    <rect x="2" y="39" width="48" height="9" fill="white" opacity="0.07" rx="0"/>
-    <line x1="4" y1="42" x2="46" y2="42" stroke="white" stroke-width="0.7" opacity="0.3"/>
-    <line x1="8" y1="45" x2="40" y2="45" stroke="white" stroke-width="0.5" opacity="0.18"/>
-    <polyline points="10,49 16,42 22,47" stroke="white" stroke-width="0.8" fill="none" stroke-linejoin="round" opacity="0.2"/>
-    <line x1="56" y1="12" x2="56" y2="48" stroke="white" stroke-width="0.5" opacity="0.2"/>
-    <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="white" letter-spacing="2.5">SEEBERGHOF</text>
-    <line x1="66" y1="31" x2="208" y2="31" stroke="white" stroke-width="0.4" opacity="0.2"/>
-    <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="white" letter-spacing="4" opacity="0.6">FUSCHL AM SEE</text>
-  </svg>
-</a>
+<!-- Desktop nav links -->
+<ul class="nav-links-desktop">
+  <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
+  <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
+  <li><a href="#region"><span class="lang-de">Sehenswürdigkeiten</span><span class="lang-en">Sights</span></a></li>
+  <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
+</ul>
 
+<!-- Right: DE/EN + burger -->
 <div class="nav-right">
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
+    <div class="lang-divider"></div>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
   <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
     <span></span><span></span><span></span>
   </button>
@@ -457,10 +490,6 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
         <p class="body-text lang-de" style="margin-top:1rem">Als familiengeführter Bauernhof legen wir besonderen Wert auf persönliche Herzlichkeit. Die Kinder toben frei im Grünen, während Sie die Stille der Natur genießen.</p>
         <p class="body-text lang-en" style="margin-top:1rem">As a family-run farm, personal warmth is at the heart of everything we do. Children roam free in the green countryside while you enjoy the peace and quiet of nature.</p>
         <div class="signature">— Mathilde Pöckl &amp; Familie</div>
-        <div class="pet-note">
-          🐾 <span class="lang-de">Auch Ihre Haustiere sind herzlich willkommen</span>
-          <span class="lang-en">Your pets are warmly welcome too</span>
-        </div>
       </div>
       <div class="about-image-stack">
         <img class="about-img-main" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Seeberghof" />
@@ -792,7 +821,24 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 <div class="modal-overlay" id="m-schober">
   <button class="modal-close" onclick="closeModal('m-schober')">✕</button>
   <div class="modal">
-    <img class="modal-hero-img" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80" alt="Schober" />
+    <div class="modal-slider" id="slider-schober">
+      <div class="modal-slider-track" id="track-schober">
+        <div class="modal-slide"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80" alt="Schober" /></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+      </div>
+      <button class="slider-btn prev" onclick="slideModal('schober', -1)">&#8592;</button>
+      <button class="slider-btn next" onclick="slideModal('schober', 1)">&#8594;</button>
+      <div class="slider-dots" id="dots-schober">
+        <button class="slider-dot active" onclick="goSlide('schober',0)"></button>
+        <button class="slider-dot" onclick="goSlide('schober',1)"></button>
+        <button class="slider-dot" onclick="goSlide('schober',2)"></button>
+        <button class="slider-dot" onclick="goSlide('schober',3)"></button>
+        <button class="slider-dot" onclick="goSlide('schober',4)"></button>
+      </div>
+    </div>
     <div class="modal-body">
       <p class="modal-tag lang-de">40 m² · 2 Personen</p><p class="modal-tag lang-en">40 m² · 2 Persons</p>
       <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schober</h2>
@@ -811,17 +857,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
         <div class="m-price-row"><span class="m-period">01.05. – 30.06.2025</span><span class="m-amt">ab € 72,–</span></div>
         <div class="m-price-row"><span class="m-period">01.07. – 31.08.2025</span><span class="m-amt">ab € 80,–</span></div>
         <div class="m-price-row"><span class="m-period">01.09. – 01.11.2025</span><span class="m-amt">ab € 72,–</span></div>
-      </div>
-      <div class="modal-gallery">
-        <h4><span class="lang-de">Fotos der Wohnung</span><span class="lang-en">Photos</span></h4>
-        <div class="gal-grid">
-          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Schober" />
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-        </div>
+      </div></div>
       </div>
       <button class="modal-cta-btn" onclick="closeModal('m-schober');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
         <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
@@ -833,7 +869,24 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 <div class="modal-overlay" id="m-seeblick">
   <button class="modal-close" onclick="closeModal('m-seeblick')">✕</button>
   <div class="modal">
-    <img class="modal-hero-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80" alt="Seeblick" />
+    <div class="modal-slider" id="slider-seeblick">
+      <div class="modal-slider-track" id="track-seeblick">
+        <div class="modal-slide"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80" alt="Seeblick" /></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+      </div>
+      <button class="slider-btn prev" onclick="slideModal('seeblick', -1)">&#8592;</button>
+      <button class="slider-btn next" onclick="slideModal('seeblick', 1)">&#8594;</button>
+      <div class="slider-dots" id="dots-seeblick">
+        <button class="slider-dot active" onclick="goSlide('seeblick',0)"></button>
+        <button class="slider-dot" onclick="goSlide('seeblick',1)"></button>
+        <button class="slider-dot" onclick="goSlide('seeblick',2)"></button>
+        <button class="slider-dot" onclick="goSlide('seeblick',3)"></button>
+        <button class="slider-dot" onclick="goSlide('seeblick',4)"></button>
+      </div>
+    </div>
     <div class="modal-body">
       <p class="modal-tag lang-de">70 m² · 2–6 Personen</p><p class="modal-tag lang-en">70 m² · 2–6 Persons</p>
       <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Seeblick</h2>
@@ -852,17 +905,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
         <div class="m-price-row"><span class="m-period">01.05. – 30.06.2025</span><span class="m-amt">ab € 88,–</span></div>
         <div class="m-price-row"><span class="m-period">01.07. – 31.08.2025</span><span class="m-amt">ab € 95,–</span></div>
         <div class="m-price-row"><span class="m-period">01.09. – 01.11.2025</span><span class="m-amt">ab € 88,–</span></div>
-      </div>
-      <div class="modal-gallery">
-        <h4><span class="lang-de">Fotos der Wohnung</span><span class="lang-en">Photos</span></h4>
-        <div class="gal-grid">
-          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Seeblick" />
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-        </div>
+      </div></div>
       </div>
       <button class="modal-cta-btn" onclick="closeModal('m-seeblick');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
         <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
@@ -874,7 +917,24 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 <div class="modal-overlay" id="m-schafberg">
   <button class="modal-close" onclick="closeModal('m-schafberg')">✕</button>
   <div class="modal">
-    <img class="modal-hero-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" alt="Schafberg" />
+    <div class="modal-slider" id="slider-schafberg">
+      <div class="modal-slider-track" id="track-schafberg">
+        <div class="modal-slide"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" alt="Schafberg" /></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
+      </div>
+      <button class="slider-btn prev" onclick="slideModal('schafberg', -1)">&#8592;</button>
+      <button class="slider-btn next" onclick="slideModal('schafberg', 1)">&#8594;</button>
+      <div class="slider-dots" id="dots-schafberg">
+        <button class="slider-dot active" onclick="goSlide('schafberg',0)"></button>
+        <button class="slider-dot" onclick="goSlide('schafberg',1)"></button>
+        <button class="slider-dot" onclick="goSlide('schafberg',2)"></button>
+        <button class="slider-dot" onclick="goSlide('schafberg',3)"></button>
+        <button class="slider-dot" onclick="goSlide('schafberg',4)"></button>
+      </div>
+    </div>
     <div class="modal-body">
       <p class="modal-tag lang-de">90 m² · 2–8 Personen</p><p class="modal-tag lang-en">90 m² · 2–8 Persons</p>
       <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schafberg</h2>
@@ -893,17 +953,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
         <div class="m-price-row"><span class="m-period">01.05. – 30.06.2025</span><span class="m-amt">ab € 95,–</span></div>
         <div class="m-price-row"><span class="m-period">01.07. – 31.08.2025</span><span class="m-amt">ab € 100,–</span></div>
         <div class="m-price-row"><span class="m-period">01.09. – 01.11.2025</span><span class="m-amt">ab € 95,–</span></div>
-      </div>
-      <div class="modal-gallery">
-        <h4><span class="lang-de">Fotos der Wohnung</span><span class="lang-en">Photos</span></h4>
-        <div class="gal-grid">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Schafberg" />
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-          <div class="gal-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div>
-        </div>
+      </div></div>
       </div>
       <button class="modal-cta-btn" onclick="closeModal('m-schafberg');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
         <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
@@ -913,6 +963,43 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 </div>
 
 <script>
+
+  // Modal sliders
+  const sliderState = {};
+  function initSlider(id) {
+    if (!sliderState[id]) sliderState[id] = 0;
+  }
+  function slideModal(id, dir) {
+    initSlider(id);
+    const track = document.getElementById('track-' + id);
+    const count = track.children.length;
+    sliderState[id] = (sliderState[id] + dir + count) % count;
+    updateSlider(id);
+  }
+  function goSlide(id, idx) {
+    initSlider(id);
+    sliderState[id] = idx;
+    updateSlider(id);
+  }
+  function updateSlider(id) {
+    const track = document.getElementById('track-' + id);
+    track.style.transform = 'translateX(-' + (sliderState[id] * 100) + '%)';
+    document.querySelectorAll('#dots-' + id + ' .slider-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === sliderState[id]);
+    });
+  }
+  // Reset slider when modal opens
+  const origOpenModal = openModal;
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const modalId = id.replace('m-', '');
+    if (sliderState[modalId] !== undefined) {
+      sliderState[modalId] = 0;
+      updateSlider(modalId);
+    }
+  }
+
   // Region tabs
   function showRegion(id, btn) {
     document.querySelectorAll('.region-panel').forEach(p => p.classList.remove('active'));
@@ -930,9 +1017,9 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   // Logo color on scroll
   window.addEventListener('scroll', () => {
     const s = window.scrollY > 80;
-    document.querySelectorAll('#logo-svg polyline, #logo-svg line').forEach(el => el.setAttribute('stroke', s ? '#4a6e52' : 'white'));
-    document.querySelectorAll('#logo-svg polygon, #logo-svg rect').forEach(el => el.setAttribute('fill', s ? '#4a6e52' : 'white'));
-    document.querySelectorAll('#logo-svg text').forEach((el, i) => el.setAttribute('fill', s ? (i === 0 ? '#2a2520' : '#8a7f72') : (i === 0 ? 'white' : 'rgba(255,255,255,0.6)')));
+    document.querySelectorAll('#logo-svg polyline, #logo-svg line').forEach(el => el.setAttribute('stroke', s ? '#8c6d3f' : 'white'));
+    document.querySelectorAll('#logo-svg polygon, #logo-svg rect').forEach(el => el.setAttribute('fill', s ? '#8c6d3f' : 'white'));
+    document.querySelectorAll('#logo-svg text').forEach((el, i) => el.setAttribute('fill', s ? (i === 0 ? '#33281c' : '#8a7d6c') : (i === 0 ? 'white' : 'rgba(255,255,255,0.6)')));
   });
 
   // Mobile nav
