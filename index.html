@@ -275,31 +275,44 @@ body {
 .contact-form { display: flex; flex-direction: column; gap: 1rem; padding-top: 0.5rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .contact-form input, .contact-form textarea, .contact-form select {
-  background: var(--white); border: 1px solid var(--mid);
-  color: var(--dark); padding: 0.9rem 1.2rem; border-radius: 8px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
-  outline: none; width: 100%; transition: border-color 0.2s; -webkit-appearance: none;
+  background: #fff;
+  border: 1.5px solid var(--mid);
+  color: var(--dark); padding: 0.95rem 1.2rem; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+  outline: none; width: 100%; transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--mid); }
-.contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: var(--green); }
-.contact-form textarea { min-height: 120px; resize: vertical; }
+.contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(140,109,63,0.1);
+}
+.contact-form textarea { min-height: 140px; resize: vertical; }
+.contact-form label {
+  display: block; font-size: 0.65rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--stone);
+  margin-bottom: 0.4rem; font-weight: 400;
+}
+.contact-form .field { display: flex; flex-direction: column; }
 .btn-send {
-  background: var(--green); color: #fff; border: none;
+  background: var(--accent); color: #fff; border: none;
   padding: 1rem 2.5rem; border-radius: 50px;
   font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
   cursor: pointer; align-self: flex-start; transition: background 0.25s;
+  margin-top: 0.5rem;
 }
 .btn-send:hover { background: var(--green-light); }
 
 /* ══ FOOTER ══ */
 footer {
-  background: #33281c; padding: 2.5rem 4vw;
+  background: #d6cfc4; padding: 2.5rem 4vw;
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
 }
 .footer-links { display: flex; gap: 2rem; }
-.footer-links a { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: rgba(255,255,255,0.9); }
-.footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
+.footer-links a { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--dark); }
+.footer-copy { font-size: 0.7rem; color: var(--stone); }
 
 /* ══ MODAL ══ */
 .modal-overlay {
@@ -710,15 +723,46 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 ```
 <div class="region-tabs">
-  <button class="region-tab active" onclick="showRegion('bad-ischl',this)">Bad Ischl <span class="tab-dist">· 20 min</span></button>
-  <button class="region-tab" onclick="showRegion('salzburg',this)">Salzburg <span class="tab-dist">· 40 min</span></button>
-  <button class="region-tab" onclick="showRegion('wolfgangsee',this)">Wolfgangsee <span class="tab-dist">· 15 min</span></button>
-  <button class="region-tab" onclick="showRegion('hallstatt',this)">Hallstatt <span class="tab-dist">· 45 min</span></button>
-  <button class="region-tab" onclick="showRegion('mondsee',this)">Mondsee <span class="tab-dist">· 25 min</span></button>
+  <button class="region-tab active" onclick="showRegion('fuschl',this)">Fuschl am See <span class="tab-dist">· vor Ort</span></button>
+  <button class="region-tab" onclick="showRegion('bad-ischl',this)">Bad Ischl <span class="tab-dist">· ca. 30 min</span></button>
+  <button class="region-tab" onclick="showRegion('salzburg',this)">Salzburg <span class="tab-dist">· ca. 25 min</span></button>
+  <button class="region-tab" onclick="showRegion('wolfgangsee',this)">Wolfgangsee <span class="tab-dist">· ca. 10 min</span></button>
+  <button class="region-tab" onclick="showRegion('hallstatt',this)">Hallstatt <span class="tab-dist">· ca. 60 min</span></button>
+  <button class="region-tab" onclick="showRegion('mondsee',this)">Mondsee <span class="tab-dist">· ca. 20 min</span></button>
 </div>
 
-<!-- BAD ISCHL -->
-<div class="region-panel active" id="panel-bad-ischl">
+<!-- FUSCHL AM SEE -->
+<div class="region-panel active" id="panel-fuschl">
+  <div class="sight-list">
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">⛳</span><h4>Golfclub Waldhof</h4></div>
+      <p class="lang-de">9-Loch-Golfplatz direkt am Fuschlsee mit traumhaftem Panoramablick — ideal für Anfänger und Profis. Mit Driving Range, Golfschule und der gemütlichen Waldhof-Alm daneben.</p>
+      <p class="lang-en">9-hole golf course right on Lake Fuschl with stunning panoramic views — ideal for beginners and pros alike. With driving range, golf school and the cosy Waldhof Alm right next door.</p>
+      <a class="sight-link" href="https://www.golfclub-waldhof.at" target="_blank" rel="noopener">golfclub-waldhof.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🌾</span><h4>Rumingmühle</h4></div>
+      <p class="lang-de">Die über 150 Jahre alte Rumingmühle ist ein echtes Juwel direkt am Fuschlsee — und berühmt für ihre frisch gebackenen Krapfen. Mühlenwirtin Daniela öffnet im Sommer dienstags, freitags und samstags nachmittags. Unbedingt vorbeischauen!</p>
+      <p class="lang-en">The 150-year-old Rumingmühle is a true gem right on the Fuschlsee — and famous for its freshly baked Krapfen doughnuts. In summer, the mill hostess Daniela opens on Tuesday, Friday and Saturday afternoons. A must-visit!</p>
+      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🏔️</span><h4>Schober</h4></div>
+      <p class="lang-de">Der Schober ist der Hausberg des Fuschlsees — direkt vom Seeberghof aus sichtbar. Eine herrliche Wanderung mit Belohnung: atemberaubender Blick über den Fuschlsee und die umliegenden Alpen.</p>
+      <p class="lang-en">The Schober is the local mountain of the Fuschlsee — visible directly from the Seeberghof. A wonderful hike rewarded with a breathtaking view over the Fuschlsee and the surrounding Alps.</p>
+      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🌄</span><h4>Frauenkopf</h4></div>
+      <p class="lang-de">Der Frauenkopf ist ein beliebtes Wanderziel rund um Fuschl am See — mit wunderschönem Ausblick auf den See und die Bergwelt des Salzkammerguts. Gut erreichbar, auch für Familien geeignet.</p>
+      <p class="lang-en">The Frauenkopf is a popular hiking destination around Fuschl am See — with beautiful views over the lake and the Salzkammergut mountains. Easily accessible, suitable for families too.</p>
+      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
+    </div>
+  </div>
+</div>
+
+    <!-- BAD ISCHL -->
+<div class="region-panel" id="panel-bad-ischl">
   <div class="sight-list">
     <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">🏛️</span><h4><span class="lang-de">Kaiservilla</span><span class="lang-en">Imperial Villa</span></h4></div>
@@ -742,13 +786,13 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <div class="sight-card-top"><span class="sight-icon">🎵</span><h4><span class="lang-de">Mozarts Geburtshaus</span><span class="lang-en">Mozart's Birthplace</span></h4></div>
       <p class="lang-de">Getreidegasse 9 — hier wurde Wolfgang Amadeus Mozart 1756 geboren. Museum mit Originalinstrumenten, Portraits und persönlichen Gegenständen.</p>
       <p class="lang-en">Getreidegasse 9 — where Wolfgang Amadeus Mozart was born in 1756. Museum with original instruments, portraits and personal items.</p>
-      <a class="sight-link" href="https://www.mozarteum.at/museen/mozarts-geburtshaus" target="_blank" rel="noopener">mozarteum.at</a>
+      <a class="sight-link" href="https://mozarteum.at/mozart-museen/mozarts-geburtshaus" target="_blank" rel="noopener">mozarteum.at</a>
     </div>
     <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">🏰</span><h4><span class="lang-de">Festung Hohensalzburg</span><span class="lang-en">Hohensalzburg Fortress</span></h4></div>
       <p class="lang-de">Eine der größten erhaltenen Burganlagen Europas, hoch über der Stadt. Erbaut 1077 — mit atemberaubendem Panoramablick über Salzburg und die Alpen.</p>
       <p class="lang-en">One of the largest preserved fortresses in Europe, high above the city. Built in 1077 — with breathtaking panoramic views over Salzburg and the Alps.</p>
-      <a class="sight-link" href="https://www.salzburg-burgen.at" target="_blank" rel="noopener">salzburg-burgen.at</a>
+      <a class="sight-link" href="https://www.festung-hohensalzburg.at" target="_blank" rel="noopener">festung-hohensalzburg.at</a>
     </div>
   </div>
 </div>
@@ -760,13 +804,13 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <div class="sight-card-top"><span class="sight-icon">🚂</span><h4><span class="lang-de">Schafbergbahn</span><span class="lang-en">Schafberg Railway</span></h4></div>
       <p class="lang-de">Historische Zahnradbahn seit 1893 auf den 1.783 m hohen Schafberg — einer der schönsten Aussichtspunkte des Salzkammerguts mit Blick auf bis zu 13 Seen.</p>
       <p class="lang-en">Historic rack railway since 1893 up to the 1,783 m Schafberg — one of the finest viewpoints in the Salzkammergut with views of up to 13 lakes.</p>
-      <a class="sight-link" href="https://www.schafbergbahn.at" target="_blank" rel="noopener">schafbergbahn.at</a>
+      <a class="sight-link" href="https://www.5schaetze.at" target="_blank" rel="noopener">5schaetze.at</a>
     </div>
     <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">⛵</span><h4><span class="lang-de">Schifffahrt Wolfgangsee</span><span class="lang-en">Lake Wolfgang Boats</span></h4></div>
       <p class="lang-de">Verbindet St. Wolfgang, St. Gilgen und Strobl auf dem kristallklaren Bergsee — entspannt das Salzkammergut vom Wasser aus erleben.</p>
       <p class="lang-en">Connecting St. Wolfgang, St. Gilgen and Strobl on the crystal-clear mountain lake — experience the Salzkammergut relaxed from the water.</p>
-      <a class="sight-link" href="https://www.schafbergbahn.at" target="_blank" rel="noopener">schafbergbahn.at</a>
+      <a class="sight-link" href="https://www.5schaetze.at" target="_blank" rel="noopener">5schaetze.at</a>
     </div>
     <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">🏔️</span><h4>Zwölferhorn</h4></div>
@@ -843,17 +887,32 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <div>
         <div class="contact-form">
           <div class="form-row">
-            <input type="text" data-de="Ihr Name" data-en="Your name" placeholder="Ihr Name" />
-            <input type="email" data-de="Ihre E-Mail" data-en="Your e-mail" placeholder="Ihre E-Mail" />
+            <div class="field">
+              <label><span class="lang-de">Name</span><span class="lang-en">Name</span></label>
+              <input type="text" data-de="Ihr Name" data-en="Your name" placeholder="Ihr Name" />
+            </div>
+            <div class="field">
+              <label>E-Mail</label>
+              <input type="email" data-de="Ihre E-Mail" data-en="Your e-mail" placeholder="Ihre E-Mail" />
+            </div>
           </div>
-          <select>
-            <option value="" disabled selected data-de="Ferienwohnung wählen" data-en="Select apartment">Ferienwohnung wählen</option>
-            <option>Schober (40 m², 2 Personen)</option>
-            <option>Seeblick (70 m², 2–6 Personen)</option>
-            <option>Schafberg (90 m², 2–8 Personen)</option>
-          </select>
-          <input type="text" data-de="Reisezeitraum (z.B. 10.–17. Juli 2025)" data-en="Travel dates (e.g. 10–17 July 2025)" placeholder="Reisezeitraum (z.B. 10.–17. Juli 2025)" />
-          <textarea data-de="Ihre Nachricht — Personenanzahl, Haustiere, Wünsche …" data-en="Your message — number of guests, pets, wishes …" placeholder="Ihre Nachricht — Personenanzahl, Haustiere, Wünsche …"></textarea>
+          <div class="field">
+            <label><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span></label>
+            <select>
+              <option value="" disabled selected data-de="Bitte wählen …" data-en="Please select …">Bitte wählen …</option>
+              <option>Schober (40 m², 2 Personen)</option>
+              <option>Seeblick (70 m², 2–6 Personen)</option>
+              <option>Schafberg (90 m², 2–8 Personen)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label><span class="lang-de">Reisezeitraum</span><span class="lang-en">Travel dates</span></label>
+            <input type="text" data-de="z.B. 10.–17. Juli 2026" data-en="e.g. 10–17 July 2026" placeholder="z.B. 10.–17. Juli 2026" />
+          </div>
+          <div class="field">
+            <label><span class="lang-de">Nachricht</span><span class="lang-en">Message</span></label>
+            <textarea data-de="Personenanzahl, Haustiere, Wünsche …" data-en="Number of guests, pets, wishes …" placeholder="Personenanzahl, Haustiere, Wünsche …"></textarea>
+          </div>
           <button class="btn-send">
             <span class="lang-de">Anfrage senden →</span>
             <span class="lang-en">Send enquiry →</span>
@@ -867,14 +926,11 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 <!-- ══ FOOTER ══ -->
 
 <footer>
-  <svg width="180" height="48" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="#6a9472" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-    <polygon points="4,38 16,16 26,30 34,20 46,38" fill="#6a9472" opacity="0.1"/>
-    <line x1="4" y1="42" x2="46" y2="42" stroke="#6a9472" stroke-width="0.7" opacity="0.4"/>
-    <line x1="56" y1="12" x2="56" y2="48" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-    <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="rgba(255,255,255,0.85)" letter-spacing="2.5">SEEBERGHOF</text>
-    <line x1="66" y1="31" x2="208" y2="31" stroke="rgba(255,255,255,0.1)" stroke-width="0.4"/>
-    <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="rgba(255,255,255,0.4)" letter-spacing="4">FUSCHL AM SEE</text>
+  <svg width="180" height="48" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:hidden;">
+    <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="#8c6d3f" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+    <polygon points="4,38 16,16 26,30 34,20 46,38" fill="#8c6d3f" opacity="0.08"/>
+    <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="#33281c" letter-spacing="2.5">SEEBERGHOF</text>
+    <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="#8a7d6c" letter-spacing="4">FUSCHL AM SEE</text>
   </svg>
   <div class="footer-links">
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
@@ -882,7 +938,10 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
     <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
     <a href="#kontakt">Kontakt</a>
   </div>
-  <p class="footer-copy">© 2025 Seeberghof · Familie Pöckl · Fuschl am See</p>
+  <div style="text-align:right;">
+    <p class="footer-copy">© 2026 Seeberghof · Familie Pöckl · Fuschl am See</p>
+    <p class="footer-copy" style="margin-top:0.4rem;">Design &amp; Fotos: Anna Lucia Sams</p>
+  </div>
 </footer>
 
 <!-- ══ MODALS ══ -->
@@ -923,9 +982,9 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <p class="modal-desc lang-en">Apartment Schober is a cosy, compact unit — ideal for couples. The sunny balcony offers a beautiful view of the Fuschlsee and surrounding mountains. The fully equipped kitchen lets you cater for yourselves.</p>
       <div class="modal-prices">
         <h4><span class="lang-de">Preise pro Tag</span><span class="lang-en">Prices per day</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2025</span><span class="m-amt">ab € 72,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2025</span><span class="m-amt">ab € 80,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2025</span><span class="m-amt">ab € 72,–</span></div>
+        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 72,–</span></div>
+        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 80,–</span></div>
+        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 72,–</span></div>
       </div></div>
       </div>
       <button class="modal-cta-btn" onclick="closeModal('m-schober');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
@@ -971,9 +1030,9 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <p class="modal-desc lang-en">At 70 m², Apartment Seeblick offers generous space for families and small groups. Two separate bedrooms and separate shower and WC provide comfortable privacy. The bright balcony with a direct view of the Fuschlsee is perfect for lingering.</p>
       <div class="modal-prices">
         <h4><span class="lang-de">Preise pro Tag</span><span class="lang-en">Prices per day</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2025</span><span class="m-amt">ab € 88,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2025</span><span class="m-amt">ab € 95,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2025</span><span class="m-amt">ab € 88,–</span></div>
+        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 88,–</span></div>
+        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 95,–</span></div>
+        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 88,–</span></div>
       </div></div>
       </div>
       <button class="modal-cta-btn" onclick="closeModal('m-seeblick');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
@@ -1019,9 +1078,9 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <p class="modal-desc lang-en">Apartment Schafberg is our largest unit — ideal for bigger families. Across 90 m² you'll find three separate bedrooms, a fully equipped kitchen and separate shower and WC. The generous balcony with panoramic views of the Fuschlsee is the centrepiece of this apartment.</p>
       <div class="modal-prices">
         <h4><span class="lang-de">Preise pro Tag</span><span class="lang-en">Prices per day</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2025</span><span class="m-amt">ab € 95,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2025</span><span class="m-amt">ab € 100,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2025</span><span class="m-amt">ab € 95,–</span></div>
+        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 95,–</span></div>
+        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 100,–</span></div>
+        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 95,–</span></div>
       </div></div>
       </div>
       <button class="modal-cta-btn" onclick="closeModal('m-schafberg');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
