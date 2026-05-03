@@ -74,7 +74,6 @@ body {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 0;
   justify-content: flex-end;
 }
 
@@ -138,8 +137,9 @@ body {
 #nav.scrolled .lang-divider { background: var(--mid); }
 
 .nav-burger {
-  display: flex; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 4px; margin-left: 1rem;
+  display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer; padding: 8px; margin-left: 1rem;
+  height: 72px;
 }
 .nav-burger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: background 0.3s; }
 #nav.scrolled .nav-burger span { background: var(--dark); }
@@ -635,7 +635,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 
 <!-- RIGHT: Hamburger only -->
 <div class="nav-right">
-  <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü" style="display:flex;">
+  <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
     <span></span><span></span><span></span>
   </button>
 </div>
