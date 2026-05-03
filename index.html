@@ -79,7 +79,8 @@ body {
   flex: 1;
 }
 
-.nav-links { display: flex; list-style: none; gap: 0; }
+.nav-bar > * { min-width: 0; }
+.nav-links { display: none; } /* hide desktop nav links - burger only */
 .nav-links > li { position: relative; }
 .nav-links > li > a {
   display: block; padding: 0.5rem 1.1rem;
@@ -135,7 +136,7 @@ body {
 }
 #nav.scrolled .lang-btn { color: var(--stone); }
 #nav.scrolled .lang-btn.active { background: var(--green); color: #fff; }
-.lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); }
+#nav .lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); display: block; }
 #nav.scrolled .lang-divider { background: var(--mid); }
 
 .nav-burger {
@@ -149,6 +150,7 @@ body {
   display: none; flex-direction: column;
   background: var(--white); border-top: 1px solid var(--light);
   padding: 1rem 0 1.5rem;
+  position: relative; z-index: 299;
 }
 .mobile-nav.open { display: flex; }
 .mobile-nav a {
@@ -674,14 +676,14 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="hero-content">
     <div class="hero-text">
       <h1 class="hero-title">
-        <span class="lang-de">Herzlich willkommen<br>am Seeberghof</span>
+        <span class="lang-de">Herzlich Willkommen<br>am Seeberghof</span>
         <span class="lang-en">Welcome to<br>Seeberghof</span>
       </h1>
     </div>
     <div class="hero-meta">
       <strong>Fuschl am See</strong>
-      <span class="lang-de">Familiär geführter Bauernhof<br>Direkt am Fuschlsee<br>Salzkammergut, Österreich</span>
-      <span class="lang-en">Family-run farm<br>On the Fuschlsee<br>Salzkammergut, Austria</span>
+      <span class="lang-de">Familiär geführter Bauernhof<br>Salzkammergut, Österreich</span>
+      <span class="lang-en">Family-run farm<br>Salzkammergut, Austria</span>
     </div>
   </div>
 </section>
