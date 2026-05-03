@@ -405,13 +405,23 @@ footer {
   .region-tab { padding: 0.8rem 1rem; font-size: 0.7rem; }
 }
 
-/* ══ LANGUAGE ══ */
-.lang-en { display: none; }
-body.en .lang-de { display: none; }
-body.en .lang-en { display: block; }
-span.lang-en, em.lang-en, strong.lang-en { display: none; }
-body.en span.lang-en, body.en em.lang-en, body.en strong.lang-en { display: inline; }
-body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none; }
+.nav-links-desktop li a span,
+.mobile-nav a span { display: inline !important; }
+.nav-links-desktop li a span.lang-en,
+.mobile-nav a span.lang-en { display: none !important; }
+body.en .nav-links-desktop li a span.lang-en,
+body.en .mobile-nav a span.lang-en { display: inline !important; }
+body.en .nav-links-desktop li a span.lang-de,
+body.en .mobile-nav a span.lang-de { display: none !important; }
+.lang-en { display: none !important; }
+body.en .lang-de { display: none !important; }
+body.en .lang-en { display: revert !important; }
+span.lang-en, em.lang-en, strong.lang-en, a.lang-en, li.lang-en, p.lang-en { display: none !important; }
+body.en span.lang-en, body.en em.lang-en, body.en strong.lang-en, body.en a.lang-en { display: inline !important; }
+body.en li.lang-en { display: list-item !important; }
+body.en p.lang-en { display: block !important; }
+body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de, body.en a.lang-de { display: none !important; }
+body.en li.lang-de, body.en p.lang-de { display: none !important; }
 ```
 
   </style>
