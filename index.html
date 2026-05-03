@@ -180,14 +180,15 @@ body {
   color: var(--accent); margin-bottom: 1.1rem; font-weight: 400;
   display: flex; align-items: center; gap: 0.8rem;
 }
-.label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+.section-inner .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+.nav-links-desktop .label::before { display: none; }
 .display-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 300; line-height: 1.15; color: var(--dark); }
 .body-text { font-size: 1rem; line-height: 1.88; color: var(--stone); max-width: 520px; margin-top: 1.4rem; }
 .divider { width: 40px; height: 1px; background: var(--mid); margin: 2rem 0; }
 
 /* ══ ABOUT ══ */
 .about-section { background: var(--white); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center; }
+.about-grid { display: block; max-width: 680px; }
 .about-image-stack { position: relative; }
 .about-img-main { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 4px; }
 .about-img-accent {
@@ -394,13 +395,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <svg width="260" height="64" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" id="logo-svg">
         <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
         <polygon points="4,38 16,16 26,30 34,20 46,38" fill="white" opacity="0.06"/>
-        <rect x="2" y="39" width="48" height="9" fill="white" opacity="0.07" rx="0"/>
-        <line x1="4" y1="42" x2="46" y2="42" stroke="white" stroke-width="0.7" opacity="0.3"/>
-        <line x1="8" y1="45" x2="40" y2="45" stroke="white" stroke-width="0.5" opacity="0.18"/>
-        <polyline points="10,49 16,42 22,47" stroke="white" stroke-width="0.8" fill="none" stroke-linejoin="round" opacity="0.2"/>
-        <line x1="56" y1="12" x2="56" y2="48" stroke="white" stroke-width="0.5" opacity="0.2"/>
         <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="white" letter-spacing="2.5">SEEBERGHOF</text>
-        <line x1="66" y1="31" x2="208" y2="31" stroke="white" stroke-width="0.4" opacity="0.2"/>
         <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="white" letter-spacing="4" opacity="0.6">FUSCHL AM SEE</text>
       </svg>
     </a>
@@ -410,7 +405,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
 <ul class="nav-links-desktop">
   <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
   <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
-  <li><a href="#region"><span class="lang-de">Sehenswürdigkeiten</span><span class="lang-en">Sights</span></a></li>
+  <li><a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a></li>
   <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
 </ul>
 
@@ -436,7 +431,7 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
     </div>
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
     <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
-    <a href="#region"><span class="lang-de">Sehenswürdigkeiten</span><span class="lang-en">Sights</span></a>
+    <a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a>
     <a href="#kontakt"><span class="lang-de">Kontakt & Anfrage</span><span class="lang-en">Contact & Enquiry</span></a>
   </div>
 </nav>
@@ -491,16 +486,69 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
         <p class="body-text lang-en" style="margin-top:1rem">As a family-run farm, personal warmth is at the heart of everything we do. Children roam free in the green countryside while you enjoy the peace and quiet of nature.</p>
         <div class="signature">— Mathilde Pöckl &amp; Familie</div>
       </div>
-      <div class="about-image-stack">
-        <img class="about-img-main" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Seeberghof" />
-        <img class="about-img-accent" src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600&q=80" alt="Fuschlsee" />
-        <div class="about-badge">
-          <strong>800m</strong>
-          <span class="lang-de">zum See</span>
-          <span class="lang-en">to lake</span>
-        </div>
+
+```
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ GESCHICHTE ══ -->
+
+<section class="section" id="geschichte" style="background: var(--white);">
+  <div class="section-inner">
+    <div style="max-width: 780px; margin: 0 auto; text-align: center;">
+      <p class="label" style="justify-content: center;">
+        <span class="lang-de">Unsere Geschichte</span>
+        <span class="lang-en">Our Story</span>
+      </p>
+      <h2 class="display-title" style="margin-bottom: 2rem;">
+        <span class="lang-de">Seit <em style="color:var(--accent);font-style:normal">1950</em> am Fuschlsee</span>
+        <span class="lang-en">On the Fuschlsee <em style="color:var(--accent);font-style:normal">since 1950</em></span>
+      </h2>
+
+```
+  <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--light); margin-bottom: 3rem; border-radius: 10px; overflow: hidden;">
+    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
+      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">1950</div>
+      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
+        <span class="lang-de">Gegründet</span><span class="lang-en">Founded</span>
       </div>
     </div>
+    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
+      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">2.</div>
+      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
+        <span class="lang-de">Generation</span><span class="lang-en">Generation</span>
+      </div>
+    </div>
+    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
+      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">♀</div>
+      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
+        <span class="lang-de">Von Frauen geführt</span><span class="lang-en">Women-led</span>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.5rem;" class="lang-de">
+    Was 1950 als kleiner Bauernhof am Fuschlsee begann, ist heute ein liebevoll geführter Familienbetrieb in zweiter Generation. Mathilde Pöckl und ihre Familie empfangen ihre Gäste mit derselben Herzlichkeit, die den Seeberghof von Anfang an ausgemacht hat.
+  </p>
+  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.5rem;" class="lang-en">
+    What began in 1950 as a small farm on the Fuschlsee is today a lovingly run family business in its second generation. Mathilde Pöckl and her family welcome their guests with the same warmth that has defined the Seeberghof from the very beginning.
+  </p>
+  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.5rem;" class="lang-de">
+    Was uns besonders stolz macht: Viele unserer Gäste kommen seit Jahrzehnten zu uns — und heute bringen sie bereits ihre eigenen Kinder und Enkelkinder mit. Der Seeberghof ist für sie kein Hotel, sondern ein zweites Zuhause. Diese Verbundenheit ist das Schönste, was man sich als Gastgeberin wünschen kann.
+  </p>
+  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone);" class="lang-en">
+    What fills us with special pride: many of our guests have been coming to us for decades — and today they bring their own children and grandchildren with them. For them, the Seeberghof is not a hotel but a second home. This bond is the most beautiful thing one can wish for as a host.
+  </p>
+
+  <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--light);">
+    <p style="font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--accent);">— Mathilde Pöckl &amp; Familie</p>
+  </div>
+</div>
+```
+
   </div>
 </section>
 
@@ -510,8 +558,8 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   <div class="landscape-img"></div>
   <div class="landscape-content">
     <blockquote class="landscape-quote">
-      <span class="lang-de">Malerisch zwischen dem Fuschlseer Hausberg Schober und dem schönen Fuschlsee liegt der Seeberghof.</span>
-      <span class="lang-en">Nestled between the Fuschlsee's own mountain, the Schober, and the beautiful lake — this is the Seeberghof.</span>
+      <span class="lang-de">Sommerliche Leichtigkeit, kristallklares Wasser, frische Bergluft — willkommen im Salzkammergut.</span>
+      <span class="lang-en">Summer ease, crystal-clear water, fresh mountain air — welcome to the Salzkammergut.</span>
     </blockquote>
     <div class="landscape-line"></div>
     <p class="landscape-cite">Seeberghof · Fuschl am See</p>
@@ -632,8 +680,8 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
       <span class="lang-en">The Region</span>
     </p>
     <h2 class="display-title" style="margin-bottom:0.5rem">
-      <span class="lang-de">Sehenswürdigkeiten <em style="color:var(--green);font-style:normal">in der Nähe</em></span>
-      <span class="lang-en">Sights <em style="color:var(--green);font-style:normal">nearby</em></span>
+      <span class="lang-de">Rund um den <em style="color:var(--green);font-style:normal">Fuschlsee</em></span>
+      <span class="lang-en">Around the <em style="color:var(--green);font-style:normal">Fuschlsee</em></span>
     </h2>
     <p class="body-text" style="margin-bottom:2.5rem">
       <span class="lang-de">Vom Seeberghof aus erreichen Sie einige der schönsten Orte des Salzkammerguts bequem mit dem Auto.</span>
@@ -1017,8 +1065,8 @@ body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de { display: none
   // Logo color on scroll
   window.addEventListener('scroll', () => {
     const s = window.scrollY > 80;
-    document.querySelectorAll('#logo-svg polyline, #logo-svg line').forEach(el => el.setAttribute('stroke', s ? '#8c6d3f' : 'white'));
-    document.querySelectorAll('#logo-svg polygon, #logo-svg rect').forEach(el => el.setAttribute('fill', s ? '#8c6d3f' : 'white'));
+    document.querySelectorAll('#logo-svg polyline').forEach(el => el.setAttribute('stroke', s ? '#8c6d3f' : 'white'));
+    document.querySelectorAll('#logo-svg polygon').forEach(el => el.setAttribute('fill', s ? '#8c6d3f' : 'white'));
     document.querySelectorAll('#logo-svg text').forEach((el, i) => el.setAttribute('fill', s ? (i === 0 ? '#33281c' : '#8a7d6c') : (i === 0 ? 'white' : 'rgba(255,255,255,0.6)')));
   });
 
