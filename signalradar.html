@@ -109,28 +109,26 @@ function mock(t){
 // Direct Yahoo Finance via allorigins proxy - no server needed
 var API="https://hilarious-salmiakki-9ef197.netlify.app";
 
+async function fetchStock(t){
+  try{
+    var url=API+"/stock/"+encodeURIComponent(t)+"?range=5y";
+    var r=await fetch(url);
+    if(!r.ok){ console.log("fetchStock bad response:",r.status,t); return null; }
+    var j=await r.json();
+    if(!j.data||j.data.length<10){ console.log("fetchStock no data:",t); return null; }
+    console.log("fetchStock OK:",t,j.data.length,"points");
+    return j.data;
+  }catch(e){ console.log("fetchStock error:",t,e.message); return null; }
+}
+
 async function fetchIntraday(t, range){
   try{
-    var ctrl=new AbortController();
-    setTimeout(function(){ctrl.abort()},30000);
-    var r=await fetch(API+"/stock/"+encodeURIComponent(t)+"?range="+range,{signal:ctrl.signal});
+    var r=await fetch(API+"/stock/"+encodeURIComponent(t)+"?range="+range);
     if(!r.ok) return null;
     var j=await r.json();
     if(!j.data||j.data.length<2) return null;
     return j.data;
-  }catch(e){return null;}
-}
-
-async function fetchStock(t){
-  try{
-    var ctrl=new AbortController();
-    setTimeout(function(){ctrl.abort()},30000);
-    var r=await fetch(API+"/stock/"+encodeURIComponent(t)+"?range=5y",{signal:ctrl.signal});
-    if(!r.ok) return null;
-    var j=await r.json();
-    if(!j.data||j.data.length<10) return null;
-    return j.data;
-  }catch(e){return null;}
+  }catch(e){ return null; }
 }
 function processStock(raw){
   const closes=raw.map(d=>d.c);
