@@ -107,47 +107,29 @@ function mock(t){
 }
 
 // Direct Yahoo Finance via allorigins proxy - no server needed
-async function yahooFetch(ticker, range, interval){
-  var t=ticker.replace("^","%5E");
-  var iv=interval||"1d";
-  var url="https://query1.finance.yahoo.com/v8/finance/chart/"+t+"?interval="+iv+"&range="+range;
-  var proxies=[
-    "https://corsproxy.io/?"+encodeURIComponent(url),
-    "https://api.allorigins.win/raw?url="+encodeURIComponent(url),
-    "https://api.codetabs.com/v1/proxy?quest="+encodeURIComponent(url),
-  ];
-  for(var i=0;i<proxies.length;i++){
-    try{
-      var ctrl=new AbortController();
-      setTimeout(function(){ctrl.abort()},10000);
-      var r=await fetch(proxies[i],{signal:ctrl.signal});
-      if(!r.ok) continue;
-      var text=await r.text();
-      var j=JSON.parse(text);
-      var res=j.chart&&j.chart.result&&j.chart.result[0];
-      if(!res||!res.timestamp) continue;
-      var data=res.timestamp.map(function(ts,k){
-        return{date:new Date(ts*1000).toISOString().slice(0,10),c:res.indicators.quote[0].close[k],v:res.indicators.quote[0].volume[k]||0};
-      }).filter(function(x){return x.c&&x.c>0;});
-      if(data.length>2) return data;
-    }catch(e){}
-  }
-  throw new Error("all proxies failed");
-}
+var API="https://hilarious-salmiakki-9ef197.netlify.app";
 
 async function fetchIntraday(t, range){
   try{
-    var iv=range==="1d"?"5m":"60m";
-    var yr=range==="1w"?"5d":"1d";
-    return await yahooFetch(t,yr,iv);
+    var ctrl=new AbortController();
+    setTimeout(function(){ctrl.abort()},12000);
+    var r=await fetch(API+"/stock/"+encodeURIComponent(t)+"?range="+range,{signal:ctrl.signal});
+    if(!r.ok) return null;
+    var j=await r.json();
+    if(!j.data||j.data.length<2) return null;
+    return j.data;
   }catch(e){return null;}
 }
 
 async function fetchStock(t){
   try{
-    var data=await yahooFetch(t,"5y","1d");
-    if(data&&data.length>10) return data;
-    return null;
+    var ctrl=new AbortController();
+    setTimeout(function(){ctrl.abort()},15000);
+    var r=await fetch(API+"/stock/"+encodeURIComponent(t)+"?range=5y",{signal:ctrl.signal});
+    if(!r.ok) return null;
+    var j=await r.json();
+    if(!j.data||j.data.length<10) return null;
+    return j.data;
   }catch(e){return null;}
 }
 function processStock(raw){
