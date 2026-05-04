@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SignalRadar Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d1117;color:#e6edf3;font-family:'JetBrains Mono',monospace;min-height:100vh}
+  ::-webkit-scrollbar{width:4px;height:4px}
+  ::-webkit-scrollbar-track{background:#0d1117}
+  ::-webkit-scrollbar-thumb{background:#30363d;border-radius:2px}
+  button{cursor:pointer;font-family:'JetBrains Mono',monospace}
+  input{font-family:'JetBrains Mono',monospace}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+const FINNHUB_KEY = "d7s72khr01qm28g8hls0";
+
+const WATCHLIST_GROUPS = {
+  "Magnificent 7": ["AAPL","MSFT","GOOGL","AMZN","META","NVDA","TSLA"],
+  "Tech & Chips":  ["AMD","INTC","VRT","TMO"],
+  "Wachstum":      ["HIMS","LNTH","FSLR","NVO","PYPL","BABA","BYDDY","AOS"],
+  "ETFs":          ["SPY","QQQ","ACWI"],
+};
+const ALL_TICKERS = Object.values(WATCHLIST_GROUPS).flat();
+
+// ── Indicators ────────────────────────────────────────────────────────────────
+function calcSMA(data, p) {
+  return data.map((_,i) => i<p-1 ? null : data.slice(i-p+1,i+1).reduce((a,b)=>a+b,0)/p);
+}
+function calcEMA(data, p) {
+  const k=2/(p+1), ema=[];
+  for(let i=0;i<data.length;i++) ema.push(i===0 ? data[0] : data[i]*k+ema[i-1]*(1-k));
+  return ema;
+}
+function calcRSI(closes, p=14) {
+  return closes.map((_,i) => {
+    if(i<p) return null;
+    let g=0,l=0;
+    for(let j=i-p+1;j<=i;j++){const d=closes[j]-closes[j-1]; d>0?g+=d:l-=d;}
+    return 100-100/(1+g/(l||0.0001));
+  });
+}
+function calcMACD(closes) {
+  const e12=calcEMA(closes,12), e26=calcEMA(closes,26);
+  const macdLine=e12.map((v,i)=>v-e26[i]);
+  const sig=calcEMA(macdLine.slice(26),9);
+  const fullSig=[...Array(26).fill(null),...sig];
+  const hist=macdLine.map((v,i)=>fullSig[i]!=null?v-fullSig[i]:null);
+  return {macdLine,signalLine:fullSig,histogram:hist};
+}
+function calcBollinger(closes, p=20, m=2) {
+  const sma=calcSMA(closes,p);
+  return closes.map((_,i)=>{
+    if(sma[i]==null) return {upper:null,middle:null,lower:null};
+    const sl=closes.slice(i-p+1,i+1), mn=sma[i];
+    const std=Math.sqrt(sl.reduce((a,v)=>a+(v-mn)**2,0)/p);
+    return {upper:mn+m*std,middle:mn,lower:mn-m*std};
+  });
+}
+function generateSignal(rsi,macd,price,boll) {
+  const lRSI=rsi.filter(Boolean).at(-1);
+  const lMACD=macd.histogram.filter(Boolean).at(-1);
+  const pMACD=macd.histogram.filter(Boolean).at(-2);
+  const lBoll=boll.filter(b=>b.upper).at(-1);
+  let score=0; const reasons=[];
+  if(lRSI<30){score+=2;reasons.push("RSI überverkauft (<30)");}
+  else if(lRSI<40){score+=1;reasons.push("RSI niedrig (30–40)");}
+  else if(lRSI>70){score-=2;reasons.push("RSI überkauft (>70)");}
+  else if(lRSI>60){score-=1;reasons.push("RSI hoch (60–70)");}
+  if(pMACD<0&&lMACD>0){score+=2;reasons.push("MACD Crossover ↑");}
+  else if(pMACD>0&&lMACD<0){score-=2;reasons.push("MACD Crossover ↓");}
+  else if(lMACD>0){score+=1;reasons.push("MACD positiv");}
+  else{score-=1;reasons.push("MACD negativ");}
+  if(lBoll&&price<=lBoll.lower){score+=2;reasons.push("Preis an unterem Bollinger");}
+  else if(lBoll&&price>=lBoll.upper){score-=2;reasons.push("Preis an oberem Bollinger");}
+  if(score>=3) return {signal:"BULLISH",color:"#00c896",icon:"▲",score,reasons};
+  if(score<=-3) return {signal:"BÄRISCH",color:"#ff4757",icon:"▼",score,reasons};
+  return {signal:"NEUTRAL",color:"#ffa502",icon:"●",score,reasons};
+}
+
+// ── Fetch ─────────────────────────────────────────────────────────────────────
+function mockData(ticker) {
+  const bases={AAPL:185,MSFT:415,GOOGL:175,AMZN:195,META:530,NVDA:120,TSLA:180};
+  let price=bases[ticker]||100; const now=new Date(); const data=[];
+  for(let i=89;i>=0;i--){
+    const d=new Date(now); d.setDate(d.getDate()-i);
+    price*=(1+(Math.random()-0.48)*0.025);
+    data.push({date:d.toISOString().slice(0,10),close:+price.toFixed(2),open:+(price*(1+(Math.random()-0.5)*0.01)).toFixed(2),high:+(price*(1+Math.random()*0.015)).toFixed(2),low:+(price*(1-Math.random()*0.015)).toFixed(2)});
+  }
+  return data;
+}
+async function fetchStock(ticker) {
+  try {
+    const to=Math.floor(Date.now()/1000), from=to-90*86400;
+    const r=await fetch(`https://finnhub.io/api/v1/stock/candle?symbol=${ticker}&resolution=D&from=${from}&to=${to}&token=${FINNHUB_KEY}`);
+    const j=await r.json();
+    if(!j.c||j.s!=="ok") return mockData(ticker);
+    return j.t.map((ts,i)=>({date:new Date(ts*1000).toISOString().slice(0,10),close:j.c[i],open:j.o[i],high:j.h[i],low:j.l[i],volume:j.v[i]}));
+  } catch { return mockData(ticker); }
+}
+function processStock(raw) {
+  const closes=raw.map(d=>d.close);
+  const rsi=calcRSI(closes);
+  const macd=calcMACD(closes);
+  const boll=calcBollinger(closes);
+  const sma20=calcSMA(closes,20);
+  const sma50=calcSMA(closes,50);
+  const lastClose=closes.at(-1);
+  const signal=generateSignal(rsi,macd,lastClose,boll);
+  const change=(lastClose-closes.at(-2))/closes.at(-2)*100;
+  return {raw,closes,rsi,macd,boll,sma20,sma50,lastClose,change,signal};
+}
+
+// ── State ─────────────────────────────────────────────────────────────────────
+const state = {
+  active: "AAPL",
+  stocks: {},
+  loading: false,
+  tab: "price",
+  aiText: "",
+  aiLoading: false,
+  customTickers: [],
+  charts: {},
+};
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function render() {
+  const app = document.getElementById("app");
+  const d = state.stocks[state.active];
+  const signal = d?.signal;
+
+  app.innerHTML = `
+  <div style="min-height:100vh;background:#0d1117">
+
+    <!-- Header -->
+    <div style="background:linear-gradient(90deg,#0d1117,#161b22);border-bottom:1px solid #21262d;padding:14px 20px;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:20px;font-family:'Syne',sans-serif;font-weight:800;letter-spacing:-0.02em;color:#fff">
+          <span style="color:#58a6ff">Signal</span>Radar <span style="font-size:11px;color:#444;font-weight:400">PRO</span>
+        </div>
+        <div style="font-size:10px;color:#555;letter-spacing:0.1em;margin-top:1px">RSI · MACD · BOLLINGER · KI-ANALYSE</div>
+      </div>
+      <div style="font-size:10px;color:#3fb950;text-align:right">
+        ● Finnhub Live<br/><span style="color:#30363d">${new Date().toLocaleDateString("de-AT")}</span>
+      </div>
+    </div>
+
+    <div style="display:flex;min-height:calc(100vh - 57px)">
+
+      <!-- Sidebar -->
+      <div style="width:155px;background:#161b22;border-right:1px solid #21262d;padding:10px 6px;overflow-y:auto;flex-shrink:0">
+        ${Object.entries(WATCHLIST_GROUPS).concat([["Eigene", state.customTickers]]).map(([grp, tickers]) => tickers.length === 0 ? "" : `
+          <div style="font-size:8px;color:#444;letter-spacing:0.12em;padding:8px 6px 4px;text-transform:uppercase">${grp}</div>
+          ${tickers.map(t => {
+            const td = state.stocks[t];
+            const isActive = state.active === t;
+            return `<div onclick="selectTicker('${t}')" style="padding:6px 8px;border-radius:6px;margin-bottom:2px;cursor:pointer;background:${isActive?"#1f2937":"transparent"};border:1px solid ${isActive?"#3b82f6":"transparent"};transition:all 0.15s">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:11px;font-weight:600;color:${isActive?"#58a6ff":"#e6edf3"}">${t}</span>
+                <span onclick="event.stopPropagation();removeTicker('${t}')" style="font-size:9px;color:#333;padding:0 2px">✕</span>
+              </div>
+              ${td ? `
+                <div style="font-size:10px;color:${td.change>=0?"#3fb950":"#f85149"};margin-top:1px">${td.change>=0?"+":""}${td.change?.toFixed(2)}%</div>
+                <div style="font-size:9px;color:${td.signal.color}">${td.signal.icon} ${td.signal.signal}</div>
+              ` : `<div style="font-size:9px;color:#333">laden…</div>`}
+            </div>`;
+          }).join("")}
+        `).join("")}
+
+        <!-- Add ticker -->
+        <div style="margin-top:10px;padding:0 2px">
+          <input id="tickerInput" placeholder="+ TICKER" maxlength="6" onkeydown="if(event.key==='Enter')addTicker()"
+            style="background:#0d1117;border:1px solid #30363d;border-radius:5px;padding:6px 8px;font-size:11px;color:#e6edf3;outline:none;width:100%;margin-bottom:4px"/>
+          <button onclick="addTicker()" style="background:#1f6feb;border:none;border-radius:5px;padding:5px;font-size:10px;color:#fff;width:100%;font-weight:600">Hinzufügen</button>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div style="flex:1;padding:16px;overflow-y:auto;min-width:0">
+        ${state.loading ? `
+          <div style="display:flex;align-items:center;justify-content:center;height:300px;color:#555;font-size:13px">Lade ${state.active}…</div>
+        ` : !d ? `
+          <div style="display:flex;align-items:center;justify-content:center;height:300px;color:#555;font-size:13px">Wähle eine Aktie</div>
+        ` : `
+          <!-- Top bar -->
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+            <div>
+              <div style="font-size:26px;font-weight:700;font-family:'Syne',sans-serif;color:#fff;letter-spacing:-0.02em">${state.active}</div>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-top:3px">
+                <span style="font-size:20px;font-weight:600;color:#e6edf3">$${d.lastClose?.toFixed(2)}</span>
+                <span style="font-size:13px;color:${d.change>=0?"#3fb950":"#f85149"}">${d.change>=0?"+":""}${d.change?.toFixed(2)}%</span>
+              </div>
+            </div>
+            <div style="background:${signal?.color}18;border:1px solid ${signal?.color}40;border-radius:10px;padding:10px 16px;text-align:center">
+              <div style="font-size:20px;color:${signal?.color};font-weight:700">${signal?.icon} ${signal?.signal}</div>
+              <div style="font-size:9px;color:#555;margin-top:2px;letter-spacing:0.08em">SCORE: ${signal?.score>0?"+":""}${signal?.score}</div>
+            </div>
+          </div>
+
+          <!-- Signal tags -->
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px">
+            ${signal?.reasons.map(r=>`<span style="font-size:9px;background:#161b22;border:1px solid #30363d;border-radius:20px;padding:3px 9px;color:#888">${r}</span>`).join("")}
+          </div>
+
+          <!-- Stats -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
+            ${[
+              ["RSI (14)", getRSIVal(d), getRSIColor(getRSIValNum(d))],
+              ["MACD Hist.", getMACDVal(d), getMACDValNum(d)>0?"#3fb950":"#f85149"],
+              ["BB Position", getBBPos(d), "#58a6ff"],
+            ].map(([l,v,c])=>`
+              <div style="background:#161b22;border:1px solid #21262d;border-radius:8px;padding:10px 12px">
+                <div style="font-size:8px;color:#555;letter-spacing:0.1em;margin-bottom:4px">${l}</div>
+                <div style="font-size:15px;font-weight:600;color:${c}">${v}</div>
+              </div>
+            `).join("")}
+          </div>
+
+          <!-- Chart tabs -->
+          <div style="display:flex;gap:4px;margin-bottom:10px">
+            ${[["price","Kurs + BB"],["rsi","RSI"],["macd","MACD"]].map(([t,l])=>`
+              <button onclick="setTab('${t}')" style="padding:5px 12px;border:1px solid ${state.tab===t?"#58a6ff":"#30363d"};border-radius:5px;background:${state.tab===t?"#1f2937":"transparent"};color:${state.tab===t?"#58a6ff":"#555"};font-size:10px;font-family:'JetBrains Mono',monospace">${l}</button>
+            `).join("")}
+          </div>
+
+          <!-- Chart canvas -->
+          <div style="background:#161b22;border:1px solid #21262d;border-radius:10px;padding:12px;margin-bottom:14px">
+            <canvas id="mainChart" height="200"></canvas>
+          </div>
+
+          <!-- AI Analysis -->
+          <div style="background:#161b22;border:1px solid #21262d;border-radius:10px;padding:14px;margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <div style="font-size:10px;color:#555;letter-spacing:0.1em">🤖 KI-ANALYSE</div>
+              <button onclick="runAI()" ${state.aiLoading?"disabled":""} style="background:${state.aiLoading?"#30363d":"#1f6feb"};border:none;border-radius:6px;padding:5px 12px;font-size:10px;color:#fff;opacity:${state.aiLoading?0.7:1};font-weight:600">
+                ${state.aiLoading?"Analysiere…":"Analysieren"}
+              </button>
+            </div>
+            <div id="aiResult" style="font-size:12px;color:${state.aiText?"#8b949e":"#30363d"};line-height:1.7;font-family:'Syne',sans-serif;font-style:${state.aiText?"normal":"italic"}">
+              ${state.aiText || "Klick auf „Analysieren" für eine KI-Einschätzung."}
+            </div>
+          </div>
+
+          <!-- Disclaimer -->
+          <div style="font-size:9px;color:#30363d;text-align:center;font-style:italic;line-height:1.6;padding-bottom:20px">
+            Technische Indikatoren — rein informativ. Keine Anlageberatung. Eigene Recherche erforderlich.
+          </div>
+        `}
+      </div>
+    </div>
+  </div>`;
+
+  if (d) setTimeout(() => drawChart(d), 0);
+}
+
+// ── Chart.js Drawing ──────────────────────────────────────────────────────────
+function drawChart(d) {
+  const canvas = document.getElementById("mainChart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  if (state.charts.main) { state.charts.main.destroy(); delete state.charts.main; }
+
+  const labels = d.raw.map(r => r.date.slice(5));
+  const closes = d.closes;
+  const rsi = d.rsi;
+  const macd = d.macd;
+  const boll = d.boll;
+  const sma50 = d.sma50;
+
+  const cfg = {
+    price: {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          { label:"BB Oben", data:boll.map(b=>b.upper), borderColor:"#58a6ff30", borderWidth:1, fill:false, pointRadius:0, tension:0.3 },
+          { label:"BB Unten", data:boll.map(b=>b.lower), borderColor:"#58a6ff30", borderWidth:1, fill:"-1", backgroundColor:"#58a6ff08", pointRadius:0, tension:0.3 },
+          { label:"BB Mitte", data:boll.map(b=>b.middle), borderColor:"#58a6ff50", borderWidth:1, borderDash:[3,3], fill:false, pointRadius:0, tension:0.3 },
+          { label:"SMA50", data:sma50, borderColor:"#ffa50050", borderWidth:1, fill:false, pointRadius:0, tension:0.3 },
+          { label:"Kurs", data:closes, borderColor:"#3fb950", borderWidth:2, fill:false, pointRadius:0, tension:0.3 },
+        ]
+      }
+    },
+    rsi: {
+      type: "line",
+      data: {
+        labels,
+        datasets: [{ label:"RSI", data:rsi, borderColor:"#ffa502", borderWidth:2, fill:false, pointRadius:0, tension:0.3 }]
+      },
+      extraAnnotations: [
+        { y:70, color:"#f8514960" },
+        { y:30, color:"#3fb95060" },
+        { y:50, color:"#30363d" },
+      ]
+    },
+    macd: {
+      type: "bar",
+      data: {
+        labels,
+        datasets: [
+          { label:"Histogram", data:macd.histogram, backgroundColor: macd.histogram.map(v=>v>=0?"#3fb95060":"#f8514960"), type:"bar" },
+          { label:"MACD", data:macd.macdLine, borderColor:"#ffa502", borderWidth:1.5, fill:false, pointRadius:0, tension:0.3, type:"line" },
+          { label:"Signal", data:macd.signalLine, borderColor:"#f85149", borderWidth:1.5, fill:false, pointRadius:0, tension:0.3, type:"line" },
+        ]
+      }
+    }
+  };
+
+  const c = cfg[state.tab];
+  const annotations = {};
+  if (c.extraAnnotations) {
+    c.extraAnnotations.forEach((a,i) => {
+      annotations[`line${i}`] = { type:"line", yMin:a.y, yMax:a.y, borderColor:a.color, borderWidth:1, borderDash:[4,4] };
+    });
+  }
+
+  state.charts.main = new Chart(ctx, {
+    type: c.type || "line",
+    data: c.data,
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: { display:false },
+        tooltip: {
+          mode:"index", intersect:false,
+          backgroundColor:"#1a1f2e", borderColor:"#2a3045", borderWidth:1,
+          titleColor:"#888", bodyColor:"#e6edf3", titleFont:{family:"JetBrains Mono",size:10},
+        },
+      },
+      scales: {
+        x: { ticks:{ color:"#444", font:{size:9}, maxTicksLimit:8 }, grid:{ color:"#21262d" } },
+        y: { ticks:{ color:"#444", font:{size:9} }, grid:{ color:"#21262d" } },
+      },
+    }
+  });
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function getRSIValNum(d){ return d.rsi.filter(Boolean).at(-1); }
+function getRSIVal(d){ const v=getRSIValNum(d); return v?v.toFixed(1):"–"; }
+function getRSIColor(v){ if(!v)return"#888"; if(v<30)return"#3fb950"; if(v>70)return"#f85149"; return"#ffa502"; }
+function getMACDValNum(d){ return d.macd.histogram.filter(Boolean).at(-1); }
+function getMACDVal(d){ const v=getMACDValNum(d); return v?v.toFixed(4):"–"; }
+function getBBPos(d){
+  const last=d.boll.filter(b=>b.upper).at(-1);
+  if(!last)return"–";
+  return ((d.lastClose-last.lower)/(last.upper-last.lower)*100).toFixed(0)+"%";
+}
+
+// ── Actions ───────────────────────────────────────────────────────────────────
+async function selectTicker(t) {
+  state.active = t;
+  state.aiText = "";
+  state.tab = "price";
+  render();
+  if (!state.stocks[t]) {
+    state.loading = true;
+    render();
+    const raw = await fetchStock(t);
+    state.stocks[t] = processStock(raw);
+    state.loading = false;
+    render();
+  }
+}
+
+function setTab(t) {
+  state.tab = t;
+  render();
+}
+
+function addTicker() {
+  const input = document.getElementById("tickerInput");
+  const t = (input?.value||"").trim().toUpperCase();
+  if (!t) return;
+  if (!ALL_TICKERS.includes(t) && !state.customTickers.includes(t)) {
+    state.customTickers.push(t);
+  }
+  selectTicker(t);
+}
+
+function removeTicker(t) {
+  state.customTickers = state.customTickers.filter(x=>x!==t);
+  if (state.active === t) {
+    const next = ALL_TICKERS[0];
+    selectTicker(next);
+  } else {
+    render();
+  }
+}
+
+async function runAI() {
+  const d = state.stocks[state.active];
+  if (!d) return;
+  state.aiLoading = true;
+  state.aiText = "";
+  render();
+
+  try {
+    const rsiVal = getRSIValNum(d);
+    const macdVal = getMACDValNum(d);
+    const prompt = `Du bist ein präziser Finanzanalyst. Analysiere diese Aktie kurz auf Deutsch in max. 3 Sätzen:
+Ticker: ${state.active}
+Kurs: $${d.lastClose?.toFixed(2)}
+Signal: ${d.signal.signal}
+RSI: ${rsiVal?.toFixed(1)}
+MACD Histogram: ${macdVal?.toFixed(4)}
+Indikatoren: ${d.signal.reasons.join(", ")}
+Was sagen die Indikatoren? Worauf sollte man achten? Kein Disclaimer.`;
+
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})
+    });
+    const json = await res.json();
+    state.aiText = json.content?.[0]?.text || "Analyse nicht verfügbar.";
+  } catch {
+    state.aiText = "Analyse konnte nicht geladen werden.";
+  }
+
+  state.aiLoading = false;
+  render();
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+(async () => {
+  render();
+  // Load first ticker immediately
+  const raw = await fetchStock(state.active);
+  state.stocks[state.active] = processStock(raw);
+  render();
+  // Load rest in background quietly
+  for (const t of ALL_TICKERS.slice(1)) {
+    const r = await fetchStock(t);
+    state.stocks[t] = processStock(r);
+    render();
+    await new Promise(res => setTimeout(res, 300)); // small delay to not hammer API
+  }
+})();
+</script>
+
+</body>
+</html>
