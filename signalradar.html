@@ -111,7 +111,7 @@ async function fetchIntraday(t, range){
   try{
     const ctrl=new AbortController();
     setTimeout(()=>ctrl.abort(),15000);
-    const r=await fetch("https://signalradar-api.onrender.com/stock/"+encodeURIComponent(t)+"?range="+range,{signal:ctrl.signal});
+    const r=await fetch("https://hilarious-salmiakki-9ef197.netlify.app/stock/"+encodeURIComponent(t)+"?range="+range,{signal:ctrl.signal});
     if(!r.ok) return null;
     const j=await r.json();
     if(!j.data||j.data.length<2) return null;
@@ -124,7 +124,7 @@ async function fetchStock(t){
   try{
     const ctrl=new AbortController();
     setTimeout(()=>ctrl.abort(),15000);
-    const r=await fetch("https://signalradar-api.onrender.com/stock/"+encodeURIComponent(t)+"?range=5y",{signal:ctrl.signal});
+    const r=await fetch("https://hilarious-salmiakki-9ef197.netlify.app/stock/"+encodeURIComponent(t)+"?range=5y",{signal:ctrl.signal});
     if(!r.ok) return null;
     const j=await r.json();
     if(!j.data||j.data.length<10) return null;
