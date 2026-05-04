@@ -112,7 +112,7 @@ var API="https://hilarious-salmiakki-9ef197.netlify.app";
 async function fetchIntraday(t, range){
   try{
     var ctrl=new AbortController();
-    setTimeout(function(){ctrl.abort()},12000);
+    setTimeout(function(){ctrl.abort()},30000);
     var r=await fetch(API+"/stock/"+encodeURIComponent(t)+"?range="+range,{signal:ctrl.signal});
     if(!r.ok) return null;
     var j=await r.json();
@@ -124,7 +124,7 @@ async function fetchIntraday(t, range){
 async function fetchStock(t){
   try{
     var ctrl=new AbortController();
-    setTimeout(function(){ctrl.abort()},15000);
+    setTimeout(function(){ctrl.abort()},30000);
     var r=await fetch(API+"/stock/"+encodeURIComponent(t)+"?range=5y",{signal:ctrl.signal});
     if(!r.ok) return null;
     var j=await r.json();
@@ -615,7 +615,7 @@ window.addEventListener("resize",drawCurrent);
       renderSidebar();
     }
     // Update live status
-    updateLiveStatus("Live - updated "+new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"}),"#10b981");
+    updateLiveStatus("Live - "+new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"}),"#10b981");
   }, 5*60*1000);
 })();
 
