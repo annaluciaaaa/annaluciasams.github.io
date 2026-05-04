@@ -300,17 +300,28 @@ window.doAI=async function(){
 
 window.addEventListener("resize",drawCurrent);
 
-// Init
+// Init — mock sofort, Finnhub im Hintergrund
 (async function(){
-  renderSidebar();renderMain();
-  const raw=await fetchStock(S.active);
-  S.stocks[S.active]=processStock(raw);
-  renderSidebar();renderMain();
+  for(const t of ALL){ S.stocks[t]=processStock(mock(t)); }
+  renderSidebar(); renderMain();
+
+  async function tryFinnhub(t){
+    try{
+      const ctrl=new AbortController();
+      setTimeout(()=>ctrl.abort(),5000);
+      const to=Math.floor(Date.now()/1000),from=to-90*86400;
+      const r=await fetch('https://finnhub.io/api/v1/stock/candle?symbol='+t+'&resolution=D&from='+from+'&to='+to+'&token='+FINNHUB_KEY,{signal:ctrl.signal});
+      const j=await r.json();
+      if(j.c&&j.s==='ok'){
+        S.stocks[t]=processStock(j.t.map((ts,i)=>({date:new Date(ts*1000).toISOString().slice(0,10),c:j.c[i]})));
+        if(S.active===t){renderMain();}else{renderSidebar();}
+      }
+    }catch(e){}
+  }
+  await tryFinnhub(S.active);
   for(const t of ALL.filter(x=>x!==S.active)){
-    await new Promise(r=>setTimeout(r,350));
-    const r=await fetchStock(t);
-    S.stocks[t]=processStock(r);
-    renderSidebar();
+    await new Promise(r=>setTimeout(r,400));
+    tryFinnhub(t);
   }
 })();
 </script>
