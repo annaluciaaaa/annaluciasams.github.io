@@ -32,7 +32,7 @@ canvas{display:block}
     <div style="font-size:10px;color:#555;letter-spacing:0.1em;margin-top:1px">RSI · MACD · BOLLINGER · KI-ANALYSE</div>
   </div>
   <div style="font-size:10px;text-align:right">
-    <div style="color:#3fb950">o Finnhub Live</div>
+    <div style="color:#3fb950">o Yahoo Finance Live</div>
     <div id="dateLabel" style="color:#30363d"></div>
   </div>
 </div>
@@ -45,7 +45,7 @@ canvas{display:block}
 </div>
 
 <script>
-const FINNHUB_KEY="d7s72khr01qm28g8hls0";
+// Yahoo Finance via corsproxy
 const GROUPS={"Magnificent 7":["AAPL","MSFT","GOOGL","AMZN","META","NVDA","TSLA"],"Tech & Chips":["AMD","INTC","VRT","TMO"],"Wachstum":["HIMS","LNTH","FSLR","NVO","PYPL","BABA","AOS"],"ETFs":["SPY","QQQ","ACWI"]};
 const ALL=Object.values(GROUPS).flat();
 const S={active:"AAPL",stocks:{},tab:"price",aiText:"",aiLoading:false,custom:[]};
@@ -80,11 +80,13 @@ function mock(t){
 // Fetch
 async function fetchStock(t){
   try{
-    const to=Math.floor(Date.now()/1000),from=to-90*86400;
-    const r=await fetch("https://finnhub.io/api/v1/stock/candle?symbol="+t+"&resolution=D&from="+from+"&to="+to+"&token="+FINNHUB_KEY);
+    const url="https://query1.finance.yahoo.com/v8/finance/chart/"+t+"?interval=1d&range=3mo";
+    const proxy="https://corsproxy.io/?"+encodeURIComponent(url);
+    const r=await fetch(proxy);
     const j=await r.json();
-    if(!j.c||j.s!=="ok")return mock(t);
-    return j.t.map((ts,i)=>({date:new Date(ts*1000).toISOString().slice(0,10),c:j.c[i]}));
+    const ts=j.chart.result[0].timestamp;
+    const cl=j.chart.result[0].indicators.quote[0].close;
+    return ts.map((t2,i)=>({date:new Date(t2*1000).toISOString().slice(0,10),c:cl[i]||cl[i-1]||100})).filter(d=>d.c);
   }catch{return mock(t);}
 }
 function processStock(raw){
