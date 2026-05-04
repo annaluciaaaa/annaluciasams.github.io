@@ -599,6 +599,23 @@ window.addEventListener("resize",drawCurrent);
     await new Promise(r=>setTimeout(r,300));
     loadLive(t);
   }
+
+  // Auto-refresh every 5 minutes
+  setInterval(async function(){
+    console.log("Auto-refreshing data...");
+    // Clear intraday cache so fresh data is fetched
+    S.intraday={};
+    // Reload active ticker
+    var fresh=await fetchStock(S.active);
+    if(fresh){
+      S.stocks[S.active]=processStock(fresh);
+      S.liveLoaded[S.active]=true;
+      renderMain();
+      renderSidebar();
+    }
+    // Update live status
+    updateLiveStatus("Live - updated "+new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"}),"#10b981");
+  }, 5*60*1000);
 })();
 
 function updateLiveStatus(text, color){
