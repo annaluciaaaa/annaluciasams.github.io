@@ -2,1196 +2,328 @@
 
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seeberghof · Fuschl am See</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --white: #fdfaf5;
-  --off: #f7f2ea;
-  --light: #ede4d6;
-  --mid: #c8baa8;
-  --stone: #8a7d6c;
-  --dark: #33281c;
-  --green: #7a6e5a;
-  --green-light: #9a8e78;
-  --green-pale: #f0ebe2;
-  --gold: #b8922e;
-  --gold-light: #d4aa48;
-  --warm: #9a8e78;
-  --warm-pale: #f5f0e8;
-  --accent: #8c6d3f;
-  --accent-pale: #f2ebe0;
-}
-
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  background: var(--off);
-  color: var(--dark);
-  overflow-x: hidden;
-}
-
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--light); }
-::-webkit-scrollbar-thumb { background: var(--accent); }
-
-/* ══ NAV ══ */
-#nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-  transition: background 0.4s, box-shadow 0.4s;
-}
-#nav.scrolled {
-  background: rgba(253,250,245,0.97);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.08);
-}
-
-.nav-bar {
-  max-width: 1400px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2.5rem; height: 72px;
-}
-
-.nav-logo { display: flex; align-items: center; text-decoration: none; flex: 0 0 auto; margin-right: 2.5rem; gap: 12px; }
-.logo-mark { width: 44px; height: 44px; flex-shrink: 0; overflow: hidden; }
-.logo-text { display: flex; flex-direction: column; justify-content: center; gap: 2px; }
-.logo-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 300; letter-spacing: 2.5px; color: white; line-height: 1; transition: color 0.4s; }
-.logo-sub { font-family: 'DM Sans', sans-serif; font-size: 7px; font-weight: 300; letter-spacing: 4px; color: rgba(255,255,255,0.6); line-height: 1; transition: color 0.4s; }
-#nav.scrolled .logo-name { color: #33281c; }
-#nav.scrolled .logo-sub { color: #8a7d6c; }
-#nav.scrolled .logo-mark svg polyline { stroke: #8c6d3f; }
-.nav-links-desktop {
-  display: flex; align-items: center; gap: 0; list-style: none; flex: 1;
-}
-.nav-links-desktop li a {
-  display: block; padding: 0.4rem 1rem;
-  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(255,255,255,0.85); text-decoration: none;
-  font-family: 'DM Sans', sans-serif;
-  transition: color 0.2s;
-}
-.nav-links-desktop li a:hover { color: #fff; }
-#nav.scrolled .nav-links-desktop li a { color: var(--stone); }
-#nav.scrolled .nav-links-desktop li a:hover { color: var(--dark); }
-.nav-right { display: flex; align-items: center; gap: 1rem; }
-
-.lang-toggle { display: flex; align-items: center; gap: 0; border: 1px solid rgba(255,255,255,0.35); border-radius: 50px; overflow: hidden; }
-#nav.scrolled .lang-toggle { border-color: var(--mid); }
-.lang-btn {
-  background: none; border: none; cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400;
-  padding: 0.38rem 0.75rem; color: rgba(255,255,255,0.6);
-  transition: background 0.2s, color 0.2s; border-radius: 50px;
-}
-.lang-btn.active { background: rgba(255,255,255,0.22); color: #fff; }
-#nav.scrolled .lang-btn { color: var(--stone); }
-#nav.scrolled .lang-btn.active { background: var(--green); color: #fff; }
-.lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
-#nav.scrolled .lang-divider { background: var(--mid); }
-
-.nav-burger { display: none; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 8px; }
-.nav-burger span { display: block; width: 24px; height: 2px; background: #fff; transition: background 0.3s; border-radius: 2px; }
-#nav.scrolled .nav-burger span { background: var(--dark); }
-
-.mobile-nav { display: none; flex-direction: column; background: var(--white); border-top: 1px solid var(--light); padding: 1rem 0 1.5rem; position: relative; z-index: 299; }
-.mobile-nav.open { display: flex; }
-.mobile-nav a { padding: 0.8rem 2rem; color: var(--dark); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.06em; border-bottom: 1px solid var(--light); transition: color 0.15s; }
-.mobile-nav a:hover { color: var(--green); }
-.mobile-lang { display: flex; gap: 0.5rem; padding: 1rem 2rem; border-bottom: 1px solid var(--light); }
-.mobile-lang button { background: none; border: 1px solid var(--mid); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.9rem; color: var(--stone); border-radius: 50px; transition: background 0.2s, color 0.2s; }
-.mobile-lang button.active { background: var(--green); border-color: var(--green); color: #fff; }
-
-/* ══ HERO ══ */
-.hero { height: 100vh; position: relative; display: flex; align-items: flex-end; overflow: hidden; }
-.hero-fallback { position: absolute; inset: 0; background: url('Seeberghof Titelbild.jpeg') center/cover; }
-.hero-video-wrap { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
-.hero-video {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw; height: 56.25vw;
-  min-height: 100vh; min-width: 177.78vh;
-  border: none; pointer-events: none; object-fit: cover;
-}
-.hero-blocker { position: absolute; inset: 0; z-index: 99; cursor: default; background: transparent; pointer-events: all; }
-.hero-overlay {
-  position: absolute; inset: 0; z-index: 100;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.04) 40%, rgba(0,0,0,0.58) 100%);
-}
-.hero-content {
-  position: relative; z-index: 101;
-  width: 100%; padding: 0 6vw 7vh;
-  display: flex; align-items: flex-end; justify-content: space-between;
-}
-.hero-title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2.4rem, 6vw, 5rem);
-  font-weight: 300; color: #fff; line-height: 1.15;
-  margin-bottom: 1.5rem; letter-spacing: 0.02em;
-}
-.hero-meta { text-align: right; color: rgba(255,255,255,0.6); font-size: 0.72rem; letter-spacing: 0.1em; line-height: 2; }
-.hero-meta strong { display: block; color: rgba(255,255,255,0.88); font-weight: 400; font-size: 0.85rem; }
-
-/* ══ REGION ══ */
-.region-section { background: var(--off); }
-.region-tabs {
-  display: flex; gap: 0; flex-wrap: wrap;
-  border-bottom: 2px solid var(--light); margin-bottom: 2.5rem;
-}
-.region-tab {
-  background: none; border: none; cursor: pointer;
-  font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 400;
-  letter-spacing: 0.04em; color: var(--stone);
-  padding: 0.9rem 1.6rem;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: color 0.2s, border-color 0.2s; white-space: nowrap;
-}
-.region-tab:hover { color: var(--dark); }
-.region-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
-.tab-dist { font-size: 0.72rem; color: var(--mid); }
-.region-panel { display: none; }
-.region-panel.active { display: block; }
-.sight-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.sight-card {
-  background: var(--white); border-radius: 10px; padding: 1.4rem 1.6rem;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  transition: box-shadow 0.2s, transform 0.2s;
-  display: flex; flex-direction: column;
-}
-.sight-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-2px); }
-.sight-card-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.5rem; }
-.sight-icon { font-size: 1.2rem; flex-shrink: 0; }
-.sight-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--dark); }
-.sight-card p { font-size: 0.82rem; color: var(--stone); line-height: 1.65; flex: 1; }
-.sight-link {
-  display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.9rem;
-  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--accent); text-decoration: none; font-weight: 400;
-  transition: color 0.2s;
-}
-.sight-link:hover { color: var(--dark); }
-.sight-link::after { content: ' →'; }
-@media (max-width: 900px) { .sight-list { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .sight-list { grid-template-columns: 1fr; } }
-
-/* ══ SHARED ══ */
-.section { padding: 7rem 0; }
-.section-inner { max-width: 1280px; margin: 0 auto; padding: 0 4vw; }
-.label {
-  font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 1.1rem; font-weight: 400;
-}
-#geschichte .label { color: #b8922e; }
-#ferienwohnungen .label { color: #7a6e5a; }
-#region .label { color: #6e7e5a; }
-#kontakt .label { color: #8c6d3f; }
-.display-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 300; line-height: 1.15; color: var(--dark); }
-.body-text { font-size: 1rem; line-height: 1.88; color: var(--stone); max-width: 520px; margin-top: 1.4rem; }
-.divider { width: 40px; height: 1px; background: var(--mid); margin: 2rem 0; }
-
-/* ══ ABOUT ══ */
-.about-section { background: var(--white); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-.about-image-stack { position: relative; }
-.about-img-main { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 4px; }
-.about-img-accent {
-  position: absolute; bottom: -3rem; right: -3rem;
-  width: 55%; aspect-ratio: 1; object-fit: cover;
-  border: 8px solid var(--white);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.12); border-radius: 4px;
-}
-.about-badge {
-  position: absolute; bottom: 2rem; right: -2rem;
-  background: var(--green); color: #fff;
-  width: 90px; height: 90px; border-radius: 50%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5;
-}
-.about-badge strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 300; display: block; line-height: 1; }
-.title-accent { color: var(--accent); }
-.signature { font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; font-weight: 300; color: var(--accent); margin-top: 2rem; }
-
-
-
-/* ══ LANDSCAPE ══ */
-.landscape { height: 52vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.landscape-img {
-  position: absolute; inset: 0;
-  background: linear-gradient(rgba(25,38,28,0.52), rgba(25,38,28,0.52)),
-    url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800&q=80') center/cover;
-}
-.landscape-content { position: relative; text-align: center; }
-.landscape-quote { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 3vw, 2.1rem); color: #fff; line-height: 1.55; max-width: 720px; padding: 0 2rem; }
-.landscape-line { width: 40px; height: 1px; background: var(--gold-light); margin: 1.5rem auto; }
-.landscape-cite { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
-
-/* ══ APARTMENTS ══ */
-.apts-section { background: var(--off); }
-.apts-header { margin-bottom: 3.5rem; }
-.apts-note { font-size: 0.92rem; color: var(--stone); line-height: 1.7; margin-top: 1rem; max-width: 480px; }
-
-.apt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-.apt-card { background: var(--white); cursor: pointer; display: flex; flex-direction: column; transition: box-shadow 0.3s, transform 0.3s; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
-.apt-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.13); transform: translateY(-4px); }
-.apt-card:hover .apt-img { transform: scale(1.05); }
-.apt-img-wrap { overflow: hidden; aspect-ratio: 4/3; flex-shrink: 0; position: relative; }
-.apt-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
-.apt-season-badge { position: absolute; top: 12px; right: 12px; background: var(--accent); color: #fff; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.28rem 0.7rem; border-radius: 50px; }
-.apt-body { padding: 2rem 1.8rem 1.8rem; flex: 1; display: flex; flex-direction: column; }
-.apt-tag { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; font-weight: 400; }
-.apt-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.7rem; line-height: 1.1; }
-.apt-feats { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
-.apt-feat { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--light); padding: 0.22rem 0.8rem; color: var(--stone); border-radius: 50px; }
-.apt-prices { margin-top: auto; padding-top: 1.2rem; border-top: 1px solid var(--light); }
-.price-row { display: flex; justify-content: space-between; padding: 0.38rem 0; font-size: 0.82rem; }
-.price-period { color: var(--stone); font-size: 0.76rem; }
-.price-amt { font-weight: 500; color: var(--dark); }
-.apt-open-btn {
-  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  margin-top: 1.3rem; padding: 0.75rem 1.5rem;
-  background: var(--accent-pale); color: var(--accent);
-  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
-  border: 1px solid rgba(192,120,80,0.2); border-radius: 50px; cursor: pointer; width: 100%;
-  font-family: 'DM Sans', sans-serif; font-weight: 400;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-.apt-open-btn:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
-
-.info-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.8rem; }
-.info-cell { background: var(--white); flex: 1; min-width: 180px; padding: 1.5rem 2rem; font-size: 0.82rem; line-height: 1.7; border-radius: 12px; border-left: 3px solid var(--accent); }
-.info-cell strong { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; font-weight: 500; }
-
-/* ══ CONTACT ══ */
-.contact-section { background: #e8dfd4; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
-.contact-title em { color: var(--accent); font-style: normal; }
-.contact-body-text { color: var(--stone); margin-top: 1.4rem; max-width: 400px; }
-.contact-details { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
-.c-row { display: flex; gap: 1rem; }
-.c-icon { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); font-weight: 500; margin-top: 0.3rem; min-width: 48px; }
-.c-text { font-size: 0.9rem; line-height: 1.7; color: var(--stone); }
-.c-text a { color: var(--green); text-decoration: none; transition: color 0.2s; }
-.c-text a:hover { color: var(--dark); }
-
-.contact-form { display: flex; flex-direction: column; gap: 1rem; padding-top: 0.5rem; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.contact-form input, .contact-form textarea, .contact-form select {
-  background: #fff;
-  border: 1.5px solid var(--mid);
-  color: var(--dark); padding: 0.95rem 1.2rem; border-radius: 8px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
-  outline: none; width: 100%; transition: border-color 0.2s, box-shadow 0.2s;
-  -webkit-appearance: none;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-}
-.contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--mid); }
-.contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(140,109,63,0.1);
-}
-.contact-form textarea { min-height: 140px; resize: vertical; }
-.contact-form label {
-  display: block; font-size: 0.65rem; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--stone);
-  margin-bottom: 0.4rem; font-weight: 400;
-}
-.contact-form .field { display: flex; flex-direction: column; }
-.btn-send {
-  background: var(--accent); color: #fff; border: none;
-  padding: 1rem 2.5rem; border-radius: 50px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-  cursor: pointer; align-self: flex-start; transition: background 0.25s;
-  margin-top: 0.5rem;
-}
-.btn-send:hover { background: var(--green-light); }
-
-/* ══ FOOTER ══ */
-footer {
-  background: #d6cfc4; padding: 2.5rem 4vw;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-}
-.footer-links { display: flex; gap: 2rem; }
-.footer-links a { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--dark); }
-.footer-copy { font-size: 0.7rem; color: var(--stone); }
-
-/* ══ MODAL ══ */
-.modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.85); z-index: 1000;
-  overflow-y: auto; -webkit-overflow-scrolling: touch;
-}
-.modal-overlay.open { display: block; }
-.modal {
-  background: #fff; width: calc(100% - 2rem); max-width: 860px;
-  margin: 3rem auto 4rem; position: relative;
-  border-radius: 12px; overflow: hidden;
-  animation: mIn 0.3s ease;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-}
-@keyframes mIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-.modal-close {
-  position: absolute; top: 12px; right: 12px; z-index: 10;
-  background: rgba(0,0,0,0.5); color: #fff; border: none;
-  width: 36px; height: 36px; border-radius: 50%;
-  font-size: 1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-}
-.modal-close:hover { background: rgba(0,0,0,0.8); }
-/* Modal slider */
-.modal-slider { position: relative; width: 100%; aspect-ratio: 16/7; overflow: hidden; background: var(--light); }
-.modal-slider-track { display: flex; height: 100%; transition: transform 0.4s ease; }
-.modal-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
-.modal-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.modal-slide-ph { width: 100%; height: 100%; background: var(--off); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
-.modal-slide-ph span { font-size: 2rem; opacity: 0.3; }
-.modal-slide-ph p { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); }
-.slider-btn {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255,255,255,0.88); border: none; cursor: pointer;
-  width: 40px; height: 40px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; color: var(--dark); z-index: 5;
-  transition: background 0.2s; box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-}
-.slider-btn:hover { background: white; }
-.slider-btn.prev { left: 12px; }
-.slider-btn.next { right: 12px; }
-.slider-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
-.slider-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
-.slider-dot.active { background: white; }
-.modal-body { padding: 2.5rem 3rem 3rem; background: var(--white); }
-.modal-tag { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
-.modal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2rem; font-weight: 400; color: var(--dark); margin-bottom: 1rem; }
-.modal-feats { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
-.modal-feat { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--light); padding: 0.28rem 0.85rem; color: var(--stone); border-radius: 50px; }
-.modal-desc { font-size: 0.95rem; color: var(--stone); line-height: 1.88; margin-bottom: 2rem; max-width: 600px; }
-.modal-prices { margin-bottom: 2rem; }
-.modal-prices h4 { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.8rem; }
-.m-price-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--light); font-size: 0.9rem; }
-.m-price-row:last-child { border-bottom: none; }
-.m-period { color: var(--stone); }
-.m-amt { font-weight: 500; color: var(--dark); }
-.modal-cta-btn { background: var(--green); color: #fff; border: none; padding: 0.95rem 2.5rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
-.modal-cta-btn:hover { background: var(--green-light); }
-
-/* ══ RESPONSIVE ══ */
-@media (max-width: 1024px) {
-  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .about-img-accent { display: none; }
-  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .apt-grid { grid-template-columns: 1fr 1fr; }
-  .nav-links-desktop { display: none; }
-  .nav-burger { display: flex !important; }
-  .hero-meta { display: none; }
-  .section { padding: 5rem 0; }
-}
-@media (max-width: 768px) {
-  .apt-grid { grid-template-columns: 1fr; }
-  .apts-header { margin-bottom: 2rem; }
-  .landscape { height: 45vh; }
-  .form-row { grid-template-columns: 1fr; }
-  footer { flex-direction: column; text-align: center; gap: 1.5rem; }
-  .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
-  .region-panel.active { grid-template-columns: 1fr; }
-}
-@media (max-width: 480px) {
-  .nav-bar { padding: 0 1rem; height: 62px; }
-  .section-inner { padding: 0 1.2rem; }
-  .hero-content { padding: 0 1.2rem 4vh; }
-  .modal-body { padding: 1.2rem; }
-  .modal-title { font-size: 1.5rem; }
-  .btn-send { width: 100%; text-align: center; align-self: stretch; }
-  .region-tab { padding: 0.8rem 1rem; font-size: 0.7rem; }
-}
-
-.nav-links-desktop li a span,
-.mobile-nav a span { display: inline !important; }
-.nav-links-desktop li a span.lang-en,
-.mobile-nav a span.lang-en { display: none !important; }
-body.en .nav-links-desktop li a span.lang-en,
-body.en .mobile-nav a span.lang-en { display: inline !important; }
-body.en .nav-links-desktop li a span.lang-de,
-body.en .mobile-nav a span.lang-de { display: none !important; }
-.lang-en { display: none !important; }
-body.en .lang-de { display: none !important; }
-body.en .lang-en { display: revert !important; }
-span.lang-en, em.lang-en, strong.lang-en, a.lang-en, li.lang-en, p.lang-en { display: none !important; }
-body.en span.lang-en, body.en em.lang-en, body.en strong.lang-en, body.en a.lang-en { display: inline !important; }
-body.en li.lang-en { display: list-item !important; }
-body.en p.lang-en { display: block !important; }
-body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de, body.en a.lang-de { display: none !important; }
-body.en li.lang-de, body.en p.lang-de { display: none !important; }
-```
-
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SignalRadar Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#e6edf3;font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0d1117}::-webkit-scrollbar-thumb{background:#30363d;border-radius:2px}
+button,input{font-family:'JetBrains Mono',monospace}
+.sidebar{width:155px;background:#161b22;border-right:1px solid #21262d;padding:10px 6px;overflow-y:auto;flex-shrink:0;height:calc(100vh - 57px);position:sticky;top:57px}
+.ticker-item{padding:6px 8px;border-radius:6px;margin-bottom:2px;cursor:pointer;transition:all 0.15s;border:1px solid transparent}
+.ticker-item:hover{background:#1a2030}
+.ticker-item.active{background:#1f2937;border-color:#3b82f6}
+.tab-btn{padding:5px 12px;border-radius:5px;font-size:10px;cursor:pointer;transition:all 0.15s}
+.tab-btn.active{background:#1f2937;color:#58a6ff;border:1px solid #58a6ff}
+.tab-btn:not(.active){background:transparent;color:#555;border:1px solid #30363d}
+.stat-card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:10px 12px}
+canvas{display:block}
+.signal-tag{font-size:9px;background:#161b22;border:1px solid #30363d;border-radius:20px;padding:3px 9px;color:#888;display:inline-block;margin:2px}
+.grp-label{font-size:8px;color:#444;letter-spacing:0.12em;padding:8px 6px 4px;text-transform:uppercase}
+</style>
 </head>
 <body>
 
-<!-- ══ NAV ══ -->
-
-<nav id="nav">
-  <div class="nav-bar">
-    <!-- Logo links -->
-    <a href="#" class="nav-logo" aria-label="Seeberghof">
-      <div class="logo-mark" id="logo-mark">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:hidden;">
-          <polyline points="2,36 12,16 20,28 28,18 42,36" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="logo-text" id="logo-text">
-        <div class="logo-name">SEEBERGHOF</div>
-        <div class="logo-sub">FUSCHL AM SEE</div>
-      </div>
-    </a>
-
-```
-<!-- Desktop nav links -->
-<ul class="nav-links-desktop">
-  <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
-  <li><a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a></li>
-  <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
-  <li><a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a></li>
-  <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
-</ul>
-
-<!-- Right: DE/EN + burger -->
-<div class="nav-right">
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
-    <div class="lang-divider"></div>
-    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+<div id="header" style="background:linear-gradient(90deg,#0d1117,#161b22);border-bottom:1px solid #21262d;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10">
+  <div>
+    <div style="font-size:20px;font-family:'Syne',sans-serif;font-weight:800;letter-spacing:-0.02em;color:#fff"><span style="color:#58a6ff">Signal</span>Radar <span style="font-size:11px;color:#444;font-weight:400">PRO</span></div>
+    <div style="font-size:10px;color:#555;letter-spacing:0.1em;margin-top:1px">RSI · MACD · BOLLINGER · KI-ANALYSE</div>
   </div>
-  <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
-    <span></span><span></span><span></span>
-  </button>
-</div>
-```
-
-  </div>
-
-  <div class="mobile-nav">
-    <div class="mobile-lang">
-      <button class="active" id="mbtn-de" onclick="setLang('de')">DE</button>
-      <button id="mbtn-en" onclick="setLang('en')">EN</button>
-    </div>
-    <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
-    <a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a>
-    <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
-    <a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a>
-    <a href="#kontakt"><span class="lang-de">Kontakt & Anfrage</span><span class="lang-en">Contact & Enquiry</span></a>
-  </div>
-</nav>
-
-<!-- ══ HERO ══ -->
-
-<section class="hero">
-  <div class="hero-media">
-    <div class="hero-fallback"></div>
-    <div class="hero-video-wrap">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto">
-        <source src="seeberghof.mp4" type="video/mp4">
-      </video>
-      <div class="hero-blocker"></div>
-    </div>
-    <div class="hero-blocker"></div>
-    <div class="hero-overlay"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-text">
-      <h1 class="hero-title">
-        <span class="lang-de">Herzlich Willkommen<br>am Seeberghof</span>
-        <span class="lang-en">Welcome to<br>Seeberghof</span>
-      </h1>
-    </div>
-    <div class="hero-meta">
-      <strong>Fuschl am See</strong>
-      <span class="lang-de">Familiär geführter Bauernhof<br>Salzkammergut, Österreich</span>
-      <span class="lang-en">Family-run farm<br>Salzkammergut, Austria</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══ ÜBER UNS ══ -->
-
-<section class="section about-section" id="ueber-uns">
-  <div class="section-inner">
-    <div class="about-grid">
-      <div>
-        <p class="label">
-          <span class="lang-de">Unser Hof</span>
-          <span class="lang-en">Our Farm</span>
-        </p>
-        <h2 class="display-title">
-          <span class="lang-de">Erholung pur —<br><span class="title-accent">mitten in der Natur</span></span>
-          <span class="lang-en">Pure relaxation —<br><span class="title-accent">in the heart of nature</span></span>
-        </h2>
-        <div class="divider"></div>
-        <p class="body-text lang-de">Der Seeberghof liegt in idyllischer Lage in Fuschl am See, eingebettet in die malerische Landschaft des Salzkammerguts. Umrahmt vom Osterhorn-Gebirge und dem kristallklaren Fuschlsee — nur 800 Meter vom Ortszentrum entfernt.</p>
-        <p class="body-text lang-en">Seeberghof is nestled in an idyllic setting in Fuschl am See, surrounded by the picturesque Salzkammergut landscape. Framed by the Osterhorn mountains and the crystal-clear Fuschlsee — just 800 metres from the village centre.</p>
-        <p class="body-text lang-de" style="margin-top:1rem">Als familiengeführter Bauernhof legen wir besonderen Wert auf persönliche Herzlichkeit. Die Kinder toben frei im Grünen, während Sie die Stille der Natur genießen.</p>
-        <p class="body-text lang-en" style="margin-top:1rem">As a family-run farm, personal warmth is at the heart of everything we do. Children roam free in the green countryside while you enjoy the peace and quiet of nature.</p>
-        <div class="signature">— Mathilde Pöckl &amp; Familie</div>
-      </div>
-      <div>
-        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=85" alt="Fuschlsee" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;display:block;" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ GESCHICHTE ══ -->
-
-<section class="section" id="geschichte" style="background: #f5efe6;">
-  <div class="section-inner">
-    <div style="max-width: 780px; margin: 0 auto; text-align: center;">
-      <p class="label" style="justify-content: center; gap: 0;">
-        <span class="lang-de">Unsere Geschichte</span>
-        <span class="lang-en">Our Story</span>
-      </p>
-      <h2 class="display-title" style="margin-bottom: 2rem;">
-        <span class="lang-de">Seit <em style="color:var(--accent);font-style:normal">1950</em> am Fuschlsee</span>
-        <span class="lang-en">On the Fuschlsee <em style="color:var(--accent);font-style:normal">since 1950</em></span>
-      </h2>
-
-```
-  <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--light); margin-bottom: 3rem; border-radius: 10px; overflow: hidden;">
-    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">1950</div>
-      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
-        <span class="lang-de">Gegründet</span><span class="lang-en">Founded</span>
-      </div>
-    </div>
-    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">2.</div>
-      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
-        <span class="lang-de">Generation</span><span class="lang-en">Generation</span>
-      </div>
-    </div>
-    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">♀</div>
-      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
-        <span class="lang-de">Von Frauen geführt</span><span class="lang-en">Women-led</span>
-      </div>
-    </div>
-  </div>
-
-  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.5rem;" class="lang-de">
-    Was 1950 als kleiner Bauernhof am Fuschlsee begann, ist heute ein liebevoll geführter Familienbetrieb in zweiter Generation. Mathilde Pöckl und ihre Familie empfangen ihre Gäste mit derselben Herzlichkeit, die den Seeberghof von Anfang an ausgemacht hat.
-  </p>
-  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.5rem;" class="lang-en">
-    What began in 1950 as a small farm on the Fuschlsee is today a lovingly run family business in its second generation. Mathilde Pöckl and her family welcome their guests with the same warmth that has defined the Seeberghof from the very beginning.
-  </p>
-  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.5rem;" class="lang-de">
-    Was uns besonders stolz macht: Viele unserer Gäste kommen seit Jahrzehnten zu uns — und heute bringen sie bereits ihre eigenen Kinder und Enkelkinder mit. Der Seeberghof ist für sie kein Hotel, sondern ein zweites Zuhause. Diese Verbundenheit ist das Schönste, was man sich als Gastgeberin wünschen kann.
-  </p>
-  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone);" class="lang-en">
-    What fills us with special pride: many of our guests have been coming to us for decades — and today they bring their own children and grandchildren with them. For them, the Seeberghof is not a hotel but a second home. This bond is the most beautiful thing one can wish for as a host.
-  </p>
-
-  <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--light);">
-    <p style="font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--accent);">— Mathilde Pöckl &amp; Familie</p>
-  </div>
-</div>
-```
-
-  </div>
-</section>
-
-<!-- ══ LANDSCAPE QUOTE ══ -->
-
-<div class="landscape">
-  <div class="landscape-img"></div>
-  <div class="landscape-content">
-    <blockquote class="landscape-quote">
-      <span class="lang-de">Sommerliche Leichtigkeit, kristallklares Wasser, frische Bergluft — willkommen im Salzkammergut.</span>
-      <span class="lang-en">Summer ease, crystal-clear water, fresh mountain air — welcome to the Salzkammergut.</span>
-    </blockquote>
-    <div class="landscape-line"></div>
-    <p class="landscape-cite">Seeberghof · Fuschl am See</p>
+  <div style="font-size:10px;text-align:right">
+    <div style="color:#3fb950">o Finnhub Live</div>
+    <div id="dateLabel" style="color:#30363d"></div>
   </div>
 </div>
 
-<!-- ══ FERIENWOHNUNGEN ══ -->
-
-<section class="section apts-section" id="ferienwohnungen" style="background: var(--white);">
-  <div class="section-inner">
-    <div class="apts-header">
-      <div>
-        <p class="label">
-          <span class="lang-de">Unterkunft</span>
-          <span class="lang-en">Accommodation</span>
-        </p>
-        <h2 class="display-title">
-          <span class="lang-de">Unsere <em style="color:var(--green);font-style:normal">Ferienwohnungen</em></span>
-          <span class="lang-en">Our <em style="color:var(--green);font-style:normal">Apartments</em></span>
-        </h2>
-      </div>
-      <p class="apts-note lang-de">Alle Wohnungen mit sonnigem Balkon und direktem Seeblick. Klicken Sie für mehr Details &amp; Fotos.</p>
-      <p class="apts-note lang-en">All apartments with sunny balcony and lake view. Click for more details &amp; photos.</p>
-    </div>
-
-```
-<div class="apt-grid">
-  <!-- SCHOBER -->
-  <div class="apt-card" onclick="openModal('m-schober')">
-    <div class="apt-img-wrap">
-      <img class="apt-img" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Schober" />
-      <div class="apt-season-badge">ab € 72,–/Nacht</div>
-    </div>
-    <div class="apt-body">
-      <p class="apt-tag lang-de">40 m² · 2 Personen</p>
-      <p class="apt-tag lang-en">40 m² · 2 Persons</p>
-      <h3 class="apt-name">Schober</h3>
-      <div class="apt-feats">
-        <span class="apt-feat lang-de">1 Schlafzimmer</span><span class="apt-feat lang-en">1 Bedroom</span>
-        <span class="apt-feat lang-de">Küche</span><span class="apt-feat lang-en">Kitchen</span>
-        <span class="apt-feat lang-de">Dusche &amp; WC</span><span class="apt-feat lang-en">Shower &amp; WC</span>
-        <span class="apt-feat">Balkon · Seeblick</span>
-      </div>
-      <div class="apt-prices">
-        <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 72,–</span></div>
-        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 80,–</span></div>
-      </div>
-      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
-    </div>
-  </div>
-
-  <!-- SEEBLICK -->
-  <div class="apt-card" onclick="openModal('m-seeblick')">
-    <div class="apt-img-wrap">
-      <img class="apt-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80" alt="Seeblick" />
-      <div class="apt-season-badge">ab € 88,–/Nacht</div>
-    </div>
-    <div class="apt-body">
-      <p class="apt-tag lang-de">70 m² · 2–6 Personen</p>
-      <p class="apt-tag lang-en">70 m² · 2–6 Persons</p>
-      <h3 class="apt-name">Seeblick</h3>
-      <div class="apt-feats">
-        <span class="apt-feat lang-de">2 Schlafzimmer</span><span class="apt-feat lang-en">2 Bedrooms</span>
-        <span class="apt-feat lang-de">Küche</span><span class="apt-feat lang-en">Kitchen</span>
-        <span class="apt-feat lang-de">Dusche &amp; WC getrennt</span><span class="apt-feat lang-en">Separate shower &amp; WC</span>
-        <span class="apt-feat">Balkon · Seeblick</span>
-      </div>
-      <div class="apt-prices">
-        <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 88,–</span></div>
-        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 95,–</span></div>
-      </div>
-      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
-    </div>
-  </div>
-
-  <!-- SCHAFBERG -->
-  <div class="apt-card" onclick="openModal('m-schafberg')">
-    <div class="apt-img-wrap">
-      <img class="apt-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Schafberg" />
-      <div class="apt-season-badge">ab € 95,–/Nacht</div>
-    </div>
-    <div class="apt-body">
-      <p class="apt-tag lang-de">90 m² · 2–8 Personen</p>
-      <p class="apt-tag lang-en">90 m² · 2–8 Persons</p>
-      <h3 class="apt-name">Schafberg</h3>
-      <div class="apt-feats">
-        <span class="apt-feat lang-de">3 Schlafzimmer</span><span class="apt-feat lang-en">3 Bedrooms</span>
-        <span class="apt-feat lang-de">Küche</span><span class="apt-feat lang-en">Kitchen</span>
-        <span class="apt-feat lang-de">Dusche &amp; WC getrennt</span><span class="apt-feat lang-en">Separate shower &amp; WC</span>
-        <span class="apt-feat">Balkon · Seeblick</span>
-      </div>
-      <div class="apt-prices">
-        <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 95,–</span></div>
-        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 100,–</span></div>
-      </div>
-      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
-    </div>
-  </div>
-</div>
-
-<div class="info-row">
-  <div class="info-cell"><strong><span class="lang-de">Ortstaxe</span><span class="lang-en">Tourist tax</span></strong><span class="lang-de">Wird zusätzlich zum Mietpreis verrechnet</span><span class="lang-en">Charged in addition to the rental price</span></div>
-  <div class="info-cell"><strong><span class="lang-de">Endreinigung</span><span class="lang-en">Final cleaning</span></strong>€ 40,– <span class="lang-de">bis</span><span class="lang-en">to</span> € 50,–</div>
-  <div class="info-cell"><strong><span class="lang-de">Kinderermäßigung</span><span class="lang-en">Child discount</span></strong><span class="lang-de">Auf Anfrage</span><span class="lang-en">On request</span></div>
-  <div class="info-cell"><strong><span class="lang-de">Haustiere</span><span class="lang-en">Pets</span></strong><span class="lang-de">Herzlich willkommen 🐾</span><span class="lang-en">Warmly welcome 🐾</span></div>
-</div>
-```
-
-  </div>
-</section>
-
-<!-- ══ SEHENSWÜRDIGKEITEN ══ -->
-
-<section class="section region-section" id="region" style="background: #f0ece4;">
-  <div class="section-inner">
-    <p class="label">
-      <span class="lang-de">Die Region</span>
-      <span class="lang-en">The Region</span>
-    </p>
-    <h2 class="display-title" style="margin-bottom:0.5rem">
-      <span class="lang-de">Rund um den <em style="color:var(--green);font-style:normal">Fuschlsee</em></span>
-      <span class="lang-en">Around the <em style="color:var(--green);font-style:normal">Fuschlsee</em></span>
-    </h2>
-    <p class="body-text" style="margin-bottom:2.5rem">
-      <span class="lang-de">Vom Seeberghof aus erreichen Sie einige der schönsten Orte des Salzkammerguts bequem mit dem Auto.</span>
-      <span class="lang-en">From Seeberghof, some of the most beautiful places in the Salzkammergut are easily reached by car.</span>
-    </p>
-
-```
-<div class="region-tabs">
-  <button class="region-tab active" onclick="showRegion('fuschl',this)">Fuschl am See <span class="tab-dist">· vor Ort</span></button>
-  <button class="region-tab" onclick="showRegion('bad-ischl',this)">Bad Ischl <span class="tab-dist">· ca. 30 min</span></button>
-  <button class="region-tab" onclick="showRegion('salzburg',this)">Salzburg <span class="tab-dist">· ca. 25 min</span></button>
-  <button class="region-tab" onclick="showRegion('wolfgangsee',this)">Wolfgangsee <span class="tab-dist">· ca. 10 min</span></button>
-  <button class="region-tab" onclick="showRegion('hallstatt',this)">Hallstatt <span class="tab-dist">· ca. 60 min</span></button>
-  <button class="region-tab" onclick="showRegion('mondsee',this)">Mondsee <span class="tab-dist">· ca. 20 min</span></button>
-</div>
-
-<!-- FUSCHL AM SEE -->
-<div class="region-panel active" id="panel-fuschl">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">⛳</span><h4>Golfclub Waldhof</h4></div>
-      <p class="lang-de">9-Loch-Golfplatz direkt am Fuschlsee mit traumhaftem Panoramablick — ideal für Anfänger und Profis. Mit Driving Range, Golfschule und der gemütlichen Waldhof-Alm daneben.</p>
-      <p class="lang-en">9-hole golf course right on Lake Fuschl with stunning panoramic views — ideal for beginners and pros alike. With driving range, golf school and the cosy Waldhof Alm right next door.</p>
-      <a class="sight-link" href="https://www.golfclub-waldhof.at" target="_blank" rel="noopener">golfclub-waldhof.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🌾</span><h4>Rumingmühle</h4></div>
-      <p class="lang-de">Die über 150 Jahre alte Rumingmühle ist ein echtes Juwel direkt am Fuschlsee — und berühmt für ihre frisch gebackenen Krapfen. Mühlenwirtin Daniela öffnet im Sommer dienstags, freitags und samstags nachmittags. Unbedingt vorbeischauen!</p>
-      <p class="lang-en">The 150-year-old Rumingmühle is a true gem right on the Fuschlsee — and famous for its freshly baked Krapfen doughnuts. In summer, the mill hostess Daniela opens on Tuesday, Friday and Saturday afternoons. A must-visit!</p>
-      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🏔️</span><h4>Schober</h4></div>
-      <p class="lang-de">Der Schober ist der Hausberg des Fuschlsees — direkt vom Seeberghof aus sichtbar. Eine herrliche Wanderung mit Belohnung: atemberaubender Blick über den Fuschlsee und die umliegenden Alpen.</p>
-      <p class="lang-en">The Schober is the local mountain of the Fuschlsee — visible directly from the Seeberghof. A wonderful hike rewarded with a breathtaking view over the Fuschlsee and the surrounding Alps.</p>
-      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🌄</span><h4>Frauenkopf</h4></div>
-      <p class="lang-de">Der Frauenkopf ist ein beliebtes Wanderziel rund um Fuschl am See — mit wunderschönem Ausblick auf den See und die Bergwelt des Salzkammerguts. Gut erreichbar, auch für Familien geeignet.</p>
-      <p class="lang-en">The Frauenkopf is a popular hiking destination around Fuschl am See — with beautiful views over the lake and the Salzkammergut mountains. Easily accessible, suitable for families too.</p>
-      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
-    </div>
-  </div>
-</div>
-
-    <!-- BAD ISCHL -->
-<div class="region-panel" id="panel-bad-ischl">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🏛️</span><h4><span class="lang-de">Kaiservilla</span><span class="lang-en">Imperial Villa</span></h4></div>
-      <p class="lang-de">Sommerresidenz von Kaiser Franz Joseph I. — über 60 Jahre seine kaiserliche Sommerfrische. Heute Museum mit kaiserlichen Erinnerungsstücken und schönem Schlosspark.</p>
-      <p class="lang-en">Summer residence of Emperor Franz Joseph I. for over 60 years. Today a museum with imperial memorabilia and a beautiful palace park.</p>
-      <a class="sight-link" href="https://www.kaiservilla.at" target="_blank" rel="noopener">kaiservilla.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🎂</span><h4>Café Zauner</h4></div>
-      <p class="lang-de">Eine der bekanntesten Konditoreien Österreichs seit 1832. Legendärer Zaunerstollen und kaiserliche Mehlspeisen — absolutes Muss bei jedem Besuch in Bad Ischl.</p>
-      <p class="lang-en">One of Austria's most famous patisseries since 1832. The legendary Zaunerstollen and imperial pastries — an absolute must on any visit to Bad Ischl.</p>
-      <a class="sight-link" href="https://www.zauner.at" target="_blank" rel="noopener">zauner.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- SALZBURG -->
-<div class="region-panel" id="panel-salzburg">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🎵</span><h4><span class="lang-de">Mozarts Geburtshaus</span><span class="lang-en">Mozart's Birthplace</span></h4></div>
-      <p class="lang-de">Getreidegasse 9 — hier wurde Wolfgang Amadeus Mozart 1756 geboren. Museum mit Originalinstrumenten, Portraits und persönlichen Gegenständen.</p>
-      <p class="lang-en">Getreidegasse 9 — where Wolfgang Amadeus Mozart was born in 1756. Museum with original instruments, portraits and personal items.</p>
-      <a class="sight-link" href="https://mozarteum.at/mozart-museen/mozarts-geburtshaus" target="_blank" rel="noopener">mozarteum.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🏰</span><h4><span class="lang-de">Festung Hohensalzburg</span><span class="lang-en">Hohensalzburg Fortress</span></h4></div>
-      <p class="lang-de">Eine der größten erhaltenen Burganlagen Europas, hoch über der Stadt. Erbaut 1077 — mit atemberaubendem Panoramablick über Salzburg und die Alpen.</p>
-      <p class="lang-en">One of the largest preserved fortresses in Europe, high above the city. Built in 1077 — with breathtaking panoramic views over Salzburg and the Alps.</p>
-      <a class="sight-link" href="https://www.festung-hohensalzburg.at" target="_blank" rel="noopener">festung-hohensalzburg.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- WOLFGANGSEE -->
-<div class="region-panel" id="panel-wolfgangsee">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🚂</span><h4><span class="lang-de">Schafbergbahn</span><span class="lang-en">Schafberg Railway</span></h4></div>
-      <p class="lang-de">Historische Zahnradbahn seit 1893 auf den 1.783 m hohen Schafberg — einer der schönsten Aussichtspunkte des Salzkammerguts mit Blick auf bis zu 13 Seen.</p>
-      <p class="lang-en">Historic rack railway since 1893 up to the 1,783 m Schafberg — one of the finest viewpoints in the Salzkammergut with views of up to 13 lakes.</p>
-      <a class="sight-link" href="https://www.5schaetze.at" target="_blank" rel="noopener">5schaetze.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">⛵</span><h4><span class="lang-de">Schifffahrt Wolfgangsee</span><span class="lang-en">Lake Wolfgang Boats</span></h4></div>
-      <p class="lang-de">Verbindet St. Wolfgang, St. Gilgen und Strobl auf dem kristallklaren Bergsee — entspannt das Salzkammergut vom Wasser aus erleben.</p>
-      <p class="lang-en">Connecting St. Wolfgang, St. Gilgen and Strobl on the crystal-clear mountain lake — experience the Salzkammergut relaxed from the water.</p>
-      <a class="sight-link" href="https://www.5schaetze.at" target="_blank" rel="noopener">5schaetze.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🏔️</span><h4>Zwölferhorn</h4></div>
-      <p class="lang-de">Seilbahn von St. Gilgen auf das 1.522 m hohe Zwölferhorn — grandioser Panoramablick auf den Wolfgangsee und die Bergwelt. Im Sommer Wandern und Paragliding.</p>
-      <p class="lang-en">Cable car from St. Gilgen to the 1,522 m Zwölferhorn — grand panoramic views of the Wolfgangsee and mountains. Hiking and paragliding in summer.</p>
-      <a class="sight-link" href="https://www.zwoelferhorn.at" target="_blank" rel="noopener">zwoelferhorn.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- HALLSTATT -->
-<div class="region-panel" id="panel-hallstatt">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🏘️</span><h4><span class="lang-de">Hallstatt Dorf</span><span class="lang-en">Hallstatt Village</span></h4></div>
-      <p class="lang-de">Eines der schönsten Dörfer der Welt — UNESCO-Welterbe, malerisch am Hallstätter See. Bunte Häuser, enge Gassen und traumhafter Seeblick.</p>
-      <p class="lang-en">One of the most beautiful villages in the world — UNESCO World Heritage, set on the Hallstätter See. Colourful houses, narrow lanes and stunning lake views.</p>
-      <a class="sight-link" href="https://www.hallstatt.net" target="_blank" rel="noopener">hallstatt.net</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">⛏️</span><h4><span class="lang-de">Salzwelten</span><span class="lang-en">Salt Mine</span></h4></div>
-      <p class="lang-de">Das älteste Salzbergwerk der Welt — seit über 7.000 Jahren. Faszinierende Unterwelt mit Bergmanns-Zug, Rutschen und unterirdischem Salzsee.</p>
-      <p class="lang-en">The world's oldest salt mine — for over 7,000 years. Fascinating underground world with miners' train, slides and underground salt lake.</p>
-      <a class="sight-link" href="https://www.salzwelten.at" target="_blank" rel="noopener">salzwelten.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- MONDSEE -->
-<div class="region-panel" id="panel-mondsee">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">⛪</span><h4><span class="lang-de">Basilika St. Michael</span><span class="lang-en">Basilica St. Michael</span></h4></div>
-      <p class="lang-de">Weltberühmt durch „The Sound of Music" — hier wurde die Hochzeitsszene gedreht. Prachtvoller vergoldeter Barockaltar und beeindruckendes Mittelschiff.</p>
-      <p class="lang-en">World-famous through "The Sound of Music" — the wedding scene was filmed here. Magnificent gilded baroque altar and impressive nave.</p>
-      <a class="sight-link" href="https://www.pfarre-mondsee.at" target="_blank" rel="noopener">pfarre-mondsee.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🌊</span><h4><span class="lang-de">Mondsee Baden</span><span class="lang-en">Mondsee Swimming</span></h4></div>
-      <p class="lang-de">Einer der wärmsten Seen des Salzkammerguts — perfekt zum Baden im Sommer. Liegewiesen, Bootsverleihe und Blick auf die Drachenwand.</p>
-      <p class="lang-en">One of the warmest lakes in the Salzkammergut — perfect for swimming. Lawns, boat rentals and views of the Drachenwand rock face.</p>
-      <a class="sight-link" href="https://www.mondsee.at" target="_blank" rel="noopener">mondsee.at</a>
-    </div>
-  </div>
-</div>
-```
-
-  </div>
-</section>
-
-<!-- ══ KONTAKT ══ -->
-
-<section class="section contact-section" id="kontakt">
-  <div class="section-inner">
-    <div class="contact-grid">
-      <div>
-        <p class="label">
-          <span class="lang-de">Kontakt &amp; Anfrage</span>
-          <span class="lang-en">Contact &amp; Enquiry</span>
-        </p>
-        <h2 class="display-title contact-title">
-          <span class="lang-de">Wir freuen uns<br><em>auf Sie</em></span>
-          <span class="lang-en">We look forward<br><em>to welcoming you</em></span>
-        </h2>
-        <p class="body-text contact-body-text lang-de">Haben Sie Fragen zu Verfügbarkeit, Preisen oder Anreise? Schreiben Sie uns — wir antworten persönlich und unkompliziert.</p>
-        <p class="body-text contact-body-text lang-en">Questions about availability, prices or getting here? Write to us — we reply personally and without fuss.</p>
-        <div class="contact-details">
-          <div class="c-row"><span class="c-icon lang-de">Adresse</span><span class="c-icon lang-en">Address</span><div class="c-text">Seestraße 88<br>5330 Fuschl am See, Österreich</div></div>
-          <div class="c-row"><span class="c-icon lang-de">Telefon</span><span class="c-icon lang-en">Phone</span><div class="c-text"><a href="tel:+4362268313">+43 6226 8313</a><br><a href="tel:+436644355160">+43 664 4355160</a></div></div>
-          <div class="c-row"><span class="c-icon">E-Mail</span><div class="c-text"><a href="mailto:seeberghof.fuschl@gmail.com">seeberghof.fuschl@gmail.com</a></div></div>
-          <div class="c-row"><span class="c-icon lang-de">Kontakt</span><span class="c-icon lang-en">Contact</span><div class="c-text">Mathilde Pöckl</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="contact-form">
-          <div class="form-row">
-            <div class="field">
-              <label><span class="lang-de">Name</span><span class="lang-en">Name</span></label>
-              <input type="text" data-de="Ihr Name" data-en="Your name" placeholder="Ihr Name" />
-            </div>
-            <div class="field">
-              <label>E-Mail</label>
-              <input type="email" data-de="Ihre E-Mail" data-en="Your e-mail" placeholder="Ihre E-Mail" />
-            </div>
-          </div>
-          <div class="field">
-            <label><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span></label>
-            <select>
-              <option value="" disabled selected data-de="Bitte wählen …" data-en="Please select …">Bitte wählen …</option>
-              <option>Schober (40 m², 2 Personen)</option>
-              <option>Seeblick (70 m², 2–6 Personen)</option>
-              <option>Schafberg (90 m², 2–8 Personen)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label><span class="lang-de">Reisezeitraum</span><span class="lang-en">Travel dates</span></label>
-            <input type="text" data-de="z.B. 10.–17. Juli 2026" data-en="e.g. 10–17 July 2026" placeholder="z.B. 10.–17. Juli 2026" />
-          </div>
-          <div class="field">
-            <label><span class="lang-de">Nachricht</span><span class="lang-en">Message</span></label>
-            <textarea data-de="Personenanzahl, Haustiere, Wünsche …" data-en="Number of guests, pets, wishes …" placeholder="Personenanzahl, Haustiere, Wünsche …"></textarea>
-          </div>
-          <button class="btn-send">
-            <span class="lang-de">Anfrage senden →</span>
-            <span class="lang-en">Send enquiry →</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FOOTER ══ -->
-
-<footer>
-  <svg width="180" height="48" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:hidden;">
-    <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="#8c6d3f" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-    <polygon points="4,38 16,16 26,30 34,20 46,38" fill="#8c6d3f" opacity="0.08"/>
-    <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="#33281c" letter-spacing="2.5">SEEBERGHOF</text>
-    <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="#8a7d6c" letter-spacing="4">FUSCHL AM SEE</text>
-  </svg>
-  <div class="footer-links">
-    <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
-    <a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a>
-    <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
-    <a href="#kontakt">Kontakt</a>
-  </div>
-  <div style="text-align:right;">
-    <p class="footer-copy">© 2026 Seeberghof · Familie Pöckl · Fuschl am See</p>
-    <p class="footer-copy" style="margin-top:0.4rem;">Design &amp; Fotos: Anna Lucia Sams</p>
-  </div>
-</footer>
-
-<!-- ══ MODALS ══ -->
-
-<div class="modal-overlay" id="m-schober">
-  <button class="modal-close" onclick="closeModal('m-schober')">✕</button>
-  <div class="modal">
-    <div class="modal-slider" id="slider-schober">
-      <div class="modal-slider-track" id="track-schober">
-        <div class="modal-slide"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80" alt="Schober" /></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-      </div>
-      <button class="slider-btn prev" onclick="slideModal('schober', -1)">&#8592;</button>
-      <button class="slider-btn next" onclick="slideModal('schober', 1)">&#8594;</button>
-      <div class="slider-dots" id="dots-schober">
-        <button class="slider-dot active" onclick="goSlide('schober',0)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',1)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',2)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',3)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',4)"></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-tag lang-de">40 m² · 2 Personen</p><p class="modal-tag lang-en">40 m² · 2 Persons</p>
-      <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schober</h2>
-      <div class="modal-feats">
-        <span class="modal-feat lang-de">2 Personen</span><span class="modal-feat lang-en">2 Persons</span>
-        <span class="modal-feat lang-de">1 Schlafzimmer</span><span class="modal-feat lang-en">1 Bedroom</span>
-        <span class="modal-feat lang-de">Küche</span><span class="modal-feat lang-en">Kitchen</span>
-        <span class="modal-feat lang-de">Dusche &amp; WC</span><span class="modal-feat lang-en">Shower &amp; WC</span>
-        <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
-        <span class="modal-feat">Seeblick</span>
-      </div>
-      <p class="modal-desc lang-de">Die Ferienwohnung Schober ist eine gemütliche, kompakte Wohnung — ideal für Paare. Der sonnige Balkon bietet einen wunderschönen Blick auf den Fuschlsee und die umliegenden Berge. Die voll ausgestattete Küche erlaubt es Ihnen, sich selbst zu versorgen.</p>
-      <p class="modal-desc lang-en">Apartment Schober is a cosy, compact unit — ideal for couples. The sunny balcony offers a beautiful view of the Fuschlsee and surrounding mountains. The fully equipped kitchen lets you cater for yourselves.</p>
-      <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 72,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 80,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 72,–</span></div>
-      </div></div>
-      </div>
-      <button class="modal-cta-btn" onclick="closeModal('m-schober');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
-        <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="m-seeblick">
-  <button class="modal-close" onclick="closeModal('m-seeblick')">✕</button>
-  <div class="modal">
-    <div class="modal-slider" id="slider-seeblick">
-      <div class="modal-slider-track" id="track-seeblick">
-        <div class="modal-slide"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80" alt="Seeblick" /></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-      </div>
-      <button class="slider-btn prev" onclick="slideModal('seeblick', -1)">&#8592;</button>
-      <button class="slider-btn next" onclick="slideModal('seeblick', 1)">&#8594;</button>
-      <div class="slider-dots" id="dots-seeblick">
-        <button class="slider-dot active" onclick="goSlide('seeblick',0)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',1)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',2)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',3)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',4)"></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-tag lang-de">70 m² · 2–6 Personen</p><p class="modal-tag lang-en">70 m² · 2–6 Persons</p>
-      <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Seeblick</h2>
-      <div class="modal-feats">
-        <span class="modal-feat lang-de">2–6 Personen</span><span class="modal-feat lang-en">2–6 Persons</span>
-        <span class="modal-feat lang-de">2 Schlafzimmer</span><span class="modal-feat lang-en">2 Bedrooms</span>
-        <span class="modal-feat lang-de">Küche</span><span class="modal-feat lang-en">Kitchen</span>
-        <span class="modal-feat lang-de">Dusche &amp; WC getrennt</span><span class="modal-feat lang-en">Separate shower &amp; WC</span>
-        <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
-        <span class="modal-feat">Seeblick</span>
-      </div>
-      <p class="modal-desc lang-de">Die Ferienwohnung Seeblick bietet mit 70 m² großzügigen Platz für Familien und kleine Gruppen. Zwei separate Schlafzimmer und getrennte Dusche und WC sorgen für angenehme Privatsphäre. Der helle Balkon mit direktem Blick auf den Fuschlsee lädt zum Verweilen ein.</p>
-      <p class="modal-desc lang-en">At 70 m², Apartment Seeblick offers generous space for families and small groups. Two separate bedrooms and separate shower and WC provide comfortable privacy. The bright balcony with a direct view of the Fuschlsee is perfect for lingering.</p>
-      <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 88,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 95,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 88,–</span></div>
-      </div></div>
-      </div>
-      <button class="modal-cta-btn" onclick="closeModal('m-seeblick');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
-        <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="m-schafberg">
-  <button class="modal-close" onclick="closeModal('m-schafberg')">✕</button>
-  <div class="modal">
-    <div class="modal-slider" id="slider-schafberg">
-      <div class="modal-slider-track" id="track-schafberg">
-        <div class="modal-slide"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" alt="Schafberg" /></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-        <div class="modal-slide"><div class="modal-slide-ph"><span>📷</span><p><span class="lang-de">Foto hinzufügen</span><span class="lang-en">Add photo</span></p></div></div>
-      </div>
-      <button class="slider-btn prev" onclick="slideModal('schafberg', -1)">&#8592;</button>
-      <button class="slider-btn next" onclick="slideModal('schafberg', 1)">&#8594;</button>
-      <div class="slider-dots" id="dots-schafberg">
-        <button class="slider-dot active" onclick="goSlide('schafberg',0)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',1)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',2)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',3)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',4)"></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-tag lang-de">90 m² · 2–8 Personen</p><p class="modal-tag lang-en">90 m² · 2–8 Persons</p>
-      <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schafberg</h2>
-      <div class="modal-feats">
-        <span class="modal-feat lang-de">2–8 Personen</span><span class="modal-feat lang-en">2–8 Persons</span>
-        <span class="modal-feat lang-de">3 Schlafzimmer</span><span class="modal-feat lang-en">3 Bedrooms</span>
-        <span class="modal-feat lang-de">Küche</span><span class="modal-feat lang-en">Kitchen</span>
-        <span class="modal-feat lang-de">Dusche &amp; WC getrennt</span><span class="modal-feat lang-en">Separate shower &amp; WC</span>
-        <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
-        <span class="modal-feat">Seeblick</span>
-      </div>
-      <p class="modal-desc lang-de">Die Ferienwohnung Schafberg ist unsere größte Wohnung — ideal für größere Familien. Auf 90 m² finden Sie drei separate Schlafzimmer, eine voll ausgestattete Küche und getrennte Dusche und WC. Der großzügige Balkon mit Panoramablick auf den Fuschlsee ist das Herzstück dieser Wohnung.</p>
-      <p class="modal-desc lang-en">Apartment Schafberg is our largest unit — ideal for bigger families. Across 90 m² you'll find three separate bedrooms, a fully equipped kitchen and separate shower and WC. The generous balcony with panoramic views of the Fuschlsee is the centrepiece of this apartment.</p>
-      <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 95,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 100,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 95,–</span></div>
-      </div></div>
-      </div>
-      <button class="modal-cta-btn" onclick="closeModal('m-schafberg');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
-        <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
-      </button>
-    </div>
+<div style="display:flex">
+  <div class="sidebar" id="sidebar"></div>
+  <div style="flex:1;padding:16px;overflow-y:auto;min-width:0" id="main">
+    <div style="display:flex;align-items:center;justify-content:center;height:300px;color:#555;font-size:13px">Lade Daten…</div>
   </div>
 </div>
 
 <script>
+const FINNHUB_KEY="d7s72khr01qm28g8hls0";
+const GROUPS={"Magnificent 7":["AAPL","MSFT","GOOGL","AMZN","META","NVDA","TSLA"],"Tech & Chips":["AMD","INTC","VRT","TMO"],"Wachstum":["HIMS","LNTH","FSLR","NVO","PYPL","BABA","AOS"],"ETFs":["SPY","QQQ","ACWI"]};
+const ALL=Object.values(GROUPS).flat();
+const S={active:"AAPL",stocks:{},tab:"price",aiText:"",aiLoading:false,custom:[]};
 
-  // Modal sliders
-  const sliderState = {};
-  function initSlider(id) {
-    if (!sliderState[id]) sliderState[id] = 0;
-  }
-  function slideModal(id, dir) {
-    initSlider(id);
-    const track = document.getElementById('track-' + id);
-    const count = track.children.length;
-    sliderState[id] = (sliderState[id] + dir + count) % count;
-    updateSlider(id);
-  }
-  function goSlide(id, idx) {
-    initSlider(id);
-    sliderState[id] = idx;
-    updateSlider(id);
-  }
-  function updateSlider(id) {
-    const track = document.getElementById('track-' + id);
-    track.style.transform = 'translateX(-' + (sliderState[id] * 100) + '%)';
-    document.querySelectorAll('#dots-' + id + ' .slider-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === sliderState[id]);
-    });
-  }
-  // Reset slider when modal opens
-  const origOpenModal = openModal;
-  function openModal(id) {
-    document.getElementById(id).classList.add('open');
-    document.body.style.overflow = 'hidden';
-    const modalId = id.replace('m-', '');
-    if (sliderState[modalId] !== undefined) {
-      sliderState[modalId] = 0;
-      updateSlider(modalId);
+document.getElementById("dateLabel").textContent=new Date().toLocaleDateString("de-AT");
+
+// Math
+const sma=(d,p)=>d.map((_,i)=>i<p-1?null:d.slice(i-p+1,i+1).reduce((a,b)=>a+b,0)/p);
+const ema=(d,p)=>{const k=2/(p+1),e=[];d.forEach((v,i)=>e.push(i?v*k+e[i-1]*(1-k):v));return e;};
+function calcRSI(c,p=14){return c.map((_,i)=>{if(i<p)return null;let g=0,l=0;for(let j=i-p+1;j<=i;j++){const x=c[j]-c[j-1];x>0?g+=x:l-=x;}return 100-100/(1+g/(l||1e-6));});}
+function calcMACD(c){const l=ema(c,12).map((v,i)=>v-ema(c,26)[i]);const s=[...Array(26).fill(null),...ema(l.slice(26),9)];return{line:l,sig:s,hist:l.map((v,i)=>s[i]!=null?v-s[i]:null)};}
+function calcBoll(c,p=20,m=2){const sm=sma(c,p);return c.map((_,i)=>{if(!sm[i])return{u:null,mid:null,l:null};const sl=c.slice(i-p+1,i+1),mn=sm[i],std=Math.sqrt(sl.reduce((a,v)=>a+(v-mn)**2,0)/p);return{u:mn+m*std,mid:mn,l:mn-m*std};});}
+function calcSignal(rv,mv,price,bv){
+  const lr=rv.filter(Boolean).at(-1),lm=mv.hist.filter(Boolean).at(-1),pm=mv.hist.filter(Boolean).at(-2),lb=bv.filter(b=>b.u).at(-1);
+  let sc=0;const rs=[];
+  if(lr<30){sc+=2;rs.push("RSI ueberverkauft");}else if(lr<40){sc+=1;rs.push("RSI niedrig");}else if(lr>70){sc-=2;rs.push("RSI ueberkauft");}else if(lr>60){sc-=1;rs.push("RSI hoch");}
+  if(pm<0&&lm>0){sc+=2;rs.push("MACD Crossover +");}else if(pm>0&&lm<0){sc-=2;rs.push("MACD Crossover -");}else if(lm>0){sc+=1;rs.push("MACD positiv");}else{sc-=1;rs.push("MACD negativ");}
+  if(lb&&price<=lb.l){sc+=2;rs.push("Preis an unterem BB");}else if(lb&&price>=lb.u){sc-=2;rs.push("Preis an oberem BB");}
+  if(sc>=3)return{s:"BULLISH",c:"#00c896",i:"^",sc,rs};
+  if(sc<=-3)return{s:"BAERISCH",c:"#ff4757",i:"v",sc,rs};
+  return{s:"NEUTRAL",c:"#ffa502",i:"o",sc,rs};
+}
+
+// Mock
+function mock(t){
+  const b={AAPL:185,MSFT:415,GOOGL:175,AMZN:195,META:530,NVDA:120,TSLA:180,AMD:165,INTC:22,SPY:560,QQQ:475,NVO:90,PYPL:68};
+  let p=b[t]||80;const now=new Date(),data=[];
+  for(let i=89;i>=0;i--){const d=new Date(now);d.setDate(d.getDate()-i);p*=1+(Math.random()-.48)*.025;data.push({date:d.toISOString().slice(0,10),c:+p.toFixed(2)});}
+  return data;
+}
+
+// Fetch
+async function fetchStock(t){
+  try{
+    const to=Math.floor(Date.now()/1000),from=to-90*86400;
+    const r=await fetch("https://finnhub.io/api/v1/stock/candle?symbol="+t+"&resolution=D&from="+from+"&to="+to+"&token="+FINNHUB_KEY);
+    const j=await r.json();
+    if(!j.c||j.s!=="ok")return mock(t);
+    return j.t.map((ts,i)=>({date:new Date(ts*1000).toISOString().slice(0,10),c:j.c[i]}));
+  }catch{return mock(t);}
+}
+function processStock(raw){
+  const closes=raw.map(d=>d.c);
+  const rv=calcRSI(closes),mv=calcMACD(closes),bv=calcBoll(closes),s50=sma(closes,50);
+  const last=closes.at(-1),chg=(last-closes.at(-2))/closes.at(-2)*100;
+  return{raw,closes,rv,mv,bv,s50,last,chg,sig:calcSignal(rv,mv,last,bv)};
+}
+
+// Canvas chart
+function drawChart(canvasId,datasets,opts){
+  opts=opts||{};
+  const canvas=document.getElementById(canvasId);
+  if(!canvas)return;
+  const dpr=window.devicePixelRatio||1;
+  const W=canvas.parentElement.clientWidth-16;
+  const H=opts.h||200;
+  canvas.width=W*dpr;canvas.height=H*dpr;
+  canvas.style.width=W+"px";canvas.style.height=H+"px";
+  const ctx=canvas.getContext("2d");
+  ctx.scale(dpr,dpr);
+  const pl=54,pr=8,pt=10,pb=28,cw=W-pl-pr,ch=H-pt-pb;
+
+  const allVals=datasets.flatMap(ds=>(ds.data||[]).filter(v=>v!=null&&isFinite(v)));
+  if(!allVals.length)return;
+  let mn=opts.yMin!=null?opts.yMin:Math.min(...allVals);
+  let mx=opts.yMax!=null?opts.yMax:Math.max(...allVals);
+  const rng=mx-mn||1;
+  const tx=(i,len)=>pl+i/(Math.max(len-1,1))*cw;
+  const ty=v=>pt+ch-(v-mn)/rng*ch;
+
+  ctx.fillStyle="#161b22";ctx.fillRect(0,0,W,H);
+
+  // Grid
+  [0,.25,.5,.75,1].forEach(f=>{
+    const y=pt+f*ch;
+    ctx.strokeStyle="#21262d";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pl,y);ctx.lineTo(pl+cw,y);ctx.stroke();
+    const val=mx-f*rng;
+    ctx.fillStyle="#444";ctx.font="9px monospace";ctx.textAlign="right";
+    const lbl=opts.pct?val.toFixed(1):(val>100?val.toFixed(0):"$"+val.toFixed(2));
+    ctx.fillText(lbl,pl-4,y+3);
+  });
+
+  // Refs
+  (opts.refs||[]).forEach(function(ref){
+    const y=ty(ref.v);ctx.strokeStyle=ref.color;ctx.lineWidth=1;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(pl,y);ctx.lineTo(pl+cw,y);ctx.stroke();ctx.setLineDash([]);
+  });
+
+  // X labels
+  const len=datasets.find(ds=>ds.data)?.data?.length||90;
+  const lbls=datasets.find(ds=>ds.labels)?.labels||[];
+  ctx.fillStyle="#444";ctx.font="9px monospace";ctx.textAlign="center";
+  [0,Math.floor(len/4),Math.floor(len/2),Math.floor(3*len/4),len-1].forEach(function(i){
+    if(lbls[i])ctx.fillText((lbls[i]||"").slice(5),tx(i,len),H-8);
+  });
+
+  // Datasets
+  datasets.forEach(function(ds){
+    if(!ds.data)return;
+    if(ds.type==="bar"){
+      const barW=Math.max(1,cw/ds.data.length-1);
+      ds.data.forEach(function(v,i){
+        if(v==null)return;
+        const x=tx(i,ds.data.length),y0=ty(0),y1=ty(v);
+        ctx.fillStyle=v>=0?"#3fb95060":"#f8514960";
+        ctx.fillRect(x-barW/2,Math.min(y0,y1),barW,Math.abs(y1-y0));
+      });
+      return;
     }
+    if(ds.fill&&ds.fillColor){
+      ctx.beginPath();let st=false;
+      ds.data.forEach(function(v,i){if(v==null)return;const x=tx(i,ds.data.length),y=ty(v);st?ctx.lineTo(x,y):(ctx.moveTo(x,y),st=true);});
+      ctx.lineTo(tx(ds.data.length-1,ds.data.length),pt+ch);ctx.lineTo(pl,pt+ch);ctx.closePath();
+      ctx.fillStyle=ds.fillColor;ctx.fill();
+    }
+    ctx.beginPath();ctx.strokeStyle=ds.color||"#fff";ctx.lineWidth=ds.width||1.5;
+    if(ds.dash)ctx.setLineDash(ds.dash);
+    let st=false;
+    ds.data.forEach(function(v,i){if(v==null){st=false;return;}const x=tx(i,ds.data.length),y=ty(v);st?ctx.lineTo(x,y):(ctx.moveTo(x,y),st=true);});
+    ctx.stroke();ctx.setLineDash([]);
+  });
+}
+
+function drawCurrent(){
+  const d=S.stocks[S.active];if(!d)return;
+  const labels=d.raw.map(r=>r.date);
+  if(S.tab==="price"){
+    drawChart("chart",[
+      {data:d.bv.map(b=>b.u),labels,color:"#58a6ff30",width:1,fill:true,fillColor:"#58a6ff08"},
+      {data:d.bv.map(b=>b.l),labels,color:"#58a6ff30",width:1},
+      {data:d.bv.map(b=>b.mid),labels,color:"#58a6ff50",width:1,dash:[3,3]},
+      {data:d.s50,labels,color:"#ffa50050",width:1},
+      {data:d.closes,labels,color:"#3fb950",width:2},
+    ]);
+  }else if(S.tab==="rsi"){
+    drawChart("chart",[{data:d.rv,labels,color:"#ffa502",width:2}],
+      {yMin:0,yMax:100,refs:[{v:70,color:"#f8514960"},{v:30,color:"#3fb95060"},{v:50,color:"#30363d"}],pct:true});
+  }else{
+    drawChart("chart",[
+      {data:d.mv.hist,labels,type:"bar"},
+      {data:d.mv.line,labels,color:"#ffa502",width:1.5},
+      {data:d.mv.sig,labels,color:"#f85149",width:1.5},
+    ]);
   }
+}
 
-  // Region tabs
-  function showRegion(id, btn) {
-    document.querySelectorAll('.region-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.region-tab').forEach(b => b.classList.remove('active'));
-    document.getElementById('panel-' + id).classList.add('active');
-    btn.classList.add('active');
+// Render sidebar
+function renderSidebar(){
+  const el=document.getElementById("sidebar");
+  const groups=Object.assign({},GROUPS);
+  if(S.custom.length)groups["Eigene"]=S.custom;
+  el.innerHTML=Object.entries(groups).map(function(entry){
+    const grp=entry[0],tickers=entry[1];
+    return'<div class="grp-label">'+grp+'</div>'+tickers.map(function(t){
+      const d=S.stocks[t];
+      return'<div class="ticker-item'+(S.active===t?" active":"")+'" onclick="doSelect(\''+t+'\')">'
+        +'<div style="display:flex;justify-content:space-between;align-items:center">'
+        +'<span style="font-size:11px;font-weight:600;color:'+(S.active===t?"#58a6ff":"#e6edf3")+'">'+t+'</span>'
+        +'<span onclick="event.stopPropagation();doRemove(\''+t+'\')" style="font-size:9px;color:#333;padding:0 2px">x</span>'
+        +'</div>'
+        +(d?'<div style="font-size:10px;color:'+(d.chg>=0?"#3fb950":"#f85149")+'">'+(d.chg>=0?"+":"")+d.chg.toFixed(2)+'%</div>'
+           +'<div style="font-size:9px;color:'+d.sig.c+'">'+d.sig.i+' '+d.sig.s+'</div>'
+          :'<div style="font-size:9px;color:#333">laedt...</div>')
+        +'</div>';
+    }).join("");
+  }).join("")
+  +'<div style="margin-top:10px;padding:0 2px">'
+  +'<input id="ti" placeholder="+ TICKER" maxlength="6" onkeydown="if(event.key===\'Enter\')doAdd()"'
+  +' style="background:#0d1117;border:1px solid #30363d;border-radius:5px;padding:6px 8px;font-size:11px;color:#e6edf3;outline:none;width:100%;margin-bottom:4px"/>'
+  +'<button onclick="doAdd()" style="background:#1f6feb;border:none;border-radius:5px;padding:5px;font-size:10px;color:#fff;width:100%;font-weight:600">Hinzufuegen</button>'
+  +'</div>';
+}
+
+// Render main
+function renderMain(){
+  const d=S.stocks[S.active];
+  const el=document.getElementById("main");
+  if(!d){el.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:300px;color:#555;font-size:13px">Lade '+S.active+'...</div>';return;}
+  const sig=d.sig;
+  const lr=d.rv.filter(Boolean).at(-1);
+  const lm=d.mv.hist.filter(Boolean).at(-1);
+  const lb=d.bv.filter(b=>b.u).at(-1);
+  const bbpos=lb?((d.last-lb.l)/(lb.u-lb.l)*100).toFixed(0)+"%":"-";
+  const rc=lr<30?"#3fb950":lr>70?"#f85149":"#ffa502";
+
+  el.innerHTML=
+    '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">'
+    +'<div><div style="font-size:26px;font-weight:700;font-family:\'Syne\',sans-serif;color:#fff;letter-spacing:-0.02em">'+S.active+'</div>'
+    +'<div style="display:flex;align-items:baseline;gap:10px;margin-top:3px">'
+    +'<span style="font-size:20px;font-weight:600">$'+d.last.toFixed(2)+'</span>'
+    +'<span style="font-size:13px;color:'+(d.chg>=0?"#3fb950":"#f85149")+'">'+(d.chg>=0?"+":"")+d.chg.toFixed(2)+'%</span></div></div>'
+    +'<div style="background:'+sig.c+'18;border:1px solid '+sig.c+'40;border-radius:10px;padding:10px 16px;text-align:center">'
+    +'<div style="font-size:20px;color:'+sig.c+';font-weight:700">'+sig.i+' '+sig.s+'</div>'
+    +'<div style="font-size:9px;color:#555;margin-top:2px">SCORE: '+(sig.sc>0?"+":"")+sig.sc+'</div></div></div>'
+    +'<div style="margin-bottom:14px">'+sig.rs.map(r=>'<span class="signal-tag">'+r+'</span>').join("")+'</div>'
+    +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">'
+    +'<div class="stat-card"><div style="font-size:8px;color:#555;margin-bottom:4px">RSI (14)</div><div style="font-size:15px;font-weight:600;color:'+rc+'">'+(lr?lr.toFixed(1):"-")+'</div></div>'
+    +'<div class="stat-card"><div style="font-size:8px;color:#555;margin-bottom:4px">MACD Hist.</div><div style="font-size:15px;font-weight:600;color:'+(lm>0?"#3fb950":"#f85149")+'">'+(lm?lm.toFixed(4):"-")+'</div></div>'
+    +'<div class="stat-card"><div style="font-size:8px;color:#555;margin-bottom:4px">BB Position</div><div style="font-size:15px;font-weight:600;color:#58a6ff">'+bbpos+'</div></div></div>'
+    +'<div style="display:flex;gap:4px;margin-bottom:10px">'
+    +['price','rsi','macd'].map(function(t,_,arr){const l=["Kurs + BB","RSI","MACD"][arr.indexOf(t)];return'<button class="tab-btn'+(S.tab===t?" active":"")+'" onclick="doTab(\''+t+'\')">'+l+'</button>';}).join("")
+    +'</div>'
+    +'<div style="background:#161b22;border:1px solid #21262d;border-radius:10px;padding:8px;margin-bottom:14px">'
+    +'<canvas id="chart"></canvas></div>'
+    +'<div style="background:#161b22;border:1px solid #21262d;border-radius:10px;padding:14px;margin-bottom:10px">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">'
+    +'<div style="font-size:10px;color:#555;letter-spacing:0.1em"> KI-ANALYSE</div>'
+    +'<button onclick="doAI()" '+(S.aiLoading?"disabled":"")+' style="background:'+(S.aiLoading?"#30363d":"#1f6feb")+';border:none;border-radius:6px;padding:5px 12px;font-size:10px;color:#fff;font-weight:600;opacity:'+(S.aiLoading?.7:1)+'">'+(S.aiLoading?"Analysiere...":"Analysieren")+'</button></div>'
+    +'<div id="aiResult" style="font-size:12px;color:'+(S.aiText?"#8b949e":"#30363d")+';line-height:1.7;font-family:\'Syne\',sans-serif;font-style:'+(S.aiText?"normal":"italic")+'">'+(S.aiText||"Klick auf Analysieren - fuer eine KI-Einschaetzung.")+'</div></div>'
+    +'<div style="font-size:9px;color:#30363d;text-align:center;font-style:italic;padding-bottom:20px">Technische Indikatoren - rein informativ. Keine Anlageberatung. Eigene Recherche erforderlich.</div>';
+
+  setTimeout(drawCurrent,50);
+}
+
+// Actions
+window.doSelect=async function(t){
+  S.active=t;S.aiText="";S.tab="price";
+  renderSidebar();renderMain();
+  if(!S.stocks[t]){
+    const raw=await fetchStock(t);
+    S.stocks[t]=processStock(raw);
+    renderSidebar();renderMain();
   }
-
-  // Nav scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 80);
-  });
-
-  // Logo color on scroll
-  // Logo color handled via CSS on nav.scrolled
-
-  // Mobile nav
-  document.querySelectorAll('.mobile-nav a').forEach(a => {
-    a.addEventListener('click', () => document.querySelector('.mobile-nav').classList.remove('open'));
-  });
-
-  // Modals
-  function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
-  });
-
-  // Language
-  function setLang(lang) {
-    document.body.classList.toggle('en', lang === 'en');
-    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.getElementById('mbtn-de').classList.toggle('active', lang === 'de');
-    document.getElementById('mbtn-en').classList.toggle('active', lang === 'en');
-    document.querySelectorAll('[data-de][data-en]').forEach(el => {
-      el.placeholder = lang === 'en' ? el.dataset.en : el.dataset.de;
+};
+window.doTab=function(t){S.tab=t;renderMain();};
+window.doAdd=function(){
+  const v=(document.getElementById("ti")?.value||"").trim().toUpperCase();
+  if(!v)return;
+  if(!ALL.includes(v)&&!S.custom.includes(v))S.custom.push(v);
+  doSelect(v);
+};
+window.doRemove=function(t){
+  S.custom=S.custom.filter(x=>x!==t);
+  if(S.active===t)doSelect(ALL[0]);else renderSidebar();
+};
+window.doAI=async function(){
+  const d=S.stocks[S.active];if(!d)return;
+  S.aiLoading=true;S.aiText="";renderMain();
+  try{
+    const lr=d.rv.filter(Boolean).at(-1),lm=d.mv.hist.filter(Boolean).at(-1);
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:
+        "Analysiere diese Aktie auf Deutsch in max. 3 Saetzen. Ticker: "+S.active+", Kurs: $"+d.last.toFixed(2)+", Signal: "+d.sig.s+", RSI: "+(lr?.toFixed(1))+", MACD: "+(lm?.toFixed(4))+", Indikatoren: "+d.sig.rs.join(", ")+". Was sagen die Indikatoren? Worauf achten? Kein Disclaimer."
+      }]})
     });
-    document.querySelectorAll('select option[data-de]').forEach(el => {
-      el.textContent = lang === 'en' ? el.dataset.en : el.dataset.de;
-    });
+    const j=await res.json();
+    S.aiText=j.content?.[0]?.text||"Nicht verfuegbar.";
+  }catch{S.aiText="Analyse nicht verfuegbar.";}
+  S.aiLoading=false;renderMain();
+};
+
+window.addEventListener("resize",drawCurrent);
+
+// Init - mock sofort, Finnhub im Hintergrund
+(async function(){
+  for(const t of ALL){ S.stocks[t]=processStock(mock(t)); }
+  renderSidebar(); renderMain();
+
+  async function tryFinnhub(t){
+    try{
+      const ctrl=new AbortController();
+      setTimeout(()=>ctrl.abort(),5000);
+      const to=Math.floor(Date.now()/1000),from=to-90*86400;
+      const r=await fetch('https://finnhub.io/api/v1/stock/candle?symbol='+t+'&resolution=D&from='+from+'&to='+to+'&token='+FINNHUB_KEY,{signal:ctrl.signal});
+      const j=await r.json();
+      if(j.c&&j.s==='ok'){
+        S.stocks[t]=processStock(j.t.map((ts,i)=>({date:new Date(ts*1000).toISOString().slice(0,10),c:j.c[i]})));
+        if(S.active===t){renderMain();}else{renderSidebar();}
+      }
+    }catch(e){}
   }
+  await tryFinnhub(S.active);
+  for(const t of ALL.filter(x=>x!==S.active)){
+    await new Promise(r=>setTimeout(r,400));
+    tryFinnhub(t);
+  }
+})();
 </script>
 
 </body>
