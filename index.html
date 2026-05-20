@@ -141,37 +141,46 @@ body {
 /* ══ REGION ══ */
 .region-section { background: var(--off); }
 .region-tabs {
-  display: flex; gap: 0; flex-wrap: wrap;
-  border-bottom: 2px solid var(--light); margin-bottom: 2.5rem;
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  margin-bottom: 2.5rem;
 }
 .region-tab {
-  background: none; border: none; cursor: pointer;
-  font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 400;
+  background: var(--off); border: 1.5px solid var(--light); cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.79rem; font-weight: 400;
   letter-spacing: 0.04em; color: var(--stone);
-  padding: 0.9rem 1.6rem;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: color 0.2s, border-color 0.2s; white-space: nowrap;
+  padding: 0.55rem 1.15rem; border-radius: 50px;
+  transition: color 0.2s, background 0.2s, border-color 0.2s; white-space: nowrap;
 }
-.region-tab:hover { color: var(--dark); }
-.region-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
-.tab-dist { font-size: 0.72rem; color: var(--mid); }
+.region-tab:hover { background: var(--light); color: var(--dark); border-color: var(--mid); }
+.region-tab.active { background: var(--green); color: #fff; border-color: var(--green); font-weight: 500; }
+.region-tab.active .tab-dist { color: rgba(255,255,255,0.6); }
+.tab-dist { font-size: 0.7rem; color: var(--mid); }
 .region-panel { display: none; }
 .region-panel.active { display: block; }
-.sight-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.sight-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
 .sight-card {
-  background: var(--white); border-radius: 10px; padding: 1.4rem 1.6rem;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  transition: box-shadow 0.2s, transform 0.2s;
+  background: var(--white); border-radius: 12px; padding: 1.35rem 1.5rem;
+  border: 1px solid var(--light);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.04);
+  transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
   display: flex; flex-direction: column;
 }
-.sight-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-2px); }
-.sight-card-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.5rem; }
-.sight-icon { font-size: 1.2rem; flex-shrink: 0; }
-.sight-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--dark); }
-.sight-card p { font-size: 0.82rem; color: var(--stone); line-height: 1.65; flex: 1; }
+.sight-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-3px); border-color: var(--mid); }
+.sight-card-top { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.7rem; }
+.sight-icon {
+  width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+  background: var(--green-pale); border-radius: 10px; font-size: 1.05rem; flex-shrink: 0;
+}
+.sight-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.93rem; font-weight: 500; color: var(--dark); }
+.sight-tag {
+  display: inline-block; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.18rem 0.6rem; border-radius: 50px;
+  background: var(--accent-pale); color: var(--accent); margin-bottom: 0.6rem; width: fit-content;
+}
+.sight-card p { font-size: 0.81rem; color: var(--stone); line-height: 1.65; flex: 1; }
 .sight-link {
-  display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.9rem;
-  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem;
+  font-size: 0.67rem; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--accent); text-decoration: none; font-weight: 400;
   transition: color 0.2s;
 }
@@ -400,7 +409,6 @@ footer {
   .form-row { grid-template-columns: 1fr; }
   footer { flex-direction: column; text-align: center; gap: 1.5rem; }
   .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
-  .region-panel.active { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
   .nav-bar { padding: 0 1rem; height: 62px; }
@@ -728,8 +736,8 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 
 <div class="region-tabs">
   <button class="region-tab active" onclick="showRegion('fuschl',this)">Fuschl am See <span class="tab-dist">· vor Ort</span></button>
-  <button class="region-tab" onclick="showRegion('bad-ischl',this)">Bad Ischl <span class="tab-dist">· ca. 30 min</span></button>
   <button class="region-tab" onclick="showRegion('salzburg',this)">Salzburg <span class="tab-dist">· ca. 25 min</span></button>
+  <button class="region-tab" onclick="showRegion('bad-ischl',this)">Bad Ischl <span class="tab-dist">· ca. 30 min</span></button>
   <button class="region-tab" onclick="showRegion('wolfgangsee',this)">Wolfgangsee <span class="tab-dist">· ca. 10 min</span></button>
   <button class="region-tab" onclick="showRegion('hallstatt',this)">Hallstatt <span class="tab-dist">· ca. 60 min</span></button>
   <button class="region-tab" onclick="showRegion('mondsee',this)">Mondsee <span class="tab-dist">· ca. 20 min</span></button>
@@ -740,26 +748,30 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
   <div class="sight-list">
     <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">⛳</span><h4>Golfclub Waldhof</h4></div>
-      <p class="lang-de">9-Loch-Golfplatz direkt am Fuschlsee mit traumhaftem Panoramablick — ideal für Anfänger und Profis. Mit Driving Range, Golfschule und der gemütlichen Waldhof-Alm daneben.</p>
-      <p class="lang-en">9-hole golf course right on Lake Fuschl with stunning panoramic views — ideal for beginners and pros alike. With driving range, golf school and the cosy Waldhof Alm right next door.</p>
+      <span class="sight-tag">Sport</span>
+      <p class="lang-de">9-Loch-Golfplatz direkt am Fuschlsee — ideal für Anfänger und Profis, mit Driving Range und der gemütlichen Waldhof-Alm.</p>
+      <p class="lang-en">9-hole golf course right on the Fuschlsee — ideal for beginners and pros, with driving range and the cosy Waldhof Alm.</p>
       <a class="sight-link" href="https://www.golfclub-waldhof.at" target="_blank" rel="noopener">golfclub-waldhof.at</a>
     </div>
     <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🌾</span><h4>Rumingmühle</h4></div>
-      <p class="lang-de">Die über 150 Jahre alte Rumingmühle ist ein echtes Juwel direkt am Fuschlsee — und berühmt für ihre frisch gebackenen Krapfen. Mühlenwirtin Daniela öffnet im Sommer dienstags, freitags und samstags nachmittags. Unbedingt vorbeischauen!</p>
-      <p class="lang-en">The 150-year-old Rumingmühle is a true gem right on the Fuschlsee — and famous for its freshly baked Krapfen doughnuts. In summer, the mill hostess Daniela opens on Tuesday, Friday and Saturday afternoons. A must-visit!</p>
+      <div class="sight-card-top"><span class="sight-icon">🌄</span><h4>Frauenkopf</h4></div>
+      <span class="sight-tag">Wandern</span>
+      <p class="lang-de">Beliebtes Wanderziel direkt über dem Fuschlsee — auch für Familien geeignet, mit wunderschönem Ausblick auf See und Bergwelt.</p>
+      <p class="lang-en">Popular hiking destination above the Fuschlsee — suitable for families, with beautiful views over the lake and mountains.</p>
       <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
     </div>
     <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">🏔️</span><h4>Schober</h4></div>
-      <p class="lang-de">Der Schober ist der Hausberg des Fuschlsees — direkt vom Seeberghof aus sichtbar. Eine herrliche Wanderung mit Belohnung: atemberaubender Blick über den Fuschlsee und die umliegenden Alpen.</p>
-      <p class="lang-en">The Schober is the local mountain of the Fuschlsee — visible directly from the Seeberghof. A wonderful hike rewarded with a breathtaking view over the Fuschlsee and the surrounding Alps.</p>
+      <span class="sight-tag">Wandern</span>
+      <p class="lang-de">Der Hausberg des Fuschlsees — vom Seeberghof aus sichtbar. Herrliche Wanderung mit atemberaubendem Blick über See und Alpen.</p>
+      <p class="lang-en">The local mountain of the Fuschlsee — visible from the Seeberghof. A wonderful hike with breathtaking views over the lake and Alps.</p>
       <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
     </div>
     <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🌄</span><h4>Frauenkopf</h4></div>
-      <p class="lang-de">Der Frauenkopf ist ein beliebtes Wanderziel rund um Fuschl am See — mit wunderschönem Ausblick auf den See und die Bergwelt des Salzkammerguts. Gut erreichbar, auch für Familien geeignet.</p>
-      <p class="lang-en">The Frauenkopf is a popular hiking destination around Fuschl am See — with beautiful views over the lake and the Salzkammergut mountains. Easily accessible, suitable for families too.</p>
+      <div class="sight-card-top"><span class="sight-icon">🌾</span><h4>Rumingmühle</h4></div>
+      <span class="sight-tag">Gastronomie</span>
+      <p class="lang-de">Über 150 Jahre alte Mühle direkt am Fuschlsee — berühmt für frisch gebackene Krapfen. Im Sommer di., fr. und sa. nachmittags geöffnet.</p>
+      <p class="lang-en">Over 150-year-old mill right on the Fuschlsee — famous for freshly baked Krapfen. Open in summer on Tue, Fri and Sat afternoons.</p>
       <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
     </div>
   </div>
@@ -769,16 +781,32 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 <div class="region-panel" id="panel-bad-ischl">
   <div class="sight-list">
     <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🎂</span><h4>Café Zauner</h4></div>
+      <span class="sight-tag">Gastronomie</span>
+      <p class="lang-de">Eine der bekanntesten Konditoreien Österreichs seit 1832 — legendärer Zaunerstollen und kaiserliche Mehlspeisen. Absolutes Muss!</p>
+      <p class="lang-en">One of Austria's most famous patisseries since 1832 — legendary Zaunerstollen and imperial pastries. An absolute must!</p>
+      <a class="sight-link" href="https://www.zauner.at" target="_blank" rel="noopener">zauner.at</a>
+    </div>
+    <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">🏛️</span><h4><span class="lang-de">Kaiservilla</span><span class="lang-en">Imperial Villa</span></h4></div>
-      <p class="lang-de">Sommerresidenz von Kaiser Franz Joseph I. — über 60 Jahre seine kaiserliche Sommerfrische. Heute Museum mit kaiserlichen Erinnerungsstücken und schönem Schlosspark.</p>
-      <p class="lang-en">Summer residence of Emperor Franz Joseph I. for over 60 years. Today a museum with imperial memorabilia and a beautiful palace park.</p>
+      <span class="sight-tag">Museum</span>
+      <p class="lang-de">Sommerresidenz von Kaiser Franz Joseph I. — über 60 Jahre kaiserliche Sommerfrische. Heute Museum mit kaiserlichen Erinnerungsstücken.</p>
+      <p class="lang-en">Summer residence of Emperor Franz Joseph I. for over 60 years. Today a museum with imperial memorabilia and beautiful park.</p>
       <a class="sight-link" href="https://www.kaiservilla.at" target="_blank" rel="noopener">kaiservilla.at</a>
     </div>
     <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🎂</span><h4>Café Zauner</h4></div>
-      <p class="lang-de">Eine der bekanntesten Konditoreien Österreichs seit 1832. Legendärer Zaunerstollen und kaiserliche Mehlspeisen — absolutes Muss bei jedem Besuch in Bad Ischl.</p>
-      <p class="lang-en">One of Austria's most famous patisseries since 1832. The legendary Zaunerstollen and imperial pastries — an absolute must on any visit to Bad Ischl.</p>
-      <a class="sight-link" href="https://www.zauner.at" target="_blank" rel="noopener">zauner.at</a>
+      <div class="sight-card-top"><span class="sight-icon">🚡</span><h4>Katrinseilbahn</h4></div>
+      <span class="sight-tag">Natur</span>
+      <p class="lang-de">Gondelbahn auf den 1.400 m hohen Katrinberg — Wanderwege, Almwiesen und Panoramablick über das Salzkammergut.</p>
+      <p class="lang-en">Cable car up to the 1,400 m Katrin mountain — hiking trails, alpine meadows and panoramic views over the Salzkammergut.</p>
+      <a class="sight-link" href="https://www.katrinseilbahn.com" target="_blank" rel="noopener">katrinseilbahn.com</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🎭</span><h4>Leharvilla</h4></div>
+      <span class="sight-tag">Museum</span>
+      <p class="lang-de">Sommerresidenz des Operettenkomponisten Franz Lehár — stilvoll restauriertes Museum direkt am Ufer der Traun in Bad Ischl.</p>
+      <p class="lang-en">Summer residence of operetta composer Franz Lehár — elegantly restored museum on the banks of the Traun in Bad Ischl.</p>
+      <a class="sight-link" href="https://www.stadtmuseum.at/leharvilla" target="_blank" rel="noopener">stadtmuseum.at</a>
     </div>
   </div>
 </div>
@@ -787,16 +815,32 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 <div class="region-panel" id="panel-salzburg">
   <div class="sight-list">
     <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🏰</span><h4><span class="lang-de">Festung Hohensalzburg</span><span class="lang-en">Hohensalzburg Fortress</span></h4></div>
+      <span class="sight-tag">Kultur</span>
+      <p class="lang-de">Eine der größten erhaltenen Burganlagen Europas, erbaut 1077 — mit Panoramablick über Salzburg und die Alpen.</p>
+      <p class="lang-en">One of Europe's largest preserved fortresses, built in 1077 — with panoramic views over Salzburg and the Alps.</p>
+      <a class="sight-link" href="https://www.festung-hohensalzburg.at" target="_blank" rel="noopener">festung-hohensalzburg.at</a>
+    </div>
+    <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">🎵</span><h4><span class="lang-de">Mozarts Geburtshaus</span><span class="lang-en">Mozart's Birthplace</span></h4></div>
-      <p class="lang-de">Getreidegasse 9 — hier wurde Wolfgang Amadeus Mozart 1756 geboren. Museum mit Originalinstrumenten, Portraits und persönlichen Gegenständen.</p>
-      <p class="lang-en">Getreidegasse 9 — where Wolfgang Amadeus Mozart was born in 1756. Museum with original instruments, portraits and personal items.</p>
+      <span class="sight-tag">Museum</span>
+      <p class="lang-de">Getreidegasse 9 — hier wurde Mozart 1756 geboren. Museum mit Originalinstrumenten, Portraits und persönlichen Gegenständen.</p>
+      <p class="lang-en">Getreidegasse 9 — where Mozart was born in 1756. Museum with original instruments, portraits and personal items.</p>
       <a class="sight-link" href="https://mozarteum.at/mozart-museen/mozarts-geburtshaus" target="_blank" rel="noopener">mozarteum.at</a>
     </div>
     <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🏰</span><h4><span class="lang-de">Festung Hohensalzburg</span><span class="lang-en">Hohensalzburg Fortress</span></h4></div>
-      <p class="lang-de">Eine der größten erhaltenen Burganlagen Europas, hoch über der Stadt. Erbaut 1077 — mit atemberaubendem Panoramablick über Salzburg und die Alpen.</p>
-      <p class="lang-en">One of the largest preserved fortresses in Europe, high above the city. Built in 1077 — with breathtaking panoramic views over Salzburg and the Alps.</p>
-      <a class="sight-link" href="https://www.festung-hohensalzburg.at" target="_blank" rel="noopener">festung-hohensalzburg.at</a>
+      <div class="sight-card-top"><span class="sight-icon">🖼️</span><h4>Museum der Moderne</h4></div>
+      <span class="sight-tag">Kunst</span>
+      <p class="lang-de">Zeitgenössische und moderne Kunst auf dem Mönchsberg — mit atemberaubendem Blick über die Salzburger Altstadt.</p>
+      <p class="lang-en">Contemporary and modern art on the Mönchsberg — with breathtaking views over Salzburg's old town.</p>
+      <a class="sight-link" href="https://www.museumdermoderne.at" target="_blank" rel="noopener">museumdermoderne.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">⛪</span><h4><span class="lang-de">Dom zu Salzburg</span><span class="lang-en">Salzburg Cathedral</span></h4></div>
+      <span class="sight-tag">Kultur</span>
+      <p class="lang-de">Der frühbarocke Dom am Domplatz — eines der bedeutendsten Sakralgebäude Österreichs mit beeindruckender Orgel und Kuppelgemälden.</p>
+      <p class="lang-en">The early baroque cathedral on Domplatz — one of Austria's most important religious buildings with a magnificent organ and dome paintings.</p>
+      <a class="sight-link" href="https://www.salzburger-dom.at" target="_blank" rel="noopener">salzburger-dom.at</a>
     </div>
   </div>
 </div>
@@ -806,21 +850,38 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
   <div class="sight-list">
     <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">🚂</span><h4><span class="lang-de">Schafbergbahn</span><span class="lang-en">Schafberg Railway</span></h4></div>
-      <p class="lang-de">Historische Zahnradbahn seit 1893 auf den 1.783 m hohen Schafberg — einer der schönsten Aussichtspunkte des Salzkammerguts mit Blick auf bis zu 13 Seen.</p>
-      <p class="lang-en">Historic rack railway since 1893 up to the 1,783 m Schafberg — one of the finest viewpoints in the Salzkammergut with views of up to 13 lakes.</p>
+      <span class="sight-tag">Ausflug</span>
+      <p class="lang-de">Historische Zahnradbahn seit 1893 auf den 1.783 m hohen Schafberg — Blick auf bis zu 13 Seen des Salzkammerguts.</p>
+      <p class="lang-en">Historic rack railway since 1893 to the 1,783 m Schafberg — views of up to 13 lakes in the Salzkammergut.</p>
       <a class="sight-link" href="https://www.5schaetze.at" target="_blank" rel="noopener">5schaetze.at</a>
     </div>
     <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">⛵</span><h4><span class="lang-de">Schifffahrt Wolfgangsee</span><span class="lang-en">Lake Wolfgang Boats</span></h4></div>
-      <p class="lang-de">Verbindet St. Wolfgang, St. Gilgen und Strobl auf dem kristallklaren Bergsee — entspannt das Salzkammergut vom Wasser aus erleben.</p>
-      <p class="lang-en">Connecting St. Wolfgang, St. Gilgen and Strobl on the crystal-clear mountain lake — experience the Salzkammergut relaxed from the water.</p>
-      <a class="sight-link" href="https://www.5schaetze.at" target="_blank" rel="noopener">5schaetze.at</a>
+      <div class="sight-card-top"><span class="sight-icon">⛵</span><h4><span class="lang-de">Wolfgangsee Schifffahrt</span><span class="lang-en">Lake Wolfgang Boats</span></h4></div>
+      <span class="sight-tag">Ausflug</span>
+      <p class="lang-de">Schifffahrt zwischen St. Wolfgang, St. Gilgen und Strobl — das Salzkammergut entspannt vom Wasser aus erleben.</p>
+      <p class="lang-en">Ferry between St. Wolfgang, St. Gilgen and Strobl — experience the Salzkammergut from the water.</p>
+      <a class="sight-link" href="https://www.schifffahrt-am-wolfgangsee.at" target="_blank" rel="noopener">schifffahrt-am-wolfgangsee.at</a>
     </div>
     <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🏔️</span><h4>Zwölferhorn</h4></div>
-      <p class="lang-de">Seilbahn von St. Gilgen auf das 1.522 m hohe Zwölferhorn — grandioser Panoramablick auf den Wolfgangsee und die Bergwelt. Im Sommer Wandern und Paragliding.</p>
-      <p class="lang-en">Cable car from St. Gilgen to the 1,522 m Zwölferhorn — grand panoramic views of the Wolfgangsee and mountains. Hiking and paragliding in summer.</p>
-      <a class="sight-link" href="https://www.zwoelferhorn.at" target="_blank" rel="noopener">zwoelferhorn.at</a>
+      <div class="sight-card-top"><span class="sight-icon">🏘️</span><h4>St. Wolfgang</h4></div>
+      <span class="sight-tag">Ortschaft</span>
+      <p class="lang-de">Malerischer Ort am Wolfgangsee — mit der berühmten Wallfahrtskirche, dem Weißen Rössl und einer schönen Seepromenade.</p>
+      <p class="lang-en">Picturesque village on the Wolfgangsee — with the famous pilgrimage church, the White Horse Inn and a beautiful lakeside promenade.</p>
+      <a class="sight-link" href="https://wolfgangsee.salzkammergut.at" target="_blank" rel="noopener">wolfgangsee.salzkammergut.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🌿</span><h4>Postalm</h4></div>
+      <span class="sight-tag">Natur</span>
+      <p class="lang-de">Das größte zusammenhängende Almgebiet Österreichs — ein weites Hochplateau über dem Wolfgangsee, ideal zum Wandern und Biken.</p>
+      <p class="lang-en">Austria's largest contiguous alpine pasture — a vast high plateau above the Wolfgangsee, ideal for hiking and cycling.</p>
+      <a class="sight-link" href="https://www.postalm.at" target="_blank" rel="noopener">postalm.at</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🎯</span><h4>Abarena</h4></div>
+      <span class="sight-tag">Freizeit</span>
+      <p class="lang-de">Allwetter-Freizeitpark in Abersee — Minigolf, Klettern, Boote und mehr. Ideal für Familien auch bei schlechtem Wetter.</p>
+      <p class="lang-en">All-weather leisure park in Abersee — mini golf, climbing, boats and more. Ideal for families in any weather.</p>
+      <a class="sight-link" href="https://www.abarena.at" target="_blank" rel="noopener">abarena.at</a>
     </div>
   </div>
 </div>
@@ -829,16 +890,25 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 <div class="region-panel" id="panel-hallstatt">
   <div class="sight-list">
     <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">🏘️</span><h4><span class="lang-de">Hallstatt Dorf</span><span class="lang-en">Hallstatt Village</span></h4></div>
-      <p class="lang-de">Eines der schönsten Dörfer der Welt — UNESCO-Welterbe, malerisch am Hallstätter See. Bunte Häuser, enge Gassen und traumhafter Seeblick.</p>
-      <p class="lang-en">One of the most beautiful villages in the world — UNESCO World Heritage, set on the Hallstätter See. Colourful houses, narrow lanes and stunning lake views.</p>
-      <a class="sight-link" href="https://www.hallstatt.net" target="_blank" rel="noopener">hallstatt.net</a>
+      <div class="sight-card-top"><span class="sight-icon">⛏️</span><h4><span class="lang-de">Salzbergwerk</span><span class="lang-en">Salt Mine</span></h4></div>
+      <span class="sight-tag">Ausflug</span>
+      <p class="lang-de">Das älteste Salzbergwerk der Welt — seit über 7.000 Jahren. Bergmanns-Zug, Rutschen und unterirdischer Salzsee.</p>
+      <p class="lang-en">The world's oldest salt mine — for over 7,000 years. Miners' train, slides and underground salt lake.</p>
+      <a class="sight-link" href="https://www.salzwelten.at" target="_blank" rel="noopener">salzwelten.at</a>
     </div>
     <div class="sight-card">
-      <div class="sight-card-top"><span class="sight-icon">⛏️</span><h4><span class="lang-de">Salzwelten</span><span class="lang-en">Salt Mine</span></h4></div>
-      <p class="lang-de">Das älteste Salzbergwerk der Welt — seit über 7.000 Jahren. Faszinierende Unterwelt mit Bergmanns-Zug, Rutschen und unterirdischem Salzsee.</p>
-      <p class="lang-en">The world's oldest salt mine — for over 7,000 years. Fascinating underground world with miners' train, slides and underground salt lake.</p>
-      <a class="sight-link" href="https://www.salzwelten.at" target="_blank" rel="noopener">salzwelten.at</a>
+      <div class="sight-card-top"><span class="sight-icon">💀</span><h4><span class="lang-de">Beinhaus</span><span class="lang-en">Bone House</span></h4></div>
+      <span class="sight-tag">Historisch</span>
+      <p class="lang-de">Einzigartiges Beinhaus in der St.-Michaels-Kapelle — 1.200 bemalte Schädel aus dem 12. Jahrhundert.</p>
+      <p class="lang-en">Unique charnel house in St. Michael's Chapel — 1,200 painted skulls from the 12th century.</p>
+      <a class="sight-link" href="https://beinhaus.hallstatt.net" target="_blank" rel="noopener">beinhaus.hallstatt.net</a>
+    </div>
+    <div class="sight-card">
+      <div class="sight-card-top"><span class="sight-icon">🏘️</span><h4><span class="lang-de">Ortszentrum</span><span class="lang-en">Village Centre</span></h4></div>
+      <span class="sight-tag">Spaziergang</span>
+      <p class="lang-de">Eines der schönsten Dörfer der Welt — UNESCO-Welterbe mit farbenprächtigen Häusern, engen Gassen und traumhaftem Seeblick.</p>
+      <p class="lang-en">One of the most beautiful villages in the world — UNESCO World Heritage with colourful houses, narrow lanes and stunning lake views.</p>
+      <a class="sight-link" href="https://www.hallstatt.net" target="_blank" rel="noopener">hallstatt.net</a>
     </div>
   </div>
 </div>
@@ -848,14 +918,16 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
   <div class="sight-list">
     <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">⛪</span><h4><span class="lang-de">Basilika St. Michael</span><span class="lang-en">Basilica St. Michael</span></h4></div>
-      <p class="lang-de">Weltberühmt durch „The Sound of Music" — hier wurde die Hochzeitsszene gedreht. Prachtvoller vergoldeter Barockaltar und beeindruckendes Mittelschiff.</p>
-      <p class="lang-en">World-famous through "The Sound of Music" — the wedding scene was filmed here. Magnificent gilded baroque altar and impressive nave.</p>
+      <span class="sight-tag">Kultur</span>
+      <p class="lang-de">Weltberühmt durch „The Sound of Music" — hier wurde die Hochzeitsszene gedreht. Prachtvoller vergoldeter Barockaltar.</p>
+      <p class="lang-en">World-famous through "The Sound of Music" — the wedding scene was filmed here. Magnificent gilded baroque altar.</p>
       <a class="sight-link" href="https://www.pfarre-mondsee.at" target="_blank" rel="noopener">pfarre-mondsee.at</a>
     </div>
     <div class="sight-card">
       <div class="sight-card-top"><span class="sight-icon">🌊</span><h4><span class="lang-de">Mondsee Baden</span><span class="lang-en">Mondsee Swimming</span></h4></div>
-      <p class="lang-de">Einer der wärmsten Seen des Salzkammerguts — perfekt zum Baden im Sommer. Liegewiesen, Bootsverleihe und Blick auf die Drachenwand.</p>
-      <p class="lang-en">One of the warmest lakes in the Salzkammergut — perfect for swimming. Lawns, boat rentals and views of the Drachenwand rock face.</p>
+      <span class="sight-tag">Natur</span>
+      <p class="lang-de">Einer der wärmsten Seen des Salzkammerguts — perfekt zum Baden im Sommer, mit Liegewiesen und Blick auf die Drachenwand.</p>
+      <p class="lang-en">One of the warmest lakes in the Salzkammergut — perfect for swimming, with lawns and views of the Drachenwand rock face.</p>
       <a class="sight-link" href="https://www.mondsee.at" target="_blank" rel="noopener">mondsee.at</a>
     </div>
   </div>
