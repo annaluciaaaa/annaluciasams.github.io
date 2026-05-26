@@ -957,39 +957,52 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
         </div>
       </div>
       <div>
-        <div class="contact-form">
+        <form class="contact-form" action="https://formspree.io/f/DEINE_ID_HIER" method="POST">
+          <input type="hidden" name="_subject" value="Neue Buchungsanfrage – Seeberghof" />
+          <input type="hidden" name="_next" value="https://www.annaluciasams.com/#kontakt" />
+          <input type="text" name="_gotcha" style="display:none" />
           <div class="form-row">
             <div class="field">
               <label><span class="lang-de">Name</span><span class="lang-en">Name</span></label>
-              <input type="text" data-de="Ihr Name" data-en="Your name" placeholder="Ihr Name" />
+              <input type="text" name="Name" required data-de="Ihr Name" data-en="Your name" placeholder="Ihr Name" />
             </div>
             <div class="field">
               <label>E-Mail</label>
-              <input type="email" data-de="Ihre E-Mail" data-en="Your e-mail" placeholder="Ihre E-Mail" />
+              <input type="email" name="E-Mail" required data-de="Ihre E-Mail" data-en="Your e-mail" placeholder="Ihre E-Mail" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label><span class="lang-de">Telefon</span><span class="lang-en">Phone</span></label>
+              <input type="tel" name="Telefon" data-de="Ihre Telefonnummer" data-en="Your phone number" placeholder="Ihre Telefonnummer" />
+            </div>
+            <div class="field">
+              <label><span class="lang-de">Personen</span><span class="lang-en">Guests</span></label>
+              <input type="number" name="Personenanzahl" min="1" max="12" data-de="Anzahl Personen" data-en="Number of guests" placeholder="Anzahl Personen" />
             </div>
           </div>
           <div class="field">
             <label><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span></label>
-            <select>
-              <option value="" disabled selected data-de="Bitte wählen …" data-en="Please select …">Bitte wählen …</option>
-              <option>Schober (40 m², 2 Personen)</option>
-              <option>Seeblick (70 m², 2–6 Personen)</option>
-              <option>Schafberg (90 m², 2–8 Personen)</option>
+            <select name="Ferienwohnung" required>
+              <option value="" disabled selected>Bitte wählen …</option>
+              <option value="Schober (40 m², 2 Personen)">Schober (40 m², 2 Personen)</option>
+              <option value="Seeblick (70 m², 2–6 Personen)">Seeblick (70 m², 2–6 Personen)</option>
+              <option value="Schafberg (90 m², 2–8 Personen)">Schafberg (90 m², 2–8 Personen)</option>
             </select>
           </div>
           <div class="field">
             <label><span class="lang-de">Reisezeitraum</span><span class="lang-en">Travel dates</span></label>
-            <input type="text" data-de="z.B. 10.–17. Juli 2026" data-en="e.g. 10–17 July 2026" placeholder="z.B. 10.–17. Juli 2026" />
+            <input type="text" name="Reisezeitraum" required data-de="z.B. 10.–17. Juli 2026" data-en="e.g. 10–17 July 2026" placeholder="z.B. 10.–17. Juli 2026" />
           </div>
           <div class="field">
             <label><span class="lang-de">Nachricht</span><span class="lang-en">Message</span></label>
-            <textarea data-de="Personenanzahl, Haustiere, Wünsche …" data-en="Number of guests, pets, wishes …" placeholder="Personenanzahl, Haustiere, Wünsche …"></textarea>
+            <textarea name="Nachricht" data-de="Haustiere, Wünsche, Fragen …" data-en="Pets, wishes, questions …" placeholder="Haustiere, Wünsche, Fragen …"></textarea>
           </div>
-          <button class="btn-send">
+          <button type="submit" class="btn-send">
             <span class="lang-de">Anfrage senden →</span>
             <span class="lang-en">Send enquiry →</span>
           </button>
-        </div>
+        </form>
       </div>
     </div>
   </div>
