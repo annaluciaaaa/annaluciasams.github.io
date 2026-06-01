@@ -355,7 +355,7 @@ function el(id){return document.getElementById(id)}
 function render(){el('app').innerHTML=buildHTML()}
 
 function buildHTML(){
-  if(!state.exam) return buildHome();
+  if(state.exam===null) return buildHome();
   if(state.submitted) return buildResults();
   return buildExam();
 }
