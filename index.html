@@ -1,1265 +1,518 @@
-
-
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seeberghof · Fuschl am See</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --white: #fdfaf5;
-  --off: #f7f2ea;
-  --light: #ede4d6;
-  --mid: #c8baa8;
-  --stone: #8a7d6c;
-  --dark: #33281c;
-  --green: #7a6e5a;
-  --green-light: #9a8e78;
-  --green-pale: #f0ebe2;
-  --gold: #b8922e;
-  --gold-light: #d4aa48;
-  --warm: #9a8e78;
-  --warm-pale: #f5f0e8;
-  --accent: #8c6d3f;
-  --accent-pale: #f2ebe0;
-}
-
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  background: var(--off);
-  color: var(--dark);
-  overflow-x: hidden;
-}
-
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--light); }
-::-webkit-scrollbar-thumb { background: var(--accent); }
-
-/* ══ NAV ══ */
-#nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-  transition: background 0.4s, box-shadow 0.4s;
-}
-#nav.scrolled {
-  background: rgba(253,250,245,0.97);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.08);
-}
-
-.nav-bar {
-  max-width: 1400px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2.5rem; height: 72px;
-}
-
-.nav-logo { display: flex; align-items: center; text-decoration: none; flex: 0 0 auto; margin-right: 2.5rem; gap: 12px; }
-.logo-mark { width: 44px; height: 44px; flex-shrink: 0; overflow: hidden; }
-.logo-text { display: flex; flex-direction: column; justify-content: center; gap: 2px; }
-.logo-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 300; letter-spacing: 2.5px; color: white; line-height: 1; transition: color 0.4s; }
-.logo-sub { font-family: 'DM Sans', sans-serif; font-size: 7px; font-weight: 300; letter-spacing: 4px; color: rgba(255,255,255,0.6); line-height: 1; transition: color 0.4s; }
-#nav.scrolled .logo-name { color: #33281c; }
-#nav.scrolled .logo-sub { color: #8a7d6c; }
-#nav.scrolled .logo-mark svg polyline { stroke: #8c6d3f; }
-.nav-links-desktop {
-  display: flex; align-items: center; gap: 0; list-style: none; flex: 1;
-}
-.nav-links-desktop li a {
-  display: block; padding: 0.4rem 1rem;
-  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(255,255,255,0.85); text-decoration: none;
-  font-family: 'DM Sans', sans-serif;
-  transition: color 0.2s;
-}
-.nav-links-desktop li a:hover { color: #fff; }
-#nav.scrolled .nav-links-desktop li a { color: var(--stone); }
-#nav.scrolled .nav-links-desktop li a:hover { color: var(--dark); }
-.nav-right { display: flex; align-items: center; gap: 1rem; }
-
-.lang-toggle { display: flex; align-items: center; gap: 0; border: 1px solid rgba(255,255,255,0.35); border-radius: 50px; overflow: hidden; }
-#nav.scrolled .lang-toggle { border-color: var(--mid); }
-.lang-btn {
-  background: none; border: none; cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400;
-  padding: 0.38rem 0.75rem; color: rgba(255,255,255,0.6);
-  transition: background 0.2s, color 0.2s; border-radius: 50px;
-}
-.lang-btn.active { background: rgba(255,255,255,0.22); color: #fff; }
-#nav.scrolled .lang-btn { color: var(--stone); }
-#nav.scrolled .lang-btn.active { background: var(--green); color: #fff; }
-.lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
-#nav.scrolled .lang-divider { background: var(--mid); }
-
-.nav-burger { display: none; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 8px; }
-.nav-burger span { display: block; width: 24px; height: 2px; background: #fff; transition: background 0.3s; border-radius: 2px; }
-#nav.scrolled .nav-burger span { background: var(--dark); }
-
-.mobile-nav { display: none; flex-direction: column; background: var(--white); border-top: 1px solid var(--light); padding: 1rem 0 1.5rem; position: relative; z-index: 299; }
-.mobile-nav.open { display: flex; }
-.mobile-nav a { padding: 0.8rem 2rem; color: var(--dark); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.06em; border-bottom: 1px solid var(--light); transition: color 0.15s; }
-.mobile-nav a:hover { color: var(--green); }
-.mobile-lang { display: flex; gap: 0.5rem; padding: 1rem 2rem; border-bottom: 1px solid var(--light); }
-.mobile-lang button { background: none; border: 1px solid var(--mid); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.9rem; color: var(--stone); border-radius: 50px; transition: background 0.2s, color 0.2s; }
-.mobile-lang button.active { background: var(--green); border-color: var(--green); color: #fff; }
-
-/* ══ HERO ══ */
-.hero { height: 100vh; position: relative; display: flex; align-items: flex-end; overflow: hidden; }
-.hero-fallback { position: absolute; inset: 0; background: url('Seeberghof Titelbild.jpeg') center/cover; }
-.hero-video-wrap { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
-.hero-video {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw; height: 56.25vw;
-  min-height: 100vh; min-width: 177.78vh;
-  border: none; pointer-events: none; object-fit: cover;
-}
-.hero-blocker { position: absolute; inset: 0; z-index: 99; cursor: default; background: transparent; pointer-events: all; }
-.hero-overlay {
-  position: absolute; inset: 0; z-index: 100;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.04) 40%, rgba(0,0,0,0.58) 100%);
-}
-.hero-content {
-  position: relative; z-index: 101;
-  width: 100%; padding: 0 6vw 7vh;
-  display: flex; align-items: flex-end; justify-content: space-between;
-}
-.hero-title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2.4rem, 6vw, 5rem);
-  font-weight: 300; color: #fff; line-height: 1.15;
-  margin-bottom: 1.5rem; letter-spacing: 0.02em;
-}
-.hero-meta { text-align: right; color: rgba(255,255,255,0.6); font-size: 0.72rem; letter-spacing: 0.1em; line-height: 2; }
-.hero-meta strong { display: block; color: rgba(255,255,255,0.88); font-weight: 400; font-size: 0.85rem; }
-
-/* ══ REGION ══ */
-.region-section { background: var(--off); }
-.region-tabs {
-  display: flex; gap: 0.5rem; flex-wrap: wrap;
-  margin-bottom: 2.5rem;
-}
-.region-tab {
-  background: var(--off); border: 1.5px solid var(--light); cursor: pointer;
-  font-family: 'DM Sans', sans-serif; font-size: 0.79rem; font-weight: 400;
-  letter-spacing: 0.04em; color: var(--stone);
-  padding: 0.55rem 1.15rem; border-radius: 50px;
-  transition: color 0.2s, background 0.2s, border-color 0.2s; white-space: nowrap;
-}
-.region-tab:hover { background: var(--light); color: var(--dark); border-color: var(--mid); }
-.region-tab.active { background: var(--green); color: #fff; border-color: var(--green); font-weight: 500; }
-.region-tab.active .tab-dist { color: rgba(255,255,255,0.6); }
-.tab-dist { font-size: 0.7rem; color: var(--mid); }
-.region-panel { display: none; }
-.region-panel.active { display: block; }
-.sight-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-.sight-card {
-  background: var(--white); border-radius: 12px; padding: 1.35rem 1.5rem;
-  border: 1px solid var(--light);
-  box-shadow: 0 2px 14px rgba(0,0,0,0.04);
-  transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
-  display: flex; flex-direction: column;
-}
-.sight-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-3px); border-color: var(--mid); }
-.sight-card-top { margin-bottom: 0.7rem; }
-.sight-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.93rem; font-weight: 500; color: var(--dark); }
-.sight-tag {
-  display: inline-block; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 0.18rem 0.6rem; border-radius: 50px;
-  background: var(--accent-pale); color: var(--accent); margin-bottom: 0.6rem; width: fit-content;
-}
-.sight-card p { font-size: 0.81rem; color: var(--stone); line-height: 1.65; flex: 1; }
-.sight-link {
-  display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem;
-  font-size: 0.67rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--accent); text-decoration: none; font-weight: 400;
-  transition: color 0.2s;
-}
-.sight-link:hover { color: var(--dark); }
-.sight-link::after { content: ' →'; }
-@media (max-width: 900px) { .sight-list { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .sight-list { grid-template-columns: 1fr; } }
-
-/* ══ SHARED ══ */
-.section { padding: 7rem 0; }
-.section-inner { max-width: 1280px; margin: 0 auto; padding: 0 4vw; }
-.label {
-  font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 1.1rem; font-weight: 400;
-}
-#geschichte .label { color: #b8922e; }
-#ferienwohnungen .label { color: #7a6e5a; }
-#region .label { color: #6e7e5a; }
-#kontakt .label { color: #8c6d3f; }
-.display-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 300; line-height: 1.15; color: var(--dark); }
-.body-text { font-size: 1rem; line-height: 1.88; color: var(--stone); max-width: 520px; margin-top: 1.4rem; }
-.divider { width: 40px; height: 1px; background: var(--mid); margin: 2rem 0; }
-
-/* ══ ABOUT ══ */
-.about-section { background: var(--white); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-.about-image-stack { position: relative; }
-.about-img-main { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 4px; }
-.about-img-accent {
-  position: absolute; bottom: -3rem; right: -3rem;
-  width: 55%; aspect-ratio: 1; object-fit: cover;
-  border: 8px solid var(--white);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.12); border-radius: 4px;
-}
-.about-badge {
-  position: absolute; bottom: 2rem; right: -2rem;
-  background: var(--green); color: #fff;
-  width: 90px; height: 90px; border-radius: 50%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5;
-}
-.about-badge strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 300; display: block; line-height: 1; }
-.title-accent { color: var(--accent); }
-.signature { font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; font-weight: 300; color: var(--accent); margin-top: 2rem; }
-
-
-
-/* ══ LANDSCAPE ══ */
-.landscape { height: 52vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.landscape-img {
-  position: absolute; inset: 0;
-  background: linear-gradient(rgba(25,38,28,0.52), rgba(25,38,28,0.52)),
-    url('Schober/Blick Balkon 2.JPG') center/cover;
-}
-.landscape-content { position: relative; text-align: center; }
-.landscape-quote { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 3vw, 2.1rem); color: #fff; line-height: 1.55; max-width: 720px; padding: 0 2rem; }
-.landscape-line { width: 40px; height: 1px; background: var(--gold-light); margin: 1.5rem auto; }
-.landscape-cite { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
-
-/* ══ APARTMENTS ══ */
-.apts-section { background: var(--off); }
-.apts-header { margin-bottom: 3.5rem; }
-.apts-note { font-size: 0.92rem; color: var(--stone); line-height: 1.7; margin-top: 1rem; max-width: 480px; }
-
-.apt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-.apt-card { background: var(--white); cursor: pointer; display: flex; flex-direction: column; transition: box-shadow 0.3s, transform 0.3s; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
-.apt-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.13); transform: translateY(-4px); }
-.apt-card:hover .apt-img { transform: scale(1.05); }
-.apt-img-wrap { overflow: hidden; aspect-ratio: 4/3; flex-shrink: 0; position: relative; }
-.apt-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; filter: brightness(1.1); }
-.apt-season-badge { position: absolute; top: 12px; right: 12px; background: var(--accent); color: #fff; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.28rem 0.7rem; border-radius: 50px; }
-.apt-body { padding: 2rem 1.8rem 1.8rem; flex: 1; display: flex; flex-direction: column; }
-.apt-tag { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; font-weight: 400; }
-.apt-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.7rem; line-height: 1.1; }
-.apt-feats { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
-.apt-feat { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--light); padding: 0.22rem 0.8rem; color: var(--stone); border-radius: 50px; }
-.apt-prices { margin-top: auto; padding-top: 1.2rem; border-top: 1px solid var(--light); }
-.price-row { display: flex; justify-content: space-between; padding: 0.38rem 0; font-size: 0.82rem; }
-.price-period { color: var(--stone); font-size: 0.76rem; }
-.price-amt { font-weight: 500; color: var(--dark); }
-.apt-open-btn {
-  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  margin-top: 1.3rem; padding: 0.75rem 1.5rem;
-  background: var(--accent-pale); color: var(--accent);
-  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
-  border: 1px solid rgba(192,120,80,0.2); border-radius: 50px; cursor: pointer; width: 100%;
-  font-family: 'DM Sans', sans-serif; font-weight: 400;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-.apt-open-btn:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
-
-.info-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.8rem; }
-.info-cell { background: var(--white); flex: 1; min-width: 180px; padding: 1.5rem 2rem; font-size: 0.82rem; line-height: 1.7; border-radius: 12px; border-left: 3px solid var(--accent); }
-.info-cell strong { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; font-weight: 500; }
-
-/* ══ CONTACT ══ */
-.contact-section { background: #e8dfd4; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
-.contact-title em { color: var(--accent); font-style: normal; }
-.contact-body-text { color: var(--stone); margin-top: 1.4rem; max-width: 400px; }
-.contact-details { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
-.c-row { display: flex; gap: 1rem; }
-.c-icon { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); font-weight: 500; margin-top: 0.3rem; min-width: 48px; }
-.c-text { font-size: 0.9rem; line-height: 1.7; color: var(--stone); }
-.c-text a { color: var(--green); text-decoration: none; transition: color 0.2s; }
-.c-text a:hover { color: var(--dark); }
-
-.contact-form { display: flex; flex-direction: column; gap: 1rem; padding-top: 0.5rem; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.contact-form input, .contact-form textarea, .contact-form select {
-  background: #fff;
-  border: 1.5px solid var(--mid);
-  color: var(--dark); padding: 0.95rem 1.2rem; border-radius: 8px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
-  outline: none; width: 100%; transition: border-color 0.2s, box-shadow 0.2s;
-  -webkit-appearance: none;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-}
-.contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--mid); }
-.contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(140,109,63,0.1);
-}
-.contact-form textarea { min-height: 140px; resize: vertical; }
-.contact-form label {
-  display: block; font-size: 0.65rem; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--stone);
-  margin-bottom: 0.4rem; font-weight: 400;
-}
-.contact-form .field { display: flex; flex-direction: column; }
-.btn-send {
-  background: var(--accent); color: #fff; border: none;
-  padding: 1rem 2.5rem; border-radius: 50px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-  cursor: pointer; align-self: flex-start; transition: background 0.25s;
-  margin-top: 0.5rem;
-}
-.btn-send:hover { background: var(--green-light); }
-
-/* ══ FOOTER ══ */
-footer {
-  background: #d6cfc4; padding: 2.5rem 4vw;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-}
-.footer-links { display: flex; gap: 2rem; }
-.footer-links a { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--dark); }
-.footer-copy { font-size: 0.7rem; color: var(--stone); }
-
-/* ══ MODAL ══ */
-.modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.85); z-index: 1000;
-  overflow-y: auto; -webkit-overflow-scrolling: touch;
-}
-.modal-overlay.open { display: block; }
-.modal {
-  background: #fff; width: calc(100% - 2rem); max-width: 860px;
-  margin: 3rem auto 4rem; position: relative;
-  border-radius: 12px; overflow: hidden;
-  animation: mIn 0.3s ease;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-}
-@keyframes mIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-.modal-close {
-  position: absolute; top: 12px; right: 12px; z-index: 10;
-  background: rgba(0,0,0,0.5); color: #fff; border: none;
-  width: 36px; height: 36px; border-radius: 50%;
-  font-size: 1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-}
-.modal-close:hover { background: rgba(0,0,0,0.8); }
-/* Modal slider */
-.modal-slider { position: relative; width: 100%; aspect-ratio: 16/7; overflow: hidden; background: var(--light); }
-.modal-slider-track { display: flex; height: 100%; transition: transform 0.4s ease; }
-.modal-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
-.modal-slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(1.1); }
-.modal-slide-ph { width: 100%; height: 100%; background: var(--off); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
-.modal-slide-ph span { font-size: 2rem; opacity: 0.3; }
-.modal-slide-ph p { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); }
-.slider-btn {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255,255,255,0.88); border: none; cursor: pointer;
-  width: 40px; height: 40px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; color: var(--dark); z-index: 5;
-  transition: background 0.2s; box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-}
-.slider-btn:hover { background: white; }
-.slider-btn.prev { left: 12px; }
-.slider-btn.next { right: 12px; }
-.slider-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
-.slider-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
-.slider-dot.active { background: white; }
-.modal-body { padding: 2.5rem 3rem 3rem; background: var(--white); }
-.modal-tag { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
-.modal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2rem; font-weight: 400; color: var(--dark); margin-bottom: 1rem; }
-.modal-feats { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
-.modal-feat { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--light); padding: 0.28rem 0.85rem; color: var(--stone); border-radius: 50px; }
-.modal-desc { font-size: 0.95rem; color: var(--stone); line-height: 1.88; margin-bottom: 2rem; max-width: 600px; }
-.modal-prices { margin-bottom: 2rem; }
-.modal-prices h4 { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.8rem; }
-.m-price-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--light); font-size: 0.9rem; }
-.m-price-row:last-child { border-bottom: none; }
-.m-period { color: var(--stone); }
-.m-amt { font-weight: 500; color: var(--dark); }
-.modal-cta-btn { background: var(--green); color: #fff; border: none; padding: 0.95rem 2.5rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
-.modal-cta-btn:hover { background: var(--green-light); }
-
-/* ══ RESPONSIVE ══ */
-@media (max-width: 1024px) {
-  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .about-img-accent { display: none; }
-  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .apt-grid { grid-template-columns: 1fr 1fr; }
-  .nav-links-desktop { display: none; }
-  .nav-burger { display: flex !important; }
-  .hero-meta { display: none; }
-  .section { padding: 5rem 0; }
-}
-@media (max-width: 768px) {
-  .apt-grid { grid-template-columns: 1fr; }
-  .apts-header { margin-bottom: 2rem; }
-  .landscape { height: 45vh; }
-  .form-row { grid-template-columns: 1fr; }
-  footer { flex-direction: column; text-align: center; gap: 1.5rem; }
-  .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
-  .modal-slider { aspect-ratio: 4/3; }
-}
-@media (max-width: 480px) {
-  .nav-bar { padding: 0 1rem; height: 62px; }
-  .section-inner { padding: 0 1.2rem; }
-  .hero-content { padding: 0 1.2rem 4vh; }
-  .modal-body { padding: 1.2rem; }
-  .modal-title { font-size: 1.5rem; }
-  .btn-send { width: 100%; text-align: center; align-self: stretch; }
-  .region-tab { padding: 0.8rem 1rem; font-size: 0.7rem; }
-}
-
-.nav-links-desktop li a span,
-.mobile-nav a span { display: inline !important; }
-.nav-links-desktop li a span.lang-en,
-.mobile-nav a span.lang-en { display: none !important; }
-body.en .nav-links-desktop li a span.lang-en,
-body.en .mobile-nav a span.lang-en { display: inline !important; }
-body.en .nav-links-desktop li a span.lang-de,
-body.en .mobile-nav a span.lang-de { display: none !important; }
-.lang-en { display: none !important; }
-body.en .lang-de { display: none !important; }
-body.en .lang-en { display: revert !important; }
-span.lang-en, em.lang-en, strong.lang-en, a.lang-en, li.lang-en, p.lang-en { display: none !important; }
-body.en span.lang-en, body.en em.lang-en, body.en strong.lang-en, body.en a.lang-en { display: inline !important; }
-body.en li.lang-en { display: list-item !important; }
-body.en p.lang-en { display: block !important; }
-body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de, body.en a.lang-de { display: none !important; }
-body.en li.lang-de, body.en p.lang-de { display: none !important; }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biochemie Prüfungssimulation</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4ff;color:#111;min-height:100vh}
+/* Home */
+.home{max-width:600px;margin:0 auto;padding:3rem 1.5rem;text-align:center}
+.home h1{font-size:1.75rem;font-weight:600;color:#1a1533;margin-bottom:.5rem}
+.home p{color:#6b7280;margin-bottom:2.5rem;font-size:.95rem}
+.cards{display:flex;flex-direction:column;gap:1rem}
+.card{background:#fff;border:1.5px solid #e5e3f5;border-radius:14px;padding:1.4rem 1.6rem;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s}
+.card:hover{border-color:#534AB7;box-shadow:0 2px 16px rgba(83,74,183,.12)}
+.card h2{font-size:1rem;font-weight:600;color:#1a1533;margin-bottom:.25rem}
+.card p{font-size:.82rem;color:#6b7280}
+.badge{display:inline-block;background:#eeedfb;color:#534AB7;font-size:.73rem;font-weight:600;padding:2px 9px;border-radius:20px;margin-bottom:.5rem}
+/* Exam */
+.exam-wrap{max-width:720px;margin:0 auto;padding:1.5rem}
+.exam-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem}
+.back-btn{background:none;border:none;cursor:pointer;color:#534AB7;font-size:.88rem;padding:6px 0;display:flex;align-items:center;gap:4px}
+.exam-title{font-size:1.2rem;font-weight:600;color:#1a1533}
+.exam-sub{font-size:.8rem;color:#6b7280;margin-top:2px}
+.question-block{background:#fff;border:1.5px solid #e5e3f5;border-radius:12px;padding:1.4rem;margin-bottom:1.25rem}
+.q-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.9rem}
+.q-num{font-size:.78rem;color:#6b7280;font-weight:500}
+.q-pts{font-size:.75rem;background:#f3f4f6;color:#374151;padding:2px 9px;border-radius:20px}
+.q-text{font-size:.9rem;line-height:1.6;color:#111;margin-bottom:1rem}
+.options{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:9px 13px;border:1.5px solid #e5e3f5;border-radius:8px;cursor:pointer;background:#fff;transition:background .1s,border-color .1s;user-select:none}
+.opt:hover{background:#f8f7ff}
+.opt.sel{background:#eeedfb;border-color:#534AB7}
+.opt.cor{background:#eaf3de;border-color:#3b6d11}
+.opt.wrg{background:#fcebeb;border-color:#a32d2d}
+.opt.mis{background:#faeeda;border-color:#854f0b}
+.opt-lbl{font-size:.78rem;font-weight:600;color:#6b7280;min-width:20px;padding-top:1px}
+.opt.sel .opt-lbl{color:#534AB7}
+.opt.cor .opt-lbl{color:#3b6d11}
+.opt.wrg .opt-lbl{color:#a32d2d}
+.opt.mis .opt-lbl{color:#854f0b}
+.opt-txt{font-size:.85rem;line-height:1.5}
+.q-result{margin-top:1rem;padding:12px 14px;background:#f9fafb;border-radius:8px;border:1px solid #e5e3f5}
+.q-pts-result{font-size:.8rem;font-weight:600;margin-bottom:6px}
+.q-explanation{font-size:.8rem;line-height:1.6;color:#374151}
+.submit-bar{position:sticky;bottom:0;background:linear-gradient(transparent,#f5f4ff 40%);padding:1rem 0 1.5rem}
+.submit-btn{width:100%;padding:13px;background:#534AB7;color:#fff;border:none;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .15s}
+.submit-btn:hover{background:#453db0}
+.submit-btn:disabled{background:#9ca3af;cursor:default}
+/* Results */
+.results{max-width:720px;margin:0 auto;padding:1.5rem}
+.score-card{background:#534AB7;color:#fff;border-radius:14px;padding:2rem;text-align:center;margin-bottom:1.5rem}
+.score-big{font-size:3rem;font-weight:600;line-height:1}
+.score-max{font-size:1rem;opacity:.75;margin-top:.3rem}
+.score-pct{font-size:1.1rem;margin-top:.75rem;opacity:.9}
+.score-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1.25rem}
+.stat{background:rgba(255,255,255,.15);border-radius:10px;padding:.75rem}
+.stat-val{font-size:1.3rem;font-weight:600}
+.stat-lbl{font-size:.72rem;opacity:.8;margin-top:2px}
+.results-questions{margin-bottom:2rem}
+.results-questions h2{font-size:1rem;font-weight:600;color:#1a1533;margin-bottom:1rem}
+.q-result-summary{background:#fff;border:1.5px solid #e5e3f5;border-radius:12px;padding:1.2rem;margin-bottom:.75rem}
+.qrs-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem}
+.qrs-num{font-size:.78rem;color:#6b7280}
+.qrs-pts{font-size:.85rem;font-weight:600}
+.qrs-pts.full{color:#3b6d11}
+.qrs-pts.partial{color:#854f0b}
+.qrs-pts.zero{color:#a32d2d}
+.qrs-text{font-size:.85rem;line-height:1.5;margin-bottom:.75rem;color:#1a1533}
+.qrs-opts{display:flex;flex-direction:column;gap:5px;margin-bottom:.75rem}
+.qrs-exp{font-size:.8rem;line-height:1.6;color:#374151;padding-top:.5rem;border-top:1px solid #f0f0f0}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.leg{display:flex;align-items:center;gap:6px;font-size:.75rem;color:#374151}
+.leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.leg-cor{background:#eaf3de;border:1.5px solid #3b6d11}
+.leg-wrg{background:#fcebeb;border:1.5px solid #a32d2d}
+.leg-mis{background:#faeeda;border:1.5px solid #854f0b}
+.restart-btn{width:100%;padding:13px;background:#fff;border:1.5px solid #534AB7;color:#534AB7;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;margin-bottom:1rem;transition:background .15s}
+.restart-btn:hover{background:#f5f4ff}
+</style>
 </head>
 <body>
-
-<!-- ══ NAV ══ -->
-
-<nav id="nav">
-  <div class="nav-bar">
-    <!-- Logo links -->
-    <a href="#" class="nav-logo" aria-label="Seeberghof">
-      <div class="logo-mark" id="logo-mark">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:hidden;">
-          <polyline points="2,36 12,16 20,28 28,18 42,36" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="logo-text" id="logo-text">
-        <div class="logo-name">SEEBERGHOF</div>
-        <div class="logo-sub">FUSCHL AM SEE</div>
-      </div>
-    </a>
-
-<!-- Desktop nav links -->
-<ul class="nav-links-desktop">
-  <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
-  <li><a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a></li>
-  <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
-  <li><a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a></li>
-  <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
-</ul>
-
-<!-- Right: DE/EN + burger -->
-<div class="nav-right">
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
-    <div class="lang-divider"></div>
-    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
-  </div>
-  <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
-    <span></span><span></span><span></span>
-  </button>
-</div>
-
-  </div>
-
-  <div class="mobile-nav">
-    <div class="mobile-lang">
-      <button class="active" id="mbtn-de" onclick="setLang('de')">DE</button>
-      <button id="mbtn-en" onclick="setLang('en')">EN</button>
-    </div>
-    <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
-    <a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a>
-    <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
-    <a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a>
-    <a href="#kontakt"><span class="lang-de">Kontakt & Anfrage</span><span class="lang-en">Contact & Enquiry</span></a>
-  </div>
-</nav>
-
-<!-- ══ HERO ══ -->
-
-<section class="hero">
-  <div class="hero-media">
-    <div class="hero-fallback"></div>
-    <div class="hero-video-wrap">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto">
-        <source src="seeberghof.mp4" type="video/mp4">
-      </video>
-      <div class="hero-blocker"></div>
-    </div>
-    <div class="hero-blocker"></div>
-    <div class="hero-overlay"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-text">
-      <h1 class="hero-title">
-        <span class="lang-de">Herzlich Willkommen<br>am Seeberghof</span>
-        <span class="lang-en">Welcome to<br>Seeberghof</span>
-      </h1>
-    </div>
-    <div class="hero-meta">
-      <strong>Fuschl am See</strong>
-      <span class="lang-de">Familiär geführter Bauernhof<br>Salzkammergut, Österreich</span>
-      <span class="lang-en">Family-run farm<br>Salzkammergut, Austria</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══ ÜBER UNS ══ -->
-
-<section class="section about-section" id="ueber-uns">
-  <div class="section-inner">
-    <div class="about-grid">
-      <div>
-        <p class="label">
-          <span class="lang-de">Unser Hof</span>
-          <span class="lang-en">Our Farm</span>
-        </p>
-        <h2 class="display-title">
-          <span class="lang-de">Erholung pur —<br><span class="title-accent">mitten in der Natur</span></span>
-          <span class="lang-en">Pure relaxation —<br><span class="title-accent">in the heart of nature</span></span>
-        </h2>
-        <div class="divider"></div>
-        <p class="body-text lang-de">Der Seeberghof liegt in Fuschl am See im Salzkammergut, eingebettet zwischen dem Schober mit seinem Nebengipfel Frauenkopf und dem türkisblauen Fuschlsee. Der öffentliche Badestrand und das Ortszentrum sind nur 800 Meter entfernt. Als familiengeführter Bauernhof legen wir Wert auf eine persönliche, herzliche Atmosphäre. Kinder haben draußen viel Platz, Erwachsene genießen die Ruhe und die Natur rund um den Hof.</p>
-        <p class="body-text lang-en">Seeberghof is located in Fuschl am See in the Salzkammergut, nestled between the Schober mountain with its secondary peak Frauenkopf and the turquoise Fuschlsee. The public bathing beach and the village centre are just 800 metres away. As a family-run farm, we value a personal and warm atmosphere. Children have plenty of space outside, while adults enjoy the peace and nature surrounding the farm.</p>
-        <div class="signature">— Mathilde Pöckl &amp; Familie</div>
-      </div>
-      <div>
-        <img src="Seeblick/Blick.JPG" alt="Blick auf den Fuschlsee" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;display:block;" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ GESCHICHTE ══ -->
-
-<section class="section" id="geschichte" style="background: #f5efe6;">
-  <div class="section-inner">
-    <div style="max-width: 780px; margin: 0 auto; text-align: center;">
-      <p class="label" style="justify-content: center; gap: 0;">
-        <span class="lang-de">Unsere Geschichte</span>
-        <span class="lang-en">Our Story</span>
-      </p>
-      <h2 class="display-title" style="margin-bottom: 2rem;">
-        <span class="lang-de">Seit <em style="color:var(--accent);font-style:normal">1950</em> am Fuschlsee</span>
-        <span class="lang-en">On the Fuschlsee <em style="color:var(--accent);font-style:normal">since 1950</em></span>
-      </h2>
-
-  <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--light); margin-bottom: 3rem; border-radius: 10px; overflow: hidden;">
-    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">1950</div>
-      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
-        <span class="lang-de">Gegründet</span><span class="lang-en">Founded</span>
-      </div>
-    </div>
-    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">2.</div>
-      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
-        <span class="lang-de">Generation</span><span class="lang-en">Generation</span>
-      </div>
-    </div>
-    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">♀</div>
-      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
-        <span class="lang-de">Von Frauen geführt</span><span class="lang-en">Women-led</span>
-      </div>
-    </div>
-  </div>
-
-  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.5rem;" class="lang-de">
-    Seit 1950 empfängt der Seeberghof Gäste am Fuschlsee. Gegründet von Maria und Peter Pöckl, wird er heute von Mathilde Pöckl in zweiter Generation geführt. Was einst ein aktiver Milchwirtschaftsbetrieb war, ist heute ein ruhiger Familienbauernhof im Salzkammergut. Viele Gäste kommen seit Jahrzehnten hierher und bringen heute bereits ihre eigenen Kinder und Enkelkinder mit. Für sie ist der Seeberghof längst ein zweites Zuhause.
-  </p>
-  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone);" class="lang-en">
-    Seeberghof has been welcoming guests on the Fuschlsee since 1950. Founded by Maria and Peter Pöckl, it is today run by Mathilde Pöckl in the second generation. What was once an active dairy farm is now a quiet family farm in the Salzkammergut. Many guests have been coming here for decades and today bring their own children and grandchildren with them. For them, the Seeberghof has long become a second home.
-  </p>
-
-  <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--light);">
-    <p style="font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--accent);">— Mathilde Pöckl &amp; Familie</p>
-  </div>
-</div>
-
-  </div>
-</section>
-
-<!-- ══ LANDSCAPE QUOTE ══ -->
-
-<div class="landscape">
-  <div class="landscape-img"></div>
-  <div class="landscape-content">
-    <blockquote class="landscape-quote">
-      <span class="lang-de">Sommerliche Leichtigkeit, kristallklares Wasser, frische Bergluft — willkommen im Salzkammergut.</span>
-      <span class="lang-en">Summer ease, crystal-clear water, fresh mountain air — welcome to the Salzkammergut.</span>
-    </blockquote>
-    <div class="landscape-line"></div>
-    <p class="landscape-cite">Seeberghof · Fuschl am See</p>
-  </div>
-</div>
-
-<!-- ══ FERIENWOHNUNGEN ══ -->
-
-<section class="section apts-section" id="ferienwohnungen" style="background: var(--white);">
-  <div class="section-inner">
-    <div class="apts-header">
-      <div>
-        <p class="label">
-          <span class="lang-de">Unterkunft</span>
-          <span class="lang-en">Accommodation</span>
-        </p>
-        <h2 class="display-title">
-          <span class="lang-de">Unsere <em style="color:var(--green);font-style:normal">Ferienwohnungen</em></span>
-          <span class="lang-en">Our <em style="color:var(--green);font-style:normal">Apartments</em></span>
-        </h2>
-      </div>
-      <p class="apts-note lang-de">Alle drei Wohnungen haben einen Balkon mit Blick auf die umliegenden Berge und den Fuschlsee sowie Zugang zu den gemeinsamen Freizeiteinrichtungen: Tischtennistisch, Gokart und Tischfußball. Klicken Sie für mehr Details &amp; Fotos.</p>
-      <p class="apts-note lang-en">All three apartments have a balcony with views of the surrounding mountains and the Fuschlsee, as well as access to the shared leisure facilities: table tennis, go-kart and table football. Click for more details &amp; photos.</p>
-    </div>
-
-<div class="apt-grid">
-  <!-- SCHOBER -->
-  <div class="apt-card" onclick="openModal('m-schober')">
-    <div class="apt-img-wrap">
-      <img class="apt-img" src="Schober/Blick Balkon 2.JPG" alt="Schober" />
-      <div class="apt-season-badge">ab € 72,–/Nacht</div>
-    </div>
-    <div class="apt-body">
-      <p class="apt-tag lang-de">40 m² · 2 Personen</p>
-      <p class="apt-tag lang-en">40 m² · 2 Persons</p>
-      <h3 class="apt-name">Schober</h3>
-      <div class="apt-feats">
-        <span class="apt-feat lang-de">1 Schlafzimmer</span><span class="apt-feat lang-en">1 Bedroom</span>
-        <span class="apt-feat lang-de">Küche</span><span class="apt-feat lang-en">Kitchen</span>
-        <span class="apt-feat lang-de">Dusche &amp; WC</span><span class="apt-feat lang-en">Shower &amp; WC</span>
-        <span class="apt-feat">Balkon · Seeblick</span>
-      </div>
-      <div class="apt-prices">
-        <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 72,–</span></div>
-        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 80,–</span></div>
-      </div>
-      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
-    </div>
-  </div>
-
-  <!-- SEEBLICK -->
-  <div class="apt-card" onclick="openModal('m-seeblick')">
-    <div class="apt-img-wrap">
-      <img class="apt-img" src="Seeblick/Wohnzimmer 1.JPG" alt="Seeblick" />
-      <div class="apt-season-badge">ab € 88,–/Nacht</div>
-    </div>
-    <div class="apt-body">
-      <p class="apt-tag lang-de">70 m² · 2–6 Personen</p>
-      <p class="apt-tag lang-en">70 m² · 2–6 Persons</p>
-      <h3 class="apt-name">Seeblick</h3>
-      <div class="apt-feats">
-        <span class="apt-feat lang-de">2 Schlafzimmer</span><span class="apt-feat lang-en">2 Bedrooms</span>
-        <span class="apt-feat lang-de">Küche</span><span class="apt-feat lang-en">Kitchen</span>
-        <span class="apt-feat lang-de">Dusche &amp; WC getrennt</span><span class="apt-feat lang-en">Separate shower &amp; WC</span>
-        <span class="apt-feat">Balkon · Seeblick</span>
-      </div>
-      <div class="apt-prices">
-        <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 88,–</span></div>
-        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 95,–</span></div>
-      </div>
-      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
-    </div>
-  </div>
-
-  <!-- SCHAFBERG -->
-  <div class="apt-card" onclick="openModal('m-schafberg')">
-    <div class="apt-img-wrap">
-      <img class="apt-img" src="Schafberg/Balkon.JPG" alt="Schafberg" />
-      <div class="apt-season-badge">ab € 95,–/Nacht</div>
-    </div>
-    <div class="apt-body">
-      <p class="apt-tag lang-de">90 m² · 2–8 Personen</p>
-      <p class="apt-tag lang-en">90 m² · 2–8 Persons</p>
-      <h3 class="apt-name">Schafberg</h3>
-      <div class="apt-feats">
-        <span class="apt-feat lang-de">3 Schlafzimmer</span><span class="apt-feat lang-en">3 Bedrooms</span>
-        <span class="apt-feat lang-de">Küche</span><span class="apt-feat lang-en">Kitchen</span>
-        <span class="apt-feat lang-de">Dusche &amp; WC getrennt</span><span class="apt-feat lang-en">Separate shower &amp; WC</span>
-        <span class="apt-feat">Balkon · Seeblick</span>
-      </div>
-      <div class="apt-prices">
-        <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 95,–</span></div>
-        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 100,–</span></div>
-      </div>
-      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
-    </div>
-  </div>
-</div>
-
-<div class="info-row">
-  <div class="info-cell"><strong><span class="lang-de">Ortstaxe</span><span class="lang-en">Tourist tax</span></strong><span class="lang-de">Wird zusätzlich zum Mietpreis verrechnet</span><span class="lang-en">Charged in addition to the rental price</span></div>
-  <div class="info-cell"><strong><span class="lang-de">Endreinigung</span><span class="lang-en">Final cleaning</span></strong>€ 40,– <span class="lang-de">bis</span><span class="lang-en">to</span> € 50,–</div>
-  <div class="info-cell"><strong><span class="lang-de">Kinderermäßigung</span><span class="lang-en">Child discount</span></strong><span class="lang-de">Auf Anfrage</span><span class="lang-en">On request</span></div>
-  <div class="info-cell"><strong><span class="lang-de">Haustiere</span><span class="lang-en">Pets</span></strong><span class="lang-de">Auf Anfrage</span><span class="lang-en">On request</span></div>
-</div>
-
-  </div>
-</section>
-
-<!-- ══ SEHENSWÜRDIGKEITEN ══ -->
-
-<section class="section region-section" id="region" style="background: #f0ece4;">
-  <div class="section-inner">
-    <p class="label">
-      <span class="lang-de">Die Region</span>
-      <span class="lang-en">The Region</span>
-    </p>
-    <h2 class="display-title" style="margin-bottom:0.5rem">
-      <span class="lang-de">Rund um den <em style="color:var(--green);font-style:normal">Fuschlsee</em></span>
-      <span class="lang-en">Around the <em style="color:var(--green);font-style:normal">Fuschlsee</em></span>
-    </h2>
-    <p class="body-text" style="margin-bottom:2.5rem">
-      <span class="lang-de">Vom Seeberghof aus erreichen Sie einige der schönsten Orte des Salzkammerguts bequem mit dem Auto.</span>
-      <span class="lang-en">From Seeberghof, some of the most beautiful places in the Salzkammergut are easily reached by car.</span>
-    </p>
-
-<div class="region-tabs">
-  <button class="region-tab active" onclick="showRegion('fuschl',this)">Fuschl am See <span class="tab-dist">· vor Ort</span></button>
-  <button class="region-tab" onclick="showRegion('salzburg',this)">Salzburg <span class="tab-dist">· ca. 25 min</span></button>
-  <button class="region-tab" onclick="showRegion('bad-ischl',this)">Bad Ischl <span class="tab-dist">· ca. 30 min</span></button>
-  <button class="region-tab" onclick="showRegion('wolfgangsee',this)">Wolfgangsee <span class="tab-dist">· ca. 10 min</span></button>
-  <button class="region-tab" onclick="showRegion('hallstatt',this)">Hallstatt <span class="tab-dist">· ca. 60 min</span></button>
-  <button class="region-tab" onclick="showRegion('mondsee',this)">Mondsee <span class="tab-dist">· ca. 20 min</span></button>
-</div>
-
-<!-- FUSCHL AM SEE -->
-<div class="region-panel active" id="panel-fuschl">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Golfclub Waldhof</h4></div>
-      <span class="sight-tag">Sport</span>
-      <p class="lang-de">9-Loch-Golfplatz direkt am Fuschlsee — ideal für Anfänger und Profis, mit Driving Range und der gemütlichen Waldhof-Alm.</p>
-      <p class="lang-en">9-hole golf course right on the Fuschlsee — ideal for beginners and pros, with driving range and the cosy Waldhof Alm.</p>
-      <a class="sight-link" href="https://www.golfclub-waldhof.at" target="_blank" rel="noopener">golfclub-waldhof.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Frauenkopf</h4></div>
-      <span class="sight-tag">Wandern</span>
-      <p class="lang-de">Beliebtes Wanderziel direkt über dem Fuschlsee — auch für Familien geeignet, mit wunderschönem Ausblick auf See und Bergwelt.</p>
-      <p class="lang-en">Popular hiking destination above the Fuschlsee — suitable for families, with beautiful views over the lake and mountains.</p>
-      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Schober</h4></div>
-      <span class="sight-tag">Wandern</span>
-      <p class="lang-de">Der Hausberg des Fuschlsees — vom Seeberghof aus sichtbar. Herrliche Wanderung mit atemberaubendem Blick über See und Alpen.</p>
-      <p class="lang-en">The local mountain of the Fuschlsee — visible from the Seeberghof. A wonderful hike with breathtaking views over the lake and Alps.</p>
-      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Rumingmühle</h4></div>
-      <span class="sight-tag">Gastronomie</span>
-      <p class="lang-de">Über 150 Jahre alte Mühle direkt am Fuschlsee — berühmt für frisch gebackene Krapfen. Im Sommer di., fr. und sa. nachmittags geöffnet.</p>
-      <p class="lang-en">Over 150-year-old mill right on the Fuschlsee — famous for freshly baked Krapfen. Open in summer on Tue, Fri and Sat afternoons.</p>
-      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
-    </div>
-  </div>
-</div>
-
-    <!-- BAD ISCHL -->
-<div class="region-panel" id="panel-bad-ischl">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Café Zauner</h4></div>
-      <span class="sight-tag">Gastronomie</span>
-      <p class="lang-de">Eine der bekanntesten Konditoreien Österreichs seit 1832 — legendärer Zaunerstollen und kaiserliche Mehlspeisen. Absolutes Muss!</p>
-      <p class="lang-en">One of Austria's most famous patisseries since 1832 — legendary Zaunerstollen and imperial pastries. An absolute must!</p>
-      <a class="sight-link" href="https://www.zauner.at" target="_blank" rel="noopener">zauner.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Kaiservilla</span><span class="lang-en">Imperial Villa</span></h4></div>
-      <span class="sight-tag">Museum</span>
-      <p class="lang-de">Sommerresidenz von Kaiser Franz Joseph I. — über 60 Jahre kaiserliche Sommerfrische. Heute Museum mit kaiserlichen Erinnerungsstücken.</p>
-      <p class="lang-en">Summer residence of Emperor Franz Joseph I. for over 60 years. Today a museum with imperial memorabilia and beautiful park.</p>
-      <a class="sight-link" href="https://www.kaiservilla.at" target="_blank" rel="noopener">kaiservilla.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Katrinseilbahn</h4></div>
-      <span class="sight-tag">Natur</span>
-      <p class="lang-de">Gondelbahn auf den 1.400 m hohen Katrinberg — Wanderwege, Almwiesen und Panoramablick über das Salzkammergut.</p>
-      <p class="lang-en">Cable car up to the 1,400 m Katrin mountain — hiking trails, alpine meadows and panoramic views over the Salzkammergut.</p>
-      <a class="sight-link" href="https://www.katrinseilbahn.com" target="_blank" rel="noopener">katrinseilbahn.com</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Leharvilla</h4></div>
-      <span class="sight-tag">Museum</span>
-      <p class="lang-de">Sommerresidenz des Operettenkomponisten Franz Lehár — stilvoll restauriertes Museum direkt am Ufer der Traun in Bad Ischl.</p>
-      <p class="lang-en">Summer residence of operetta composer Franz Lehár — elegantly restored museum on the banks of the Traun in Bad Ischl.</p>
-      <a class="sight-link" href="https://www.stadtmuseum.at/leharvilla" target="_blank" rel="noopener">stadtmuseum.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- SALZBURG -->
-<div class="region-panel" id="panel-salzburg">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Festung Hohensalzburg</span><span class="lang-en">Hohensalzburg Fortress</span></h4></div>
-      <span class="sight-tag">Kultur</span>
-      <p class="lang-de">Eine der größten erhaltenen Burganlagen Europas, erbaut 1077 — mit Panoramablick über Salzburg und die Alpen.</p>
-      <p class="lang-en">One of Europe's largest preserved fortresses, built in 1077 — with panoramic views over Salzburg and the Alps.</p>
-      <a class="sight-link" href="https://www.festung-hohensalzburg.at" target="_blank" rel="noopener">festung-hohensalzburg.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Mozarts Geburtshaus</span><span class="lang-en">Mozart's Birthplace</span></h4></div>
-      <span class="sight-tag">Museum</span>
-      <p class="lang-de">Getreidegasse 9 — hier wurde Mozart 1756 geboren. Museum mit Originalinstrumenten, Portraits und persönlichen Gegenständen.</p>
-      <p class="lang-en">Getreidegasse 9 — where Mozart was born in 1756. Museum with original instruments, portraits and personal items.</p>
-      <a class="sight-link" href="https://mozarteum.at/mozart-museen/mozarts-geburtshaus" target="_blank" rel="noopener">mozarteum.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Museum der Moderne</h4></div>
-      <span class="sight-tag">Kunst</span>
-      <p class="lang-de">Zeitgenössische und moderne Kunst auf dem Mönchsberg — mit atemberaubendem Blick über die Salzburger Altstadt.</p>
-      <p class="lang-en">Contemporary and modern art on the Mönchsberg — with breathtaking views over Salzburg's old town.</p>
-      <a class="sight-link" href="https://www.museumdermoderne.at" target="_blank" rel="noopener">museumdermoderne.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Dom zu Salzburg</span><span class="lang-en">Salzburg Cathedral</span></h4></div>
-      <span class="sight-tag">Kultur</span>
-      <p class="lang-de">Der frühbarocke Dom am Domplatz — eines der bedeutendsten Sakralgebäude Österreichs mit beeindruckender Orgel und Kuppelgemälden.</p>
-      <p class="lang-en">The early baroque cathedral on Domplatz — one of Austria's most important religious buildings with a magnificent organ and dome paintings.</p>
-      <a class="sight-link" href="https://www.salzburger-dom.at" target="_blank" rel="noopener">salzburger-dom.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- WOLFGANGSEE -->
-<div class="region-panel" id="panel-wolfgangsee">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Schafbergbahn</span><span class="lang-en">Schafberg Railway</span></h4></div>
-      <span class="sight-tag">Ausflug</span>
-      <p class="lang-de">Historische Zahnradbahn seit 1893 auf den 1.783 m hohen Schafberg — Blick auf bis zu 13 Seen des Salzkammerguts.</p>
-      <p class="lang-en">Historic rack railway since 1893 to the 1,783 m Schafberg — views of up to 13 lakes in the Salzkammergut.</p>
-      <a class="sight-link" href="https://www.5schaetze.at" target="_blank" rel="noopener">5schaetze.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Wolfgangsee Schifffahrt</span><span class="lang-en">Lake Wolfgang Boats</span></h4></div>
-      <span class="sight-tag">Ausflug</span>
-      <p class="lang-de">Schifffahrt zwischen St. Wolfgang, St. Gilgen und Strobl — das Salzkammergut entspannt vom Wasser aus erleben.</p>
-      <p class="lang-en">Ferry between St. Wolfgang, St. Gilgen and Strobl — experience the Salzkammergut from the water.</p>
-      <a class="sight-link" href="https://www.schifffahrt-am-wolfgangsee.at" target="_blank" rel="noopener">schifffahrt-am-wolfgangsee.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>St. Wolfgang</h4></div>
-      <span class="sight-tag">Ortschaft</span>
-      <p class="lang-de">Malerischer Ort am Wolfgangsee — mit der berühmten Wallfahrtskirche, dem Weißen Rössl und einer schönen Seepromenade.</p>
-      <p class="lang-en">Picturesque village on the Wolfgangsee — with the famous pilgrimage church, the White Horse Inn and a beautiful lakeside promenade.</p>
-      <a class="sight-link" href="https://wolfgangsee.salzkammergut.at" target="_blank" rel="noopener">wolfgangsee.salzkammergut.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Postalm</h4></div>
-      <span class="sight-tag">Natur</span>
-      <p class="lang-de">Das größte zusammenhängende Almgebiet Österreichs — ein weites Hochplateau über dem Wolfgangsee, ideal zum Wandern und Biken.</p>
-      <p class="lang-en">Austria's largest contiguous alpine pasture — a vast high plateau above the Wolfgangsee, ideal for hiking and cycling.</p>
-      <a class="sight-link" href="https://www.postalm.at" target="_blank" rel="noopener">postalm.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Abarena</h4></div>
-      <span class="sight-tag">Freizeit</span>
-      <p class="lang-de">Allwetter-Freizeitpark in Abersee — Minigolf, Klettern, Boote und mehr. Ideal für Familien auch bei schlechtem Wetter.</p>
-      <p class="lang-en">All-weather leisure park in Abersee — mini golf, climbing, boats and more. Ideal for families in any weather.</p>
-      <a class="sight-link" href="https://www.abarena.at" target="_blank" rel="noopener">abarena.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- HALLSTATT -->
-<div class="region-panel" id="panel-hallstatt">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Salzbergwerk</span><span class="lang-en">Salt Mine</span></h4></div>
-      <span class="sight-tag">Ausflug</span>
-      <p class="lang-de">Das älteste Salzbergwerk der Welt — seit über 7.000 Jahren. Bergmanns-Zug, Rutschen und unterirdischer Salzsee.</p>
-      <p class="lang-en">The world's oldest salt mine — for over 7,000 years. Miners' train, slides and underground salt lake.</p>
-      <a class="sight-link" href="https://www.salzwelten.at" target="_blank" rel="noopener">salzwelten.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Beinhaus</span><span class="lang-en">Bone House</span></h4></div>
-      <span class="sight-tag">Historisch</span>
-      <p class="lang-de">Einzigartiges Beinhaus in der St.-Michaels-Kapelle — 1.200 bemalte Schädel aus dem 12. Jahrhundert.</p>
-      <p class="lang-en">Unique charnel house in St. Michael's Chapel — 1,200 painted skulls from the 12th century.</p>
-      <a class="sight-link" href="https://beinhaus.hallstatt.net" target="_blank" rel="noopener">beinhaus.hallstatt.net</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Ortszentrum</span><span class="lang-en">Village Centre</span></h4></div>
-      <span class="sight-tag">Spaziergang</span>
-      <p class="lang-de">Eines der schönsten Dörfer der Welt — UNESCO-Welterbe mit farbenprächtigen Häusern, engen Gassen und traumhaftem Seeblick.</p>
-      <p class="lang-en">One of the most beautiful villages in the world — UNESCO World Heritage with colourful houses, narrow lanes and stunning lake views.</p>
-      <a class="sight-link" href="https://www.hallstatt.net" target="_blank" rel="noopener">hallstatt.net</a>
-    </div>
-  </div>
-</div>
-
-<!-- MONDSEE -->
-<div class="region-panel" id="panel-mondsee">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Basilika St. Michael</span><span class="lang-en">Basilica St. Michael</span></h4></div>
-      <span class="sight-tag">Kultur</span>
-      <p class="lang-de">Weltberühmt durch „The Sound of Music" — hier wurde die Hochzeitsszene gedreht. Prachtvoller vergoldeter Barockaltar.</p>
-      <p class="lang-en">World-famous through "The Sound of Music" — the wedding scene was filmed here. Magnificent gilded baroque altar.</p>
-      <a class="sight-link" href="https://www.pfarre-mondsee.at" target="_blank" rel="noopener">pfarre-mondsee.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Mondsee Baden</span><span class="lang-en">Mondsee Swimming</span></h4></div>
-      <span class="sight-tag">Natur</span>
-      <p class="lang-de">Einer der wärmsten Seen des Salzkammerguts — perfekt zum Baden im Sommer, mit Liegewiesen und Blick auf die Drachenwand.</p>
-      <p class="lang-en">One of the warmest lakes in the Salzkammergut — perfect for swimming, with lawns and views of the Drachenwand rock face.</p>
-      <a class="sight-link" href="https://www.mondsee.at" target="_blank" rel="noopener">mondsee.at</a>
-    </div>
-  </div>
-</div>
-
-  </div>
-</section>
-
-<!-- ══ KONTAKT ══ -->
-
-<section class="section contact-section" id="kontakt">
-  <div class="section-inner">
-    <div class="contact-grid">
-      <div>
-        <p class="label">
-          <span class="lang-de">Kontakt &amp; Anfrage</span>
-          <span class="lang-en">Contact &amp; Enquiry</span>
-        </p>
-        <h2 class="display-title contact-title">
-          <span class="lang-de">Wir freuen uns<br><em>auf Sie</em></span>
-          <span class="lang-en">We look forward<br><em>to welcoming you</em></span>
-        </h2>
-        <p class="body-text contact-body-text lang-de">Haben Sie Fragen zu Verfügbarkeit, Preisen oder Anreise? Schreiben Sie uns — wir antworten persönlich und unkompliziert.</p>
-        <p class="body-text contact-body-text lang-en">Questions about availability, prices or getting here? Write to us — we reply personally and without fuss.</p>
-        <div class="contact-details">
-          <div class="c-row"><span class="c-icon lang-de">Adresse</span><span class="c-icon lang-en">Address</span><div class="c-text">Seestraße 88<br>5330 Fuschl am See, Österreich</div></div>
-          <div class="c-row"><span class="c-icon lang-de">Telefon</span><span class="c-icon lang-en">Phone</span><div class="c-text"><a href="tel:+4362268313">+43 6226 8313</a><br><a href="tel:+436644355160">+43 664 4355160</a></div></div>
-          <div class="c-row"><span class="c-icon">E-Mail</span><div class="c-text"><a href="mailto:seeberghof.fuschl@gmail.com">seeberghof.fuschl@gmail.com</a></div></div>
-          <div class="c-row"><span class="c-icon lang-de">Kontakt</span><span class="c-icon lang-en">Contact</span><div class="c-text">Mathilde Pöckl</div></div>
-        </div>
-      </div>
-      <div>
-        <form class="contact-form" action="https://formspree.io/f/DEINE_ID_HIER" method="POST">
-          <input type="hidden" name="_subject" value="Neue Buchungsanfrage – Seeberghof" />
-          <input type="hidden" name="_next" value="https://www.annaluciasams.com/#kontakt" />
-          <input type="text" name="_gotcha" style="display:none" />
-          <div class="form-row">
-            <div class="field">
-              <label><span class="lang-de">Name</span><span class="lang-en">Name</span></label>
-              <input type="text" name="Name" required data-de="Ihr Name" data-en="Your name" placeholder="Ihr Name" />
-            </div>
-            <div class="field">
-              <label>E-Mail</label>
-              <input type="email" name="E-Mail" required data-de="Ihre E-Mail" data-en="Your e-mail" placeholder="Ihre E-Mail" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="field">
-              <label><span class="lang-de">Telefon</span><span class="lang-en">Phone</span></label>
-              <input type="tel" name="Telefon" data-de="Ihre Telefonnummer" data-en="Your phone number" placeholder="Ihre Telefonnummer" />
-            </div>
-            <div class="field">
-              <label><span class="lang-de">Personen</span><span class="lang-en">Guests</span></label>
-              <input type="number" name="Personenanzahl" min="1" max="12" data-de="Anzahl Personen" data-en="Number of guests" placeholder="Anzahl Personen" />
-            </div>
-          </div>
-          <div class="field">
-            <label><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span></label>
-            <select name="Ferienwohnung" required>
-              <option value="" disabled selected>Bitte wählen …</option>
-              <option value="Schober (40 m², 2 Personen)">Schober (40 m², 2 Personen)</option>
-              <option value="Seeblick (70 m², 2–6 Personen)">Seeblick (70 m², 2–6 Personen)</option>
-              <option value="Schafberg (90 m², 2–8 Personen)">Schafberg (90 m², 2–8 Personen)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label><span class="lang-de">Reisezeitraum</span><span class="lang-en">Travel dates</span></label>
-            <input type="text" name="Reisezeitraum" required data-de="z.B. 10.–17. Juli 2026" data-en="e.g. 10–17 July 2026" placeholder="z.B. 10.–17. Juli 2026" />
-          </div>
-          <div class="field">
-            <label><span class="lang-de">Nachricht</span><span class="lang-en">Message</span></label>
-            <textarea name="Nachricht" data-de="Haustiere, Wünsche, Fragen …" data-en="Pets, wishes, questions …" placeholder="Haustiere, Wünsche, Fragen …"></textarea>
-          </div>
-          <button type="submit" class="btn-send">
-            <span class="lang-de">Anfrage senden →</span>
-            <span class="lang-en">Send enquiry →</span>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FOOTER ══ -->
-
-<footer>
-  <svg width="180" height="48" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:hidden;">
-    <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="#8c6d3f" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-    <polygon points="4,38 16,16 26,30 34,20 46,38" fill="#8c6d3f" opacity="0.08"/>
-    <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="#33281c" letter-spacing="2.5">SEEBERGHOF</text>
-    <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="#8a7d6c" letter-spacing="4">FUSCHL AM SEE</text>
-  </svg>
-  <div class="footer-links">
-    <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
-    <a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a>
-    <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
-    <a href="#kontakt">Kontakt</a>
-  </div>
-  <div style="text-align:right;">
-    <p class="footer-copy">© 2026 Seeberghof · Familie Pöckl · Fuschl am See</p>
-    <p class="footer-copy" style="margin-top:0.4rem;">Design &amp; Fotos: Anna Lucia Sams</p>
-  </div>
-</footer>
-
-<!-- ══ MODALS ══ -->
-
-<div class="modal-overlay" id="m-schober">
-  <button class="modal-close" onclick="closeModal('m-schober')">✕</button>
-  <div class="modal">
-    <div class="modal-slider" id="slider-schober">
-      <div class="modal-slider-track" id="track-schober">
-        <div class="modal-slide"><img src="Schober/Blick Balkon 2.JPG" alt="Schober – Aussicht" /></div>
-        <div class="modal-slide"><img src="Schober/Schlafzimmer 1.JPG" alt="Schober – Schlafzimmer" /></div>
-        <div class="modal-slide"><img src="Schober/Kueche 1.JPG" alt="Schober – Küche" /></div>
-        <div class="modal-slide"><img src="Schober/Badezimmer.JPG" alt="Schober – Badezimmer" /></div>
-      </div>
-      <button class="slider-btn prev" onclick="slideModal('schober', -1)">&#8592;</button>
-      <button class="slider-btn next" onclick="slideModal('schober', 1)">&#8594;</button>
-      <div class="slider-dots" id="dots-schober">
-        <button class="slider-dot active" onclick="goSlide('schober',0)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',1)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',2)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',3)"></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-tag lang-de">40 m² · 2 Personen</p><p class="modal-tag lang-en">40 m² · 2 Persons</p>
-      <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schober</h2>
-      <div class="modal-feats">
-        <span class="modal-feat lang-de">2 Personen</span><span class="modal-feat lang-en">2 Persons</span>
-        <span class="modal-feat lang-de">1 Schlafzimmer</span><span class="modal-feat lang-en">1 Bedroom</span>
-        <span class="modal-feat lang-de">Küche</span><span class="modal-feat lang-en">Kitchen</span>
-        <span class="modal-feat lang-de">Dusche &amp; WC</span><span class="modal-feat lang-en">Shower &amp; WC</span>
-        <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
-        <span class="modal-feat">Seeblick</span>
-      </div>
-      <p class="modal-desc lang-de">Gemütliche Wohnung für 2 Personen mit einem Schlafzimmer, vollausgestatteter Küche mit Geschirrspüler und Bad. Ideal für Paare, die Ruhe und Natur suchen.</p>
-      <p class="modal-desc lang-en">Cosy apartment for 2 people with one bedroom, fully equipped kitchen with dishwasher and bathroom. Ideal for couples looking for peace and nature.</p>
-      <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 72,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 80,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 72,–</span></div>
-      </div></div>
-      </div>
-      <button class="modal-cta-btn" onclick="closeModal('m-schober');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
-        <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="m-seeblick">
-  <button class="modal-close" onclick="closeModal('m-seeblick')">✕</button>
-  <div class="modal">
-    <div class="modal-slider" id="slider-seeblick">
-      <div class="modal-slider-track" id="track-seeblick">
-        <div class="modal-slide"><img src="Seeblick/Balkon.JPG" alt="Seeblick – Balkon" /></div>
-        <div class="modal-slide"><img src="Seeblick/Wohnzimmer 1.JPG" alt="Seeblick – Wohnzimmer" /></div>
-        <div class="modal-slide"><img src="Seeblick/Schlafzimmer 1.JPG" alt="Seeblick – Schlafzimmer" /></div>
-        <div class="modal-slide"><img src="Seeblick/Kinderzimmer.JPG" alt="Seeblick – Kinderzimmer" /></div>
-        <div class="modal-slide"><img src="Seeblick/Kueche 1.JPG" alt="Seeblick – Küche" /></div>
-        <div class="modal-slide"><img src="Seeblick/Badezimmer.JPG" alt="Seeblick – Badezimmer" /></div>
-      </div>
-      <button class="slider-btn prev" onclick="slideModal('seeblick', -1)">&#8592;</button>
-      <button class="slider-btn next" onclick="slideModal('seeblick', 1)">&#8594;</button>
-      <div class="slider-dots" id="dots-seeblick">
-        <button class="slider-dot active" onclick="goSlide('seeblick',0)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',1)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',2)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',3)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',4)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',5)"></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-tag lang-de">70 m² · 2–6 Personen</p><p class="modal-tag lang-en">70 m² · 2–6 Persons</p>
-      <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Seeblick</h2>
-      <div class="modal-feats">
-        <span class="modal-feat lang-de">2–6 Personen</span><span class="modal-feat lang-en">2–6 Persons</span>
-        <span class="modal-feat lang-de">2 Schlafzimmer</span><span class="modal-feat lang-en">2 Bedrooms</span>
-        <span class="modal-feat lang-de">Küche</span><span class="modal-feat lang-en">Kitchen</span>
-        <span class="modal-feat lang-de">Dusche &amp; WC getrennt</span><span class="modal-feat lang-en">Separate shower &amp; WC</span>
-        <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
-        <span class="modal-feat">Seeblick</span>
-      </div>
-      <p class="modal-desc lang-de">Geräumige Familienwohnung mit Schlafzimmer, separatem Kinderzimmer, Wohnzimmer, vollausgestatteter Küche mit Geschirrspüler sowie getrenntem WC und Bad. Perfekt für Familien mit Kindern.</p>
-      <p class="modal-desc lang-en">Spacious family apartment with bedroom, separate children's room, living room, fully equipped kitchen with dishwasher, as well as separate WC and bathroom. Perfect for families with children.</p>
-      <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 88,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 95,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 88,–</span></div>
-      </div></div>
-      </div>
-      <button class="modal-cta-btn" onclick="closeModal('m-seeblick');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
-        <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="m-schafberg">
-  <button class="modal-close" onclick="closeModal('m-schafberg')">✕</button>
-  <div class="modal">
-    <div class="modal-slider" id="slider-schafberg">
-      <div class="modal-slider-track" id="track-schafberg">
-        <div class="modal-slide"><img src="Schafberg/Balkon.JPG" alt="Schafberg – Balkon" /></div>
-        <div class="modal-slide"><img src="Schafberg/Schlafzimmer 1.JPG" alt="Schafberg – Schlafzimmer" /></div>
-        <div class="modal-slide"><img src="Schafberg/Schlafzimmer 2.JPG" alt="Schafberg – Schlafzimmer" /></div>
-        <div class="modal-slide"><img src="Schafberg/Kueche 1.JPG" alt="Schafberg – Küche" /></div>
-        <div class="modal-slide"><img src="Schafberg/Badezimmer.JPG" alt="Schafberg – Badezimmer" /></div>
-      </div>
-      <button class="slider-btn prev" onclick="slideModal('schafberg', -1)">&#8592;</button>
-      <button class="slider-btn next" onclick="slideModal('schafberg', 1)">&#8594;</button>
-      <div class="slider-dots" id="dots-schafberg">
-        <button class="slider-dot active" onclick="goSlide('schafberg',0)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',1)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',2)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',3)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',4)"></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-tag lang-de">90 m² · 2–8 Personen</p><p class="modal-tag lang-en">90 m² · 2–8 Persons</p>
-      <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schafberg</h2>
-      <div class="modal-feats">
-        <span class="modal-feat lang-de">2–8 Personen</span><span class="modal-feat lang-en">2–8 Persons</span>
-        <span class="modal-feat lang-de">3 Schlafzimmer</span><span class="modal-feat lang-en">3 Bedrooms</span>
-        <span class="modal-feat lang-de">Küche</span><span class="modal-feat lang-en">Kitchen</span>
-        <span class="modal-feat lang-de">Dusche &amp; WC getrennt</span><span class="modal-feat lang-en">Separate shower &amp; WC</span>
-        <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
-        <span class="modal-feat">Seeblick</span>
-      </div>
-      <p class="modal-desc lang-de">Unsere größte Wohnung mit zwei Schlafzimmern, Kinderzimmer, Wohnzimmer, vollausgestatteter Küche mit Geschirrspüler sowie getrenntem WC und Bad. Viel Platz für die ganze Familie.</p>
-      <p class="modal-desc lang-en">Our largest apartment with two bedrooms, children's room, living room, fully equipped kitchen with dishwasher, as well as separate WC and bathroom. Plenty of space for the whole family.</p>
-      <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 95,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 100,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 95,–</span></div>
-      </div></div>
-      </div>
-      <button class="modal-cta-btn" onclick="closeModal('m-schafberg');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
-        <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
-      </button>
-    </div>
-  </div>
-</div>
-
+<div id="app"></div>
 <script>
+var L="ABCDEFGH";
 
-  // Modal sliders
-  const sliderState = {};
-  function initSlider(id) {
-    if (!sliderState[id]) sliderState[id] = 0;
-  }
-  function slideModal(id, dir) {
-    initSlider(id);
-    const track = document.getElementById('track-' + id);
-    const count = track.children.length;
-    sliderState[id] = (sliderState[id] + dir + count) % count;
-    updateSlider(id);
-  }
-  function goSlide(id, idx) {
-    initSlider(id);
-    sliderState[id] = idx;
-    updateSlider(id);
-  }
-  function updateSlider(id) {
-    const track = document.getElementById('track-' + id);
-    track.style.transform = 'translateX(-' + (sliderState[id] * 100) + '%)';
-    document.querySelectorAll('#dots-' + id + ' .slider-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === sliderState[id]);
+var EXAMS=[
+{
+title:"Beispielprüfung 1",
+qs:[
+{q:"Welche Basenpaarung findet man in komplementären RNA Strängen? Bitte kreuzen Sie die Richtigen an.",
+o:["G-T","G-C","G-U","A-C","G-A","A-U","U-A","A-A"],
+c:[1,2,5,6],
+e:"In RNA gibt es kein Thymin (T), nur Uracil (U). Komplementäre Paarungen: G-C (Watson-Crick), A-U (Watson-Crick), G-U (Wobble-Paarung, kommt in RNA vor). U-A ist dieselbe Paarung wie A-U, nur umgekehrt geschrieben – ebenfalls korrekt."},
+{q:"Welche Aussagen treffen auf den \"Warburg Effekt\" in Krebszellen zu? Bitte kreuzen Sie die richtigen Antworten an.",
+o:["Krebszellen haben durch den \"Warburg Effekt\" einen Nachteil, sie können weniger Membranen machen.","Tumore haben einen Vorteil bei Hypoxie, da sie keine neuen Blutgefäße bilden können.","Krebszellen haben durch den \"Warburg Effekt\" einen Vorteil, da sie mehr Membranen machen können.","Der „Warburg Effekt" findet in der Zellmembran statt und dabei wird viel ATP gebildet.","Tumore haben einen Vorteil bei Hypoxie, da sie neue Blutgefäße bilden können.","Der „Warburg Effekt" wird auch anaerobe Glykolyse genannt und Krebszellen überleben damit besser eine hypoxische Situation.","Der „Warburg Effekt" findet im Zytoplasma statt und Zellen erzeugen dabei weniger ATP als bei der oxidativen Phosphorylierung.","Der „Warburg Effekt" ist nach seinem Entdecker, dem Biochemiker Otto Warburg benannt."],
+c:[2,4,5,7],
+e:"Der Warburg-Effekt = aerobe Glykolyse im Zytoplasma. Krebszellen profitieren, da: mehr Zellmembranen durch Fettsäuresynthese aus Acetyl-CoA (C), Neovaskularisation/Angiogenese möglich (E), besseres Überleben bei Hypoxie (F), benannt nach Otto Warburg (H). Im Zytoplasma, nicht Zellmembran (D falsch)."},
+{q:"Welche Aussagen zu Stoffwechselvorgängen sind korrekt? Bitte kreuzen Sie die Richtigen an.",
+o:["Methylierung von Proteinen gehört auch zu Stoffwechselvorgängen.","Die meisten Prozesse des Aminosäurestoffwechsel unterliegen Diffusionsvorgängen.","Bereitstellung von Bausteinen oder Verbrauch dieser Bausteine sind wesentliche Aspekte von metabolischen Prozessen.","Metabolische Prozesse steuern auch den Zelltod.","Metabolische Prozesse steuern die zelluläre Proliferation und Zellzyklus Progression.","Stoffwechselvorgänge finden zufällig statt.","Die meisten Stoffwechselvorgänge sind reguliert.","Die meisten Stoffwechselvorgänge sind abhängig von der Enzymaktivität."],
+c:[0,2,3,6],
+e:"Metabolismus umfasst: Methylierung als PTM (A), Bereitstellung und Verbrauch von Bausteinen z.B. Aminosäuren, Fettsäuren (C), Steuerung des Zelltods/Apoptose (D), und die meisten Vorgänge sind reguliert (G). Stoffwechsel ist nicht zufällig (F falsch)."},
+{q:"Welche Aminosäuren sind negativ geladen? Bitte kreuzen Sie die Richtigen an.",
+o:["Alanin","Histidin","Glycin","Asparagin","Prolin","Asparaginsäure","Glutaminsäure","Lysin"],
+c:[5,6],
+e:"Negativ geladene Aminosäuren (saure AS): Asparaginsäure/Aspartat (F) und Glutaminsäure/Glutamat (G) – beide tragen eine negative Ladung bei physiologischem pH. Lysin (H) und Histidin (B) sind positiv geladen. Alanin, Glycin, Asparagin, Prolin sind neutral."},
+{q:"Aminosäurekatabolismus kann den Krebszyklus antreiben. Welche der folgenden Aussagen ist wahr? Bitte kreuzen Sie die richtigen an.",
+o:["Der letzte Schritt des Aminosäurekatabolismus ist die Peptidkettenbildung.","S-Adenosylmethionin (SAM) ist ein wichtiger Methyldonor und Zwischenprodukt des Methioninabbaus.","Meistens ist der erste Schritt des Aminosäurekatabolismus, die Entfernung von Stickstoff durch Desaminierung.","Autophagie ist ein Selbstverdauungsprozess von Zellen, welche nur begrenzt mit Nährstoffen versorgt werden. Dabei wird durch den Katabolismus von Proteinen zu Aminosäuren der TCA-Zyklus in Zeiten nieddriger Energie angetrieben.","S-Adenosylmethionin (SAM) ist eine langkettige Proteinstruktur.","Der erste Schritt des Aminosäurekatabolismus ist die Entfernung von Schwefelatomen unter Wassererzeugung.","Aminosäuren werden niemals in Pyruvat umgewandelt und gelangen auch nicht in den TCA-Zyklus.","Alle Aminosäuren müssen vor Eintritt in den TCA-Zyklus in Pyruvat umgewandelt werden."],
+c:[1,2,3],
+e:"SAM ist Methyldonor aus Methioninabbau (B). Erster Schritt = Desaminierung/Transaminierung zur N-Entfernung (C). Autophagie liefert AS für den TCA-Zyklus bei Energiemangel (D). Aminosäuren können auch direkt als Oxalacetat, α-Ketoglutarat etc. eintreten, nicht nur als Pyruvat (H falsch)."},
+{q:"Für was ist Polyubiquitinierung wichtig und an welcher Aminosäure findet sie statt? Bitte kreuzen Sie richtiges an.",
+o:["Polyubiquitinierung findet an Guanin statt.","Polyubiquitinierung findet nur an Doppelbindungen in ungesättigten Fettsäuren statt.","Für den Abbau von DNA.","Polyubiquitinierung findet an einem Histidin statt.","Polyubiquitinierung findet an einem Lysin statt.","Für den Abbau von Fettsäuren.","Polyubiquitinierung findet an Cytosin statt.","Für den Abbau von Proteinen."],
+c:[4,7],
+e:"Polyubiquitinierung: Ubiquitin-Ketten werden an Lysin-Reste von Proteinen angehängt (E). Dies markiert Proteine für den proteasomalen Abbau (H). Guanin und Cytosin sind Nucleobasen (A, G falsch). Fettsäuren werden durch β-Oxidation, nicht Ubiquitinierung, abgebaut (F falsch)."},
+{q:"Was stellen die RNA Polymerasen her und welche Aussagen zu RNA Polymerasen ist richtig? Bitte kreuzen Sie die richtigen Antworten an.",
+o:["RNA Polymerasen sind total unwichtig","Bereitstellung von Aminosäuren für Proteinsynthese","Herstellung langkettiger Polypeptide","RNA Polymerasen sind essentiell und es gibt im Menschen 3 verschiedene","Synthese von mRNA","Synthese von rRNA","Synthese und Katalyse von Ribozymen","Synthese von tRNA"],
+c:[3,4,5,7],
+e:"Beim Menschen gibt es 3 RNA-Polymerasen (D): Pol I → rRNA (F), Pol II → mRNA (E), Pol III → tRNA (H). RNA-Polymerasen sind essentiell (D). Aminosäuren und Polypeptide werden nicht von RNA-Polymerasen hergestellt (B, C falsch)."},
+{q:"Wodurch ist Typ 1 Diabetes (T1D) oder Typ 2 Diabetes (T2D) gekennzeichnet? Was kann man dagegen unternehmen? Hat hier Bewegung und richtige Ernährung einen positiven Einfluss oder ist das egal? Bitte kreuzen Sie die richtigen Antworten an.",
+o:["T1D ist eine Autoimmunerkrankung wodurch die Insulin produzierenden Bauchspeicheldrüsenzellen (Langerhanszellen) getötet werden.","T2D verursacht Probleme im Zuckerstoffwechsel und diese Regulation ist lebenswichtig.","T2D korreliert nicht mit Fettleibigkeit, aber es ist eine Autoimmunerkrankung und es gibt kein Medikament dagegen.","Sport und Ausdauerbewegung wirkt T2D positiv entgegen.","T2D ist durch Insulinresistenz gekennzeichnet.","Gesunde Ernährung, z.B. mehr Obst und Gemüse, oder fibröse Nahrung wirken T2D positiv entgegen.","T2D ist eine Autoimmunerkrankung wodurch die Insulin produzierenden Bauchspeicheldrüsenzellen (Langerhanszellen) getötet werden.","T2D korreliert mit Fettleibigkeit und es muss künstlich Insulin medikamentös verabreicht werden."],
+c:[0,1,3,4,5],
+e:"T1D = Autoimmunerkrankung, Beta-Zellen werden zerstört (A). T2D = Insulinresistenz, gestörter Zuckerstoffwechsel (B, E). Sport (D) und Ernährung (F) wirken positiv auf T2D. T2D ist keine Autoimmunerkrankung (G falsch). T2D braucht nicht zwingend Insulin (H falsch – oft ausreichend durch Lebensstil und Medikamente)."},
+{q:"Welche Aussagen treffen auf das Ribosom zu? Bitte kreuzen Sie die Richtigen an.",
+o:["Das Ribosom besteht aus einzelnen Nukleotiden und Metaboliten.","Die Synthese der RNA beginnt beim C-Terminus und endet beim N-Terminus.","Die primäre Funktion des Ribosoms ist die Proteinbiosynthese.","Das Ribosom besteht aus Proteinen und RNA.","Die Synthese der Proteine beginnt beim N-Terminus und endet beim C-Terminus.","Die Synthese der RNA beginnt beim N-Terminus und endet beim C-Terminus.","Die Synthese der Proteine beginnt beim C-Terminus und endet beim N-Terminus.","Die primäre Funktion des Ribosoms ist das Umwandeln der genetischen Information von DNA zu RNA."],
+c:[2,3,4],
+e:"Ribosomen bestehen aus rRNA und Proteinen (D) und sind die Maschine der Proteinbiosynthese (C). Proteine werden vom N-Terminus zum C-Terminus synthetisiert (E). Ribosomen wandeln keine DNA in RNA um – das macht RNA-Polymerase (H falsch). Nukleotide/Metaboliten (A falsch)."},
+{q:"Der genetische Code ist die Grundlage der Proteinsynthese in lebenden Organismen. Welche der folgenden Aussagen beschreibt den genetischen Code korrekt? Bitte kreuzen Sie das Richtige an.",
+o:["Der genetische Code ist degeneriert, d. h. mehrere Codons können für dieselbe Aminosäure codieren.","Ein Codon besteht aus vier Nukleotiden und kodiert für eine Aminosäure.","Es gibt insgesamt 64 verschiedene Codons.","Stopcodons kodieren für die Aminosäure Methionin.","Ein Codon besteht aus zwei Nukleotiden und kodiert für eine Aminosäure.","Es gibt insgesamt 20 verschiedene Codons.","Ein Codon besteht aus drei Nukleotiden und kodiert für eine Aminosäure.","Startcodons signalisieren das Ende der Translation."],
+c:[0,2,6],
+e:"Der genetische Code ist degeneriert (A) – z.B. codieren 6 Codons für Leucin. 64 Codons insgesamt (C): 4³ = 64. Jedes Codon = 3 Nukleotide (G – Triplett-Code). Stopcodons = UAA, UAG, UGA – sie codieren nicht für Aminosäuren (D falsch). Startcodon = Beginn der Translation (H falsch)."},
+{q:"Was sind wesentliche Funktionen von Lipiden im menschlichen Körper? Bitte kreuzen Sie die Richtigen an.",
+o:["Speichern von genetischer Information in DNA","Thermischer Schutz","Mechanischer Schutz","Fettsäuren verursachen Instabilität von Membranen","Bereitstellung von Energie","Beschleunigung von Transportprozessen des Zytoskelettes","Verbrauch von Sauerstoffradikalen","Wichtiger Bestandteil von Membranen"],
+c:[1,2,4,7],
+e:"Lipide: thermischer Schutz durch Fettgewebe (B), mechanischer Schutz z.B. Nieren (C), Energiespeicher (Triacylglyceride) (E), und Phospholipide sind essentielle Membranbestandteile (H). DNA speichert genetische Information (A falsch). Fettsäuren sind wichtig für Membranstabilität, destabilisieren nicht (D falsch)."},
+{q:"Welche Aussagen zu weißen beziehungsweise braunen Fettzellen sind wahr? Bitte kreuzen Sie die Richtigen an.",
+o:["Beide Zellarten entstammen aus der mesenchymalen Linie, ähnlich wie Muskelzellen.","Braune Fettzellen sind essenziell für die Thermoregulation in Säugern.","Fetttropfen in weißen Fettzellen sind vor Lipasen und dem Katabolismus von langkettigen Fettsäuren mit einem Hüllprotein geschützt, dass Perilipin heißt.","Mitochondriale Funktion von braunen Fettzellen ist wichtig um Wärme zu erzeugen.","Braune Fettzellen können nur Aminosäuren und keine Fettsäuren aufnehmen, denn sie machen immer Autophagie.","Nur weiße Fettzellen können viele Fettsäuren freisetzen.","Weiße Fettzellen können langkettige Fettsäuren in großen Fetttropfen speichern.","Beide Zellarten generieren im Wesentlichen Hitze."],
+c:[0,1,2,3,6],
+e:"Beide Zelltypen aus mesenchymalen Stammzellen (A). Braune Fettzellen = Thermoregulation via UCP1 in Mitochondrien (B, D). Weiße Fettzellen: Fetttropfen mit Perilipin-Schutzmantel (C), speichern langkettige Fettsäuren (G). Braune Fettzellen können auch Fettsäuren aufnehmen (E falsch). Nur braune erzeugen hauptsächlich Hitze (H falsch)."},
+{q:"Wie kommen Metabolite wie Fette, Aminosäuren, Zwischenprodukte, etc. in Zellen oder auch in Mitochondrien hinein beziehungsweise wieder heraus? Bitte kreuzen Sie die richtigen Antworten an.",
+o:["Große Metabolite diffundieren zufällig in Zellen hinein oder hinaus.","Für die Aufnahme oder Sekretion von Metaboliten werden keine Zellmembranen durchquert.","Metabolite werden über Transporter Proteine die einen Kanal bilden in Zellen hinein oder hinaus transportiert.","Für die Aufnahme oder Sekretion von Metaboliten in Mitochondrien werden keine mitochondrialen Membranen durchquert.","Metabolite werden über Transporter Proteine die einen Kanal bilden in Mitochondrien hinein oder hinaus transportiert.","Für die Aufnahme oder Sekretion von Metaboliten werden Zellmembranen durchquert.","Für die Aufnahme oder Sekretion von Metaboliten in Mitochondrien werden mitochondriale Membranen durchquert.","Große Metabolite diffundieren zufällig in Mitochondrien hinein oder hinaus."],
+c:[2,4,5,6],
+e:"Metabolite brauchen Transporterproteine (Carrier, Kanäle) für den Membrantransport (C, E). Membranen werden dabei durchquert – Zellmembranen (F) und mitochondriale Membranen (G). Große Metabolite diffundieren nicht zufällig – dafür sind spezifische Transporter nötig (A, H falsch)."},
+{q:"Wie wird der Prozess genannt, bei dem Glukose abgebaut wird und ATP generiert wird? Bitte kreuzen Sie den Richtigen an.",
+o:["Beta-oxidation","Photosynthese","Fermentation","Proteolyse","Glukoneogenese","Transkription","Translation","Glykolyse"],
+c:[7],
+e:"Glykolyse (H) = Abbau von Glukose zu Pyruvat unter Gewinnung von ATP und NADH. Beta-Oxidation baut Fettsäuren ab (A). Photosynthese = Aufbau von Zucker aus CO₂ (B). Fermentation = anaerobes Weiterverwerten von Pyruvat (C). Glukoneogenese = Synthese von Glukose (E)."},
+{q:"Welche Aussagen über Kinasen sind wahr? Bitte kreuzen Sie die Richtigen an.",
+o:["Kinasen haben die entgegengesetzte Funktion von Phosphatasen.","Kinasen sind Proteine, welche die Aktivierung oder Inaktivierung von anderen Proteinen steuern können.","Kinasen sind Enzyme, die eine post-translationale Modifikation (PTM) an Proteinen durchführen können.","Kinasen haben keine Funktion in der Zelle, sie wirken nur außerhalb der Zellmembran.","Kinasen sind Proteine die ATP als Energiequelle verwenden.","Kinasen sind Proteine, die Phosphorylierungen durchführen können.","Kinasen sind wichtige Chaperone, die bei der Proteinfaltung eine wichtige Rolle spielen.","Kinasen sind Proteine, die Phosphatgruppen abspalten."],
+c:[0,1,2,4,5],
+e:"Kinasen: addieren Phosphatgruppen (Phosphorylierung) (E, F) – Gegenteil von Phosphatasen (A). PTM durch Phosphorylierung (C), dadurch Aktivierung oder Inaktivierung von Proteinen möglich (B). ATP ist der Phosphatdonor (D enthält ATP). Kinasen sind keine Chaperone (G falsch). Phosphatasen, nicht Kinasen, spalten Phosphatgruppen ab (H falsch)."},
+{q:"Welche Aussagen bezüglich der β-Oxidation sind wahr? Bitte kreuzen Sie die Richtigen an.",
+o:["Die β-Oxidation findet ausschließlich in Zellen der Leber und der Muskeln statt.","Für die β-Oxidation sind verschiedene Antioxidantien essenziell.","Die β-Oxidation findet ausschließlich in Zellen des kognitiven Nervensystems statt.","Bei der β-Oxidation entsteht als kleinster Baustoff Glukose, welche wichtig für die Energiegewinnung ist.","Die β-Oxidation findet in den Mitochondrien statt.","Für die β-Oxidation sind verschiedene Enzyme wichtig.","Die β-Oxidation findet im Cytoplasma statt.","Bei der β-Oxidation entsteht Acetyl-CoA, welches wichtig für die Energiegewinnung ist."],
+c:[4,5,7],
+e:"β-Oxidation findet in Mitochondrien statt (E), braucht mehrere Enzyme (F) und produziert Acetyl-CoA → TCA-Zyklus (H). Nicht nur Leber/Muskeln – auch Herz, Niere etc. (A falsch). Antioxidantien nicht essentiell dafür (B falsch). Endprodukt ist Acetyl-CoA, nicht Glukose (D falsch)."},
+{q:"Wo findet der Citratzyklus (Krebszyklus) in Eukaryonten statt und wofür wird er benötigt? Bitte kreuzen Sie die richtigen Antworten an.",
+o:["Der Citratcyclus findet im Cytoplasma statt.","Der Citratcyclus findet im Zellkern statt.","Der Citratcyclus findet im Golgi Apparat statt.","Der Citratcyclus findet in Liposomen statt.","Der Citratcyclus findet in Mitochondrien statt.","Der Citratcyclus findet im Endoplasmatischen Retikulum statt.","Der Citratcyclus verbraucht im Wesentlichen Energie in Form von ATP.","Der Citratcyclus wird für die Herstellung von Energie benötigt, z.B. ATP."],
+c:[4,7],
+e:"Citratzyklus findet in der Mitochondrienmatrix statt (E) und liefert Energie durch Reduktion von NAD⁺ zu NADH und FAD zu FADH₂ → später ATP durch Atmungskette (H). Er verbraucht keine ATP, er produziert Energieäquivalente (G falsch)."},
+{q:"Wie werden die drei Phasen der Translation genannt? Bitte kreuzen Sie die Richtigen an.",
+o:["Prophase","Hybridisierung","Termination","Anaphase","Annealing","Initiation","Elongation","Denaturierung"],
+c:[2,5,6],
+e:"Die drei Phasen der Translation: Initiation (F) = Zusammenbau am Startcodon, Elongation (G) = Kettenverlängerung am Ribosom, Termination (C) = Stopp am Stoppcodon, Freisetzung der Polypeptidkette. Prophase und Anaphase (A, D) sind Mitosephasen."},
+{q:"Welche Aussagen zu Diabetes sind wahr? Bitte kreuzen Sie die richtigen Antworten an.",
+o:["Erhöhte Lipolyse ist ein Kennzeichen von Diät und verursacht eine Prädisposition zu Diabetes.","Diabetes ist sehr eng mit Entzündungsprozessen der Haut verknüpft.","Typ 2 Diabetes und Fettleibigkeit sind mit einem höheren Krebsrisiko für bestimmte Krebsarten wie Darmkrebs, Magenkrebs oder auch Brustkrebs, Prostatakrebs assoziiert.","Nur wenn die Bauchspeicheldrüse eine genetische Prädisposition hat kann Diabetes entstehen.","Eine Blutarmut ist durch niedrigere Erythropoietin Mengen gekennzeichnet und dies ist eng mit Diabetes Typ 2 assoziiert.","Fettleibigkeit führt zu einem erhöhten Sexualhormon Spiegel, da durch die Überernährung, erhöhte Mengen von Cholesterol aufgenommen und gespeichert werden.","Typ 1 Diabetes ist eine Autoimmunerkrankung, die durch eine Immunzell-vermittelte Lyse der Insulin-produzierenden Beta Zellen verursacht wird.","Betroffene mit Diabetes haben erhöhte Blutzuckerwerte."],
+c:[2,5,6,7],
+e:"T2D + Fettleibigkeit = erhöhtes Krebsrisiko (C). Fettleibigkeit → erhöhte Östrogen-/Androgensynthese aus Cholesterol (F). T1D = Autoimmun, Zerstörung der Beta-Zellen (G). Alle Diabetiker haben erhöhte Blutzuckerwerte (Hyperglykämie) (H)."},
+{q:"Welche Krankheiten können mit Fettleibigkeit assoziiert werden? Bitte kreuzen Sie die richtigen Antworten an.",
+o:["Metabolisches Syndrom","Schlaganfall","Typ-2-Diabetes","Typ-1-Diabetes","Haarausfall","Herzinfarkt","Chronische Entzündung","Chronische Angst"],
+c:[0,1,2,5,6],
+e:"Fettleibigkeit assoziiert mit: Metabolisches Syndrom (A), Schlaganfall durch Arteriosklerose (B), T2D durch Insulinresistenz (C), Herzinfarkt (F), chronische Entzündung durch Adipokine (G). T1D ist eine Autoimmunerkrankung, kein direkter Zusammenhang mit Fettleibigkeit (D)."}
+]
+},
+{
+title:"Beispielprüfung 2",
+qs:[
+{q:"Von welchen der unten angeführten Substanzen nehmen Veganer meist weniger zu sich, aufgrund ihrer veganen Ernährung? Beziehungsweise, welche der unten Substanzen sollten Veganer substituieren oder darauf achten pflanzliche Lebensmittel zu sich zu nehmen mit einem besonders hohen Anteil an diesen Substanzen, da sie nicht vom Körper selbst synthetisiert werden können? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Eisen","Langkettige Kohlenhydrate wie Stärke","Vitamin C","Vitamin B12","Vitamin D","Ein Mangel an Aminosäuren tritt immer auf, wenn kein Fleisch verzehrt wird.","Fettsäuren","Kupfer"],
+c:[0,3,4],
+e:"Veganer riskieren Mangel an: Eisen (A, pflanzliches Eisen schlechter bioverfügbar), Vitamin B12 (D, nur in tierischen Produkten, kann vom Körper nicht synthetisiert werden), Vitamin D (E, hauptsächlich tierische Quellen + Sonnenlicht). Vitamin C ist in Pflanzen reichlich (C falsch). Aminosäuremangel nur bei schlechter Planung (F falsch)."},
+{q:"Was sind Vorteile des „Warburg-Effekts" und wo findet er statt? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Der „Warburg-Effekt" findet in den Mitochondrien statt.","Der „Warburg-Effekt" beschreibt den Wechsel von aerober zu anaerober Glykolyse, bei dem die ATP-Produktion von den Mitochondrien in das Zytoplasma mit niedriger ATP-Ausbeute verlagert wird.","Lactat kann über größere Entfernungen wirken und wird durch MCT-Transporter transportiert oder aufgenommen.","Der Zellzyklus beschleunigt sich immer bei anaerober Glykolyse, auch unter Hypoxie.","Vorteile bestehen z. B. in Tumoren für die Bildung neuer Blutgefäße.","Es ist ein Vorteil, dass durch die Lactatsekretion keine neuen Blutgefäße gebildet werden.","Durch die Lactatproduktion kann eine größere Menge an Zellmembranen hergestellt werden, wodurch Zellen widerstandsfähiger gegen toxische Substanzen oder Angriffe des Immunsystems werden.","Der „Warburg-Effekt" findet im endoplasmatischen Retikulum statt und bildet die Hauptenergiequelle der Zelle."],
+c:[1,2,4,6],
+e:"Warburg-Effekt = Verlagerung der ATP-Produktion von Mitochondrien ins Zytoplasma (anaerobe Glykolyse) (B). Lactat = parakriner Signalbote via MCT-Transporter (C). Vorteil: Neovaskularisation in Tumoren (E). Lactat → Fettsäuresynthese → mehr Membranen (G). Findet im Zytoplasma statt, nicht Mitochondrien (A, H falsch)."},
+{q:"Welche der folgenden Aussagen beschreiben korrekt die Ebenen der Proteinstruktur (Primär-, Sekundär-, Tertiär- und Quartärstruktur)? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Die Quartärstruktur umfasst die Zusammensetzung mehrerer Polypeptid-Untereinheiten zu einem funktionellen Protein.","Alle Proteine haben per Definition der AlphaFold-Vorhersage eine Quartärstruktur.","Disulfidbrücken können zur Stabilität der Tertiärstruktur eines Proteins beitragen.","Die Tertiärstruktur beschreibt die dreidimensionale Form einer einzelnen Polypeptidkette.","Wasserstoffbrücken stabilisieren sowohl Alpha-Helices als auch Beta-Faltblätter in der Sekundärstruktur.","Disulfidbrücken kommen am häufigsten in der Quartärstruktur von Proteinkomplexen vor.","Die Primärstruktur eines Proteins ist die lineare Sequenz der Aminosäuren.","Die Primärstruktur bildet sich aufgrund von Wasserstoff- und Van-der-Waals-Bindungen zwischen Aminosäuren."],
+c:[0,2,3,4,6],
+e:"Quartärstruktur = mehrere Untereinheiten (A). Disulfidbrücken stabilisieren Tertiärstruktur (C). Tertiärstruktur = 3D-Faltung einer Polypeptidkette (D). H-Brücken in Alpha-Helix und Beta-Faltblatt = Sekundärstruktur (E). Primärstruktur = AS-Sequenz durch Peptidbindungen (G). Nicht alle Proteine haben Quartärstruktur (B falsch). Primärstruktur = Peptidbindungen, nicht H-Brücken (H falsch)."},
+{q:"Welche der folgenden Nukleinbasen sind Purine? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Guanin","Thymin","Uracil","Rabulin","Cytidin","Adenin","Cytosin","Adenosin"],
+c:[0,5],
+e:"Purine (Doppelring-Struktur): Adenin (F) und Guanin (A). Pyrimidine (Einzelring): Thymin (B), Uracil (C), Cytosin (G). Rabulin (D) existiert nicht. Cytidin (E) und Adenosin (H) sind Nukleotidbausteine (Base + Zucker), keine freien Basen."},
+{q:"Um Stoffwechselprozesse in Zellen zu messen, benötigen Sie analytische Geräte oder Methoden. Welche Geräte eignen sich dazu? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Gefrierschrank","Massenspektrometer","Gaschromatographie","Bunsenbrenner","Messgerät zur Bestimmung von ATP","Analysegerät zur Messung des Sauerstoffverbrauchs beziehungsweise der CO₂-Produktion (z. B. ein Seahorse-Gerät)","Metabolische Kammer zur Messung der Sauerstoffverbrauchsraten","Analysegerät zur Gewichtsbestimmung, z. B. eine Präzisionswaage"],
+c:[1,2,4,5,6],
+e:"Für Stoffwechselmessungen: Massenspektrometer = Metabolitenidentifikation (B), Gaschromatographie = Metabolitenanalyse (C), ATP-Messgerät = Luziferase-Assay (E), Seahorse-Gerät = O₂-Verbrauch/CO₂-Produktion = mitochondriale Funktion (F), metabolische Kammer = Sauerstoffverbrauchsraten (G). Gefrierschrank und Bunsenbrenner sind kein Analysegerät (A, D falsch)."},
+{q:"Welche biochemischen Prozesse beinhalten die Synthese großer Moleküle aus kleineren Bausteinen? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Aneuplorismus","Katabolismus","Anabolismus","Katharsis","Glykolyse","Synthese langkettiger Fettsäuren","Glykogenese","Laktogenese"],
+c:[2,5,6],
+e:"Anabolismus (C) = Aufbau großer Moleküle aus kleineren (z.B. Proteinsynthese, Fettsäuresynthese, Glykogensynthese). Synthese langkettiger Fettsäuren (F) und Glykogenese/Glykogensynthese (G) sind anabole Prozesse. Katabolismus = Abbau (B). Glykolyse = Abbau von Glukose (D). Laktogenese = Milchproduktion, kein Syntheseprozess im gleichen Sinne (H)."},
+{q:"Welche Aminosäuren enthalten ein, zwei oder drei Schwefelatome? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Methionin enthält ein Schwefelatom.","Tyrosin enthält drei Schwefelatome.","Isoleucin enthält ein Schwefelatom.","Valin enthält drei Schwefelatome.","Prolin enthält zwei Schwefelatome.","Lysin enthält drei Schwefelatome.","Cystein enthält ein Schwefelatom.","Alanin enthält ein Schwefelatom."],
+c:[0,6],
+e:"Schwefelhaltige Aminosäuren: Methionin (A) mit einer Thioether-Gruppe (-S-) und Cystein (G) mit einer Thiol-Gruppe (-SH), beide enthalten genau ein Schwefelatom. Tyrosin, Isoleucin, Valin, Prolin, Lysin, Alanin enthalten kein Schwefel."},
+{q:"Warum verwenden wir in der Medizin Insulin bei bestimmten Krankheiten und wie heißen diese Krankheiten? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Insulin kann Depressionen entgegenwirken.","Covid 19","Insulin erhöht den Blutdruck bei Patienten mit Herzinfarktrisiko.","Typ-1-Diabetes","Typ-2-Diabetes","Blutkrebs","Insulin reguliert den Blutzuckerspiegel.","Insulin wird für die Biosynthese von Katecholaminen benötigt."],
+c:[3,4,6],
+e:"Insulin wird bei T1D (D) und fortgeschrittenem T2D (E) eingesetzt, da es den Blutzuckerspiegel senkt (G). Bei T1D fehlt Insulin komplett. Bei T2D kann exogenes Insulin nötig sein wenn orale Medikamente nicht ausreichen. Insulin hat keine Rolle bei Depressionen (A) oder Blutdruck (C)."},
+{q:"Welche der folgenden Prozesse werden durch den Stoffwechsel reguliert? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Bindung von miRNA an eine Ziel-mRNA (target mRNA).","Proliferation und Überleben von Zellen.","Bindung einer regulatorischen long-non-coding RNA an eine Ziel-mRNA (target mRNA).","Proteasomaler Abbau von Proteinen.","Mutagenese der DNA durch Gammastrahlung.","Mutagenese der DNA durch UV-Bestrahlung.","Epigenetische Regulation der Gen-Transkription.","Phosphorylierung von Proteinen."],
+c:[1,3,6,7],
+e:"Metabolisch reguliert: Proliferation und Überleben (B, z.B. durch mTOR, Wachstumsfaktoren), proteasomaler Abbau von Proteinen durch Ubiquitin-System (D), epigenetische Regulation durch Methylierung/Acetylierung (G), Phosphorylierung durch Kinasen (H). Mutagenese durch Strahlung ist physikalisch/chemisch, nicht metabolisch (E, F)."},
+{q:"Was ist ein Disaccharid? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Maltose","Glukose","Galaktose","Fruktose","Saccharose","Pentose","Laktose","Trehalose"],
+c:[0,4,6,7],
+e:"Disaccharide (2 Monosaccharide): Maltose = Glukose+Glukose (A), Saccharose = Glukose+Fruktose (E), Laktose = Glukose+Galaktose (G), Trehalose = Glukose+Glukose (H). Glukose, Galaktose, Fruktose (B, C, D) sind Monosaccharide. Pentose ist eine 5-Kohlenstoff-Monosaccharidgruppe."},
+{q:"Was sind korrekte Unterschiede und Fakten zu essentiellen versus nicht-essentiellen Aminosäuren? Bitte wählen Sie die richtige(n) Antwort(en) aus.",
+o:["Tryptophan ist eine essentielle Aminosäure.","Die Syntheseschritte nicht-essentieller Aminosäuren sind im Vergleich zu essentiellen Aminosäuren komplexer.","Essentielle Aminosäuren müssen nicht mit der Nahrung aufgenommen werden.","Die Syntheseschritte nicht-essentieller Aminosäuren sind im Vergleich zu essentiellen Aminosäuren weniger komplex.","Essentielle Aminosäuren müssen mit der Nahrung aufgenommen werden.","Nicht-essentielle Aminosäuren können vom Menschen nicht synthetisiert werden.","Nicht-essentielle Aminosäuren können vom Menschen synthetisiert werden.","Tryptophan ist eine nicht-essentielle Aminosäure."],
+c:[0,3,4,6],
+e:"Tryptophan ist essentiell (A). Essentielle AS müssen mit der Nahrung aufgenommen werden, da der Körper sie nicht synthetisieren kann (E). Nicht-essentielle AS kann der Körper selbst herstellen (G). Die Synthesewege nicht-essentieller AS sind weniger komplex als die Gewinnung der essentiellen (D). 9 essentielle AS beim Menschen."},
+{q:"Gibt es unter Berücksichtigung des humanen Metabolismus Gründe, warum man sich bei viralen oder bakteriellen Infektionen um die Ernährung kümmern sollte oder nicht? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Glukose kann während einer viralen Infektion eine positive Wirkung auf den Patienten haben.","Glukose kann während einer viralen Infektion eine negative Wirkung auf den Patienten haben.","Ketonkörper können während einer viralen Infektion eine negative Wirkung auf den Patienten haben.","Glukose kann während einer bakteriellen Infektion eine negative Wirkung auf den Patienten haben.","Glukose kann während einer bakteriellen Infektion eine positive Wirkung auf den Patienten haben.","Ketonkörper können während einer viralen Infektion eine positive Wirkung auf den Patienten haben.","Ketonkörper können während einer bakteriellen Infektion eine negative Wirkung auf den Patienten haben.","Ketonkörper können während einer bakteriellen Infektion eine positive Wirkung auf den Patienten haben."],
+c:[1,3,5,7],
+e:"Viren nutzen Glukose für ihre Replikation → hohe Glukose kann viral nachteilig sein (B). Bakterien konkurrieren mit dem Wirt um Glukose → hohe Glukose kann bakteriell nachteilig sein (D). Ketonkörper haben antimikrobielle/antivirale Eigenschaften und können positiv auf Infektionen wirken (E, H). Manche Forschungen zeigen, dass ketogene Ernährung bei Infektionen helfen kann."},
+{q:"Welche der folgenden Aussagen beschreiben den genetischen Code korrekt? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Das START-Codon für die Translation ist typischerweise ATG in der DNA und AUG in der mRNA, welches für Cystein codiert.","Alle Aminosäuren werden durch genau ein bestimmtes Codon für die Translation codiert.","Das START-Codon für die Translation ist typischerweise ATG in der DNA und AUG in der mRNA, welches für Methionin codiert.","Mutationen in der DNA-Sequenz können aufgrund der Redundanz des Codes manchmal still sein (keine Auswirkung haben).","Alle Mutationen im genetischen Code führen zu einer Veränderung der Proteinsequenz.","Der genetische Code ist degeneriert, das bedeutet, dass einige Aminosäuren durch mehr als ein Codon codiert werden.","Jedes Codon im genetischen Code besteht aus drei Nukleotiden.","Jedes Codon im genetischen Code besteht aus vier Nukleotiden."],
+c:[2,3,5,6],
+e:"AUG = Startcodon = codiert für Methionin (C). Stille Mutationen möglich durch Degeneriertheit des Codes (D). Code ist degeneriert = mehrere Codons für eine AS (F). Codons = 3 Nukleotide (G). AUG codiert für Methionin, nicht Cystein (A falsch). Code ist degeneriert, nicht eindeutig 1:1 (B falsch)."},
+{q:"Welche Hauptfunktionen haben Hitzeschockproteine? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Hitzeschockproteine sind winzige Proteine, die an RNA und DNA binden.","Hitzeschockproteine sind wichtig für Prozesse der Protein-Stabilität.","Hitzeschockproteine binden alle an Schmerzrezeptoren.","Hitzeschockproteine transportieren Giftstoffe aus den Zellen heraus.","Hitzeschockproteine erleichtern die Proteinfaltung anderer Proteine.","Hitzeschockproteine sind Chaperone, die bei der Proteinfaltung helfen und so globuläre Proteine bilden.","Hitzeschockproteine wirken antiviral.","Hitzeschockproteine entspannen die Atmungskette."],
+c:[1,4,5],
+e:"Hitzeschockproteine (HSP) = molekulare Chaperone (E, F): Sie helfen anderen Proteinen, korrekt zu falten und verhindern Misfolding und Aggregation. Wichtig für Proteinstabilität (B), besonders bei Stress wie Hitze. HSP binden nicht an Schmerzrezeptoren (C) oder transportieren keine Giftstoffe (D)."},
+{q:"Was zeichnet Transkriptionsfaktoren aus? Bitte wählen Sie die richtige(n) Antwort(en) aus.",
+o:["Transkriptionsfaktoren sind Proteine, die die Information, welche Gene als nächstes transkribiert werden sollen, transportieren.","Transkriptionsfaktoren sind Schlüsselmoleküle, die auch als Energiespeicher dienen.","Transkriptionsfaktoren sind DNA-bindende Moleküle, und einige können auch an mitochondriale DNA binden, wenn sie in den inneren mitochondrialen Membranraum transportiert werden.","Transkriptionsfaktoren sind Enzyme, die direkt Phosphorylierungen im Chromatin durchführen und dadurch Super-Enhancer-Komplexe aktivieren.","Transkriptionsfaktoren sind Proteine, die die Transkription regulieren können, z. B. durch Induktion von Genen.","Transkriptionsfaktoren haben wichtige Funktionen für die Chromatinstruktur.","Transkriptionsfaktoren sind Proteine, die auch die Transkription unterdrücken können.","Transkriptionsfaktoren sind Proteine, die Abfallprodukte transportieren."],
+c:[2,4,5,6],
+e:"Transkriptionsfaktoren (TF): DNA-bindende Moleküle, z.T. auch mitochondriale DNA (C), regulieren die Transkription durch Aktivierung oder Repression (E, G), und beeinflussen die Chromatinstruktur (F). Sie sind keine Energiespeicher (B) und transportieren keine Abfallprodukte (H)."},
+{q:"Was sind wichtige Eigenschaften der DNA in einer Säugetierzelle? Bitte wählen Sie die richtige(n) Antwort(en) aus.",
+o:["Die genetische Information ist in den Exons von Genen gespeichert, welche zu mRNA gespleißt werden.","Die mRNA wird aus der genetischen Information der DNA hergestellt.","DNA kann auch aus mRNA oder aus Protein hergestellt werden.","DNA stellt genetische Informationen bereit und speichert sie.","Die DNA wird direkt in Proteinsequenzen umgewandelt.","Der Genkörper ist in Exon- und Intronsequenzen organisiert.","Die DNA kodiert die genetische Information eines Organismus oder einer Zelle.","Die genetische Information ist in den Introns von Genen gespeichert, welche zu mRNA gespleißt werden."],
+c:[0,1,3,5,6],
+e:"DNA enthält genetische Information in Exons (A), aus denen mRNA transkribiert wird (B). DNA speichert und kodiert genetische Information (D, G). Gene = Exons + Introns (F). Reverse Transkription (RNA→DNA) existiert, aber nicht Protein→DNA (C falsch). DNA wird nicht direkt in Proteine übersetzt – dafür braucht es mRNA (E falsch)."},
+{q:"Wie viele STOP-Codons gibt es in menschlichen oder Maus (Säugetier) Zellen? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Das/die STOP-Codon(s) codieren für keine der zwanzig verschiedenen Aminosäuren bei Säugetieren.","Es gibt 2 STOP-Codons, eines für die Maus und eines für den Menschen.","Maus- und menschliche Zellen haben drei verschiedene STOP-Codons.","Die Anzahl der STOP-Codons hängt vom Status des Zellzyklus ab.","Der TP53-Status bestimmt Frameshift-Mutationen und definiert dadurch die Anzahl der STOP-Codons.","5 STOP-Codons sind bei Säugetieren vorhanden: 2 bei Mäusen und 3 beim Menschen.","4 STOP-Codons existieren in Säugetierzellen.","Es gibt nur 1 STOP-Codon, da es auch nur ein START-Codon gibt."],
+c:[0,2],
+e:"Es gibt 3 STOP-Codons in allen Säugetieren (inkl. Maus und Mensch): UAA, UAG, UGA (C). Diese codieren für keine Aminosäure, sie terminieren nur die Translation (A). Maus und Mensch haben dieselben 3 STOP-Codons (B falsch). Anzahl ist nicht zellzyklusabhängig (D falsch)."},
+{q:"Welches Verhalten wirken sich positiv gegen Fettleibigkeit aus? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Höherer Konsum einer ketogenen Diät und Reduktion von Kohlenhydraten","Ein Lebensstil, der auf langem Schlaf basiert","Lesen und Lernen ohne zu Essen, aber mit ausreichender Flüssigkeitszufuhr, z. B. mit Wasser","Eine kohlenhydratarme Ernährung","Langes Gehen oder Wandern","Kurzer Schlaf","Konsum von Getränken mit hohem Disaccharidgehalt","Lesen und Lernen mit Essen und Energydrinks"],
+c:[0,3,4],
+e:"Positiv gegen Fettleibigkeit: Ketogene Diät/wenige Kohlenhydrate reduziert Insulinspiegel und fördert Fettverbrennung (A, D). Körperliche Aktivität wie Wandern erhöht den Kalorienverbrauch (E). Zu viel Schlaf oder zuckerhaltiger Getränke fördern Gewichtszunahme. Kaloriendichte Mahlzeiten beim Lernen (H) ungünstig."},
+{q:"Welche der folgenden Lipasen sind in Säugetierzellen für den Abbau von langkettigen Fettsäuren verantwortlich? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Hormon sensitive Lipase (HSL)","Adipozyten-Triglyzerid-Lipase (ATGL)","Fetttröpfchen-Lipase (FTL)","Ketonkörper-Lipase (KKL)","Vitamin A Lipase (VAL)","Pentose-Lipase 3 (PL3)","Monoacylglycerin-Lipase (MAGL)","Fruktose-Lipase (FL)"],
+c:[0,1,6],
+e:"Die drei Hauptlipasen der Lipolyse in Adipozyten: ATGL (B) = erster Schritt, Triacylglycerin → Diacylglycerin, HSL (A) = zweiter Schritt, Diacylglycerin → Monoacylglycerin, MAGL (G) = dritter Schritt, Monoacylglycerin → Glycerol + Fettsäure. FTL, KKL, VAL, PL3, FL (C-F, H) existieren nicht als solche."},
+{q:"Kann Glycerin innerhalb des Zitronensäurezyklus (TCA-Zyklus) in Glukose umgewandelt werden? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Nein, das ist nicht möglich, nur Malat im Harnstoffzyklus kann in Glukose umgewandelt werden.","Nein, Glycerin ist das Endprodukt.","Nein, das ist nicht möglich, da Glycerin immer zu Lactat umgewandelt wird.","Ja, Glycerin kann in Glukose umgewandelt werden, und die Umwandlung zu Dihydroxyacetonphosphat (DHAP) als Zwischenprodukt ist dabei notwendig.","Ja, der Großteil des Glycerins im Plasma kann in der Leber durch Glukoneogenese in Glukose umgewandelt werden.","Nein, das ist nicht möglich, Glycerin wird immer im Fettsäureabbau verwendet.","Nein, Glycerin wird in Aminoacetonsuccinat umgewandelt.","Ja, über ein Zwischenprodukt der Glykolyse kann Glycerin in Glukose umgewandelt werden."],
+c:[3,4,7],
+e:"Glycerin kann über Glykolyse-Zwischenprodukte in Glukose umgewandelt werden (H). Der Weg: Glycerin → Glycerol-3-Phosphat → DHAP (D, ein Glykolyse-Intermediat) → über Glukoneogenese zu Glukose. Dies geschieht hauptsächlich in der Leber (E). DHAP ist das Schlüsselzwischenprodukt (D)."}
+]
+},
+{
+title:"Beispielprüfung 3",
+qs:[
+{q:"Laktosemangel, auch Laktoseintoleranz genannt, ist ein Defekt, aber in welchem Protein und was ist die Konsequenz der Laktoseintoleranz? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Laktase","Milchzucker reichert sich im Verdauungstrakt an.","Milchzucker wird über den Warburg-Effekt zu Laktat umgewandelt.","Adipozytenlipase","Amylase","Bei übermäßigem Laktosekonsum verändert sich das Mikrobiom und es kommt zu Durchfall.","Alkoholdehydrogenase","Übermäßige Laktose fördert den Tod von Bakterien im Dickdarm."],
+c:[0,1,5],
+e:"Laktoseintoleranz = Defekt der Laktase (A). Ohne Laktase reichert sich Milchzucker im Darm an (B) und Bakterien fermentieren ihn → Mikrobiomveränderung und Durchfall (F). Warburg-Effekt (C) hat nichts damit zu tun. Adipozytenlipase (D) baut Fette ab. Amylase (E) spaltet Stärke. Laktose fördert Bakterienwachstum, tötet sie nicht (H falsch)."},
+{q:"Vier Arten von Bindungen/Wechselwirkungen helfen Proteinen, ihre tertiäre Struktur zu erhalten. Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Ionische Wechselwirkung","Disulfidbrückenbindungen","Lipophile Wechselwirkungen","Aromatische Ringbildung","Hydrophobe Wechselwirkungen","Esterbindungen","Wasserstoffbrückenbindungen","Van-der-Waals-Kräfte"],
+c:[0,1,4,6],
+e:"Die vier klassischen Wechselwirkungen der Tertiärstruktur: Ionische WW (A), Disulfidbrücken (B), Hydrophobe WW (E), Wasserstoffbrücken (G). Lipophile WW (C) ist kein Standardbegriff. Aromatische Ringbildung (D) ist keine Bindungsart. Esterbindungen (F) kommen in Proteinen nicht vor. Van-der-Waals (H) sind schwach und nicht als primäre stabilisierende Kraft gezählt."},
+{q:"Was sind Enzyme, was kennzeichnet sie aus und warum sind sie wichtig bei biochemischen Prozessen? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Lipide können als Enzyme wirken.","Langkettige Kohlenhydrate, auch Karbozyme genannt, wirken als Enzyme.","Enzyme können Stoffwechselvorgänge positiv oder negativ regulieren.","Enzyme können chemische Reaktionen katalysieren.","Enzyme gibt es nicht in einzelligen Organismen, sie kommen erst in mehrzelligen Organismen vor.","Enzyme haben in der Regel eine tiefe Tasche die man auch therapeutisch ausnutzen kann, z.B. für Blockierung von Substratbindung.","Enzyme sind eine Mixtur aus RNA und Protein, die auch Ribosomen genannt werden. Sie haben eine katalytische Funktion und können durchaus auch als Holoenzym wirken.","Enzyme sind Proteine."],
+c:[2,3,5,7],
+e:"Enzyme sind Proteine (H), katalysieren Reaktionen (D), regulieren Stoffwechsel (C) und haben ein aktives Zentrum (F). Lipide (A) und Kohlenhydrate (B) sind keine Enzyme. Enzyme gibt es auch in Einzellern (E falsch). Ribosomen sind Sonderfälle (G)."},
+{q:"Was ist Albinismus und was könnte eine Ursache dafür sein? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Sonnenexposition erhöht die Produktion von Melanin.","Albinismus ist mit dem Beta-Oxidationsstoffwechsel verbunden, nämlich durch den Mangel an Acetyl-CoA.","Albinismus ist mit dem Aminosäurenstoffwechsel verbunden, nämlich dem Tyrosinstoffwechsel.","Sonnenexposition reduziert die Produktion von Melanin.","Albinismus ist ein Hautpigmentierungsdefekt, der mit einer erhöhten Empfindlichkeit gegenüber Sonnenlicht/UV-Schäden verbunden ist.","Albinismus ist eine Lebensmittelunverträglichkeit, die durch zu viel Gluten verursacht wird.","Albinismus ist in der Regel eine monogene Krankheit. Verschiedene Gene werden mit der Krankheit in Verbindung gebracht, darunter auch der Mangel an Tyrosinase, welcher zum Verlust der Melaninproduktion führt.","Albinismus ist ein Hautpigmentierungsdefekt, der mit einer verringerten Empfindlichkeit gegenüber Sonnenlicht verbunden ist."],
+c:[2,4,6],
+e:"Albinismus = Pigmentierungsdefekt (E) durch Störung des Tyrosinstoffwechsels (C). Tyrosin → Melanin benötigt Tyrosinase — deren Mangel verursacht Albinismus (G). Betroffene sind EMPFINDLICHER gegenüber UV (E richtig, H falsch). Beta-Oxidation (B) und Gluten (F) sind irrelevant."},
+{q:"Welche Aminosäuren sind positiv oder negativ geladen? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Arginin ist positiv geladen.","Glutamin ist negativ geladen.","Glutamat ist positiv geladen.","Lysin ist positiv geladen.","Prolin ist negativ geladen.","Histidin ist negativ geladen.","Asparagin ist positiv geladen.","Asparaginsäure ist negativ geladen."],
+c:[0,3,7],
+e:"Positiv: Arginin (A), Lysin (D). Negativ: Asparaginsäure (H). Glutamin (B) ist neutral — nicht Glutamat! Glutamat (C) ist negativ, nicht positiv. Prolin (E) ist neutral. Histidin (F) ist positiv, nicht negativ. Asparagin (G) ist neutral."},
+{q:"Sind Muskelzellen ähnlich oder unterscheiden sie sich von Fettzellen und was ist wahr für sie? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Muskelzellen enthalten nur Protein und keine Fettmasse.","Fettzellen sind polynukleär.","Muskelzellen sind polynukleär.","Große weiße Adipozyten enthalten ein riesiges Fetttropfen, der mit Perilipin bedeckt ist. Dieses dissociiert für den katabolischen Abbau durch drei Lipasen nach der Aktivierung von Protein Kinase A durch cAMP-Signalgebung.","Eine Muskelzelle hat einen einzelnen Zellkern.","Muskelzellen enthalten auch eine große Menge Fett.","Eine Muskel- und eine Fettzelle stammen von mesenchymalen Stammzellen ab.","Eine braune Fettzelle hat keinen Zellkern, produziert jedoch mechanische Energie durch die UCP-Protein-Familie."],
+c:[2,3,6],
+e:"Skelettmuskelzellen sind polynukleär (C). Weiße Adipozyten haben Perilipin-Schutz und PKA/cAMP-Lipolyse (D). Muskel- und Fettzellen stammen von mesenchymalen Stammzellen ab (G). Muskelzellen haben kaum Fett (A, F falsch). Fettzellen sind einkernig (B falsch). Braune Fettzellen HABEN einen Kern und produzieren Wärme via UCP, nicht mechanische Energie (H falsch)."},
+{q:"Welche Aussagen zur Atmungskette in eukaryotischen Zellen sind richtig? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Die Atmungskette ist in allen Säugerzellen wichtig.","Die Atmungskette findet in der äußeren Zellmembran statt.","Sie findet im rauen endoplasmatischen Retikulum statt, weil da viel freier Sauerstoff zur Verfügung steht.","Sie findet im Golgiapparat statt, weil da viel freier Sauerstoff zur Verfügung steht.","Die Atmungskette ist für die Synthese von ATP wesentlich.","Sie findet innerhalb der Mitochondrien statt, weil praktisch nur dort freier Sauerstoff zur Verfügung steht.","Sie findet in der Cytoplasmamembran statt, weil da viel freier Sauerstoff zur Verfügung steht.","Sie findet im glatten endoplasmatischen Retikulum statt, weil praktisch nur dort freier Sauerstoff zur Verfügung steht."],
+c:[0,4,5],
+e:"Die Atmungskette ist in fast allen Säugerzellen essentiell (A), produziert ATP (E) und findet an der inneren Mitochondrienmembran statt (F). Sie findet nicht in der äußeren Zellmembran (B), ER (C/H), Golgi (D) oder Cytoplasmamembran (G) statt."},
+{q:"Was sind die primäre, sekundäre, tertiäre und quartäre Struktur eines Proteins? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Die sekundäre Struktur eines Proteins kann entweder eine Alpha-Helix oder ein Beta-Faltblatt sein.","Die tertiäre Struktur eines Proteins ist das Falten von Alpha-Helices und Beta-Strängen zu Domänen eines Proteins, die der 3D-Struktur des Proteins entsprechen.","Die primäre Struktur eines Proteins wird durch den Abstand des Promotors zu den Intron-Grenzen bestimmt.","Die tertiäre Struktur eines Proteins ist eine ungefaltete Polypeptid-Kopplung, die zu Proteinaggregation und einer ER-Stress-Antwort führt.","Die sekundäre Struktur eines Proteins resultiert immer aus dem Spleißen der mRNA.","Die quartäre Struktur eines Proteins ist der Zerfall von seinen Untereinheiten zu einem Ribozym, das in der Ribosomenbiologie zu finden ist.","Die primäre Struktur eines Proteins ist die Aminosäuresequenz, die die Polypeptidkette bilden.","Die quartäre Struktur eines Proteins ist die Zusammenlagerung von Polypeptidketten oder Untereinheiten davon zu einem höherwertigen Proteinkomplex, auch Holoenzym genannt."],
+c:[0,1,6,7],
+e:"Sekundär = Alpha-Helix/Beta-Faltblatt (A). Tertiär = 3D-Faltung einer Kette (B). Primär = Aminosäuresequenz (G). Quartär = mehrere Ketten zu Holoenzym (H). Promotor-Abstand (C) bestimmt nicht die Primärstruktur. Tertiärstruktur ist korrekte Faltung, nicht Aggregation (D). Spleißen → mRNA-Sequenz, nicht Sekundärstruktur (E). Quartärstruktur ist Zusammenlagerung (H), nicht Zerfall (F)."},
+{q:"Gesättigte Fettsäuren sind durch Folgendes gekennzeichnet. Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Gesättigte Fettsäuren sind sehr hydrophil.","Die Stickstoffstruktur weist Doppelbindungen (N=N) auf.","Das Kohlenstoffgerüst hat Doppelbindungen (C=C).","Die Stickstoffstruktur hat einzelne N-N-Bindungen.","Gesättigte Fettsäuren oder Fettsäuren im Allgemeinen können ein kleines Volumen einnehmen, sind aber sehr energiereich.","Das Kohlenstoffgerüst hat einzelne C-C-Bindungen.","Gesättigte Fettsäuren haben ein kleines Molekulargewicht.","Gesättigte Fettsäuren können auch lange Ketten bilden."],
+c:[4,5,7],
+e:"Gesättigte Fettsäuren: NUR Einzelbindungen im C-Gerüst (F — keine C=C!). Sehr energiereich und kompakt (E). Können lange Ketten bilden (H) z.B. Palmitinsäure (C16). Hydrophob, nicht hydrophil (A falsch). Stickstoff (B,D) ist irrelevant. C=C Doppelbindungen (C) = ungesättigte Fettsäuren. Können hohes Molekulargewicht haben (G falsch)."},
+{q:"Welche der folgenden Moleküle stellen Ketonkörper dar und sind sie gute oder schlechte Nährstoffe? Welche Art von Energiequelle sind sie? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Ketonkörper sind eine langsame Form von Nährstoffen und werden daher als vorteilhaft in der Nahrung angesehen.","Folsäure","Ketonkörper schädigen Säugetiere und sind ziemlich giftig.","Ketonkörper gehören zur Gruppe der Kohlenhydrate.","Aceton","Acetoacetat","Ketonkörper gehören zur Gruppe der Fettsäuren/Lipide.","Beta-Hydroxybutyrat"],
+c:[4,5,7],
+e:"Die drei Ketonkörper: Aceton (E), Acetoacetat (F), Beta-Hydroxybutyrat (H). Sie werden aus Acetyl-CoA synthetisiert (gehören zu Lipidstoffwechsel). Nicht langsam (A) — sie sind eine schnelle alternative Energiequelle. Nicht giftig in normalen Mengen (C) — nur bei Ketoazidose. Keine Kohlenhydrate (D). Folsäure (B) ist ein Vitamin."},
+{q:"Welche Auswirkungen hat Fettleibigkeit auf eine Person? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Übermäßiges Fettgewebe ist ein Reservoir für chronische Entzündungen.","Übermäßiges Fettgewebe wirkt den Prozessen chronischer Entzündungen entgegen.","Fettleibigkeit ist mit einer kürzeren Lebenserwartung verbunden.","Infektionskrankheiten sind bei fettleibigen Menschen meist weniger schwerwiegend.","Fettleibigkeit ist mit einer Reihe von Gesundheitsproblemen verbunden, z.B. Gefäßerkrankungen.","Infektionskrankheiten sind bei fettleibigen Menschen meist schwerer.","Fettleibigkeit ist mit einer längeren Lebenserwartung verbunden.","Fettleibigkeit ist nicht so schwerwiegend und lässt sich gut mit Medikamenten behandeln."],
+c:[0,2,4,5],
+e:"Überschüssiges Fettgewebe = chronisches Entzündungsreservoir durch Adipokine (A). Fettleibigkeit = kürzere Lebenserwartung (C). Assoziiert mit vielen Erkrankungen: Herz-Kreislauf, T2D, Krebs (E). Fettleibige Menschen haben schwerere Infektionsverläufe (F). Fettgewebe wirkt nicht entzündungshemmend (B falsch)."},
+{q:"Welche der folgenden Aussagen über die Translation sind richtig? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Die Translation erfolgt in Ribosomen, die sich im Zytoplasma befinden.","Die Translation verwendet GTP als Energiequelle für die Initiation, Elongation und Termination.","mRNA wird in Kodons aus drei Nukleotiden abgelesen.","Die Translation erfolgt in Ribosomen, die sich im Zellkern befinden.","Aminosäuren müssen bei der Translation nicht aktiviert werden um eine Polypeptidkettezu bilden.","Das Ribosom synthetisiert die Polypeptidkette vom C-Terminus zum N-Terminus.","Das Ribosom synthetisiert die Polypeptidkette vom N-Terminus zum C-Terminus.","Die Translation verwendet die Faktoren I, E und T für die Initiation, Elongation und Termination."],
+c:[0,1,2,6],
+e:"Translation in Ribosomen im Zytoplasma (A). GTP als Energiequelle (B, für Elongationsfaktor-Funktion). Kodons = 3 Nukleotide (C). N→C-Terminus (G). Translation findet nicht im Zellkern statt (D falsch). Aminosäuren müssen als Aminoacyl-tRNA aktiviert werden (E falsch). Faktoren heißen IF, EF, RF (nicht I, E, T) (H falsch)."},
+{q:"Welche RNA-Polymerase produziert welche Art von Makromolekül? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["RNA-Polymerase III produziert tRNA.","RNA-Polymerase I produziert tRNA.","RNA-Polymerase II produziert rRNA vom Zucker-Skelett.","Jede eukaryotische RNA-Polymerase produziert tRNA und in manchen Fällen auch mRNA.","RNA-Polymerase I produziert rRNA und kleine DNA.","RNA-Polymerase II produziert mRNA.","Jede eukaryotische RNA-Polymerase produziert rRNA oder nicht-kodierende lange RNAs.","RNA-Polymerase III produziert rRNA."],
+c:[0,5],
+e:"RNA-Pol I → rRNA (28S, 18S, 5.8S). RNA-Pol II → mRNA (F) und snRNA/miRNA. RNA-Pol III → tRNA (A) und 5S rRNA. Pol I produziert keine kleine DNA (E falsch). Pol II produziert kein rRNA vom Zucker-Skelett (C falsch). Nicht jede Pol produziert tRNA (D, G falsch)."},
+{q:"Welche der folgenden Aminosäuren können durch Kinasen phosphoryliert werden und wird dabei eine positive oder eine negative Ladung an die Aminosäure übertragen? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Tryptophan","Valin","Phenylalanin","Tyrosin","Bei der Phosphorylierung einer Aminosäuren wird eine negative Ladung auf die Aminosäure übertragen.","Threonin","Serin","Bei der Phosphorylierung einer Aminosäuren wird eine positive Ladung auf die Aminosäure übertragen."],
+c:[3,4,5,6],
+e:"Phosphorylierbare AS: Serin (G), Threonin (F), Tyrosin (D) – alle mit OH-Gruppen. Phosphorylierung überträgt eine negative Ladung (Phosphatgruppe, E). Tryptophan (A), Valin (B), Phenylalanin (C) haben keine OH-Gruppe und können nicht phosphoryliert werden."},
+{q:"Der Warburg-Effekt beschreibt die Verlagerung der Energieerzeugung von oxidativer Phosphorylierung zur Glykolyse trotz Sauerstoffvorkommen. Welche Aussagen bezüglich des Warburg-Effekts sind richtig? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Der Warburg-Effekt ist ein ziemlich ineffizienter zytoplasmatischer Energieproduktionsweg ausgehend von Glukose, trotz der Anwesenheit von Sauerstoff, aber er bietet Vorteile, beispielsweise für die Herstellung von Membranen durch Fettsäureanabolismus.","Der Warburg-Effekt ist der effizienteste zytoplasmatische Weg für die Harnstoffproduktion.","Laktat kann nicht metabolisiert werden und muss schnell umgewandelt werden.","Glukose wird zu Acetat umgewandelt, wobei die mitochondriale Pyruvatproduktion umgangen wird.","Laktat wird zu Glukose umgewandelt, wobei die Mitochondrien umgangen werden.","Krebszellen haben Vorteile, wenn sie Laktat produzieren und zum Warburg-Effekt wechseln, auch wenn Nährstoffe wie Glukose vorhanden sind. Dies kann zu einer Vermeidung einer Immunreaktion, einer Verstärkung der Zellmembranen, einer Verlangsamung des Zellzyklus und einer Neovaskularisation in einer hypoxischen Umgebung führen.","Laktat wird durch den Warburg-Effekt – auch anaerobe Glykolyse genannt – gebildet, und dabei wird zu viel Laktat ausgeschieden, welches immunsuppressiv wirkt.","Eine Zunahme der Glykolyse führt zu einer Erhöhung der O-GlcNAcylierung (UDP-GlcNAc), welche für eine post-translationale Modifikation von vielen Proteinen notwendig ist, was wiederum deren Proteinfunktion verändern kann."],
+c:[0,5,7],
+e:"Warburg = ineffizient für ATP aber Vorteile für Membranbau (A). Krebszellen profitieren von Laktatproduktion: weniger Immunreaktion, stärkere Membranen, Neovaskularisation (F). Erhöhte Glykolyse → mehr UDP-GlcNAc → O-GlcNAcylierung von Proteinen (H). Laktat ist metabolisierbar (C falsch)."},
+{q:"Was sind wesentliche Funktionen von Lipiden im menschlichen Körper? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Lipide sind ein integraler Bestandteil für den Abbau von reaktiven Sauerstoffspezies.","Lipide sind eine schnelle Energiequelle.","Lipide sind ein wichtiger Bestandteil von Membranen.","Lipide werden nur zur Produktion von Zitronensäure für die Membranbildung verwendet.","Lipide fungieren in allen Formen als Coenzymkatalysator für Enzymreaktionen.","Lipide stellen eine mechanische Schutzbarriere dar.","Lipide sind essentiell für die Esterifizierung von Essigsäure, bei der eine Alkoholgruppe abgespalten wird.","Lipide sind eine langsame Energiequelle."],
+c:[2,5,7],
+e:"Lipide: wichtiger Membranbestandteil (C, Phospholipide), mechanische Schutzbarriere (F, z.B. Nierenfett), und langsame/langfristige Energiequelle (H, Triacylglyceride). Lipide sind keine Antioxidantien im klassischen Sinne (A). Lipide sind langsame, nicht schnelle Energiequelle (B falsch)."},
+{q:"Was ist die kleinste Einheit lebender Materie? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Spermium","Prokaryotische Zelle","Ribosom","Polysom","Mitochondrium","Eizelle","Eukaryotische Zelle","Zellkern"],
+c:[1,6],
+e:"Die Zelle ist die kleinste Einheit lebender Materie. Sowohl prokaryotische (B) als auch eukaryotische Zellen (G) sind Zellen und gelten als kleinste lebende Einheiten. Organellen wie Ribosom (C), Mitochondrium (E), Zellkern (H) sind keine eigenständigen Lebenseinheiten. Spermium (A) und Eizelle (F) sind Zellen, aber keine eigenständige lebende Einheit ohne Befruchtung."},
+{q:"Kann eine Person aufgrund von Vorerkrankungen wie Typ-2-Diabetes (T2D) oder Fettlebererkrankung mehr unter Autoimmunerkrankungen oder chronischen Entzündungen leiden? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Chronische Entzündungen nehmen bei einer Fettlebererkrankung ab.","Chronische Entzündungen nehmen bei T2D ab.","Chronische Entzündungen nehmen bei T2D zu.","Das Risiko für eine Autoimmunerkrankung nimmt bei einer Fettlebererkrankung ab.","Das Risiko für eine Autoimmunerkrankung steigt mit T2D.","Das Risiko für eine Autoimmunerkrankung nimmt bei T2D ab.","Das Risiko für eine Autoimmunerkrankung steigt mit einer Fettlebererkrankung.","Chronische Entzündungen nehmen bei einer Fettlebererkrankung zu."],
+c:[2,4,6,7],
+e:"T2D → chronische Entzündungen steigen (C) und erhöhtes Autoimmunrisiko (E). Fettlebererkrankung → chronische Entzündungen steigen (H) und erhöhtes Autoimmunrisiko (G). Beide Erkrankungen gehen mit einem pro-inflammatorischen Zustand einher."},
+{q:"Der genetische Code der Nukleinsäuren bestimmt die Aminosäurekette in Proteinen. Welche Aussagen über den genetischen Code sind richtig? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Mutationen in Kodons können fatale Konsequenzen für die Proteinfunktion haben, wenn Teile des Kodons verloren gehen oder zusätzliche Basenpaare eingefügt werden, oder ein STOP-Kodon in eine codierende Sequenz eingeführt wird und dadurch der Leserahmen durcheinandergerät usw..","Man kann mRNA aus der Aminosäuresequenz bei Säugetieren über einen ribosomalen Prozess herstellen.","STOP-Kodons sind wichtig, um die Polypeptidkette zu terminieren. Ein zu langes Protein könnte zu Chaos innerhalb der Zelle führen, z.B. könnten Probleme bei der Proteinbildung zu Proteinaggregation oder anderen Problemen führen.","Die drei STOP-Kodons codieren für das Ende der Elongation, jedoch nicht für irgendwelche Aminosäuren.","Es gibt 28 proteinogene Aminosäuren bei Säugetieren.","Insgesamt gibt es 64 Kodons, aber nur 61 kodieren für Aminosäuren.","Kodons bestimmen auch die Aminosäuresequenz in den Introns, aber nicht in den Exons.","Jedes Codon entspricht einer spezifischen Aminosäure oder einem Stoppsignal."],
+c:[0,2,3,5,7],
+e:"Mutationen können Leserahmen verschieben (A). STOP-Kodons terminieren die Kette (C, D). 64 Kodons total, 61 für AS, 3 STOP (F). Jedes Codon = AS oder Stopp (H). mRNA kann nicht aus AS-Sequenz rückgewonnen werden (B falsch). Es gibt 20 proteinogene AS bei Säugetieren, nicht 28 (E falsch). Kodons bestimmen AS in Exons, nicht Introns (G falsch)."},
+{q:"Wie kommen Metabolite wie Fette, Aminosäuren, Zwischenprodukte, etc. in Zellen oder auch in Mitochondrien hinein beziehungsweise wieder heraus? Bitte markieren Sie die richtige(n) Antwort(en).",
+o:["Metaboliten werden über Chaperone in die Mitochondrien transportiert oder aus diesen heraus.","Für die Aufnahme oder Sekretion von Metaboliten werden Zellmembranen durchquert.","Für die Aufnahme oder Sekretion von Metaboliten in Mitochondrien werden keine mitochondrialen Membranen durchquert.","Für die Aufnahme oder Sekretion von Metaboliten werden keine Zellmembranen durchquert.","Große Metabolite diffundieren zufällig in Zellen hinein oder hinaus.","Metabolite werden über Transporter Proteine die einen Kanal bilden in Zellen hinein oder hinaus transportiert.","Kleine Metabolite diffundieren zufällig in Mitochondrien hinein oder hinaus.","Die Mitochondrien enthalten zwei Membranen, und der Katabolismus findet hauptsächlich innerhalb der Mitochondrien für die ATP-Produktion in der Atmungs-Kettenreaktion statt."],
+c:[1,5,7],
+e:"Metabolite brauchen Transporterproteine (E) für die Zellmembran. Zellmembranen werden durchquert (B). Mitochondrien haben 2 Membranen, Katabolismus hauptsächlich darin (H). Chaperone transportieren Proteine, nicht Metabolite (A falsch). Membranen sind selektiv permeabel, große Metabolite diffundieren nicht zufällig (D falsch)."}
+]
+}
+];
+
+var state = {exam:null, answers:{}, submitted:false};
+
+function el(id){return document.getElementById(id)}
+function render(){el('app').innerHTML=buildHTML()}
+
+function buildHTML(){
+  if(!state.exam) return buildHome();
+  if(state.submitted) return buildResults();
+  return buildExam();
+}
+
+function buildHome(){
+  return '<div class="home">'+
+    '<h1>Biochemie Prüfungssimulation</h1>'+
+    '<p>Wähle eine der drei Beispielprüfungen. Jede Frage ist 4 Punkte wert.<br>Bewertung: (richtig – falsch) ÷ Anzahl richtiger Antworten × 4 (min. 0)</p>'+
+    '<div class="cards">'+
+    EXAMS.map(function(e,i){
+      return '<button class="card" onclick="startExam('+i+')">'+
+        '<div class="badge">20 Fragen · 80 Punkte</div>'+
+        '<h2>'+e.title+'</h2>'+
+        '<p>Multiple-Choice, 8 Optionen pro Frage</p>'+
+        '</button>';
+    }).join('')+
+    '</div></div>';
+}
+
+function startExam(i){
+  state.exam=i;
+  state.answers={};
+  state.submitted=false;
+  render();
+  window.scrollTo(0,0);
+}
+
+function toggleOpt(qi, oi){
+  if(state.submitted) return;
+  if(!state.answers[qi]) state.answers[qi]=new Set();
+  var s=state.answers[qi];
+  if(s.has(oi)) s.delete(oi); else s.add(oi);
+  var block=document.getElementById('q'+qi);
+  if(block){
+    var opts=block.querySelectorAll('.opt');
+    opts.forEach(function(o,idx){
+      o.classList.toggle('sel', s.has(idx));
     });
   }
-  // Reset slider when modal opens
-  const origOpenModal = openModal;
-  function openModal(id) {
-    document.getElementById(id).classList.add('open');
-    document.body.style.overflow = 'hidden';
-    const modalId = id.replace('m-', '');
-    if (sliderState[modalId] !== undefined) {
-      sliderState[modalId] = 0;
-      updateSlider(modalId);
-    }
-  }
+}
 
-  // Region tabs
-  function showRegion(id, btn) {
-    document.querySelectorAll('.region-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.region-tab').forEach(b => b.classList.remove('active'));
-    document.getElementById('panel-' + id).classList.add('active');
-    btn.classList.add('active');
-  }
+function buildExam(){
+  var exam=EXAMS[state.exam];
+  var html='<div class="exam-wrap">'+
+    '<div class="exam-header">'+
+    '<button class="back-btn" onclick="goHome()">← Zurück</button>'+
+    '<div><div class="exam-title">'+exam.title+'</div>'+
+    '<div class="exam-sub">20 Fragen · max. 80 Punkte</div></div>'+
+    '</div>';
+  exam.qs.forEach(function(q,qi){
+    var sel=state.answers[qi]||new Set();
+    html+='<div class="question-block" id="q'+qi+'">'+
+      '<div class="q-header"><span class="q-num">Frage '+(qi+1)+' / 20</span><span class="q-pts">4 Punkte</span></div>'+
+      '<div class="q-text">'+q.q+'</div>'+
+      '<div class="options">'+
+      q.o.map(function(opt,oi){
+        return '<button class="opt'+(sel.has(oi)?' sel':'')+'" onclick="toggleOpt('+qi+','+oi+')">'+
+          '<span class="opt-lbl">'+L[oi]+'</span>'+
+          '<span class="opt-txt">'+opt+'</span>'+
+          '</button>';
+      }).join('')+
+      '</div></div>';
+  });
+  html+='<div class="submit-bar"><button class="submit-btn" onclick="submitExam()">Prüfung auswerten</button></div>';
+  html+='</div>';
+  return html;
+}
 
-  // Nav scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 80);
+function submitExam(){
+  state.submitted=true;
+  render();
+  window.scrollTo(0,0);
+}
+
+function scoreQ(qi){
+  var exam=EXAMS[state.exam];
+  var q=exam.qs[qi];
+  var sel=Array.from(state.answers[qi]||new Set());
+  var nc=q.c.length;
+  var right=0,wrong=0;
+  sel.forEach(function(s){ if(q.c.indexOf(s)>=0) right++; else wrong++; });
+  return Math.max(0,(right-wrong)/nc*4);
+}
+
+function buildResults(){
+  var exam=EXAMS[state.exam];
+  var total=0;
+  var scores=[];
+  exam.qs.forEach(function(q,qi){
+    var s=scoreQ(qi);
+    scores.push(s);
+    total+=s;
+  });
+  var pct=Math.round(total/80*100);
+  var grade=pct>=87?'Sehr Gut':pct>=75?'Gut':pct>=63?'Befriedigend':pct>=50?'Genügend':'Nicht Genügend';
+  var full=scores.filter(function(s){return s>=3.99}).length;
+  var partial=scores.filter(function(s){return s>0&&s<3.99}).length;
+  var zero=scores.filter(function(s){return s<=0}).length;
+
+  var html='<div class="results">'+
+    '<div class="legend">'+
+    '<div class="leg"><div class="leg-dot leg-cor"></div>Richtig angekreuzt</div>'+
+    '<div class="leg"><div class="leg-dot leg-wrg"></div>Falsch angekreuzt (Abzug)</div>'+
+    '<div class="leg"><div class="leg-dot leg-mis"></div>Nicht angekreuzt, wäre richtig gewesen</div>'+
+    '</div>'+
+    '<div class="score-card">'+
+    '<div class="score-big">'+total.toFixed(1)+'</div>'+
+    '<div class="score-max">von 80 Punkten</div>'+
+    '<div class="score-pct">'+pct+'% — '+grade+'</div>'+
+    '<div class="score-stats">'+
+    '<div class="stat"><div class="stat-val">'+full+'</div><div class="stat-lbl">Volle Punkte</div></div>'+
+    '<div class="stat"><div class="stat-val">'+partial+'</div><div class="stat-lbl">Teilpunkte</div></div>'+
+    '<div class="stat"><div class="stat-val">'+zero+'</div><div class="stat-lbl">0 Punkte</div></div>'+
+    '</div></div>'+
+    '<div class="results-questions"><h2>Auswertung</h2>';
+
+  exam.qs.forEach(function(q,qi){
+    var sel=Array.from(state.answers[qi]||new Set());
+    var pts=scores[qi];
+    var ptsClass=pts>=3.99?'full':pts>0?'partial':'zero';
+    var ptsLabel=pts.toFixed(2)+' / 4.00 Punkte';
+
+    html+='<div class="q-result-summary">'+
+      '<div class="qrs-header">'+
+      '<span class="qrs-num">Frage '+(qi+1)+'</span>'+
+      '<span class="qrs-pts '+ptsClass+'">'+ptsLabel+'</span>'+
+      '</div>'+
+      '<div class="qrs-text">'+q.q+'</div>'+
+      '<div class="qrs-opts">'+
+      q.o.map(function(opt,oi){
+        var isSel=sel.indexOf(oi)>=0;
+        var isCorrect=q.c.indexOf(oi)>=0;
+        var cls='opt';
+        if(isSel && isCorrect) cls+=' cor';
+        else if(isSel && !isCorrect) cls+=' wrg';
+        else if(!isSel && isCorrect) cls+=' mis';
+        return '<div class="'+cls+'">'+
+          '<span class="opt-lbl">'+L[oi]+'</span>'+
+          '<span class="opt-txt">'+opt+'</span>'+
+          '</div>';
+      }).join('')+
+      '</div>'+
+      (q.e?'<div class="qrs-exp">'+q.e+'</div>':'')+
+      '</div>';
   });
 
-  // Logo color on scroll
-  // Logo color handled via CSS on nav.scrolled
+  html+='</div>'+
+    '<button class="restart-btn" onclick="startExam('+state.exam+')">Prüfung wiederholen</button>'+
+    '<button class="restart-btn" onclick="goHome()">Andere Prüfung wählen</button>'+
+    '</div>';
 
-  // Mobile nav
-  document.querySelectorAll('.mobile-nav a').forEach(a => {
-    a.addEventListener('click', () => document.querySelector('.mobile-nav').classList.remove('open'));
-  });
+  return html;
+}
 
-  // Modals
-  function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
-  });
+function goHome(){
+  state.exam=null;
+  state.answers={};
+  state.submitted=false;
+  render();
+  window.scrollTo(0,0);
+}
 
-  // Language
-  function setLang(lang) {
-    document.body.classList.toggle('en', lang === 'en');
-    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.getElementById('mbtn-de').classList.toggle('active', lang === 'de');
-    document.getElementById('mbtn-en').classList.toggle('active', lang === 'en');
-    document.querySelectorAll('[data-de][data-en]').forEach(el => {
-      el.placeholder = lang === 'en' ? el.dataset.en : el.dataset.de;
-    });
-    document.querySelectorAll('select option[data-de]').forEach(el => {
-      el.textContent = lang === 'en' ? el.dataset.en : el.dataset.de;
-    });
-  }
+render();
 </script>
-
 </body>
 </html>
