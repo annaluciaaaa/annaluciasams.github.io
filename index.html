@@ -81,7 +81,13 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4ff;color:#11
 </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="app"><p style="padding:2rem;font-family:sans-serif;color:#555">Wird geladen...</p></div>
+<noscript><p style="padding:2rem;font-family:sans-serif">JavaScript ist deaktiviert. Bitte aktivieren und neu laden.</p></noscript>
+<script>
+window.onerror = function(msg, src, line, col, err) {
+  document.getElementById('app').innerHTML = '<div style="padding:2rem;font-family:sans-serif;background:#fee;border:1px solid red;border-radius:8px;margin:2rem"><b>Fehler:</b><br>' + msg + '<br><small>Zeile ' + line + '</small></div>';
+};
+</script>
 <script>
 var L="ABCDEFGH";
 
@@ -513,7 +519,7 @@ function goHome(){
   window.scrollTo(0,0);
 }
 
-render();
+try { render(); } catch(e) { document.getElementById('app').innerHTML = '<div style="padding:2rem;font-family:sans-serif;background:#fee;border:1px solid red;border-radius:8px;margin:2rem"><b>Fehler:</b><br>' + e.message + '</div>'; }
 </script>
 </body>
 </html>
