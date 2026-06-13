@@ -421,6 +421,26 @@ footer {
   .region-tab { padding: 0.8rem 1rem; font-size: 0.7rem; }
 }
 
+/* ══ CARD SLIDER ══ */
+.card-slider-wrap { overflow: hidden; aspect-ratio: 4/3; flex-shrink: 0; position: relative; }
+.card-slider-track { display: flex; height: 100%; transition: transform 0.4s ease; will-change: transform; }
+.card-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
+.card-slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(1.05); }
+.card-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.88); border: none; cursor: pointer;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; color: var(--dark); z-index: 5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: background 0.2s;
+}
+.card-btn:hover { background: white; }
+.card-btn.prev { left: 8px; }
+.card-btn.next { right: 8px; }
+.card-dots-wrap { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
+.card-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
+.card-dot.active { background: white; }
+
 .nav-links-desktop li a span,
 .mobile-nav a span { display: inline !important; }
 .nav-links-desktop li a span.lang-en,
@@ -504,8 +524,8 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
   <div class="hero-content">
     <div class="hero-text">
       <h1 class="hero-title">
-        <span class="lang-de">Herzlich<br>Willkommen<br>am Seeberghof</span>
-        <span class="lang-en">Welcome<br>to<br>Seeberghof</span>
+        <span class="lang-de">Herzlich Willkommen<br>am Seeberghof</span>
+        <span class="lang-en">Welcome to<br>Seeberghof</span>
       </h1>
     </div>
     <div class="hero-meta">
@@ -574,8 +594,21 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 <div class="apt-grid">
   <!-- SCHOBER -->
   <div class="apt-card" onclick="openModal('m-schober')">
-    <div class="apt-img-wrap">
-      <img class="apt-img" src="Schober/Blick Balkon 2.JPG" alt="Schober" />
+    <div class="card-slider-wrap">
+      <div class="card-slider-track" id="ctrack-schober">
+        <div class="card-slide"><img src="Schober/Blick Balkon 2.JPG" alt="Schober – Aussicht" /></div>
+        <div class="card-slide"><img src="Schober/Schlafzimmer 1.JPG" alt="Schober – Schlafzimmer" /></div>
+        <div class="card-slide"><img src="Schober/Kueche 1.JPG" alt="Schober – Küche" /></div>
+        <div class="card-slide"><img src="Schober/Badezimmer.JPG" alt="Schober – Badezimmer" /></div>
+      </div>
+      <button class="card-btn prev" onclick="event.stopPropagation();cardSlide('schober',-1)">&#8592;</button>
+      <button class="card-btn next" onclick="event.stopPropagation();cardSlide('schober',1)">&#8594;</button>
+      <div class="card-dots-wrap" id="cdots-schober">
+        <button class="card-dot active" onclick="event.stopPropagation();cardGo('schober',0)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('schober',1)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('schober',2)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('schober',3)"></button>
+      </div>
       <div class="apt-season-badge">ab € 72,–/Nacht</div>
     </div>
     <div class="apt-body">
@@ -598,8 +631,25 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 
   <!-- SEEBLICK -->
   <div class="apt-card" onclick="openModal('m-seeblick')">
-    <div class="apt-img-wrap">
-      <img class="apt-img" src="Seeblick/Wohnzimmer 1.JPG" alt="Seeblick" />
+    <div class="card-slider-wrap">
+      <div class="card-slider-track" id="ctrack-seeblick">
+        <div class="card-slide"><img src="Seeblick/Balkon.JPG" alt="Seeblick – Balkon" /></div>
+        <div class="card-slide"><img src="Seeblick/Wohnzimmer 1.JPG" alt="Seeblick – Wohnzimmer" /></div>
+        <div class="card-slide"><img src="Seeblick/Schlafzimmer 1.JPG" alt="Seeblick – Schlafzimmer" /></div>
+        <div class="card-slide"><img src="Seeblick/Kinderzimmer.JPG" alt="Seeblick – Kinderzimmer" /></div>
+        <div class="card-slide"><img src="Seeblick/Kueche 1.JPG" alt="Seeblick – Küche" /></div>
+        <div class="card-slide"><img src="Seeblick/Badezimmer.JPG" alt="Seeblick – Badezimmer" /></div>
+      </div>
+      <button class="card-btn prev" onclick="event.stopPropagation();cardSlide('seeblick',-1)">&#8592;</button>
+      <button class="card-btn next" onclick="event.stopPropagation();cardSlide('seeblick',1)">&#8594;</button>
+      <div class="card-dots-wrap" id="cdots-seeblick">
+        <button class="card-dot active" onclick="event.stopPropagation();cardGo('seeblick',0)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',1)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',2)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',3)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',4)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',5)"></button>
+      </div>
       <div class="apt-season-badge">ab € 88,–/Nacht</div>
     </div>
     <div class="apt-body">
@@ -622,8 +672,23 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 
   <!-- SCHAFBERG -->
   <div class="apt-card" onclick="openModal('m-schafberg')">
-    <div class="apt-img-wrap">
-      <img class="apt-img" src="Schafberg/Balkon.JPG" alt="Schafberg" />
+    <div class="card-slider-wrap">
+      <div class="card-slider-track" id="ctrack-schafberg">
+        <div class="card-slide"><img src="Schafberg/Balkon.JPG" alt="Schafberg – Balkon" /></div>
+        <div class="card-slide"><img src="Schafberg/Schlafzimmer 1.JPG" alt="Schafberg – Schlafzimmer" /></div>
+        <div class="card-slide"><img src="Schafberg/Schlafzimmer 2.JPG" alt="Schafberg – Schlafzimmer 2" /></div>
+        <div class="card-slide"><img src="Schafberg/Kueche 1.JPG" alt="Schafberg – Küche" /></div>
+        <div class="card-slide"><img src="Schafberg/Badezimmer.JPG" alt="Schafberg – Badezimmer" /></div>
+      </div>
+      <button class="card-btn prev" onclick="event.stopPropagation();cardSlide('schafberg',-1)">&#8592;</button>
+      <button class="card-btn next" onclick="event.stopPropagation();cardSlide('schafberg',1)">&#8594;</button>
+      <div class="card-dots-wrap" id="cdots-schafberg">
+        <button class="card-dot active" onclick="event.stopPropagation();cardGo('schafberg',0)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('schafberg',1)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('schafberg',2)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('schafberg',3)"></button>
+        <button class="card-dot" onclick="event.stopPropagation();cardGo('schafberg',4)"></button>
+      </div>
       <div class="apt-season-badge">ab € 95,–/Nacht</div>
     </div>
     <div class="apt-body">
@@ -661,7 +726,7 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
   <div class="landscape-img"></div>
   <div class="landscape-content">
     <blockquote class="landscape-quote">
-      <span class="lang-de">Sommerliche Leichtigkeit, kristallklares Wasser, frische Bergluft — willkommen im Salzkammergut.</span>
+      <span class="lang-de">Sommerliche Leichtigkeit, kristallklares Wasser, frische Bergluft — Willkommen im Salzkammergut.</span>
       <span class="lang-en">Summer ease, crystal-clear water, fresh mountain air — welcome to the Salzkammergut.</span>
     </blockquote>
     <div class="landscape-line"></div>
@@ -1130,6 +1195,36 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 </div>
 
 <script>
+
+  // Card sliders
+  const cardState = {};
+  function cardSlide(id, dir) {
+    if (!cardState[id]) cardState[id] = 0;
+    const track = document.getElementById('ctrack-' + id);
+    cardState[id] = (cardState[id] + dir + track.children.length) % track.children.length;
+    updateCardSlider(id);
+  }
+  function cardGo(id, idx) {
+    cardState[id] = idx;
+    updateCardSlider(id);
+  }
+  function updateCardSlider(id) {
+    const track = document.getElementById('ctrack-' + id);
+    track.style.transform = 'translateX(-' + (cardState[id] * 100) + '%)';
+    document.querySelectorAll('#cdots-' + id + ' .card-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === cardState[id]);
+    });
+  }
+  // Touch swipe for card sliders
+  document.querySelectorAll('.card-slider-wrap').forEach(wrap => {
+    let startX = 0;
+    const id = wrap.querySelector('.card-slider-track').id.replace('ctrack-', '');
+    wrap.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    wrap.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) cardSlide(id, dx < 0 ? 1 : -1);
+    }, { passive: true });
+  });
 
   // Modal sliders
   const sliderState = {};
