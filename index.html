@@ -409,7 +409,7 @@ footer {
   .hero { height: 56.25vw; }
   .hero-fallback { background-size: 100% auto; background-position: top center; }
   .hero-content { padding: 0 4vw 2vw; }
-  .hero-title { font-size: clamp(1rem, 4.5vw, 2.4rem); }
+  .hero-title { font-size: clamp(1.4rem, 5.5vw, 2.4rem); }
 }
 @media (max-width: 480px) {
   .nav-bar { padding: 0 1rem; height: 62px; }
@@ -463,7 +463,6 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 <!-- Desktop nav links -->
 <ul class="nav-links-desktop">
   <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
-  <li><a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a></li>
   <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
   <li><a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a></li>
   <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
@@ -489,7 +488,6 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
       <button id="mbtn-en" onclick="setLang('en')">EN</button>
     </div>
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
-    <a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a>
     <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
     <a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a>
     <a href="#kontakt"><span class="lang-de">Kontakt & Anfrage</span><span class="lang-en">Contact & Enquiry</span></a>
@@ -535,62 +533,26 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
         <div class="divider"></div>
         <p class="body-text lang-de">Der Seeberghof liegt in Fuschl am See im Salzkammergut, eingebettet zwischen dem Schober mit seinem Nebengipfel Frauenkopf und dem türkisblauen Fuschlsee. Der öffentliche Badestrand und das Ortszentrum sind nur 800 Meter entfernt. Als familiengeführter Bauernhof legen wir Wert auf eine persönliche, herzliche Atmosphäre. Kinder haben draußen viel Platz, Erwachsene genießen die Ruhe und die Natur rund um den Hof.</p>
         <p class="body-text lang-en">Seeberghof is located in Fuschl am See in the Salzkammergut, nestled between the Schober mountain with its secondary peak Frauenkopf and the turquoise Fuschlsee. The public bathing beach and the village centre are just 800 metres away. As a family-run farm, we value a personal and warm atmosphere. Children have plenty of space outside, while adults enjoy the peace and nature surrounding the farm.</p>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--light); border-radius:10px; overflow:hidden; margin-top:2rem;">
+          <div style="background:var(--off); padding:1.2rem 1rem; text-align:center;">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.8rem; font-weight:300; color:var(--accent); line-height:1;">1950</div>
+            <div style="font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;"><span class="lang-de">Gegründet</span><span class="lang-en">Founded</span></div>
+          </div>
+          <div style="background:var(--off); padding:1.2rem 1rem; text-align:center;">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.8rem; font-weight:300; color:var(--accent); line-height:1;">2.</div>
+            <div style="font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;"><span class="lang-de">Generation</span><span class="lang-en">Generation</span></div>
+          </div>
+          <div style="background:var(--off); padding:1.2rem 1rem; text-align:center;">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.8rem; font-weight:300; color:var(--accent); line-height:1;">♀</div>
+            <div style="font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;"><span class="lang-de">Von Frauen geführt</span><span class="lang-en">Women-led</span></div>
+          </div>
+        </div>
         <div class="signature">— Mathilde Pöckl &amp; Familie</div>
       </div>
       <div>
         <img src="Seeblick/Blick.JPG" alt="Blick auf den Fuschlsee" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;display:block;" />
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ══ GESCHICHTE ══ -->
-
-<section class="section" id="geschichte" style="background: #f5efe6;">
-  <div class="section-inner">
-    <div style="max-width: 780px; margin: 0 auto; text-align: center;">
-      <p class="label" style="justify-content: center; gap: 0;">
-        <span class="lang-de">Unsere Geschichte</span>
-        <span class="lang-en">Our Story</span>
-      </p>
-      <h2 class="display-title" style="margin-bottom: 2rem;">
-        <span class="lang-de">Seit <em style="color:var(--accent);font-style:normal">1950</em> am Fuschlsee</span>
-        <span class="lang-en">On the Fuschlsee <em style="color:var(--accent);font-style:normal">since 1950</em></span>
-      </h2>
-
-  <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--light); margin-bottom: 3rem; border-radius: 10px; overflow: hidden;">
-    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">1950</div>
-      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
-        <span class="lang-de">Gegründet</span><span class="lang-en">Founded</span>
-      </div>
-    </div>
-    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">2.</div>
-      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
-        <span class="lang-de">Generation</span><span class="lang-en">Generation</span>
-      </div>
-    </div>
-    <div style="background: var(--off); padding: 1.8rem 1.5rem; text-align: center;">
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 300; color: var(--accent); line-height: 1;">♀</div>
-      <div style="font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-top: 0.4rem;">
-        <span class="lang-de">Von Frauen geführt</span><span class="lang-en">Women-led</span>
-      </div>
-    </div>
-  </div>
-
-  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.5rem;" class="lang-de">
-    Seit 1950 empfängt der Seeberghof Gäste am Fuschlsee. Gegründet von Maria und Peter Pöckl, wird er heute von Mathilde Pöckl in zweiter Generation geführt. Was einst ein aktiver Milchwirtschaftsbetrieb war, ist heute ein ruhiger Familienbauernhof im Salzkammergut. Viele Gäste kommen seit Jahrzehnten hierher und bringen heute bereits ihre eigenen Kinder und Enkelkinder mit. Für sie ist der Seeberghof längst ein zweites Zuhause.
-  </p>
-  <p style="font-size: 1.05rem; line-height: 1.95; color: var(--stone);" class="lang-en">
-    Seeberghof has been welcoming guests on the Fuschlsee since 1950. Founded by Maria and Peter Pöckl, it is today run by Mathilde Pöckl in the second generation. What was once an active dairy farm is now a quiet family farm in the Salzkammergut. Many guests have been coming here for decades and today bring their own children and grandchildren with them. For them, the Seeberghof has long become a second home.
-  </p>
-
-  <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--light);">
-    <p style="font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--accent);">— Mathilde Pöckl &amp; Familie</p>
-  </div>
-</div>
-
   </div>
 </section>
 
@@ -1016,7 +978,6 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
   </svg>
   <div class="footer-links">
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
-    <a href="#geschichte"><span class="lang-de">Geschichte</span><span class="lang-en">Story</span></a>
     <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
     <a href="#kontakt">Kontakt</a>
   </div>
