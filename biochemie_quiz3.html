@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;padding:1rem;max-width:700px;margin:auto;background:#fff;color:#111}
+.pb{height:4px;background:#e5e7eb;border-radius:2px;margin-bottom:1.5rem}
+.pf{height:100%;background:#534AB7;border-radius:2px;transition:width 0.3s}
+.qh{display:flex;justify-content:space-between;margin-bottom:.75rem}
+.qn{font-size:13px;color:#6b7280}
+.qp{font-size:13px;color:#6b7280;background:#f3f4f6;padding:2px 10px;border-radius:12px}
+.qt{font-size:15px;line-height:1.6;margin-bottom:1rem}
+.os{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
+.op{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;background:#fff;text-align:left;width:100%}
+.op:hover{background:#f9fafb}
+.op.sel{background:#EEEDFE;border-color:#534AB7}
+.op.cor{background:#EAF3DE;border-color:#3B6D11}
+.op.wrg{background:#FCEBEB;border-color:#A32D2D}
+.op.mis{background:#FAEEDA;border-color:#854F0B}
+.ol{font-size:13px;font-weight:600;min-width:20px;padding-top:1px;color:#6b7280}
+.op.sel .ol{color:#534AB7}.op.cor .ol{color:#3B6D11}.op.wrg .ol{color:#A32D2D}.op.mis .ol{color:#854F0B}
+.ot{font-size:14px;line-height:1.5}
+.ac{display:flex;gap:10px;align-items:center;margin-bottom:1rem}
+.btn{padding:8px 20px;border-radius:8px;font-size:14px;cursor:pointer;border:1px solid #d1d5db;background:#fff;color:#111}
+.btn.pr{background:#534AB7;border-color:#534AB7;color:#fff}
+.fb{font-size:13px;flex:1}
+.ex{background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;padding:12px 16px;margin-bottom:1.25rem}
+.cl{font-size:12px;font-weight:600;color:#3B6D11;margin-bottom:6px}
+.et{font-size:13px;line-height:1.6}
+.rw{padding:2rem 0;text-align:center}
+.rs{font-size:48px;font-weight:500;color:#534AB7;margin-bottom:.5rem}
+.rl{font-size:15px;color:#6b7280;margin-bottom:1.5rem}
+.rb{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem}
+.me{background:#f9fafb;border-radius:8px;padding:1rem;text-align:left}
+.mv{font-size:22px;font-weight:500}
+.ml{font-size:12px;color:#6b7280;margin-top:2px}
+</style></head><body>
+<div id="app"></div>
+<script>
+var L="ABCDEFGH";
+var Q=[
+  {q:"Laktosemangel (Laktoseintoleranz) ist ein Defekt in welchem Protein und was ist die Konsequenz?",
+   o:["Laktase","Milchzucker reichert sich im Verdauungstrakt an","Milchzucker wird über den Warburg-Effekt zu Laktat umgewandelt","Adipozytenlipase","Amylase","Bei übermäßigem Laktosekonsum verändert sich das Mikrobiom und es kommt zu Durchfall","Alkoholdehydrogenase","Übermäßige Laktose fördert den Tod von Bakterien im Dickdarm"],
+   c:[0,1,5],
+   e:"Laktoseintoleranz = Defekt der Laktase (A). Ohne Laktase reichert sich Milchzucker im Darm an (B) und Bakterien fermentieren ihn → Mikrobiomveränderung und Durchfall (F). Warburg-Effekt (C) hat nichts damit zu tun. Adipozytenlipase (D) baut Fette ab. Amylase (E) spaltet Stärke. Laktose fördert Bakterienwachstum, tötet sie nicht (H falsch)."},
+  {q:"Vier Bindungsarten helfen Proteinen, ihre tertiäre Struktur zu erhalten. Welche sind es?",
+   o:["Ionische Wechselwirkung","Disulfidbrückenbindungen","Lipophile Wechselwirkungen","Aromatische Ringbildung","Hydrophobe Wechselwirkungen","Esterbindungen","Wasserstoffbrückenbindungen","Van-der-Waals-Kräfte"],
+   c:[0,1,4,6],
+   e:"Die vier klassischen Wechselwirkungen der Tertiärstruktur: Ionische WW (A), Disulfidbrücken (B), Hydrophobe WW (E), Wasserstoffbrücken (G). Lipophile WW (C) ist kein Standardbegriff. Aromatische Ringbildung (D) ist keine Bindungsart. Esterbindungen (F) kommen in Proteinen nicht vor. Van-der-Waals (H) sind schwach und nicht als primäre stabilisierende Kraft gezählt."},
+  {q:"Was sind Enzyme, was kennzeichnet sie aus und warum sind sie wichtig?",
+   o:["Lipide können als Enzyme wirken","Langkettige Kohlenhydrate (Karbozyme) wirken als Enzyme","Enzyme können Stoffwechselvorgänge positiv oder negativ regulieren","Enzyme können chemische Reaktionen katalysieren","Enzyme gibt es nicht in einzelligen Organismen","Enzyme haben ein aktives Zentrum das therapeutisch nutzbar ist","Enzyme sind eine RNA-Protein-Mixtur (Ribosomen)","Enzyme sind Proteine"],
+   c:[2,3,5,7],
+   e:"Enzyme sind Proteine (H), katalysieren Reaktionen (D), regulieren Stoffwechsel (C) und haben ein aktives Zentrum (F). Lipide (A) und Kohlenhydrate (B) sind keine Enzyme. Enzyme gibt es auch in Einzellern (E falsch). Ribosomen sind Sonderfälle (G)."},
+  {q:"Was ist Albinismus und was könnte eine Ursache dafür sein?",
+   o:["Sonnenexposition erhöht die Melaninproduktion","Albinismus ist mit Beta-Oxidation verbunden (Mangel an Acetyl-CoA)","Albinismus ist mit dem Tyrosinstoffwechsel verbunden","Sonnenexposition reduziert die Melaninproduktion","Albinismus ist ein Hautpigmentierungsdefekt mit erhöhter UV-Empfindlichkeit","Albinismus ist eine Lebensmittelunverträglichkeit durch Gluten","Albinismus: Mangel an Tyrosinase führt zum Verlust der Melaninproduktion","Albinismus ist ein Pigmentierungsdefekt mit verringerter UV-Empfindlichkeit"],
+   c:[2,4,6],
+   e:"Albinismus = Pigmentierungsdefekt (E) durch Störung des Tyrosinstoffwechsels (C). Tyrosin → Melanin benötigt Tyrosinase — deren Mangel verursacht Albinismus (G). Betroffene sind EMPFINDLICHER gegenüber UV (E richtig, H falsch). Beta-Oxidation (B) und Gluten (F) sind irrelevant."},
+  {q:"Welche Aminosäuren sind positiv oder negativ geladen?",
+   o:["Arginin ist positiv geladen","Glutamin ist negativ geladen","Glutamat ist positiv geladen","Lysin ist positiv geladen","Prolin ist negativ geladen","Histidin ist negativ geladen","Asparagin ist positiv geladen","Asparaginsäure ist negativ geladen"],
+   c:[0,3,7],
+   e:"Positiv: Arginin (A), Lysin (D). Negativ: Asparaginsäure (H). Glutamin (B) ist neutral — nicht Glutamat! Glutamat (C) ist negativ, nicht positiv. Prolin (E) ist neutral. Histidin (F) ist positiv, nicht negativ. Asparagin (G) ist neutral."},
+  {q:"Sind Muskelzellen ähnlich oder unterscheiden sie sich von Fettzellen?",
+   o:["Muskelzellen enthalten nur Protein und keine Fettmasse","Fettzellen sind polynukleär","Muskelzellen sind polynukleär","Große weiße Adipozyten: riesiger Fetttropfen mit Perilipin, Lipolyse durch drei Lipasen via PKA/cAMP","Eine Muskelzelle hat einen einzelnen Zellkern","Muskelzellen enthalten auch eine große Menge Fett","Muskel- und Fettzellen stammen von mesenchymalen Stammzellen ab","Braune Fettzelle: kein Zellkern, produziert mechanische Energie durch UCP-Familie"],
+   c:[2,3,6],
+   e:"Skelettmuskelzellen sind polynukleär (C). Weiße Adipozyten haben Perilipin-Schutz und PKA/cAMP-Lipolyse (D). Muskel- und Fettzellen stammen von mesenchymalen Stammzellen ab (G). Muskelzellen haben kaum Fett (A, F falsch). Fettzellen sind einkernig (B falsch). Braune Fettzellen HABEN einen Kern und produzieren Wärme via UCP, nicht mechanische Energie (H falsch)."},
+  {q:"Welche Aussagen zur Atmungskette in eukaryotischen Zellen sind richtig?",
+   o:["Die Atmungskette ist in allen Säugerzellen wichtig","Sie findet in der äußeren Zellmembran statt","Sie findet im rauhen ER statt","Sie findet im Golgiapparat statt","Sie ist für die Synthese von ATP wesentlich","Sie findet innerhalb der Mitochondrien statt","Sie findet in der Cytoplasmamembran statt","Sie findet im glatten ER statt"],
+   c:[0,4,5],
+   e:"Die Atmungskette ist in fast allen Säugerzellen essentiell (A), produziert ATP (E) und findet an der inneren Mitochondrienmembran statt (F). Sie findet nicht in der äußeren Zellmembran (B), ER (C/H), Golgi (D) oder Cytoplasmamembran (G) statt."},
+  {q:"Was sind die primäre, sekundäre, tertiäre und quartäre Struktur eines Proteins?",
+   o:["Sekundärstruktur: Alpha-Helix oder Beta-Faltblatt","Tertiärstruktur: Faltung zu 3D-Domänen einer Polypeptidkette","Primärstruktur wird durch Promotor-Intron-Abstände bestimmt","Tertiärstruktur: ungefaltete Kopplung die zu ER-Stress führt","Sekundärstruktur resultiert immer aus dem mRNA-Spleißen","Quartärstruktur: Zerfall der Untereinheiten zu einem Ribozym","Primärstruktur: Aminosäuresequenz der Polypeptidkette","Quartärstruktur: Zusammenlagerung von Polypeptidketten zu einem Holoenzym"],
+   c:[0,1,6,7],
+   e:"Sekundär = Alpha-Helix/Beta-Faltblatt (A). Tertiär = 3D-Faltung einer Kette (B). Primär = Aminosäuresequenz (G). Quartär = mehrere Ketten zu Holoenzym (H). Promotor-Abstand (C) bestimmt nicht die Primärstruktur. Tertiärstruktur ist korrekte Faltung, nicht Aggregation (D). Spleißen → mRNA-Sequenz, nicht Sekundärstruktur (E). Quartärstruktur ist Zusammenlagerung (H), nicht Zerfall (F)."},
+  {q:"Gesättigte Fettsäuren sind durch Folgendes gekennzeichnet:",
+   o:["Sehr hydrophil","Stickstoffstruktur mit N=N Doppelbindungen","Kohlenstoffgerüst mit C=C Doppelbindungen","Stickstoffstruktur mit einzelnen N-N-Bindungen","Können kleines Volumen einnehmen aber sehr energiereich","Kohlenstoffgerüst mit nur C-C Einzelbindungen","Haben kleines Molekulargewicht","Können auch lange Ketten bilden"],
+   c:[4,5,7],
+   e:"Gesättigte Fettsäuren: NUR Einzelbindungen im C-Gerüst (F — keine C=C!). Sehr energiereich und kompakt (E). Können lange Ketten bilden (H) z.B. Palmitinsäure (C16). Hydrophob, nicht hydrophil (A falsch). Stickstoff (B,D) ist irrelevant. C=C Doppelbindungen (C) = ungesättigte Fettsäuren. Können hohes Molekulargewicht haben (G falsch)."},
+  {q:"Welche Moleküle sind Ketonkörper und was sind ihre Eigenschaften?",
+   o:["Ketonkörper sind langsame Nährstoffe und daher vorteilhaft","Folsäure","Ketonkörper schädigen Säugetiere und sind giftig","Ketonkörper gehören zu den Kohlenhydraten","Aceton","Acetoacetat","Ketonkörper gehören zu den Fettsäuren/Lipiden","Beta-Hydroxybutyrat"],
+   c:[4,5,7],
+   e:"Die drei Ketonkörper: Aceton (E), Acetoacetat (F), Beta-Hydroxybutyrat (H). Sie werden aus Acetyl-CoA synthetisiert (gehören zu Lipidstoffwechsel). Nicht langsam (A) — sie sind eine schnelle alternative Energiequelle. Nicht giftig in normalen Mengen (C) — nur bei Ketoazidose. Keine Kohlenhydrate (D). Folsäure (B) ist ein Vitamin."},
+  {q:"Welche Auswirkungen hat Fettleibigkeit auf eine Person?",
+   o:["Übermäßiges Fettgewebe ist ein Reservoir für chronische Entzündungen","Fettgewebe wirkt chronischen Entzündungen entgegen","Fettleibigkeit ist mit kürzerer Lebenserwartung verbunden","Infektionskrankheiten sind bei Fettleibigen weniger schwerwiegend","Fettleibigkeit ist mit Gesundheitsproblemen verbunden (z.B. Gefäßerkrankungen)","Infektionskrankheiten sind bei Fettleibigen meist schwerer","Fettleibigkeit ist mit längerer Lebenserwartung verbunden","Fettleibigkeit lässt sich gut mit Medikamenten behandeln"],
+   c:[0,2,4,5],
+   e:"Fettgewebe produziert proinflammatorische Zytokine → chronische Entzündungen (A). Kürzere Lebenserwartung (C). Gefäßerkrankungen etc. (E). Infektionen verlaufen schwerer (F). Fettgewebe wirkt Entzündungen nicht entgegen (B falsch). Keine längere Lebenserwartung (G). Medikamente allein lösen das Problem nicht (H)."},
+  {q:"Welche Aussagen über die Translation sind richtig?",
+   o:["Translation: Ribosomen im Zytoplasma","Translation verwendet GTP für Initiation, Elongation und Termination","mRNA wird in Kodons aus 3 Nukleotiden abgelesen","Translation: Ribosomen im Zellkern","Aminosäuren müssen bei der Translation nicht aktiviert werden","Ribosom synthetisiert vom C-Terminus zum N-Terminus","Ribosom synthetisiert vom N-Terminus zum C-Terminus","Translation verwendet Faktoren I, E und T"],
+   c:[0,1,2,6],
+   e:"Translation an Ribosomen im Zytoplasma (A). GTP als Energiequelle (B). Kodons = 3 Nukleotide (C). N→C Synthese (G). Nicht im Zellkern (D falsch). Aminosäuren MÜSSEN als Aminoacyl-tRNA aktiviert werden (E falsch). C→N Richtung (F) ist falsch. Faktoren heißen IF, EF, RF — nicht I, E, T (H falsch)."},
+  {q:"Welche RNA-Polymerase produziert welche Art von Makromolekül?",
+   o:["RNA-Pol III produziert tRNA","RNA-Pol I produziert tRNA","RNA-Pol II produziert rRNA vom Zucker-Skelett","Jede eukaryotische RNA-Pol produziert tRNA und manchmal mRNA","RNA-Pol I produziert rRNA und kleine DNA","RNA-Pol II produziert mRNA","Jede eukaryotische RNA-Pol produziert rRNA oder lncRNA","RNA-Pol III produziert rRNA"],
+   c:[0,5],
+   e:"Pol I → rRNA, Pol II → mRNA (F), Pol III → tRNA (A) und 5S-rRNA. Pol I produziert keine DNA (E) und kein tRNA (B). Pol II produziert keine rRNA (C). Nicht jede Pol produziert tRNA/mRNA (D, G falsch). Pol III produziert kein rRNA (H falsch)."},
+  {q:"Welche Aminosäuren können durch Kinasen phosphoryliert werden und welche Ladung wird übertragen?",
+   o:["Tryptophan","Valin","Phenylalanin","Tyrosin","Phosphorylierung überträgt negative Ladung","Threonin","Serin","Phosphorylierung überträgt positive Ladung"],
+   c:[3,4,5,6],
+   e:"Kinasen phosphorylieren Serin (G), Threonin (F) und Tyrosin (D) — STY. Phosphatgruppe (PO₄³⁻) = negative Ladung (E). Tryptophan (A), Valin (B) und Phenylalanin (C) werden nicht phosphoryliert. Positive Ladung (H) ist falsch."},
+  {q:"Welche Aussagen bezüglich des Warburg-Effekts sind richtig?",
+   o:["Warburg-Effekt: ineffizienter zytoplasmatischer Weg, bietet aber Vorteile z.B. für Membranen durch Fettsäureanabolismus","Warburg-Effekt ist der effizienteste Weg für Harnstoffproduktion","Laktat kann nicht metabolisiert werden","Glukose wird zu Acetat, wobei mitochondriale Pyruvatproduktion umgangen wird","Laktat wird zu Glukose umgewandelt (Mitochondrien umgangen)","Krebszellen profitieren: Immunevasion, Membranverstärkung, Zellzyklus-Verlangsamung, Neovaskularisation","Laktat (anaerobe Glykolyse) wird ausgeschieden und wirkt immunsuppressiv","Glykolyse-Zunahme → erhöhte O-GlcNAcylierung → Proteinfunktionsänderung"],
+   c:[0,5,6,7],
+   e:"Warburg: ineffizient aber Vorteile für Membranbau (A). Krebsvorteile: Immunevasion, Membranverstärkung, Neovaskularisation (F). Laktat immunsuppressiv (G). O-GlcNAcylierung steigt (H). Laktat kann metabolisiert werden, z.B. Cori-Zyklus (C falsch). Glucose → Pyruvat/Laktat, nicht Acetat (D falsch). Laktat → Glucose braucht Mitochondrien (E falsch)."},
+  {q:"Was sind wesentliche Funktionen von Lipiden im menschlichen Körper?",
+   o:["Lipide bauen reaktive Sauerstoffspezies ab","Lipide sind eine schnelle Energiequelle","Lipide sind wichtiger Bestandteil von Membranen","Lipide werden nur zur Produktion von Zitronensäure für Membranen verwendet","Lipide fungieren als Coenzymkatalysator","Lipide stellen eine mechanische Schutzbarriere dar","Lipide sind essentiell für Esterifizierung von Essigsäure","Lipide sind eine langsame Energiequelle"],
+   c:[2,5,7],
+   e:"Lipide als Phospholipide in Membranen (C). Mechanischer Schutz für Organe (F). Langsame aber energiereiche Energiequelle (~9 kcal/g) (H). Schnelle Energiequelle (B) sind KH. ROS (A) werden von Antioxidantien abgebaut. Zitronensäure für Membranen (D) ist falsch. Coenzymkatalysator (E) falsch."},
+  {q:"Was ist die kleinste Einheit lebender Materie?",
+   o:["Spermium","Prokaryotische Zelle","Ribosom","Polysom","Mitochondrium","Eizelle","Eukaryotische Zelle","Zellkern"],
+   c:[1],
+   e:"Die kleinste Einheit lebender Materie ist die prokaryotische Zelle (B) — minimal strukturiert, kein Zellkern. Ribosomen (C), Polysomen (D), Mitochondrien (E), Zellkerne (H) sind Organellen — keine eigenständig lebenden Einheiten. Spermium (A) und Eizelle (F) sind Zellen, aber komplexer. Eukaryoten (G) sind komplexer."},
+  {q:"Kann T2D oder Fettlebererkrankung zu mehr Autoimmunerkrankungen oder chronischen Entzündungen führen?",
+   o:["Chronische Entzündungen nehmen bei Fettlebererkrankung ab","Chronische Entzündungen nehmen bei T2D ab","Chronische Entzündungen nehmen bei T2D zu","Autoimmunrisiko nimmt bei Fettlebererkrankung ab","Autoimmunrisiko steigt mit T2D","Autoimmunrisiko nimmt bei T2D ab","Autoimmunrisiko steigt mit Fettlebererkrankung","Chronische Entzündungen nehmen bei Fettlebererkrankung zu"],
+   c:[2,4,6,7],
+   e:"T2D → mehr chronische Entzündungen (C) und erhöhtes Autoimmunrisiko (E). Fettlebererkrankung → erhöhtes Autoimmunrisiko (G) und chronische Entzündungen (H). Alle 'nehmen ab'-Aussagen (A, B, D, F) sind falsch."},
+  {q:"Welche Aussagen über den genetischen Code sind richtig?",
+   o:["Mutationen können Frameshifts, vorzeitige STOPs und Leserahmenverschiebungen verursachen","mRNA kann aus der Aminosäuresequenz via ribosomalen Prozess hergestellt werden","STOP-Kodons terminieren die Kette — fehlendes STOP → zu langes Protein → Aggregation","Die drei STOP-Kodons kodieren für Ende der Elongation, aber nicht für Aminosäuren","Es gibt 28 proteinogene Aminosäuren bei Säugetieren","Insgesamt 64 Kodons, davon 61 für Aminosäuren","Kodons bestimmen AA-Sequenz in Introns, nicht in Exons","Jedes Codon entspricht einer Aminosäure oder einem Stoppsignal"],
+   c:[0,2,3,5,7],
+   e:"Mutationen können Frameshifts/vorzeitige STOPs erzeugen (A). Fehlendes STOP → Aggregation (C). STOP-Kodons kodieren für keine Aminosäure (D). 64 Kodons, 61 für AS + 3 STOP (F). Jedes Kodon = eine AS oder STOP (H). mRNA KANN NICHT rückwärts aus Aminosäuren hergestellt werden (B falsch — zentrales Dogma!). Es gibt 20 proteinogene AS (E falsch). Introns werden herausgespleißt (G falsch)."},
+  {q:"Wie kommen Metabolite in Zellen oder Mitochondrien hinein/hinaus?",
+   o:["Metaboliten werden über Chaperone in Mitochondrien transportiert","Für Aufnahme/Sekretion werden Zellmembranen durchquert","Für Aufnahme/Sekretion in Mitochondrien werden keine mitochondrialen Membranen durchquert","Für Aufnahme/Sekretion werden keine Zellmembranen durchquert","Große Metabolite diffundieren zufällig in Zellen","Metabolite werden über Transporterproteine/Kanäle transportiert","Kleine Metabolite diffundieren zufällig in Mitochondrien","Mitochondrien haben zwei Membranen — Katabolismus und ATP-Produktion finden hauptsächlich darin statt"],
+   c:[1,5,7],
+   e:"Metabolite passieren Zellmembranen (B) über Transporterproteine (F). Mitochondrien haben zwei Membranen und ATP wird in der Atmungskette innen produziert (H). Chaperone transportieren Proteine, keine Metabolite (A). Mitochondriale Membranen werden durchquert (C falsch). Membranen müssen gekreuzt werden (D falsch). Große Metabolite diffundieren nicht frei (E falsch). Mitochondrienmembranen sind selektiv permeabel (G falsch)."}
+];
+
+var cur=0,sel=[],chk=false,tot=0,max=Q.length*4;
+function pts(q,s){var n=q.c.length,h=0,w=0;for(var i=0;i<q.c.length;i++)if(s.indexOf(q.c[i])>=0)h++;for(var i=0;i<s.length;i++)if(q.c.indexOf(s[i])<0)w++;return Math.max(0,parseFloat(((h-w)/n*4).toFixed(2)));}
+function render(){
+  var app=document.getElementById('app');
+  if(cur>=Q.length){renderResult(app);return;}
+  var q=Q[cur],pct=(cur/Q.length*100).toFixed(0);
+  var html='<div class="pb"><div class="pf" style="width:'+pct+'%"></div></div>';
+  html+='<div class="qh"><span class="qn">Frage '+(cur+1)+' / '+Q.length+'</span><span class="qp">4 Punkte</span></div>';
+  html+='<p class="qt">'+q.q+'</p><div class="os" id="opts"></div>';
+  if(chk)html+='<div class="ex"><div class="cl">✓ Richtige Antworten: '+q.c.map(function(i){return L[i];}).join(', ')+'</div><div class="et">'+q.e+'</div></div>';
+  html+='<div class="ac"><div class="fb" id="fb"></div>';
+  html+=chk?'<button class="btn pr" onclick="nxt()">Weiter →</button>':'<button class="btn pr" onclick="chkfn()">Überprüfen</button>';
+  html+='</div>';
+  app.innerHTML=html;
+  var opts=document.getElementById('opts');
+  q.o.forEach(function(o,i){
+    var btn=document.createElement('button');
+    if(!chk){btn.className='op'+(sel.indexOf(i)>=0?' sel':'');btn.onclick=(function(x){return function(){tog(x);};})(i);}
+    else{var inC=q.c.indexOf(i)>=0,inS=sel.indexOf(i)>=0;btn.className='op'+(inC&&inS?' cor':(!inC&&inS?' wrg':(inC&&!inS?' mis':'')));}
+    btn.innerHTML='<span class="ol">'+L[i]+'</span><span class="ot">'+o+'</span>';
+    opts.appendChild(btn);
+  });
+  if(chk){var p=pts(q,sel),h=0,w=0;for(var i=0;i<q.c.length;i++)if(sel.indexOf(q.c[i])>=0)h++;for(var i=0;i<sel.length;i++)if(q.c.indexOf(sel[i])<0)w++;var fb=document.getElementById('fb');fb.style.color=p===4?'#3B6D11':p>0?'#854F0B':'#A32D2D';fb.textContent=h+'/'+q.c.length+' richtig, '+w+' falsch → '+p+' / 4 Punkte';}
+}
+function tog(i){var idx=sel.indexOf(i);if(idx>=0)sel.splice(idx,1);else sel.push(i);render();}
+function chkfn(){if(sel.length===0)return;chk=true;tot+=pts(Q[cur],sel);render();}
+function nxt(){cur++;sel=[];chk=false;render();}
+function renderResult(app){var pct=Math.round(tot/max*100);var g=pct>=87?'Ausgezeichnet! 🏆':pct>=70?'Gut gemacht! 👏':pct>=50?'Noch üben! 📚':'Weitermachen! 💪';app.innerHTML='<div class="rw"><div class="rs">'+tot.toFixed(1)+'/'+max+'</div><div class="rl">'+g+' ('+pct+'%)</div><div class="rb"><div class="me"><div class="mv">'+tot.toFixed(1)+'</div><div class="ml">Punkte gesamt</div></div><div class="me"><div class="mv">'+max+'</div><div class="ml">Maximalpunkte</div></div><div class="me"><div class="mv">'+pct+'%</div><div class="ml">Gesamtprozent</div></div></div><button class="btn pr" onclick="rst()">Nochmal versuchen</button></div>';}
+function rst(){cur=0;sel=[];chk=false;tot=0;render();}
+render();
+</script></body></html>
