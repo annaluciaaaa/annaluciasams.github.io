@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;padding:1rem;max-width:700px;margin:auto;background:#fff;color:#111}
+.pb{height:4px;background:#e5e7eb;border-radius:2px;margin-bottom:1.5rem}
+.pf{height:100%;background:#534AB7;border-radius:2px;transition:width 0.3s}
+.qh{display:flex;justify-content:space-between;margin-bottom:.75rem}
+.qn{font-size:13px;color:#6b7280}
+.qp{font-size:13px;color:#6b7280;background:#f3f4f6;padding:2px 10px;border-radius:12px}
+.qt{font-size:15px;line-height:1.6;margin-bottom:1rem}
+.os{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
+.op{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;background:#fff;text-align:left;width:100%}
+.op:hover{background:#f9fafb}
+.op.sel{background:#EEEDFE;border-color:#534AB7}
+.op.cor{background:#EAF3DE;border-color:#3B6D11}
+.op.wrg{background:#FCEBEB;border-color:#A32D2D}
+.op.mis{background:#FAEEDA;border-color:#854F0B}
+.ol{font-size:13px;font-weight:600;min-width:20px;padding-top:1px;color:#6b7280}
+.op.sel .ol{color:#534AB7}.op.cor .ol{color:#3B6D11}.op.wrg .ol{color:#A32D2D}.op.mis .ol{color:#854F0B}
+.ot{font-size:14px;line-height:1.5}
+.ac{display:flex;gap:10px;align-items:center;margin-bottom:1rem}
+.btn{padding:8px 20px;border-radius:8px;font-size:14px;cursor:pointer;border:1px solid #d1d5db;background:#fff;color:#111}
+.btn.pr{background:#534AB7;border-color:#534AB7;color:#fff}
+.fb{font-size:13px;flex:1}
+.ex{background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;padding:12px 16px;margin-bottom:1.25rem}
+.cl{font-size:12px;font-weight:600;color:#3B6D11;margin-bottom:6px}
+.et{font-size:13px;line-height:1.6}
+.rw{padding:2rem 0;text-align:center}
+.rs{font-size:48px;font-weight:500;color:#534AB7;margin-bottom:.5rem}
+.rl{font-size:15px;color:#6b7280;margin-bottom:1.5rem}
+.rb{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem}
+.me{background:#f9fafb;border-radius:8px;padding:1rem;text-align:left}
+.mv{font-size:22px;font-weight:500}
+.ml{font-size:12px;color:#6b7280;margin-top:2px}
+</style></head><body>
+<div id="app"></div>
+<script>
+var L="ABCDEFGH";
+var Q=[
+  {q:"Welche Basenpaarung findet man in komplementären RNA-Strängen? Bitte kreuzen Sie die Richtigen an.",
+   o:["G-T","G-C","G-U","A-C","G-A","A-U","U-A","A-A"],
+   c:[1,2,5,6],
+   e:"In RNA gibt es kein Thymin (T) — daher ist G-T (A) falsch. Korrekte Paarungen: G-C (B, Watson-Crick), G-U (C, Wobble-Paarung), A-U (F, wie A-T in DNA), U-A (G, gleich wie F, nur andere Richtung). A-C (D), G-A (E) und A-A (H) bilden keine stabilen Basenpaare — keine komplementären Partner."},
+  {q:"Welche Aussagen treffen auf den 'Warburg-Effekt' in Krebszellen zu? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Krebszellen haben einen Nachteil durch weniger Membranen","Tumore haben keinen Vorteil bei Hypoxie, da keine neuen Blutgefäße","Krebszellen haben einen Vorteil durch mehr Membranen (Membransynthese)","Warburg findet in der Zellmembran statt und produziert viel ATP","Tumore haben einen Vorteil durch Bildung neuer Blutgefäße (Angiogenese)","Warburg = anaerobe Glykolyse, erlaubt Überleben bei Hypoxie","Warburg findet im Zytoplasma statt und produziert weniger ATP als ox. Phosphorylierung","Nach dem Entdecker Otto Warburg benannt"],
+   c:[2,4,5,7],
+   e:"Krebszellen profitieren: mehr Membranbiosynthese durch Lipide (C), Angiogenese/neue Blutgefäße (E), anaerobe Glykolyse überlebt Hypoxie (F), benannt nach Otto Warburg (H). Krebszellen haben MEHR Membranen, nicht weniger (A falsch). Angiogenese ist ein Vorteil für Tumore (B falsch). Warburg findet im Zytoplasma statt, aber produziert weniger ATP als ox. Phosphorylierung — der Vorteil liegt im Baustoffgewinn, nicht im ATP (D falsch). G beschreibt Warburg im Zytoplasma korrekt, ist aber nicht als vollständige richtige Aussage gelistet."},
+  {q:"Welche Aussagen zu Stoffwechselvorgängen sind korrekt? Bitte kreuzen Sie die Richtigen an.",
+   o:["Methylierung von Proteinen ist ein Stoffwechselvorgang","Aminosäurestoffwechsel findet durch einfache Diffusion statt","Bereitstellung und Verbrauch von Bausteinen sind metabolische Aspekte","Metabolische Prozesse können den Zelltod steuern","Metabolische Prozesse steuern Proliferation und Zellzyklus","Stoffwechselvorgänge finden zufällig statt","Die meisten Stoffwechselvorgänge sind reguliert","Stoffwechsel ist abhängig von Enzymaktivität"],
+   c:[0,2,3,4,6,7],
+   e:"Methylierung (A) ist eine posttranslationale Modifikation = Stoffwechselvorgang. Bereitstellung/Verbrauch von Bausteinen (C) sind zentrale metabolische Aspekte. Metabolismus steuert Zelltod (Apoptose) (D) und Proliferation/Zellzyklus (E). Vorgänge sind reguliert (G) und enzymabhängig (H). Aminosäurestoffwechsel nutzt Transporter, nicht einfache Diffusion (B falsch). Stoffwechsel ist nicht zufällig sondern streng reguliert (F falsch)."},
+  {q:"Welche Aminosäuren sind negativ geladen? Bitte kreuzen Sie die Richtigen an.",
+   o:["Alanin","Histidin","Glycin","Asparagin","Prolin","Asparaginsäure","Glutaminsäure","Lysin"],
+   c:[5,6],
+   e:"Negativ geladen (bei pH 7): Asparaginsäure/Aspartat (F) und Glutaminsäure/Glutamat (G) — beide enthalten eine zusätzliche Carboxylgruppe (-COOH) in der Seitenkette. Alanin (A) und Glycin (C) sind unpolar/neutral. Histidin (B) und Lysin (H) sind positiv geladen. Asparagin (D) und Prolin (E) sind polar/neutral — nicht geladen."},
+  {q:"Aminosäurestoffwechsel kann den Krebs-/TCA-Zyklus auffüllen (Anaplerose). Welche Aussagen sind richtig? Bitte kreuzen Sie die Richtigen an.",
+   o:["S-Adenosylmethionin (SAM) ist ein Methyldonor und Zwischenprodukt des Methioninstoffwechsels","Aminosäuren können im Krebszyklus eine Rolle spielen","Viele Aminosäuren sind direkt am TCA beteiligt (z.B. als α-Ketoglutarat, Succinyl-CoA)","Der erste Schritt des Aminosäureabbaus ist eine Transaminierung","Deaminierung kommt in Zellen nicht vor","SAM ist nur für wenige Aminosäuren relevant, nicht allgemein","Es gibt hauptsächlich 2 Aminosäuren am TCA beteiligt","Nur eine Aminosäure ist am TCA beteiligt"],
+   c:[1,2,3],
+   e:"Aminosäuren können den TCA-Zyklus auffüllen (B). Viele AS liefern TCA-Intermediate wie α-Ketoglutarat (Glutamat), Succinyl-CoA (Methionin, Valin), Fumarat, Oxalacetat (C). Der erste Abbauschritt ist eine Transaminierung (Aminogruppe wird übertragen) (D). SAM (A) ist wichtig, aber hier geht es um TCA-Funktion von AS — SAM selbst ist kein TCA-Intermediat. Deaminierung kommt vor, z.B. Glutamat → α-Ketoglutarat (E falsch). Viele (> 2) AS sind am TCA beteiligt (F, G, H falsch)."},
+  {q:"Für was ist Polyubiquitinierung richtig und an welcher Aminosäure findet sie statt? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["An Guanin","An Doppelbindungen in Fettsäuren","Für den DNA-Abbau","Für den Nukleotid-Abbau","An Lysin","Für den Fettsäureabbau","An Cytosin","Für den Abbau von Proteinen (Proteasom-Markierung)"],
+   c:[4,7],
+   e:"Ubiquitin wird kovalent an Lysin-Reste (E) von Zielproteinen geknüpft. Polyubiquitinierung (K48-verknüpfte Kette) markiert Proteine für den proteasomalen Abbau (H). Guanin (A) und Cytosin (F) sind DNA/RNA-Basen — keine Ubiquitinierungsstellen. Fettsäuren (B) und Nukleotide (D) werden nicht ubiquitiniert. DNA-Abbau (C) und Fettsäureabbau (F) haben nichts mit dem Ubiquitin-Proteasom-System zu tun."},
+  {q:"Was stellen die RNA-Polymerasen her und welche Aussagen zu RNA-Polymerasen sind richtig? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Völlig unwichtige Enzyme","Bereitstellung von Aminosäuren für die Proteinsynthese","Herstellung von Polypeptiden","Im Menschen gibt es 3 verschiedene RNA-Polymerasen","Synthese von mRNA (RNA-Pol II)","Synthese von rRNA (RNA-Pol I)","Synthese der Ribosomenoberfläche und katalytische Funktion","Synthese von tRNA (RNA-Pol III)"],
+   c:[3,4,5,7],
+   e:"Im Menschen: RNA-Pol I → rRNA (F), RNA-Pol II → mRNA (E), RNA-Pol III → tRNA (H) und 5S-rRNA. Also 3 RNA-Polymerasen (D). RNA-Polymerasen sind essenziell, nicht unwichtig (A falsch). Aminosäuren (B) werden durch Ribosomen eingebaut. Polypeptide (C) werden durch Ribosomen hergestellt. Ribosomen (rRNA) wirken katalytisch (Peptidyltransferase), aber das beschreibt nicht was RNA-Polymerasen herstellen (G ungenau)."},
+  {q:"Welche von Typ 1 (T1D) oder Typ 2 (T2D) Diabetes hat welche Eigenschaften? Was kann man dagegen unternehmen? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["T1D ist eine Autoimmunerkrankung (Langerhans-Zellen zerstört)","T1D verursacht Probleme im Zuckerstoffwechsel","T1D hat keinen absoluten Insulinmangel / kein spezifisches Medikament","T1D ist durch Insulintherapie beherrschbar","Gesunde Ernährung wirkt T2D entgegen","T1D: immunvermittelte Lyse der Beta-Zellen","T2D ist keine Autoimmunerkrankung","T1D ist nicht durch Insulintherapie beherrschbar"],
+   c:[0,1,3,4,5],
+   e:"T1D: Autoimmunerkrankung (A), Beta-Zellen durch Immunzellen lysiert (F), daher Störung des Blutzuckers (B), mit Insulintherapie behandelbar (D). T2D: Lebensstilerkrankung, gesunde Ernährung hilft (E). T1D hat ABSOLUTEN Insulinmangel (C falsch — T1D braucht zwingend Insulin). T1D IST durch Insulintherapie kontrollierbar (H falsch). T2D gilt als nicht autoimmun (G ist korrekte Aussage, aber nicht gelistet — T2D ist primär metabolisch bedingt)."},
+  {q:"Welche Aussagen treffen auf das Ribosom zu? Bitte kreuzen Sie die Richtigen an.",
+   o:["Besteht aus einzelnen Nukleotiden und kleinen Metaboliten","RNA-Synthese beginnt am C-Terminus und endet am N-Terminus","Primäre Funktion des Ribosoms = Proteinbiosynthese","Besteht aus Proteinen und RNA","Proteinsynthese verläuft vom N-Terminus zum C-Terminus","RNA-Synthese verläuft vom N-Terminus zum C-Terminus","Proteinsynthese verläuft vom C-Terminus zum N-Terminus","Primäre Funktion = DNA zu RNA umwandeln"],
+   c:[2,3,4],
+   e:"Ribosom: Funktion = Proteinbiosynthese (Translation) (C). Besteht aus rRNA + ribosomalen Proteinen (D). Proteinkette wächst N→C (E). Ribosomen bestehen nicht aus freien Nukleotiden/Metaboliten (A falsch). Ribosomen synthetisieren keine RNA — das ist Aufgabe der RNA-Polymerase (B, F, H falsch). Proteinsynthese C→N (G) ist falsch."},
+  {q:"Der genetische Code ist die Grundlage der Proteinsynthese. Welche der folgenden Aussagen beschreibt den genetischen Code korrekt? Bitte kreuzen Sie das Richtige an.",
+   o:["Degeneriert (mehrere Codons können für dieselbe Aminosäure kodieren)","4 Nukleotide pro Codon","64 verschiedene Codons","Stopp-Codons kodieren für Methionin","2 Nukleotide pro Codon","20 verschiedene Codons","3 Nukleotide pro Codon","Start-Codons signalisieren das Ende der Translation"],
+   c:[0,2,6],
+   e:"Der genetische Code: 3 Nukleotide = 1 Codon (G) → 4³ = 64 mögliche Codons (C). Er ist degeneriert (A): mehrere Codons für eine Aminosäure (z.B. Leu = 6 Codons). 4 Nukleotide pro Codon (B) ist falsch. Stop-Codons (UAA, UAG, UGA) kodieren für keine Aminosäure (D falsch — nicht für Methionin!). 2 Nukleotide (E) und 20 Codons (F) sind falsch. Start-Codons (AUG) signalisieren den BEGINN der Translation (H falsch)."},
+  {q:"Was sind wesentliche Funktionen von Lipiden im menschlichen Körper? Bitte kreuzen Sie die Richtigen an.",
+   o:["Speichern genetischer Information in DNA","Thermischer Schutz (Isolation)","Mechanischer Schutz für Organe","Fettsäuren verursachen Instabilität von Membranen","Bereitstellung von Energie (ca. 9 kcal/g)","Beschleunigung von Transportprozessen des Zytoskeletts","Verbrauch von Sauerstoffradikalen","Wichtiger Bestandteil von Membranen (Phospholipide)"],
+   c:[1,2,4,7],
+   e:"Lipide: thermische Isolation (B, z.B. subkutanes Fett), mechanischer Schutz (C, z.B. Nierenfett), Energiereservoir ~9 kcal/g (E), Membranbaustein als Phospholipide (H). Genetische Information wird in DNA gespeichert, nicht in Lipiden (A falsch). Fettsäuren sind essenziell für Membranstabilität — nicht destabilisierend (D falsch). Zytoskelett-Transport wird von Motorproteinen beschleunigt (F falsch). Antioxidantien bauen ROS ab, nicht Lipide (G falsch)."},
+  {q:"Welche Aussagen zu weißen bzw. braunen Fettzellen sind wahr? Bitte kreuzen Sie die Richtigen an.",
+   o:["Beide stammen aus der mesenchymalen Zelllinie (wie Muskelzellen)","Braune Fettzellen sind essenziell für die Thermoregulation","Fetttropfen in weißen Fettzellen werden durch Perilipin geschützt","Mitochondriale Funktion brauner Fettzellen erzeugt Wärme (UCP1)","Braune Fettzellen nutzen nur Aminosäuren, keine Fettsäuren","Nur weiße Fettzellen setzen viele Fettsäuren frei","Weiße Fettzellen speichern langkettige Fettsäuren in großen Fetttropfen","Beide Zelltypen erzeugen hauptsächlich Wärme"],
+   c:[0,1,2,3,6],
+   e:"Weiße und braune Adipozyten stammen von mesenchymalen Stammzellen ab (A). Braune Fettzellen sind essenziell für Wärmeproduktion (Thermogenin/UCP1) (B, D). Weiße Fettzellen haben Perilipin-bedeckte Fetttropfen (C) und speichern große Mengen langkettiger Fettsäuren (G). Braune Fettzellen oxidieren FETTSÄUREN für Wärme — nicht nur Aminosäuren (E falsch). Beide Zelltypen setzen Fettsäuren frei (F falsch — nicht nur weiße). Nur braune erzeugen hauptsächlich Wärme (H falsch — weiße speichern primär)."},
+  {q:"Wie kommen Metabolite in Zellen oder Mitochondrien hinein? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Große Metabolite diffundieren zufällig in Zellen","Keine Zellmembranen werden durchquert","Über Transporterproteine und Kanäle in Zellen","Keine mitochondrialen Membranen werden durchquert","Über Transporterproteine in Mitochondrien (z.B. Carrier der inneren Membran)","Zellmembranen werden durchquert","Mitochondriale Membranen werden durchquert","Große Metabolite diffundieren zufällig in Mitochondrien"],
+   c:[2,4,5,6],
+   e:"Metabolite gelangen über Transporterproteine/Kanäle in Zellen (C) und Mitochondrien (E). Dabei werden Zellmembranen (F) und mitochondriale Membranen (G) aktiv durchquert. Große Metabolite diffundieren NICHT frei — sie brauchen Transporter (A, H falsch). Membranen stellen eine Barriere dar und müssen gezielt passiert werden (B, D falsch)."},
+  {q:"Wie wird der Prozess genannt, bei dem Glukose abgebaut wird und ATP generiert wird? Bitte kreuzen Sie den Richtigen an.",
+   o:["Beta-Oxidation","Photosynthese","Fermentation","Proteolyse","Glukoneogenese","Transkription","Translation","Glykolyse"],
+   c:[7],
+   e:"Glykolyse (H) = Abbau von Glukose zu Pyruvat unter ATP-Gewinn (Netto 2 ATP). Beta-Oxidation (A) baut Fettsäuren ab. Photosynthese (B) synthetisiert Glukose aus CO₂. Fermentation (C) ist anaerober Glukoseabbau zu Ethanol/Laktat (Teilschritt nach Glykolyse). Proteolyse (D) baut Proteine ab. Glukoneogenese (E) BILDET Glukose. Transkription (F) und Translation (G) sind Schritte der Genexpression."},
+  {q:"Welche Aussagen über Kinasen sind wahr? Bitte kreuzen Sie die Richtigen an.",
+   o:["Entgegengesetzte Funktion zu Phosphatasen","Können andere Proteine aktivieren oder inaktivieren","Führen posttranslationale Modifikationen (PTM) durch","Haben keine Funktion in der Zelle","Verwenden ATP als Phosphat-Donor/Energiequelle","Führen Phosphorylierungen durch","Wichtige Chaperone bei der Proteinfaltung","Spalten Phosphatgruppen von Proteinen ab"],
+   c:[0,1,2,4,5],
+   e:"Kinasen phosphorylieren Proteine (F) mit ATP als Phosphatdonor (E). Das ist eine PTM (C) und aktiviert/inaktiviert Zielproteine (B). Phosphatasen tun das Gegenteil (Dephosphorylierung) — daher entgegengesetzte Funktion (A). Kinasen sind äußerst wichtig in der Zellsignalisierung (D falsch). Chaperone assistieren bei der Proteinfaltung — das ist nicht die Funktion von Kinasen (G falsch). Phosphatgruppen abspalten (H) ist Aufgabe der Phosphatasen."},
+  {q:"Welche Aussagen bezüglich der β-Oxidation sind wahr? Bitte kreuzen Sie die Richtigen an.",
+   o:["Findet ausschließlich in Leber und Muskeln statt","Antioxidantien sind essenziell für die β-Oxidation","Findet ausschließlich im kognitiven Nervensystem statt","Kleinster Baustein ist Glukose","Findet in den Mitochondrien statt","Verschiedene Enzyme sind wichtig (Acyl-CoA-Dehydrogenase etc.)","Findet im Zytoplasma statt","Es entsteht Acetyl-CoA als Endprodukt"],
+   c:[4,5,7],
+   e:"β-Oxidation: findet in Mitochondrien statt (E) (und in Peroxisomen für sehr langkettige FS). Verschiedene Enzyme katalysieren die Schritte (F). Endprodukt: Acetyl-CoA (H), das in den TCA-Zyklus eintritt. Sie findet nicht nur in Leber/Muskeln statt, sondern in fast allen Geweben (A falsch). Antioxidantien (B) sind nicht spezifisch für β-Oxidation. Nervensystem (C) ist falsch. Kleinster Baustein ist Acetyl-CoA, nicht Glukose (D falsch). Findet im Mitochondrium, nicht im Zytoplasma statt (G falsch)."},
+  {q:"Wo findet der Citratzyklus (Krebszyklus) in Eukaryonten statt und wofür wird er benötigt? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Im Zytoplasma","Im Zellkern","Im Golgi-Apparat","In Liposomen","In den Mitochondrien","Im Endoplasmatischen Retikulum","Verbraucht hauptsächlich Energie (ATP)","Für die Herstellung von Energie (z.B. ATP über NADH/FADH₂)"],
+   c:[4,7],
+   e:"Der Citratzyklus findet in der Mitochondrienmatrix statt (E). Er produziert NADH und FADH₂ → Atmungskette → ATP (H). Er findet nicht im Zytoplasma (A), Zellkern (B), Golgi (C), Liposomen (D) oder ER (F) statt. Der TCA-Zyklus VERBRAUCHT Acetyl-CoA und produziert Energie — er verbraucht kein ATP (G falsch)."},
+  {q:"Wie werden die drei Phasen der Translation genannt? Bitte kreuzen Sie die Richtigen an.",
+   o:["Prophase","Hybridisierung","Termination","Anaphase","Annealing","Initiation","Elongation","Denaturierung"],
+   c:[2,5,6],
+   e:"Die drei Phasen der Translation: Initiation (F) = Ribosom bindet mRNA, Elongation (G) = Peptidkette wächst codonweise, Termination (C) = Stop-Codon → Freisetzung. Prophase (A) und Anaphase (D) sind Phasen der Mitose/Meiose. Hybridisierung (B) und Annealing (E) beziehen sich auf DNA/RNA-Doppelstrangbildung. Denaturierung (H) ist Strangauftrennung."},
+  {q:"Welche Aussagen zu Diabetes sind wahr? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Erhöhte Lipolyse ist Kennzeichen einer Diät und verursacht Prädisposition für Diabetes","Diabetes ist eng mit Entzündungsprozessen der Haut verbunden","T2D und Fettleibigkeit sind mit höherem Krebsrisiko assoziiert (Darm, Magen, Brust, Prostata)","Nur genetische Prädisposition der Bauchspeicheldrüse führt zu Diabetes","Blutarmut durch niedrigere Erythropoietin-Mengen ist eng mit T2D verbunden","Fettleibigkeit führt zu erhöhtem Sexualhormon-Spiegel","T1D = Autoimmunerkrankung, immunzellvermittelte Lyse der Beta-Zellen","Betroffene mit Diabetes haben erhöhte Blutzuckerwerte (Hyperglykämie)"],
+   c:[2,6,7],
+   e:"T2D und Adipositas erhöhen das Krebsrisiko (Darm, Brust, Prostata etc.) (C). T1D = Autoimmunerkrankung mit Zerstörung der Beta-Zellen durch Immunzellen (G). Alle Diabetiker haben erhöhte Blutzuckerwerte (Hyperglykämie) (H). Lipolyse (A) ist kein direkter Auslöser. Diabetes betrifft nicht primär die Haut (B). Erythropoietin/Blutarmut (E) ist kein etablierter Hauptfaktor. Diabetes hat multifaktorielle Ursachen, nicht nur genetisch (D falsch)."},
+  {q:"Welche Krankheiten können mit Fettleibigkeit assoziiert werden? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Metabolisches Syndrom","Schlaganfall","Typ-2-Diabetes","Typ-1-Diabetes","Haarausfall","Herzinfarkt","Chronische Entzündung","Chronische Angst"],
+   c:[0,1,2,5,6],
+   e:"Fettleibigkeit ist direkt assoziiert mit: Metabolischem Syndrom (A), Schlaganfall (B), Typ-2-Diabetes (C), Herzinfarkt (F) und chronischer Entzündung (durch proinflammatorische Adipokine) (G). Typ-1-Diabetes (D) ist eine Autoimmunerkrankung ohne direkten Zusammenhang mit Adipositas. Haarausfall (E) und chronische Angst (H) sind nicht primäre Folgen der Adipositas."},
+  {q:"Von welchen der unten angeführten Substanzen nehmen Veganer meist weniger zu sich aufgrund ihrer veganen Ernährung? Welche sollten Veganer substituieren, da sie nicht vom Körper selbst synthetisiert werden können? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Eisen","Langkettige Kohlenhydrate wie Stärke","Vitamin C","Vitamin B12","Vitamin D","Ein Mangel an Aminosäuren tritt immer auf, wenn kein Fleisch verzehrt wird","Fettsäuren (Omega-3, z.B. EPA/DHA)","Kupfer"],
+   c:[0,3,4,6],
+   e:"Veganer müssen besonders auf folgende Nährstoffe achten: Eisen (A) — Häm-Eisen aus Fleisch ist deutlich besser bioverfügbar als pflanzliches Nicht-Häm-Eisen. Vitamin B12 (D) — kommt praktisch ausschließlich in tierischen Produkten vor, daher zwingend zu supplementieren. Vitamin D (E) — wenig über pflanzliche Ernährung aufnehmbar, häufig Supplement nötig. Omega-3-Fettsäuren EPA/DHA (G) — stammen hauptsächlich aus Fisch; pflanzliches ALA wird nur begrenzt zu EPA/DHA umgewandelt. Langkettige KH wie Stärke (B) sind in pflanzlichen Nahrungsmitteln reichlich vorhanden. Vitamin C (C) ist in Pflanzen sehr reichlich. Ein Aminosäuremangel tritt nicht zwingend auf (F falsch) — pflanzliche Proteine aus verschiedenen Quellen kombiniert decken den Bedarf. Kupfer (H) ist in Hülsenfrüchten, Nüssen und Vollkorn enthalten."},
+  {q:"Was ist der 'Warburg-Effekt' und was beschreibt ihn? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Warburg-Effekt beschreibt Stoffwechsel in Mitochondrien mit weniger ATP-Produktion","Glykolyse findet im Zytoplasma statt, weniger effizient aber Vorteile für Membranbausteine","Laktat kann aus dem Zytoplasma nicht weiter metabolisiert werden (wird ausgeschieden)","Glukose wird zu Acetat umgewandelt, wobei mitochondriale Pyruvatproduktion umgangen wird","Laktat wird zu Glukose umgewandelt (Gluconeogenese in der Leber) unter Umgehung der Mitochondrien","Durch Laktatproduktion werden Immunzellen angegriffen und eliminiert","Laktat der anaeroben Glykolyse wird ausgeschieden und wirkt immunsuppressiv auf die Umgebung","Warburg-Effekt findet im Endoplasmatischen Retikulum statt"],
+   c:[1,2,4,6],
+   e:"Warburg: Glykolyse im Zytoplasma, weniger ATP aber Vorteile für Anabolismus (B). Laktat kann aus Tumorzellen ausgeschieden werden und im Blut zu Glucose recycelt werden (Cori-Zyklus) (E). Laktat im Tumor-Mikroumfeld wirkt immunsuppressiv (G). Laktat kann tatsächlich metabolisiert werden — in der Leber zu Glukose (C ist ungenau). Warburg findet im Zytoplasma statt, nicht in Mitochondrien (A falsch) oder ER (H falsch). Glukose → Pyruvat/Laktat, nicht Acetat (D falsch). Laktat greift keine Immunzellen aktiv an — es supprimiert sie passiv (F falsch)."},
+  {q:"Welche der folgenden Aussagen beschreiben korrekt die Ebenen der Proteinstruktur? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Quartärstruktur = Zusammensetzung mehrerer Polypeptid-Untereinheiten zu funktionellem Protein","Alle Proteine haben per Definition eine Quartärstruktur","Disulfidbrücken stabilisieren die Tertiärstruktur (kovalente Bindung zwischen Cysteinresten)","Tertiärstruktur = dreidimensionale Form einer einzelnen Polypeptidkette","Wasserstoffbrücken stabilisieren Alpha-Helices und Beta-Faltblätter (Sekundärstruktur)","Disulfidbrücken kommen am häufigsten in der Quartärstruktur vor","Primärstruktur = lineare Aminosäuresequenz der Polypeptidkette","Primärstruktur bildet sich aufgrund von Wasserstoff- und Van-der-Waals-Bindungen"],
+   c:[0,2,3,4,6],
+   e:"Quartärstruktur = mehrere Polypeptidketten (A, z.B. Hämoglobin = 4 Untereinheiten). Disulfidbrücken (Cys-Cys) stabilisieren Tertiärstruktur (C). Tertiär = 3D-Faltung einer Kette (D). Wasserstoffbrücken → α-Helices und β-Faltblätter (E). Primär = Aminosäuresequenz, codiert durch DNA (G). Nicht alle Proteine haben Quartärstruktur — monomere Proteine enden bei Tertiär (B falsch). Disulfidbrücken kommen in Tertiär- und gelegentlich Quartärstruktur vor, aber primär in Tertiär (F falsch). Primärstruktur wird durch kovalente Peptidbindungen definiert, nicht durch H-Brücken (H falsch)."},
+  {q:"Welche der folgenden Nukleinbasen sind Purine? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Guanin","Thymin","Uracil","Rabulin (nicht existierende Base)","Cytidin (Nucleosid, kein Purin)","Adenin","Cytosin","Adenosin (Nucleosid, kein Purin)"],
+   c:[0,5],
+   e:"Purine haben einen Doppelring (Imidazol + Pyrimidin): Adenin (F) und Guanin (A). Pyrimidine (Einzelring): Thymin (B), Uracil (C), Cytosin (G). Rabulin (D) existiert nicht. Cytidin (E) und Adenosin (H) sind Nukleoside (Base + Zucker) — keine Basen. Eselsbrücke: PURin = PURe As Gold (Adenin, Guanin)."},
+  {q:"Um Stoffwechselprozesse in Zellen zu messen, benötigt man analytische Geräte. Welche eignen sich dazu? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Gefrierschrank","Massenspektrometer (z.B. für Metabolomik)","Gaschromatographie (GC-MS, für flüchtige Metabolite)","Bunsenbrenner","Messgerät zur Bestimmung von ATP (z.B. Luziferase-Assay)","Analysegerät zur Messung von Sauerstoffverbrauch/CO₂-Produktion (Seahorse XF)","Metabolische Kammer zur Messung der Sauerstoffverbrauchsraten (in vivo)","Analysegerät zur Gewichtsbestimmung (Präzisionswaage)"],
+   c:[1,2,4,5,6],
+   e:"Massenspektrometer (B) für Metabolomik/Proteomik. Gaschromatographie (C) für flüchtige Metabolite. ATP-Messgeräte (E, z.B. Luziferase-Biolumineszenz). Seahorse XF Analyzer (F) misst O₂-Verbrauch und CO₂-Produktion in Zellen. Metabolische Kammern (G) für Ganztier-Energieverbrauch. Gefrierschrank (A) und Bunsenbrenner (D) sind keine Messgeräte für Stoffwechselprozesse. Präzisionswaage (H) misst Masse, nicht Stoffwechsel."},
+  {q:"Welche biochemischen Prozesse beinhalten die Synthese großer Moleküle aus kleineren Bausteinen? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Aneuplorismus (kein biochemischer Begriff)","Katabolismus (Abbau großer Moleküle → kleine Bausteine + Energie)","Anabolismus (Aufbau großer Moleküle aus kleinen Bausteinen)","Katharsis (kein biochemischer Begriff)","Glykolyse (Abbau von Glukose → Pyruvat)","Synthese langkettiger Fettsäuren (Lipogenese, anabole Reaktion)","Glykogenese (Aufbau von Glykogen aus Glukose)","Laktogenese (Milchzuckersynthese aus Glukose + Galaktose)"],
+   c:[2,5,6,7],
+   e:"Anabolismus (C) = alle aufbauenden Reaktionen. Fettsäuresynthese (E) = Aufbau aus Acetyl-CoA. Glykogenese (F) = Aufbau von Glykogen aus Glukosemolekülen. Laktogenese (H) = Synthese von Laktose (Disaccharid) aus Monosacchariden. Aneuplorismus (A) und Katharsis (D) sind keine biochemischen Begriffe. Katabolismus (B) und Glykolyse (E) sind abbauende Prozesse — das Gegenteil von Synthese."},
+  {q:"Welche Aminosäuren enthalten Schwefelatome? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Methionin enthält ein Schwefelatom (-S-CH₃ in der Seitenkette)","Tyrosin enthält drei Schwefelatome","Isoleucin enthält ein Schwefelatom","Valin enthält drei Schwefelatome","Prolin enthält zwei Schwefelatome","Lysin enthält drei Schwefelatome","Cystein enthält ein Schwefelatom (-SH in der Seitenkette)","Alanin enthält ein Schwefelatom"],
+   c:[0,6],
+   e:"Schwefelhaltige Aminosäuren: Methionin (A, enthält Thioethergruppe -S-CH₃) und Cystein (G, enthält Thiolgruppe -SH). Nur diese zwei proteinogenen Aminosäuren enthalten Schwefel. Tyrosin (B) enthält eine Hydroxylgruppe (-OH), kein Schwefel. Isoleucin (C), Valin (D), Prolin (E), Lysin (F) und Alanin (H) enthalten kein Schwefel."},
+  {q:"Warum verwenden wir in der Medizin Insulin bei bestimmten Krankheiten und wie heißen diese Krankheiten? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Insulin kann Depressionen entgegenwirken","COVID-19","Insulin erhöht den Blutdruck bei Herzinfarktrisiko","Typ-1-Diabetes (absoluter Insulinmangel durch Beta-Zell-Zerstörung)","Typ-2-Diabetes (relativer Insulinmangel / Insulinresistenz)","Blutkrebs (Leukämie)","Insulin reguliert den Blutzuckerspiegel (senkt Blutglukose)","Insulin wird für die Biosynthese von Katecholaminen benötigt"],
+   c:[3,4,6],
+   e:"Insulin wird bei T1D (D, absoluter Insulinmangel) und T2D (E, wenn orale Antidiabetika nicht ausreichen) eingesetzt. Die Hauptfunktion: Blutzucker senken durch Förderung der Glukoseaufnahme in Gewebe (F). T1D-Patienten sind lebenslang auf Insulin angewiesen. Insulin wirkt nicht gegen Depressionen (A), COVID-19 (B) oder Blutkrebs (F). Insulin erhöht nicht den Blutdruck (C falsch). Katecholamine (Adrenalin, Dopamin) werden ohne Insulin synthetisiert (H falsch)."},
+  {q:"Welche der folgenden Prozesse werden durch den Stoffwechsel reguliert? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Bindung von miRNA an eine Ziel-mRNA (durch metabolische Enzyme reguliert)","Proliferation und Überleben von Zellen (metabolische Signalwege, z.B. mTOR)","Bindung einer regulatorischen lncRNA an eine Ziel-mRNA (epigenetische Regulation)","Proteasomaler Abbau von Proteinen (Ubiquitin-System, ATP-abhängig)","Mutagenese der DNA durch Gammastrahlung (physikalisch, nicht metabolisch)","Mutagenese der DNA durch UV-Bestrahlung (physikalisch, nicht metabolisch)","Epigenetische Regulation der Gen-Transkription (Methylierung, Acetylierung)","Phosphorylierung von Proteinen (Kinasen, ATP-abhängig)"],
+   c:[0,1,2,3,6,7],
+   e:"Metabolisch reguliert: miRNA-Bindung (A, RNA-Interferenz durch Stoffwechselprodukte beeinflusst), Proliferation/Überleben (B, mTOR, AMPK etc.), lncRNA-Regulation (C, epigenetisch), Proteasom (D, ATP-abhängig, Ubiquitin), Epigenetik (G, Methylgruppen aus SAM, Acetyl-CoA für Histonacetylierung), Phosphorylierung (H, Kinasen benötigen ATP). Gammastrahlung (E) und UV (F) sind physikalische Mutagene, nicht metabolisch reguliert."},
+  {q:"Was ist ein Disaccharid? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Maltose (Glukose + Glukose)","Glukose (Monosaccharid)","Galaktose (Monosaccharid)","Fruktose (Monosaccharid)","Saccharose (Glukose + Fruktose)","Pentose (Einfachzucker mit 5 C-Atomen)","Laktose (Glukose + Galaktose)","Trehalose (Glukose + Glukose, α,α-1,1-Bindung)"],
+   c:[0,4,6,7],
+   e:"Disaccharide = zwei Monosaccharide durch glykosidische Bindung: Maltose (A, Glc+Glc), Saccharose (E, Glc+Fru), Laktose (G, Glc+Gal), Trehalose (H, Glc+Glc, andere Bindung). Glukose (B), Galaktose (C) und Fruktose (D) sind Monosaccharide. Pentose (F, z.B. Ribose, Desoxyribose) ist ein Monosaccharid mit 5 Kohlenstoffen."},
+  {q:"Was sind korrekte Unterschiede und Fakten zu essentiellen versus nicht-essentiellen Aminosäuren? Bitte wählen Sie die richtige(n) Antwort(en) aus.",
+   o:["Tryptophan ist eine essentielle Aminosäure","Die Syntheseschritte nicht-essentieller Aminosäuren sind im Vergleich zu essentiellen Aminosäuren komplexer","Essentielle Aminosäuren müssen nicht mit der Nahrung aufgenommen werden","Die Syntheseschritte nicht-essentieller Aminosäuren sind im Vergleich zu essentiellen Aminosäuren weniger komplex","Essentielle Aminosäuren müssen mit der Nahrung aufgenommen werden","Nicht-essentielle Aminosäuren können vom Menschen nicht synthetisiert werden","Nicht-essentielle Aminosäuren können vom Menschen synthetisiert werden","Tryptophan ist eine nicht-essentielle Aminosäure"],
+   c:[0,3,4,6],
+   e:"Tryptophan (A) ist eine der 9 essentiellen Aminosäuren (His, Ile, Leu, Lys, Met, Phe, Thr, Trp, Val). Die Syntheseschritte nicht-essentieller AS sind weniger komplex als die essentieller (D) — der Körper kann sie aus einfachen Vorläufern herstellen. Essentielle AS müssen zwingend mit der Nahrung aufgenommen werden (E). Nicht-essentielle AS kann der Körper selbst synthetisieren (G). B ist falsch (Gegenteil von D). C ist falsch (Gegenteil von E). F ist falsch (Gegenteil von G). H ist falsch — Tryptophan ist essentiell, nicht nicht-essentiell."},
+  {q:"Gibt es unter Berücksichtigung des humanen Metabolismus Gründe, warum man sich bei viralen oder bakteriellen Infektionen um die Ernährung kümmern sollte? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Glukose kann während einer viralen Infektion eine positive Wirkung auf den Patienten haben","Glukose kann während einer viralen Infektion eine negative Wirkung auf den Patienten haben","Ketonkörper können während einer viralen Infektion eine negative Wirkung auf den Patienten haben","Glukose kann während einer bakteriellen Infektion eine negative Wirkung auf den Patienten haben","Glukose kann während einer bakteriellen Infektion eine positive Wirkung auf den Patienten haben","Ketonkörper können während einer viralen Infektion eine positive Wirkung auf den Patienten haben","Ketonkörper können während einer bakteriellen Infektion eine negative Wirkung auf den Patienten haben","Ketonkörper können während einer bakteriellen Infektion eine positive Wirkung auf den Patienten haben"],
+   c:[0,1,3,5,7],
+   e:"Ernährung bei Infektionen hat metabolische Bedeutung: Glukose bei viraler Infektion positiv (A) — Immunzellen wie T-Zellen und NK-Zellen brauchen Glukose als Energiequelle. Gleichzeitig kann Glukose negativ wirken (B) — Viren nutzen Glukose ebenfalls für Replikation. Bei bakterieller Infektion: Glukose negativ (D) — 'Starve a fever': Bakterien verwerten Glukose als Hauptenergiequelle. Ketonkörper positiv bei viraler Infektion (F) — wirken anti-inflammatorisch und hemmen das NLRP3-Inflammasom. Ketonkörper positiv bei bakterieller Infektion (H) — alternative Energie für Immunzellen, anti-bakterielle Eigenschaften beschrieben. Ketonkörper negativ bei viral (C) ist selten belegt. Glukose positiv bei bakteriell (E) ist in diesem Kontext nicht die Hauptaussage."},
+  {q:"Welche der folgenden Aussagen beschreiben den genetischen Code korrekt? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Das START-Codon für die Translation ist typischerweise ATG in der DNA und AUG in der mRNA, welches für Cystein codiert","Alle Aminosäuren werden durch genau ein bestimmtes Codon für die Translation codiert","Das START-Codon für die Translation ist typischerweise ATG in der DNA und AUG in der mRNA, welches für Methionin codiert","Mutationen in der DNA-Sequenz können aufgrund der Redundanz des Codes manchmal still sein (keine Auswirkung)","Alle Mutationen im genetischen Code führen zu einer Veränderung der Proteinsequenz","Der genetische Code ist degeneriert: einige Aminosäuren werden durch mehr als ein Codon codiert","Jedes Codon im genetischen Code besteht aus drei Nukleotiden","Jedes Codon im genetischen Code besteht aus vier Nukleotiden"],
+   c:[2,3,5,6],
+   e:"Das Startcodon AUG in der mRNA (ATG in DNA) codiert für Methionin (C) — nicht für Cystein (A ist falsch!). Stille Mutationen sind durch die Degeneriertheit des Codes möglich (D): synonyme Codons kodieren für dieselbe AS. Der Code ist degeneriert (F): z.B. Leucin hat 6 Codons. Jedes Codon = 3 Nukleotide (G) → 4³ = 64 mögliche Codons. Nicht alle AS haben genau ein Codon (B falsch). Nicht alle Mutationen verändern das Protein (E falsch — stille Mutationen). 4 Nukleotide (H) wäre 256 Codons, stimmt nicht."},
+  {q:"Welche Hauptfunktionen haben Hitzeschockproteine (HSP)? Bitte wählen Sie die richtige(n) Antwort(en) aus.",
+   o:["Hitzeschockproteine binden an RNA und DNA","Hitzeschockproteine sind wichtig für Proteinstabilität und -qualitätskontrolle","Hitzeschockproteine sind Schlüsselenzyme der Glykolyse","Hitzeschockproteine transportieren Cofaktoren aus der Zelle heraus","Hitzeschockproteine sind Chaperone, die bei der korrekten Proteinfaltung helfen","Hitzeschockproteine erleichtern die Rückfaltung stressdeniaturierter Proteine","Hitzeschockproteine wirken aktiv (ATP-abhängig, z.B. Hsp70)","Hitzeschockproteine regulieren die Immunsuppression"],
+   c:[1,4,5],
+   e:"HSP sind Chaperone (E) — sie verhindern Aggregation und helfen bei Proteinfaltung. Sie sind wichtig für Proteinstabilität/Qualitätskontrolle (B). Bei Stress (Hitze, oxidativer Stress) helfen sie denaturierten Proteinen zurück in die korrekte Faltung (F). HSP binden nicht primär an DNA/RNA (A). Sie sind keine Glykolyse-Enzyme (C). Sie exportieren keine Cofaktoren (D). Viele HSP (z.B. Hsp70, Hsp90) sind ATP-abhängig (G ist korrekt, aber nicht in der Antwortliste). Immunsuppression (H) ist keine Hauptfunktion."},
+  {q:"Was zeichnet Transkriptionsfaktoren aus? Bitte wählen Sie die richtige(n) Antwort(en) aus.",
+   o:["Transkriptionsfaktoren sind RNA-Moleküle, die die Transkription hemmen","Transkriptionsfaktoren sind DNA-bindende Proteine; einige binden auch an mitochondriale DNA","Transkriptionsfaktoren können als Enzyme Phosphorylierungen am Chromatin durchführen (Kinasen)","Transkriptionsfaktoren haben wichtige Funktionen bei der Chromatinorganisation","Transkriptionsfaktoren regulieren die Transkription, z.B. durch direkte Bindung an Promotoren","Transkriptionsfaktoren können die Transkription aktivieren oder reprimieren","Transkriptionsfaktoren können als Co-Aktivatoren Super-Enhancer-Komplexe stabilisieren","Transkriptionsfaktoren transportieren Proteine zwischen Kompartimenten"],
+   c:[2,4,5,6],
+   e:"Transkriptionsfaktoren (TF) können Phosphorylierungen am Chromatin durchführen (C, manche TF haben intrinsische Kinase-Aktivität). TF regulieren Transkription durch Promotor-Bindung (E). TF können aktivieren oder reprimieren (F). TF können Super-Enhancer-Komplexe bilden (G). TF sind Proteine, keine RNA (A falsch). TF binden zwar an DNA, aber nicht als primäre Funktion an mitochondriale DNA (B ungenau). TF sind keine Chaperone/Transporter (H falsch)."},
+  {q:"Was sind wichtige Eigenschaften der DNA in einer Säugetierzelle? Bitte wählen Sie die richtige(n) Antwort(en) aus.",
+   o:["Die genetische Information ist in den Exons von Genen gespeichert, welche zu mRNA gespleißt werden","Die mRNA wird aus der genetischen Information der DNA hergestellt","DNA kann auch aus mRNA oder aus Protein hergestellt werden","DNA stellt genetische Informationen bereit und speichert sie","Die DNA wird direkt in Proteinsequenzen umgewandelt","Der Genkörper ist in Exon- und Intronsequenzen organisiert","Die DNA kodiert die genetische Information eines Organismus oder einer Zelle","Die genetische Information ist in den Introns von Genen gespeichert, welche zu mRNA gespleißt werden"],
+   c:[0,1,3,5,6],
+   e:"Genetische Information ist in Exons kodiert (A) — diese werden in der Prä-mRNA behalten und zu mRNA gespleißt. mRNA wird durch Transkription aus DNA hergestellt (B, zentrales Dogma). DNA speichert die genetische Information (D). Gene bestehen aus Exon- und Intronsequenzen (F). DNA kodiert die gesamte genetische Information (G). DNA kann im normalen Zellbetrieb NICHT aus mRNA oder Protein hergestellt werden (C falsch). DNA wird nicht direkt in Protein umgewandelt (E falsch — mRNA als Zwischenschritt). Genetische Information steckt in Exons, nicht Introns (H falsch — Introns werden herausgespleißt und enthalten keine Proteinkodierung)."},
+  {q:"Wie viele STOP-Codons gibt es in menschlichen oder Maus-Zellen? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Die STOP-Codons kodieren für keine der 20 Aminosäuren bei Säugetieren","Es gibt 2 STOP-Codons — eines für die Maus, eines für den Menschen","Maus- und menschliche Zellen haben drei verschiedene STOP-Codons: UAA, UAG, UGA","Die Anzahl der STOP-Codons hängt vom Zellzyklus-Status ab","Der TP53-Status bestimmt die Anzahl der STOP-Codons durch Frameshift-Mutationen","5 STOP-Codons bei Säugetieren: 2 bei Mäusen und 3 beim Menschen","4 STOP-Codons existieren in Säugetierzellen","Es gibt nur 1 STOP-Codon, da es auch nur 1 START-Codon gibt"],
+   c:[0,2],
+   e:"STOP-Codons kodieren für keine Aminosäure (A) — sie signalisieren der Ribosomen die Termination. Es gibt genau 3 universelle STOP-Codons: UAA (Ocker), UAG (Bernstein), UGA (Opal) (C). Diese sind bei Maus und Mensch identisch — kein Unterschied zwischen Spezies (B falsch). Die Anzahl ist fix und unabhängig vom Zellzyklus (D falsch), TP53 (E falsch). Nicht 5 (F), nicht 4 (G), nicht 1 (H)."},
+  {q:"Welche Verhaltensweisen wirken sich positiv gegen Fettleibigkeit aus? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Höherer Konsum einer ketogenen Diät / Reduktion von einfachen Kohlenhydraten","Lebensstil mit sehr langem Schlaf (>10h täglich)","Lesen und Lernen ohne Essen, mit ausreichender Flüssigkeitszufuhr (Wasser)","Kohlenhydratarme Ernährung","Langes Gehen oder Wandern (körperliche Aktivität)","Sehr kurzer Schlaf (<5h täglich)","Konsum von Getränken mit hohem Disaccharidgehalt (z.B. Saccharose in Limonaden)","Lesen und Lernen mit kalorienreichen Snacks und Energydrinks"],
+   c:[0,2,3,4],
+   e:"Gegen Fettleibigkeit: Ketogene Diät / weniger einfache KH (A), kein Essen beim Lernen + Wasser (C), kohlenhydratarme Kost (D), körperliche Aktivität wie Wandern (E). Überlange Schlafdauer (B) ist nicht als Schutzfaktor belegt. Kurzer Schlaf (F) erhöht Adipositasrisiko durch Ghrelin/Leptin-Dysregulation. Süße Getränke (G) und kalorienreiche Snacks + Energydrinks (H) fördern Fettleibigkeit."},
+  {q:"Welche Lipasen sind in Säugetierzellen für den Abbau von Fettsäuren aus Lipidtropfen verantwortlich? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Hormonsensitive Lipase (HSL) — spaltet Diacylglycerol","Adipozyten-Triglyzerid-Lipase (ATGL) — spaltet Triglyzeride zu Diglyzeriden (erster Schritt)","Fetttröpfchen-Lipase (FTL) — nicht existent","Ketonkörper-Lipase (KKL) — nicht existent","Vitamin A Lipase (VAL) — nicht existent","Pentose-Lipase 3 (PL3) — nicht existent","Monoacylglycerin-Lipase (MAGL) — letzter Schritt: MAG → Glycerol + Fettsäure","Fruktose-Lipase (FL) — nicht existent"],
+   c:[0,1,6],
+   e:"Die drei Lipasen der Lipolyse in Adipozyten: 1. ATGL (B) = Triglyzerid → Diglyzerid. 2. HSL (A) = Diglyzerid → Monoglyzerid. 3. MAGL (G) = Monoglyzerid → Glycerol + Fettsäure. Fetttröpfchen-Lipase (C), Ketonkörper-Lipase (D), Vitamin A Lipase (E), Pentose-Lipase (F) und Fruktose-Lipase (H) sind keine realen Enzymbezeichnungen für die Lipolyse."},
+  {q:"Kann Glycerin in Glukose umgewandelt werden? Bitte markieren Sie die richtige(n) Antwort(en).",
+   o:["Nein, nur Malat im Harnstoffzyklus kann in Glukose umgewandelt werden","Nein, Glycerin ist immer das Endprodukt","Nein, Glycerin wird immer zu Laktat umgewandelt","Ja, Glycerin → DHAP (Dihydroxyacetonphosphat) als Zwischenprodukt der Glykolyse → Gluconeogenese","Ja, der Großteil des Glycerins im Plasma wird in der Leber durch Glukoneogenese in Glukose umgewandelt","Nein, Glycerin wird immer im Fettsäureabbau verwendet","Nein, Glycerin wird in Aminoacetonsuccinat umgewandelt","Ja, über ein Zwischenprodukt der Glykolyse (DHAP) kann Glycerin in Glukose umgewandelt werden"],
+   c:[3,4,7],
+   e:"Glycerin kann zu Glukose umgewandelt werden: Glycerin → Glycerin-3-Phosphat → Dihydroxyacetonphosphat (DHAP) → Gluconeogenese → Glukose (D, H). Dies geschieht hauptsächlich in der Leber (E, wichtig bei Lipolyse/Fasten). Malat ist ein TCA-Intermediat, kein Harnstoffzyklus-Produkt (A falsch). Glycerin ist kein Endprodukt — es wird aktiv metabolisiert (B falsch). Glycerin → Laktat: nein, nicht direkt (C falsch). Glycerin selbst ist kein Fettsäure-Substrat (F falsch). Aminoacetonsuccinat: nicht korrekt (G falsch)."},
+  {q:"Laktosemangel (Laktoseintoleranz) ist ein Defekt in welchem Protein und was ist die Konsequenz?",
+   o:["Laktase","Milchzucker reichert sich im Verdauungstrakt an","Milchzucker wird über den Warburg-Effekt zu Laktat umgewandelt","Adipozytenlipase","Amylase","Bei übermäßigem Laktosekonsum verändert sich das Mikrobiom und es kommt zu Durchfall","Alkoholdehydrogenase","Übermäßige Laktose fördert den Tod von Bakterien im Dickdarm"],
+   c:[0,1,5],
+   e:"Laktoseintoleranz = Defekt der Laktase (A). Ohne Laktase reichert sich Milchzucker im Darm an (B) und Bakterien fermentieren ihn → Mikrobiomveränderung und Durchfall (F). Warburg-Effekt (C) hat nichts damit zu tun. Adipozytenlipase (D) baut Fette ab. Amylase (E) spaltet Stärke. Laktose fördert Bakterienwachstum, tötet sie nicht (H falsch)."},
+  {q:"Vier Bindungsarten helfen Proteinen, ihre tertiäre Struktur zu erhalten. Welche sind es?",
+   o:["Ionische Wechselwirkung","Disulfidbrückenbindungen","Lipophile Wechselwirkungen","Aromatische Ringbildung","Hydrophobe Wechselwirkungen","Esterbindungen","Wasserstoffbrückenbindungen","Van-der-Waals-Kräfte"],
+   c:[0,1,4,6],
+   e:"Die vier klassischen Wechselwirkungen der Tertiärstruktur: Ionische WW (A), Disulfidbrücken (B), Hydrophobe WW (E), Wasserstoffbrücken (G). Lipophile WW (C) ist kein Standardbegriff. Aromatische Ringbildung (D) ist keine Bindungsart. Esterbindungen (F) kommen in Proteinen nicht vor. Van-der-Waals (H) sind schwach und nicht als primäre stabilisierende Kraft gezählt."},
+  {q:"Was sind Enzyme, was kennzeichnet sie aus und warum sind sie wichtig?",
+   o:["Lipide können als Enzyme wirken","Langkettige Kohlenhydrate (Karbozyme) wirken als Enzyme","Enzyme können Stoffwechselvorgänge positiv oder negativ regulieren","Enzyme können chemische Reaktionen katalysieren","Enzyme gibt es nicht in einzelligen Organismen","Enzyme haben ein aktives Zentrum das therapeutisch nutzbar ist","Enzyme sind eine RNA-Protein-Mixtur (Ribosomen)","Enzyme sind Proteine"],
+   c:[2,3,5,7],
+   e:"Enzyme sind Proteine (H), katalysieren Reaktionen (D), regulieren Stoffwechsel (C) und haben ein aktives Zentrum (F). Lipide (A) und Kohlenhydrate (B) sind keine Enzyme. Enzyme gibt es auch in Einzellern (E falsch). Ribosomen sind Sonderfälle (G)."},
+  {q:"Was ist Albinismus und was könnte eine Ursache dafür sein?",
+   o:["Sonnenexposition erhöht die Melaninproduktion","Albinismus ist mit Beta-Oxidation verbunden (Mangel an Acetyl-CoA)","Albinismus ist mit dem Tyrosinstoffwechsel verbunden","Sonnenexposition reduziert die Melaninproduktion","Albinismus ist ein Hautpigmentierungsdefekt mit erhöhter UV-Empfindlichkeit","Albinismus ist eine Lebensmittelunverträglichkeit durch Gluten","Albinismus: Mangel an Tyrosinase führt zum Verlust der Melaninproduktion","Albinismus ist ein Pigmentierungsdefekt mit verringerter UV-Empfindlichkeit"],
+   c:[2,4,6],
+   e:"Albinismus = Pigmentierungsdefekt (E) durch Störung des Tyrosinstoffwechsels (C). Tyrosin → Melanin benötigt Tyrosinase — deren Mangel verursacht Albinismus (G). Betroffene sind EMPFINDLICHER gegenüber UV (E richtig, H falsch). Beta-Oxidation (B) und Gluten (F) sind irrelevant."},
+  {q:"Welche Aminosäuren sind positiv oder negativ geladen?",
+   o:["Arginin ist positiv geladen","Glutamin ist negativ geladen","Glutamat ist positiv geladen","Lysin ist positiv geladen","Prolin ist negativ geladen","Histidin ist negativ geladen","Asparagin ist positiv geladen","Asparaginsäure ist negativ geladen"],
+   c:[0,3,7],
+   e:"Positiv: Arginin (A), Lysin (D). Negativ: Asparaginsäure (H). Glutamin (B) ist neutral — nicht Glutamat! Glutamat (C) ist negativ, nicht positiv. Prolin (E) ist neutral. Histidin (F) ist positiv, nicht negativ. Asparagin (G) ist neutral."},
+  {q:"Sind Muskelzellen ähnlich oder unterscheiden sie sich von Fettzellen?",
+   o:["Muskelzellen enthalten nur Protein und keine Fettmasse","Fettzellen sind polynukleär","Muskelzellen sind polynukleär","Große weiße Adipozyten: riesiger Fetttropfen mit Perilipin, Lipolyse durch drei Lipasen via PKA/cAMP","Eine Muskelzelle hat einen einzelnen Zellkern","Muskelzellen enthalten auch eine große Menge Fett","Muskel- und Fettzellen stammen von mesenchymalen Stammzellen ab","Braune Fettzelle: kein Zellkern, produziert mechanische Energie durch UCP-Familie"],
+   c:[2,3,6],
+   e:"Skelettmuskelzellen sind polynukleär (C). Weiße Adipozyten haben Perilipin-Schutz und PKA/cAMP-Lipolyse (D). Muskel- und Fettzellen stammen von mesenchymalen Stammzellen ab (G). Muskelzellen haben kaum Fett (A, F falsch). Fettzellen sind einkernig (B falsch). Braune Fettzellen HABEN einen Kern und produzieren Wärme via UCP, nicht mechanische Energie (H falsch)."},
+  {q:"Welche Aussagen zur Atmungskette in eukaryotischen Zellen sind richtig?",
+   o:["Die Atmungskette ist in allen Säugerzellen wichtig","Sie findet in der äußeren Zellmembran statt","Sie findet im rauhen ER statt","Sie findet im Golgiapparat statt","Sie ist für die Synthese von ATP wesentlich","Sie findet innerhalb der Mitochondrien statt","Sie findet in der Cytoplasmamembran statt","Sie findet im glatten ER statt"],
+   c:[0,4,5],
+   e:"Die Atmungskette ist in fast allen Säugerzellen essentiell (A), produziert ATP (E) und findet an der inneren Mitochondrienmembran statt (F). Sie findet nicht in der äußeren Zellmembran (B), ER (C/H), Golgi (D) oder Cytoplasmamembran (G) statt."},
+  {q:"Was sind die primäre, sekundäre, tertiäre und quartäre Struktur eines Proteins?",
+   o:["Sekundärstruktur: Alpha-Helix oder Beta-Faltblatt","Tertiärstruktur: Faltung zu 3D-Domänen einer Polypeptidkette","Primärstruktur wird durch Promotor-Intron-Abstände bestimmt","Tertiärstruktur: ungefaltete Kopplung die zu ER-Stress führt","Sekundärstruktur resultiert immer aus dem mRNA-Spleißen","Quartärstruktur: Zerfall der Untereinheiten zu einem Ribozym","Primärstruktur: Aminosäuresequenz der Polypeptidkette","Quartärstruktur: Zusammenlagerung von Polypeptidketten zu einem Holoenzym"],
+   c:[0,1,6,7],
+   e:"Sekundär = Alpha-Helix/Beta-Faltblatt (A). Tertiär = 3D-Faltung einer Kette (B). Primär = Aminosäuresequenz (G). Quartär = mehrere Ketten zu Holoenzym (H). Promotor-Abstand (C) bestimmt nicht die Primärstruktur. Tertiärstruktur ist korrekte Faltung, nicht Aggregation (D). Spleißen → mRNA-Sequenz, nicht Sekundärstruktur (E). Quartärstruktur ist Zusammenlagerung (H), nicht Zerfall (F)."},
+  {q:"Gesättigte Fettsäuren sind durch Folgendes gekennzeichnet:",
+   o:["Sehr hydrophil","Stickstoffstruktur mit N=N Doppelbindungen","Kohlenstoffgerüst mit C=C Doppelbindungen","Stickstoffstruktur mit einzelnen N-N-Bindungen","Können kleines Volumen einnehmen aber sehr energiereich","Kohlenstoffgerüst mit nur C-C Einzelbindungen","Haben kleines Molekulargewicht","Können auch lange Ketten bilden"],
+   c:[4,5,7],
+   e:"Gesättigte Fettsäuren: NUR Einzelbindungen im C-Gerüst (F — keine C=C!). Sehr energiereich und kompakt (E). Können lange Ketten bilden (H) z.B. Palmitinsäure (C16). Hydrophob, nicht hydrophil (A falsch). Stickstoff (B,D) ist irrelevant. C=C Doppelbindungen (C) = ungesättigte Fettsäuren. Können hohes Molekulargewicht haben (G falsch)."},
+  {q:"Welche Moleküle sind Ketonkörper und was sind ihre Eigenschaften?",
+   o:["Ketonkörper sind langsame Nährstoffe und daher vorteilhaft","Folsäure","Ketonkörper schädigen Säugetiere und sind giftig","Ketonkörper gehören zu den Kohlenhydraten","Aceton","Acetoacetat","Ketonkörper gehören zu den Fettsäuren/Lipiden","Beta-Hydroxybutyrat"],
+   c:[4,5,7],
+   e:"Die drei Ketonkörper: Aceton (E), Acetoacetat (F), Beta-Hydroxybutyrat (H). Sie werden aus Acetyl-CoA synthetisiert (gehören zu Lipidstoffwechsel). Nicht langsam (A) — sie sind eine schnelle alternative Energiequelle. Nicht giftig in normalen Mengen (C) — nur bei Ketoazidose. Keine Kohlenhydrate (D). Folsäure (B) ist ein Vitamin."},
+  {q:"Welche Auswirkungen hat Fettleibigkeit auf eine Person?",
+   o:["Übermäßiges Fettgewebe ist ein Reservoir für chronische Entzündungen","Fettgewebe wirkt chronischen Entzündungen entgegen","Fettleibigkeit ist mit kürzerer Lebenserwartung verbunden","Infektionskrankheiten sind bei Fettleibigen weniger schwerwiegend","Fettleibigkeit ist mit Gesundheitsproblemen verbunden (z.B. Gefäßerkrankungen)","Infektionskrankheiten sind bei Fettleibigen meist schwerer","Fettleibigkeit ist mit längerer Lebenserwartung verbunden","Fettleibigkeit lässt sich gut mit Medikamenten behandeln"],
+   c:[0,2,4,5],
+   e:"Fettgewebe produziert proinflammatorische Zytokine → chronische Entzündungen (A). Kürzere Lebenserwartung (C). Gefäßerkrankungen etc. (E). Infektionen verlaufen schwerer (F). Fettgewebe wirkt Entzündungen nicht entgegen (B falsch). Keine längere Lebenserwartung (G). Medikamente allein lösen das Problem nicht (H)."},
+  {q:"Welche Aussagen über die Translation sind richtig?",
+   o:["Translation: Ribosomen im Zytoplasma","Translation verwendet GTP für Initiation, Elongation und Termination","mRNA wird in Kodons aus 3 Nukleotiden abgelesen","Translation: Ribosomen im Zellkern","Aminosäuren müssen bei der Translation nicht aktiviert werden","Ribosom synthetisiert vom C-Terminus zum N-Terminus","Ribosom synthetisiert vom N-Terminus zum C-Terminus","Translation verwendet Faktoren I, E und T"],
+   c:[0,1,2,6],
+   e:"Translation an Ribosomen im Zytoplasma (A). GTP als Energiequelle (B). Kodons = 3 Nukleotide (C). N→C Synthese (G). Nicht im Zellkern (D falsch). Aminosäuren MÜSSEN als Aminoacyl-tRNA aktiviert werden (E falsch). C→N Richtung (F) ist falsch. Faktoren heißen IF, EF, RF — nicht I, E, T (H falsch)."},
+  {q:"Welche RNA-Polymerase produziert welche Art von Makromolekül?",
+   o:["RNA-Pol III produziert tRNA","RNA-Pol I produziert tRNA","RNA-Pol II produziert rRNA vom Zucker-Skelett","Jede eukaryotische RNA-Pol produziert tRNA und manchmal mRNA","RNA-Pol I produziert rRNA und kleine DNA","RNA-Pol II produziert mRNA","Jede eukaryotische RNA-Pol produziert rRNA oder lncRNA","RNA-Pol III produziert rRNA"],
+   c:[0,5],
+   e:"Pol I → rRNA, Pol II → mRNA (F), Pol III → tRNA (A) und 5S-rRNA. Pol I produziert keine DNA (E) und kein tRNA (B). Pol II produziert keine rRNA (C). Nicht jede Pol produziert tRNA/mRNA (D, G falsch). Pol III produziert kein rRNA (H falsch)."},
+  {q:"Welche Aminosäuren können durch Kinasen phosphoryliert werden und welche Ladung wird übertragen?",
+   o:["Tryptophan","Valin","Phenylalanin","Tyrosin","Phosphorylierung überträgt negative Ladung","Threonin","Serin","Phosphorylierung überträgt positive Ladung"],
+   c:[3,4,5,6],
+   e:"Kinasen phosphorylieren Serin (G), Threonin (F) und Tyrosin (D) — STY. Phosphatgruppe (PO₄³⁻) = negative Ladung (E). Tryptophan (A), Valin (B) und Phenylalanin (C) werden nicht phosphoryliert. Positive Ladung (H) ist falsch."},
+  {q:"Welche Aussagen bezüglich des Warburg-Effekts sind richtig?",
+   o:["Warburg-Effekt: ineffizienter zytoplasmatischer Weg, bietet aber Vorteile z.B. für Membranen durch Fettsäureanabolismus","Warburg-Effekt ist der effizienteste Weg für Harnstoffproduktion","Laktat kann nicht metabolisiert werden","Glukose wird zu Acetat, wobei mitochondriale Pyruvatproduktion umgangen wird","Laktat wird zu Glukose umgewandelt (Mitochondrien umgangen)","Krebszellen profitieren: Immunevasion, Membranverstärkung, Zellzyklus-Verlangsamung, Neovaskularisation","Laktat (anaerobe Glykolyse) wird ausgeschieden und wirkt immunsuppressiv","Glykolyse-Zunahme → erhöhte O-GlcNAcylierung → Proteinfunktionsänderung"],
+   c:[0,5,6,7],
+   e:"Warburg: ineffizient aber Vorteile für Membranbau (A). Krebsvorteile: Immunevasion, Membranverstärkung, Neovaskularisation (F). Laktat immunsuppressiv (G). O-GlcNAcylierung steigt (H). Laktat kann metabolisiert werden, z.B. Cori-Zyklus (C falsch). Glucose → Pyruvat/Laktat, nicht Acetat (D falsch). Laktat → Glucose braucht Mitochondrien (E falsch)."},
+  {q:"Was sind wesentliche Funktionen von Lipiden im menschlichen Körper?",
+   o:["Lipide bauen reaktive Sauerstoffspezies ab","Lipide sind eine schnelle Energiequelle","Lipide sind wichtiger Bestandteil von Membranen","Lipide werden nur zur Produktion von Zitronensäure für Membranen verwendet","Lipide fungieren als Coenzymkatalysator","Lipide stellen eine mechanische Schutzbarriere dar","Lipide sind essentiell für Esterifizierung von Essigsäure","Lipide sind eine langsame Energiequelle"],
+   c:[2,5,7],
+   e:"Lipide als Phospholipide in Membranen (C). Mechanischer Schutz für Organe (F). Langsame aber energiereiche Energiequelle (~9 kcal/g) (H). Schnelle Energiequelle (B) sind KH. ROS (A) werden von Antioxidantien abgebaut. Zitronensäure für Membranen (D) ist falsch. Coenzymkatalysator (E) falsch."},
+  {q:"Was ist die kleinste Einheit lebender Materie?",
+   o:["Spermium","Prokaryotische Zelle","Ribosom","Polysom","Mitochondrium","Eizelle","Eukaryotische Zelle","Zellkern"],
+   c:[1],
+   e:"Die kleinste Einheit lebender Materie ist die prokaryotische Zelle (B) — minimal strukturiert, kein Zellkern. Ribosomen (C), Polysomen (D), Mitochondrien (E), Zellkerne (H) sind Organellen — keine eigenständig lebenden Einheiten. Spermium (A) und Eizelle (F) sind Zellen, aber komplexer. Eukaryoten (G) sind komplexer."},
+  {q:"Kann T2D oder Fettlebererkrankung zu mehr Autoimmunerkrankungen oder chronischen Entzündungen führen?",
+   o:["Chronische Entzündungen nehmen bei Fettlebererkrankung ab","Chronische Entzündungen nehmen bei T2D ab","Chronische Entzündungen nehmen bei T2D zu","Autoimmunrisiko nimmt bei Fettlebererkrankung ab","Autoimmunrisiko steigt mit T2D","Autoimmunrisiko nimmt bei T2D ab","Autoimmunrisiko steigt mit Fettlebererkrankung","Chronische Entzündungen nehmen bei Fettlebererkrankung zu"],
+   c:[2,4,6,7],
+   e:"T2D → mehr chronische Entzündungen (C) und erhöhtes Autoimmunrisiko (E). Fettlebererkrankung → erhöhtes Autoimmunrisiko (G) und chronische Entzündungen (H). Alle 'nehmen ab'-Aussagen (A, B, D, F) sind falsch."},
+  {q:"Welche Aussagen über den genetischen Code sind richtig?",
+   o:["Mutationen können Frameshifts, vorzeitige STOPs und Leserahmenverschiebungen verursachen","mRNA kann aus der Aminosäuresequenz via ribosomalen Prozess hergestellt werden","STOP-Kodons terminieren die Kette — fehlendes STOP → zu langes Protein → Aggregation","Die drei STOP-Kodons kodieren für Ende der Elongation, aber nicht für Aminosäuren","Es gibt 28 proteinogene Aminosäuren bei Säugetieren","Insgesamt 64 Kodons, davon 61 für Aminosäuren","Kodons bestimmen AA-Sequenz in Introns, nicht in Exons","Jedes Codon entspricht einer Aminosäure oder einem Stoppsignal"],
+   c:[0,2,3,5,7],
+   e:"Mutationen können Frameshifts/vorzeitige STOPs erzeugen (A). Fehlendes STOP → Aggregation (C). STOP-Kodons kodieren für keine Aminosäure (D). 64 Kodons, 61 für AS + 3 STOP (F). Jedes Kodon = eine AS oder STOP (H). mRNA KANN NICHT rückwärts aus Aminosäuren hergestellt werden (B falsch — zentrales Dogma!). Es gibt 20 proteinogene AS (E falsch). Introns werden herausgespleißt (G falsch)."},
+  {q:"Wie kommen Metabolite in Zellen oder Mitochondrien hinein/hinaus?",
+   o:["Metaboliten werden über Chaperone in Mitochondrien transportiert","Für Aufnahme/Sekretion werden Zellmembranen durchquert","Für Aufnahme/Sekretion in Mitochondrien werden keine mitochondrialen Membranen durchquert","Für Aufnahme/Sekretion werden keine Zellmembranen durchquert","Große Metabolite diffundieren zufällig in Zellen","Metabolite werden über Transporterproteine/Kanäle transportiert","Kleine Metabolite diffundieren zufällig in Mitochondrien","Mitochondrien haben zwei Membranen — Katabolismus und ATP-Produktion finden hauptsächlich darin statt"],
+   c:[1,5,7],
+   e:"Metabolite passieren Zellmembranen (B) über Transporterproteine (F). Mitochondrien haben zwei Membranen und ATP wird in der Atmungskette innen produziert (H). Chaperone transportieren Proteine, keine Metabolite (A). Mitochondriale Membranen werden durchquert (C falsch). Membranen müssen gekreuzt werden (D falsch). Große Metabolite diffundieren nicht frei (E falsch). Mitochondrienmembranen sind selektiv permeabel (G falsch)."}
+];
+
+// Shuffle array
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+Q=shuffle(Q);
+
+var cur=0,sel=[],chk=false,tot=0,max=Q.length*4;
+function pts(q,s){var n=q.c.length,h=0,w=0;for(var i=0;i<q.c.length;i++)if(s.indexOf(q.c[i])>=0)h++;for(var i=0;i<s.length;i++)if(q.c.indexOf(s[i])<0)w++;return Math.max(0,parseFloat(((h-w)/n*4).toFixed(2)));}
+function render(){
+  var app=document.getElementById('app');
+  if(cur>=Q.length){renderResult(app);return;}
+  var q=Q[cur],pct=(cur/Q.length*100).toFixed(0);
+  var html='<div class="pb"><div class="pf" style="width:'+pct+'%"></div></div>';
+  html+='<div class="qh"><span class="qn">Frage '+(cur+1)+' / '+Q.length+'</span><span class="qp">4 Punkte</span></div>';
+  html+='<p class="qt">'+q.q+'</p><div class="os" id="opts"></div>';
+  if(chk)html+='<div class="ex"><div class="cl">✓ Richtige Antworten: '+q.c.map(function(i){return L[i];}).join(', ')+'</div><div class="et">'+q.e+'</div></div>';
+  html+='<div class="ac"><div class="fb" id="fb"></div>';
+  html+=chk?'<button class="btn pr" onclick="nxt()">Weiter →</button>":'<button class="btn pr" onclick="chkfn()">Überprüfen</button>';
+  html+='</div>';
+  app.innerHTML=html;
+  var opts=document.getElementById('opts');
+  q.o.forEach(function(o,i){
+    var btn=document.createElement('button');
+    if(!chk){btn.className='op'+(sel.indexOf(i)>=0?' sel':'');btn.onclick=(function(x){return function(){tog(x);};})(i);}
+    else{var inC=q.c.indexOf(i)>=0,inS=sel.indexOf(i)>=0;btn.className='op'+(inC&&inS?' cor':(!inC&&inS?' wrg':(inC&&!inS?' mis':'\')));}
+    btn.innerHTML='<span class="ol">'+L[i]+'</span><span class="ot">'+o+'</span>';
+    opts.appendChild(btn);
+  });
+  if(chk){var p=pts(q,sel),h=0,w=0;for(var i=0;i<q.c.length;i++)if(sel.indexOf(q.c[i])>=0)h++;for(var i=0;i<sel.length;i++)if(q.c.indexOf(sel[i])<0)w++;var fb=document.getElementById('fb');fb.style.color=p===4?'#3B6D11':p>0?'#854F0B':'#A32D2D';fb.textContent=h+'/'+q.c.length+' richtig, '+w+' falsch → '+p+' / 4 Punkte';}
+}
+function tog(i){var idx=sel.indexOf(i);if(idx>=0)sel.splice(idx,1);else sel.push(i);render();}
+function chkfn(){if(sel.length===0)return;chk=true;tot+=pts(Q[cur],sel);render();}
+function nxt(){cur++;sel=[];chk=false;render();}
+function renderResult(app){var pct=Math.round(tot/max*100);var g=pct>=87?'Ausgezeichnet! 🏆':pct>=70?'Gut gemacht! 👏':pct>=50?'Noch üben! 📚':'Weitermachen! 💪';app.innerHTML='<div class="rw"><div class="rs">'+tot.toFixed(1)+'/'+max+'</div><div class="rl">'+g+' ('+pct+'%)</div><div class="rb"><div class="me"><div class="mv">'+tot.toFixed(1)+'</div><div class="ml">Punkte gesamt</div></div><div class="me"><div class="mv">'+max+'</div><div class="ml">Maximalpunkte</div></div><div class="me"><div class="mv">'+pct+'%</div><div class="ml">Gesamtprozent</div></div></div><button class="btn pr" onclick="rst()">Nochmal versuchen</button></div>';}
+function rst(){cur=0;sel=[];chk=false;tot=0;Q=shuffle(Q);render();}
+render();
+</script></body></html>

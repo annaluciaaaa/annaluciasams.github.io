@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Biochemie Quiz – MedBio 2. Semester</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f7f7f9;color:#111;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem}
+.wrap{max-width:560px;width:100%}
+.hd{text-align:center;margin-bottom:2rem}
+.hd h1{font-size:22px;font-weight:600;margin-bottom:.4rem}
+.hd p{font-size:14px;color:#6b7280}
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{display:block;text-decoration:none;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.1rem 1.3rem;transition:box-shadow 0.15s,border-color 0.15s;cursor:pointer}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:#534AB7}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem}
+.card-title{font-size:15px;font-weight:600;color:#111}
+.card-badge{font-size:12px;color:#6b7280;background:#f3f4f6;padding:2px 10px;border-radius:12px}
+.card-sub{font-size:13px;color:#6b7280;line-height:1.5}
+.card-topics{font-size:12px;color:#9ca3af;margin-top:.4rem}
+.sep{text-align:center;margin:1.2rem 0;color:#9ca3af;font-size:13px}
+.all-btn{display:block;text-decoration:none;background:#534AB7;color:#fff;border-radius:12px;padding:1rem 1.3rem;text-align:center;font-size:15px;font-weight:600;transition:background 0.15s}
+.all-btn:hover{background:#3d379e}
+.all-sub{font-size:12px;opacity:.85;margin-top:2px;font-weight:400}
+.ft{text-align:center;margin-top:1.5rem;font-size:12px;color:#9ca3af}
+</style>
+</head><body>
+<div class="wrap">
+  <div class="hd">
+    <h1>Biochemie Quiz</h1>
+    <p>MedBio 2. Semester · 3 Beispielprüfungen · je 20 Fragen · 4 Punkte pro Frage</p>
+  </div>
+  <div class="cards">
+    <a class="card" href="biochemie_quiz1.html">
+      <div class="card-top">
+        <span class="card-title">Beispielprüfung 1</span>
+        <span class="card-badge">20 Fragen · 80 Punkte</span>
+      </div>
+      <div class="card-sub">Multiple-Choice mit Minuspunkten innerhalb der Frage</div>
+      <div class="card-topics">RNA-Basenpaarung · Warburg-Effekt · Aminosäuren · Kinasen · β-Oxidation · Citratzyklus · Translation · Diabetes · Lipide</div>
+    </a>
+    <a class="card" href="biochemie_quiz2.html">
+      <div class="card-top">
+        <span class="card-title">Beispielprüfung 2</span>
+        <span class="card-badge">20 Fragen · 80 Punkte</span>
+      </div>
+      <div class="card-sub">Multiple-Choice mit Minuspunkten innerhalb der Frage</div>
+      <div class="card-topics">Vegane Ernährung · Proteinstruktur · Purine · Disaccharide · Essentielle Aminosäuren · Genetischer Code · Hitzeschockproteine · Lipasen · Glykoneogenese</div>
+    </a>
+    <a class="card" href="biochemie_quiz3.html">
+      <div class="card-top">
+        <span class="card-title">Beispielprüfung 3</span>
+        <span class="card-badge">20 Fragen · 80 Punkte</span>
+      </div>
+      <div class="card-sub">Multiple-Choice mit Minuspunkten innerhalb der Frage</div>
+      <div class="card-topics">Laktoseintoleranz · Enzyme · Albinismus · Fettzellen · Atmungskette · Fettsäuren · Ketonkörper · Translation · RNA-Polymerasen · Phosphorylierung</div>
+    </a>
+  </div>
+  <div class="sep">— oder —</div>
+  <a class="all-btn" href="biochemie_quiz_all.html">
+    Alle 60 Fragen gemischt
+    <div class="all-sub">Alle drei Prüfungen in einem Durchlauf · 240 Punkte</div>
+  </a>
+  <div class="ft">Punkte-System: +Punkte für richtige, −Punkte für falsche Antworten (min. 0 pro Frage)</div>
+</div>
+</body></html>
