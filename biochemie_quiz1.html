@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;padding:1rem;max-width:700px;margin:auto;background:#fff;color:#111}
+.pb{height:4px;background:#e5e7eb;border-radius:2px;margin-bottom:1.5rem}
+.pf{height:100%;background:#534AB7;border-radius:2px;transition:width 0.3s}
+.qh{display:flex;justify-content:space-between;margin-bottom:.75rem}
+.qn{font-size:13px;color:#6b7280}
+.qp{font-size:13px;color:#6b7280;background:#f3f4f6;padding:2px 10px;border-radius:12px}
+.qt{font-size:15px;line-height:1.6;margin-bottom:1rem}
+.os{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
+.op{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;background:#fff;text-align:left;width:100%}
+.op:hover{background:#f9fafb}
+.op.sel{background:#EEEDFE;border-color:#534AB7}
+.op.cor{background:#EAF3DE;border-color:#3B6D11}
+.op.wrg{background:#FCEBEB;border-color:#A32D2D}
+.op.mis{background:#FAEEDA;border-color:#854F0B}
+.ol{font-size:13px;font-weight:600;min-width:20px;padding-top:1px;color:#6b7280}
+.op.sel .ol{color:#534AB7}.op.cor .ol{color:#3B6D11}.op.wrg .ol{color:#A32D2D}.op.mis .ol{color:#854F0B}
+.ot{font-size:14px;line-height:1.5}
+.ac{display:flex;gap:10px;align-items:center;margin-bottom:1rem}
+.btn{padding:8px 20px;border-radius:8px;font-size:14px;cursor:pointer;border:1px solid #d1d5db;background:#fff;color:#111}
+.btn.pr{background:#534AB7;border-color:#534AB7;color:#fff}
+.fb{font-size:13px;flex:1}
+.ex{background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;padding:12px 16px;margin-bottom:1.25rem}
+.cl{font-size:12px;font-weight:600;color:#3B6D11;margin-bottom:6px}
+.et{font-size:13px;line-height:1.6}
+.rw{padding:2rem 0;text-align:center}
+.rs{font-size:48px;font-weight:500;color:#534AB7;margin-bottom:.5rem}
+.rl{font-size:15px;color:#6b7280;margin-bottom:1.5rem}
+.rb{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem}
+.me{background:#f9fafb;border-radius:8px;padding:1rem;text-align:left}
+.mv{font-size:22px;font-weight:500}
+.ml{font-size:12px;color:#6b7280;margin-top:2px}
+</style></head><body>
+<div id="app"></div>
+<script>
+var L="ABCDEFGH";
+var Q=[
+  {q:"Welche Basenpaarung findet man in komplementären RNA-Strängen? Bitte kreuzen Sie die Richtigen an.",
+   o:["G-T","G-C","G-U","A-C","G-A","A-U","U-A","A-A"],
+   c:[1,2,5,6],
+   e:"In RNA gibt es kein Thymin (T) — daher ist G-T (A) falsch. Korrekte Paarungen: G-C (B, Watson-Crick), G-U (C, Wobble-Paarung), A-U (F, wie A-T in DNA), U-A (G, gleich wie F, nur andere Richtung). A-C (D), G-A (E) und A-A (H) bilden keine stabilen Basenpaare — keine komplementären Partner."},
+  {q:"Welche Aussagen treffen auf den 'Warburg-Effekt' in Krebszellen zu? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Krebszellen haben einen Nachteil durch weniger Membranen","Tumore haben keinen Vorteil bei Hypoxie, da keine neuen Blutgefäße","Krebszellen haben einen Vorteil durch mehr Membranen (Membransynthese)","Warburg findet in der Zellmembran statt und produziert viel ATP","Tumore haben einen Vorteil durch Bildung neuer Blutgefäße (Angiogenese)","Warburg = anaerobe Glykolyse, erlaubt Überleben bei Hypoxie","Warburg findet im Zytoplasma statt und produziert weniger ATP als ox. Phosphorylierung","Nach dem Entdecker Otto Warburg benannt"],
+   c:[2,4,5,7],
+   e:"Krebszellen profitieren: mehr Membranbiosynthese durch Lipide (C), Angiogenese/neue Blutgefäße (E), anaerobe Glykolyse überlebt Hypoxie (F), benannt nach Otto Warburg (H). Krebszellen haben MEHR Membranen, nicht weniger (A falsch). Angiogenese ist ein Vorteil für Tumore (B falsch). Warburg findet im Zytoplasma statt, aber produziert weniger ATP als ox. Phosphorylierung — der Vorteil liegt im Baustoffgewinn, nicht im ATP (D falsch). G beschreibt Warburg im Zytoplasma korrekt, ist aber nicht als vollständige richtige Aussage gelistet."},
+  {q:"Welche Aussagen zu Stoffwechselvorgängen sind korrekt? Bitte kreuzen Sie die Richtigen an.",
+   o:["Methylierung von Proteinen ist ein Stoffwechselvorgang","Aminosäurestoffwechsel findet durch einfache Diffusion statt","Bereitstellung und Verbrauch von Bausteinen sind metabolische Aspekte","Metabolische Prozesse können den Zelltod steuern","Metabolische Prozesse steuern Proliferation und Zellzyklus","Stoffwechselvorgänge finden zufällig statt","Die meisten Stoffwechselvorgänge sind reguliert","Stoffwechsel ist abhängig von Enzymaktivität"],
+   c:[0,2,3,4,6,7],
+   e:"Methylierung (A) ist eine posttranslationale Modifikation = Stoffwechselvorgang. Bereitstellung/Verbrauch von Bausteinen (C) sind zentrale metabolische Aspekte. Metabolismus steuert Zelltod (Apoptose) (D) und Proliferation/Zellzyklus (E). Vorgänge sind reguliert (G) und enzymabhängig (H). Aminosäurestoffwechsel nutzt Transporter, nicht einfache Diffusion (B falsch). Stoffwechsel ist nicht zufällig sondern streng reguliert (F falsch)."},
+  {q:"Welche Aminosäuren sind negativ geladen? Bitte kreuzen Sie die Richtigen an.",
+   o:["Alanin","Histidin","Glycin","Asparagin","Prolin","Asparaginsäure","Glutaminsäure","Lysin"],
+   c:[5,6],
+   e:"Negativ geladen (bei pH 7): Asparaginsäure/Aspartat (F) und Glutaminsäure/Glutamat (G) — beide enthalten eine zusätzliche Carboxylgruppe (-COOH) in der Seitenkette. Alanin (A) und Glycin (C) sind unpolar/neutral. Histidin (B) und Lysin (H) sind positiv geladen. Asparagin (D) und Prolin (E) sind polar/neutral — nicht geladen."},
+  {q:"Aminosäurestoffwechsel kann den Krebs-/TCA-Zyklus auffüllen (Anaplerose). Welche Aussagen sind richtig? Bitte kreuzen Sie die Richtigen an.",
+   o:["S-Adenosylmethionin (SAM) ist ein Methyldonor und Zwischenprodukt des Methioninstoffwechsels","Aminosäuren können im Krebszyklus eine Rolle spielen","Viele Aminosäuren sind direkt am TCA beteiligt (z.B. als α-Ketoglutarat, Succinyl-CoA)","Der erste Schritt des Aminosäureabbaus ist eine Transaminierung","Deaminierung kommt in Zellen nicht vor","SAM ist nur für wenige Aminosäuren relevant, nicht allgemein","Es gibt hauptsächlich 2 Aminosäuren am TCA beteiligt","Nur eine Aminosäure ist am TCA beteiligt"],
+   c:[1,2,3],
+   e:"Aminosäuren können den TCA-Zyklus auffüllen (B). Viele AS liefern TCA-Intermediate wie α-Ketoglutarat (Glutamat), Succinyl-CoA (Methionin, Valin), Fumarat, Oxalacetat (C). Der erste Abbauschritt ist eine Transaminierung (Aminogruppe wird übertragen) (D). SAM (A) ist wichtig, aber hier geht es um TCA-Funktion von AS — SAM selbst ist kein TCA-Intermediat. Deaminierung kommt vor, z.B. Glutamat → α-Ketoglutarat (E falsch). Viele (> 2) AS sind am TCA beteiligt (F, G, H falsch)."},
+  {q:"Für was ist Polyubiquitinierung richtig und an welcher Aminosäure findet sie statt? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["An Guanin","An Doppelbindungen in Fettsäuren","Für den DNA-Abbau","Für den Nukleotid-Abbau","An Lysin","Für den Fettsäureabbau","An Cytosin","Für den Abbau von Proteinen (Proteasom-Markierung)"],
+   c:[4,7],
+   e:"Ubiquitin wird kovalent an Lysin-Reste (E) von Zielproteinen geknüpft. Polyubiquitinierung (K48-verknüpfte Kette) markiert Proteine für den proteasomalen Abbau (H). Guanin (A) und Cytosin (F) sind DNA/RNA-Basen — keine Ubiquitinierungsstellen. Fettsäuren (B) und Nukleotide (D) werden nicht ubiquitiniert. DNA-Abbau (C) und Fettsäureabbau (F) haben nichts mit dem Ubiquitin-Proteasom-System zu tun."},
+  {q:"Was stellen die RNA-Polymerasen her und welche Aussagen zu RNA-Polymerasen sind richtig? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Völlig unwichtige Enzyme","Bereitstellung von Aminosäuren für die Proteinsynthese","Herstellung von Polypeptiden","Im Menschen gibt es 3 verschiedene RNA-Polymerasen","Synthese von mRNA (RNA-Pol II)","Synthese von rRNA (RNA-Pol I)","Synthese der Ribosomenoberfläche und katalytische Funktion","Synthese von tRNA (RNA-Pol III)"],
+   c:[3,4,5,7],
+   e:"Im Menschen: RNA-Pol I → rRNA (F), RNA-Pol II → mRNA (E), RNA-Pol III → tRNA (H) und 5S-rRNA. Also 3 RNA-Polymerasen (D). RNA-Polymerasen sind essenziell, nicht unwichtig (A falsch). Aminosäuren (B) werden durch Ribosomen eingebaut. Polypeptide (C) werden durch Ribosomen hergestellt. Ribosomen (rRNA) wirken katalytisch (Peptidyltransferase), aber das beschreibt nicht was RNA-Polymerasen herstellen (G ungenau)."},
+  {q:"Welche von Typ 1 (T1D) oder Typ 2 (T2D) Diabetes hat welche Eigenschaften? Was kann man dagegen unternehmen? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["T1D ist eine Autoimmunerkrankung (Langerhans-Zellen zerstört)","T1D verursacht Probleme im Zuckerstoffwechsel","T1D hat keinen absoluten Insulinmangel / kein spezifisches Medikament","T1D ist durch Insulintherapie beherrschbar","Gesunde Ernährung wirkt T2D entgegen","T1D: immunvermittelte Lyse der Beta-Zellen","T2D ist keine Autoimmunerkrankung","T1D ist nicht durch Insulintherapie beherrschbar"],
+   c:[0,1,3,4,5],
+   e:"T1D: Autoimmunerkrankung (A), Beta-Zellen durch Immunzellen lysiert (F), daher Störung des Blutzuckers (B), mit Insulintherapie behandelbar (D). T2D: Lebensstilerkrankung, gesunde Ernährung hilft (E). T1D hat ABSOLUTEN Insulinmangel (C falsch — T1D braucht zwingend Insulin). T1D IST durch Insulintherapie kontrollierbar (H falsch). T2D gilt als nicht autoimmun (G ist korrekte Aussage, aber nicht gelistet — T2D ist primär metabolisch bedingt)."},
+  {q:"Welche Aussagen treffen auf das Ribosom zu? Bitte kreuzen Sie die Richtigen an.",
+   o:["Besteht aus einzelnen Nukleotiden und kleinen Metaboliten","RNA-Synthese beginnt am C-Terminus und endet am N-Terminus","Primäre Funktion des Ribosoms = Proteinbiosynthese","Besteht aus Proteinen und RNA","Proteinsynthese verläuft vom N-Terminus zum C-Terminus","RNA-Synthese verläuft vom N-Terminus zum C-Terminus","Proteinsynthese verläuft vom C-Terminus zum N-Terminus","Primäre Funktion = DNA zu RNA umwandeln"],
+   c:[2,3,4],
+   e:"Ribosom: Funktion = Proteinbiosynthese (Translation) (C). Besteht aus rRNA + ribosomalen Proteinen (D). Proteinkette wächst N→C (E). Ribosomen bestehen nicht aus freien Nukleotiden/Metaboliten (A falsch). Ribosomen synthetisieren keine RNA — das ist Aufgabe der RNA-Polymerase (B, F, H falsch). Proteinsynthese C→N (G) ist falsch."},
+  {q:"Der genetische Code ist die Grundlage der Proteinsynthese. Welche der folgenden Aussagen beschreibt den genetischen Code korrekt? Bitte kreuzen Sie das Richtige an.",
+   o:["Degeneriert (mehrere Codons können für dieselbe Aminosäure kodieren)","4 Nukleotide pro Codon","64 verschiedene Codons","Stopp-Codons kodieren für Methionin","2 Nukleotide pro Codon","20 verschiedene Codons","3 Nukleotide pro Codon","Start-Codons signalisieren das Ende der Translation"],
+   c:[0,2,6],
+   e:"Der genetische Code: 3 Nukleotide = 1 Codon (G) → 4³ = 64 mögliche Codons (C). Er ist degeneriert (A): mehrere Codons für eine Aminosäure (z.B. Leu = 6 Codons). 4 Nukleotide pro Codon (B) ist falsch. Stop-Codons (UAA, UAG, UGA) kodieren für keine Aminosäure (D falsch — nicht für Methionin!). 2 Nukleotide (E) und 20 Codons (F) sind falsch. Start-Codons (AUG) signalisieren den BEGINN der Translation (H falsch)."},
+  {q:"Was sind wesentliche Funktionen von Lipiden im menschlichen Körper? Bitte kreuzen Sie die Richtigen an.",
+   o:["Speichern genetischer Information in DNA","Thermischer Schutz (Isolation)","Mechanischer Schutz für Organe","Fettsäuren verursachen Instabilität von Membranen","Bereitstellung von Energie (ca. 9 kcal/g)","Beschleunigung von Transportprozessen des Zytoskeletts","Verbrauch von Sauerstoffradikalen","Wichtiger Bestandteil von Membranen (Phospholipide)"],
+   c:[1,2,4,7],
+   e:"Lipide: thermische Isolation (B, z.B. subkutanes Fett), mechanischer Schutz (C, z.B. Nierenfett), Energiereservoir ~9 kcal/g (E), Membranbaustein als Phospholipide (H). Genetische Information wird in DNA gespeichert, nicht in Lipiden (A falsch). Fettsäuren sind essenziell für Membranstabilität — nicht destabilisierend (D falsch). Zytoskelett-Transport wird von Motorproteinen beschleunigt (F falsch). Antioxidantien bauen ROS ab, nicht Lipide (G falsch)."},
+  {q:"Welche Aussagen zu weißen bzw. braunen Fettzellen sind wahr? Bitte kreuzen Sie die Richtigen an.",
+   o:["Beide stammen aus der mesenchymalen Zelllinie (wie Muskelzellen)","Braune Fettzellen sind essenziell für die Thermoregulation","Fetttropfen in weißen Fettzellen werden durch Perilipin geschützt","Mitochondriale Funktion brauner Fettzellen erzeugt Wärme (UCP1)","Braune Fettzellen nutzen nur Aminosäuren, keine Fettsäuren","Nur weiße Fettzellen setzen viele Fettsäuren frei","Weiße Fettzellen speichern langkettige Fettsäuren in großen Fetttropfen","Beide Zelltypen erzeugen hauptsächlich Wärme"],
+   c:[0,1,2,3,6],
+   e:"Weiße und braune Adipozyten stammen von mesenchymalen Stammzellen ab (A). Braune Fettzellen sind essenziell für Wärmeproduktion (Thermogenin/UCP1) (B, D). Weiße Fettzellen haben Perilipin-bedeckte Fetttropfen (C) und speichern große Mengen langkettiger Fettsäuren (G). Braune Fettzellen oxidieren FETTSÄUREN für Wärme — nicht nur Aminosäuren (E falsch). Beide Zelltypen setzen Fettsäuren frei (F falsch — nicht nur weiße). Nur braune erzeugen hauptsächlich Wärme (H falsch — weiße speichern primär)."},
+  {q:"Wie kommen Metabolite in Zellen oder Mitochondrien hinein? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Große Metabolite diffundieren zufällig in Zellen","Keine Zellmembranen werden durchquert","Über Transporterproteine und Kanäle in Zellen","Keine mitochondrialen Membranen werden durchquert","Über Transporterproteine in Mitochondrien (z.B. Carrier der inneren Membran)","Zellmembranen werden durchquert","Mitochondriale Membranen werden durchquert","Große Metabolite diffundieren zufällig in Mitochondrien"],
+   c:[2,4,5,6],
+   e:"Metabolite gelangen über Transporterproteine/Kanäle in Zellen (C) und Mitochondrien (E). Dabei werden Zellmembranen (F) und mitochondriale Membranen (G) aktiv durchquert. Große Metabolite diffundieren NICHT frei — sie brauchen Transporter (A, H falsch). Membranen stellen eine Barriere dar und müssen gezielt passiert werden (B, D falsch)."},
+  {q:"Wie wird der Prozess genannt, bei dem Glukose abgebaut wird und ATP generiert wird? Bitte kreuzen Sie den Richtigen an.",
+   o:["Beta-Oxidation","Photosynthese","Fermentation","Proteolyse","Glukoneogenese","Transkription","Translation","Glykolyse"],
+   c:[7],
+   e:"Glykolyse (H) = Abbau von Glukose zu Pyruvat unter ATP-Gewinn (Netto 2 ATP). Beta-Oxidation (A) baut Fettsäuren ab. Photosynthese (B) synthetisiert Glukose aus CO₂. Fermentation (C) ist anaerober Glukoseabbau zu Ethanol/Laktat (Teilschritt nach Glykolyse). Proteolyse (D) baut Proteine ab. Glukoneogenese (E) BILDET Glukose. Transkription (F) und Translation (G) sind Schritte der Genexpression."},
+  {q:"Welche Aussagen über Kinasen sind wahr? Bitte kreuzen Sie die Richtigen an.",
+   o:["Entgegengesetzte Funktion zu Phosphatasen","Können andere Proteine aktivieren oder inaktivieren","Führen posttranslationale Modifikationen (PTM) durch","Haben keine Funktion in der Zelle","Verwenden ATP als Phosphat-Donor/Energiequelle","Führen Phosphorylierungen durch","Wichtige Chaperone bei der Proteinfaltung","Spalten Phosphatgruppen von Proteinen ab"],
+   c:[0,1,2,4,5],
+   e:"Kinasen phosphorylieren Proteine (F) mit ATP als Phosphatdonor (E). Das ist eine PTM (C) und aktiviert/inaktiviert Zielproteine (B). Phosphatasen tun das Gegenteil (Dephosphorylierung) — daher entgegengesetzte Funktion (A). Kinasen sind äußerst wichtig in der Zellsignalisierung (D falsch). Chaperone assistieren bei der Proteinfaltung — das ist nicht die Funktion von Kinasen (G falsch). Phosphatgruppen abspalten (H) ist Aufgabe der Phosphatasen."},
+  {q:"Welche Aussagen bezüglich der β-Oxidation sind wahr? Bitte kreuzen Sie die Richtigen an.",
+   o:["Findet ausschließlich in Leber und Muskeln statt","Antioxidantien sind essenziell für die β-Oxidation","Findet ausschließlich im kognitiven Nervensystem statt","Kleinster Baustein ist Glukose","Findet in den Mitochondrien statt","Verschiedene Enzyme sind wichtig (Acyl-CoA-Dehydrogenase etc.)","Findet im Zytoplasma statt","Es entsteht Acetyl-CoA als Endprodukt"],
+   c:[4,5,7],
+   e:"β-Oxidation: findet in Mitochondrien statt (E) (und in Peroxisomen für sehr langkettige FS). Verschiedene Enzyme katalysieren die Schritte (F). Endprodukt: Acetyl-CoA (H), das in den TCA-Zyklus eintritt. Sie findet nicht nur in Leber/Muskeln statt, sondern in fast allen Geweben (A falsch). Antioxidantien (B) sind nicht spezifisch für β-Oxidation. Nervensystem (C) ist falsch. Kleinster Baustein ist Acetyl-CoA, nicht Glukose (D falsch). Findet im Mitochondrium, nicht im Zytoplasma statt (G falsch)."},
+  {q:"Wo findet der Citratzyklus (Krebszyklus) in Eukaryonten statt und wofür wird er benötigt? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Im Zytoplasma","Im Zellkern","Im Golgi-Apparat","In Liposomen","In den Mitochondrien","Im Endoplasmatischen Retikulum","Verbraucht hauptsächlich Energie (ATP)","Für die Herstellung von Energie (z.B. ATP über NADH/FADH₂)"],
+   c:[4,7],
+   e:"Der Citratzyklus findet in der Mitochondrienmatrix statt (E). Er produziert NADH und FADH₂ → Atmungskette → ATP (H). Er findet nicht im Zytoplasma (A), Zellkern (B), Golgi (C), Liposomen (D) oder ER (F) statt. Der TCA-Zyklus VERBRAUCHT Acetyl-CoA und produziert Energie — er verbraucht kein ATP (G falsch)."},
+  {q:"Wie werden die drei Phasen der Translation genannt? Bitte kreuzen Sie die Richtigen an.",
+   o:["Prophase","Hybridisierung","Termination","Anaphase","Annealing","Initiation","Elongation","Denaturierung"],
+   c:[2,5,6],
+   e:"Die drei Phasen der Translation: Initiation (F) = Ribosom bindet mRNA, Elongation (G) = Peptidkette wächst codonweise, Termination (C) = Stop-Codon → Freisetzung. Prophase (A) und Anaphase (D) sind Phasen der Mitose/Meiose. Hybridisierung (B) und Annealing (E) beziehen sich auf DNA/RNA-Doppelstrangbildung. Denaturierung (H) ist Strangauftrennung."},
+  {q:"Welche Aussagen zu Diabetes sind wahr? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Erhöhte Lipolyse ist Kennzeichen einer Diät und verursacht Prädisposition für Diabetes","Diabetes ist eng mit Entzündungsprozessen der Haut verbunden","T2D und Fettleibigkeit sind mit höherem Krebsrisiko assoziiert (Darm, Magen, Brust, Prostata)","Nur genetische Prädisposition der Bauchspeicheldrüse führt zu Diabetes","Blutarmut durch niedrigere Erythropoietin-Mengen ist eng mit T2D verbunden","Fettleibigkeit führt zu erhöhtem Sexualhormon-Spiegel","T1D = Autoimmunerkrankung, immunzellvermittelte Lyse der Beta-Zellen","Betroffene mit Diabetes haben erhöhte Blutzuckerwerte (Hyperglykämie)"],
+   c:[2,6,7],
+   e:"T2D und Adipositas erhöhen das Krebsrisiko (Darm, Brust, Prostata etc.) (C). T1D = Autoimmunerkrankung mit Zerstörung der Beta-Zellen durch Immunzellen (G). Alle Diabetiker haben erhöhte Blutzuckerwerte (Hyperglykämie) (H). Lipolyse (A) ist kein direkter Auslöser. Diabetes betrifft nicht primär die Haut (B). Erythropoietin/Blutarmut (E) ist kein etablierter Hauptfaktor. Diabetes hat multifaktorielle Ursachen, nicht nur genetisch (D falsch)."},
+  {q:"Welche Krankheiten können mit Fettleibigkeit assoziiert werden? Bitte kreuzen Sie die richtigen Antworten an.",
+   o:["Metabolisches Syndrom","Schlaganfall","Typ-2-Diabetes","Typ-1-Diabetes","Haarausfall","Herzinfarkt","Chronische Entzündung","Chronische Angst"],
+   c:[0,1,2,5,6],
+   e:"Fettleibigkeit ist direkt assoziiert mit: Metabolischem Syndrom (A), Schlaganfall (B), Typ-2-Diabetes (C), Herzinfarkt (F) und chronischer Entzündung (durch proinflammatorische Adipokine) (G). Typ-1-Diabetes (D) ist eine Autoimmunerkrankung ohne direkten Zusammenhang mit Adipositas. Haarausfall (E) und chronische Angst (H) sind nicht primäre Folgen der Adipositas."}
+];
+
+var cur=0,sel=[],chk=false,tot=0,max=Q.length*4;
+function pts(q,s){var n=q.c.length,h=0,w=0;for(var i=0;i<q.c.length;i++)if(s.indexOf(q.c[i])>=0)h++;for(var i=0;i<s.length;i++)if(q.c.indexOf(s[i])<0)w++;return Math.max(0,parseFloat(((h-w)/n*4).toFixed(2)));}
+function render(){
+  var app=document.getElementById('app');
+  if(cur>=Q.length){renderResult(app);return;}
+  var q=Q[cur],pct=(cur/Q.length*100).toFixed(0);
+  var html='<div class="pb"><div class="pf" style="width:'+pct+'%"></div></div>';
+  html+='<div class="qh"><span class="qn">Frage '+(cur+1)+' / '+Q.length+'</span><span class="qp">4 Punkte</span></div>';
+  html+='<p class="qt">'+q.q+'</p><div class="os" id="opts"></div>';
+  if(chk)html+='<div class="ex"><div class="cl">✓ Richtige Antworten: '+q.c.map(function(i){return L[i];}).join(', ')+'</div><div class="et">'+q.e+'</div></div>';
+  html+='<div class="ac"><div class="fb" id="fb"></div>';
+  html+=chk?'<button class="btn pr" onclick="nxt()">Weiter →</button>':'<button class="btn pr" onclick="chkfn()">Überprüfen</button>';
+  html+='</div>';
+  app.innerHTML=html;
+  var opts=document.getElementById('opts');
+  q.o.forEach(function(o,i){
+    var btn=document.createElement('button');
+    if(!chk){btn.className='op'+(sel.indexOf(i)>=0?' sel':'');btn.onclick=(function(x){return function(){tog(x);};})(i);}
+    else{var inC=q.c.indexOf(i)>=0,inS=sel.indexOf(i)>=0;btn.className='op'+(inC&&inS?' cor':(!inC&&inS?' wrg':(inC&&!inS?' mis':'')));}
+    btn.innerHTML='<span class="ol">'+L[i]+'</span><span class="ot">'+o+'</span>';
+    opts.appendChild(btn);
+  });
+  if(chk){var p=pts(q,sel),h=0,w=0;for(var i=0;i<q.c.length;i++)if(sel.indexOf(q.c[i])>=0)h++;for(var i=0;i<sel.length;i++)if(q.c.indexOf(sel[i])<0)w++;var fb=document.getElementById('fb');fb.style.color=p===4?'#3B6D11':p>0?'#854F0B':'#A32D2D';fb.textContent=h+'/'+q.c.length+' richtig, '+w+' falsch → '+p+' / 4 Punkte';}
+}
+function tog(i){var idx=sel.indexOf(i);if(idx>=0)sel.splice(idx,1);else sel.push(i);render();}
+function chkfn(){if(sel.length===0)return;chk=true;tot+=pts(Q[cur],sel);render();}
+function nxt(){cur++;sel=[];chk=false;render();}
+function renderResult(app){var pct=Math.round(tot/max*100);var g=pct>=87?'Ausgezeichnet! 🏆':pct>=70?'Gut gemacht! 👏':pct>=50?'Noch üben! 📚':'Weitermachen! 💪';app.innerHTML='<div class="rw"><div class="rs">'+tot.toFixed(1)+'/'+max+'</div><div class="rl">'+g+' ('+pct+'%)</div><div class="rb"><div class="me"><div class="mv">'+tot.toFixed(1)+'</div><div class="ml">Punkte gesamt</div></div><div class="me"><div class="mv">'+max+'</div><div class="ml">Maximalpunkte</div></div><div class="me"><div class="mv">'+pct+'%</div><div class="ml">Gesamtprozent</div></div></div><button class="btn pr" onclick="rst()">Nochmal versuchen</button></div>';}
+function rst(){cur=0;sel=[];chk=false;tot=0;render();}
+render();
+</script></body></html>
