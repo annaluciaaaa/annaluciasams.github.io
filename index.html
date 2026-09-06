@@ -422,10 +422,10 @@ footer {
 }
 
 /* ══ CARD SLIDER ══ */
-.card-slider-wrap { overflow: hidden; aspect-ratio: 4/3; flex-shrink: 0; position: relative; }
+.card-slider-wrap { overflow: hidden; aspect-ratio: 4/5; flex-shrink: 0; position: relative; }
 .card-slider-track { display: flex; height: 100%; transition: transform 0.4s ease; will-change: transform; }
 .card-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
-.card-slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(1.05); }
+.card-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; filter: brightness(1.05); }
 .card-btn {
   position: absolute; top: 50%; transform: translateY(-50%);
   background: none; border: none; cursor: pointer;
@@ -469,11 +469,6 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
   <div class="nav-bar">
     <!-- Logo links -->
     <a href="#" class="nav-logo" aria-label="Seeberghof">
-      <div class="logo-mark" id="logo-mark">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:hidden;">
-          <polyline points="2,36 12,16 20,28 28,18 42,36" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-        </svg>
-      </div>
       <div class="logo-text" id="logo-text">
         <div class="logo-name">SEEBERGHOF</div>
         <div class="logo-sub">FUSCHL AM SEE</div>
@@ -482,19 +477,14 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 
 <!-- Desktop nav links -->
 <ul class="nav-links-desktop">
-  <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
   <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
+  <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
   <li><a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a></li>
   <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
 </ul>
 
 <!-- Right: DE/EN + burger -->
 <div class="nav-right">
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
-    <div class="lang-divider"></div>
-    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
-  </div>
   <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
     <span></span><span></span><span></span>
   </button>
@@ -503,14 +493,10 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
   </div>
 
   <div class="mobile-nav">
-    <div class="mobile-lang">
-      <button class="active" id="mbtn-de" onclick="setLang('de')">DE</button>
-      <button id="mbtn-en" onclick="setLang('en')">EN</button>
-    </div>
-    <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
-    <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
-    <a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a>
-    <a href="#kontakt"><span class="lang-de">Kontakt & Anfrage</span><span class="lang-en">Contact & Enquiry</span></a>
+    <a href="#ferienwohnungen">Wohnungen</a>
+    <a href="#ueber-uns">Über uns</a>
+    <a href="#region">Rund um den Fuschlsee</a>
+    <a href="#kontakt">Kontakt</a>
   </div>
 </nav>
 
@@ -519,6 +505,11 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 <section class="hero">
   <div class="hero-media">
     <div class="hero-fallback"></div>
+    <div class="hero-video-wrap">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="hero.mp4" type="video/mp4">
+      </video>
+    </div>
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-content">
@@ -532,42 +523,6 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
       <strong>Fuschl am See</strong>
       <span class="lang-de">Familiär geführter Bauernhof<br>Salzkammergut, Österreich</span>
       <span class="lang-en">Family-run farm<br>Salzkammergut, Austria</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══ ÜBER UNS ══ -->
-
-<section class="section about-section" id="ueber-uns">
-  <div class="section-inner">
-    <div class="about-grid">
-      <div>
-        <p class="label">
-          <span class="lang-de">Unser Hof</span>
-          <span class="lang-en">Our Farm</span>
-        </p>
-        <h2 class="display-title">
-          <span class="lang-de">Erholung pur —<br><span class="title-accent">mitten in der Natur</span></span>
-          <span class="lang-en">Pure relaxation —<br><span class="title-accent">in the heart of nature</span></span>
-        </h2>
-        <div class="divider"></div>
-        <p class="body-text lang-de">Der Seeberghof liegt in Fuschl am See im Salzkammergut, eingebettet zwischen dem Schober mit seinem Nebengipfel Frauenkopf und dem türkisblauen Fuschlsee. Der öffentliche Badestrand und das Ortszentrum sind nur 800 Meter entfernt. Als familiengeführter Bauernhof legen wir Wert auf eine persönliche, herzliche Atmosphäre. Kinder haben draußen viel Platz, Erwachsene genießen die Ruhe und die Natur rund um den Hof.</p>
-        <p class="body-text lang-en">Seeberghof is located in Fuschl am See in the Salzkammergut, nestled between the Schober mountain with its secondary peak Frauenkopf and the turquoise Fuschlsee. The public bathing beach and the village centre are just 800 metres away. As a family-run farm, we value a personal and warm atmosphere. Children have plenty of space outside, while adults enjoy the peace and nature surrounding the farm.</p>
-        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--light); border-radius:10px; overflow:hidden; margin-top:2rem;">
-          <div style="background:var(--off); padding:1.2rem 1rem; text-align:center;">
-            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.8rem; font-weight:300; color:var(--accent); line-height:1;">1950</div>
-            <div style="font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;"><span class="lang-de">Gegründet</span><span class="lang-en">Founded</span></div>
-          </div>
-          <div style="background:var(--off); padding:1.2rem 1rem; text-align:center;">
-            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.8rem; font-weight:300; color:var(--accent); line-height:1;">2.</div>
-            <div style="font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;"><span class="lang-de">Generation</span><span class="lang-en">Generation</span></div>
-          </div>
-        </div>
-        <div class="signature">— Mathilde Pöckl &amp; Familie</div>
-      </div>
-      <div>
-        <img src="Seeblick/Blick.JPG" alt="Blick auf den Fuschlsee" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;display:block;" />
-      </div>
     </div>
   </div>
 </section>
@@ -717,6 +672,37 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
   <div class="info-cell"><strong><span class="lang-de">Haustiere</span><span class="lang-en">Pets</span></strong><span class="lang-de">Auf Anfrage</span><span class="lang-en">On request</span></div>
 </div>
 
+  </div>
+</section>
+
+<!-- ══ ÜBER UNS ══ -->
+
+<section class="section about-section" id="ueber-uns" style="background:var(--off);">
+  <div class="section-inner">
+    <div style="max-width:720px; margin:0 auto;">
+      <p class="label">
+        <span class="lang-de">Unser Hof</span>
+        <span class="lang-en">Our Farm</span>
+      </p>
+      <h2 class="display-title">
+        <span class="lang-de">Erholung pur —<br><span class="title-accent">mitten in der Natur</span></span>
+        <span class="lang-en">Pure relaxation —<br><span class="title-accent">in the heart of nature</span></span>
+      </h2>
+      <div class="divider"></div>
+      <p class="body-text lang-de">Der Seeberghof liegt in ruhiger und leicht erreichbarer Lage in Fuschl am See im Salzkammergut — eingebettet zwischen dem Schober mit seinem Nebengipfel Frauenkopf und dem türkisblauen Fuschlsee. Nur 800 m vom Ortszentrum und 8 Minuten zu Fuß vom Badestrand entfernt. Als familiengeführter Bauernhof inmitten schöner Bergwelt legen wir Wert auf eine persönliche, herzliche Atmosphäre. Kinder haben draußen viel Platz, Erwachsene genießen die Ruhe und die Natur — ein Landurlaub, der für Sie und Ihre Familie garantiert zum Erlebnis wird.</p>
+      <p class="body-text lang-en">Seeberghof is located in a peaceful and easily accessible setting in Fuschl am See in the Salzkammergut — nestled between the Schober mountain with its secondary peak Frauenkopf and the turquoise Fuschlsee. Just 800 m from the village centre and 8 minutes on foot from the bathing beach. As a family-run farm amidst beautiful mountain scenery, we value a personal and warm atmosphere. Children have plenty of space outside, while adults enjoy the peace and nature — a countryside holiday that is guaranteed to become an experience for you and your family.</p>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--light); border-radius:10px; overflow:hidden; margin-top:2rem; max-width:400px;">
+        <div style="background:var(--off); padding:1.2rem 1rem; text-align:center;">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.8rem; font-weight:300; color:var(--accent); line-height:1;">1950</div>
+          <div style="font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;"><span class="lang-de">Gegründet</span><span class="lang-en">Founded</span></div>
+        </div>
+        <div style="background:var(--off); padding:1.2rem 1rem; text-align:center;">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.8rem; font-weight:300; color:var(--accent); line-height:1;">2.</div>
+          <div style="font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;"><span class="lang-de">Generation</span><span class="lang-en">Generation</span></div>
+        </div>
+      </div>
+      <div class="signature">— Mathilde Pöckl &amp; Familie</div>
+    </div>
   </div>
 </section>
 
@@ -957,72 +943,20 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 
 <section class="section contact-section" id="kontakt">
   <div class="section-inner">
-    <div class="contact-grid">
-      <div>
-        <p class="label">
-          <span class="lang-de">Kontakt &amp; Anfrage</span>
-          <span class="lang-en">Contact &amp; Enquiry</span>
-        </p>
-        <h2 class="display-title contact-title">
-          <span class="lang-de">Wir freuen uns<br><em>auf Sie</em></span>
-          <span class="lang-en">We look forward<br><em>to welcoming you</em></span>
-        </h2>
-        <p class="body-text contact-body-text lang-de">Haben Sie Fragen zu Verfügbarkeit, Preisen oder Anreise? Schreiben Sie uns — wir antworten persönlich und unkompliziert.</p>
-        <p class="body-text contact-body-text lang-en">Questions about availability, prices or getting here? Write to us — we reply personally and without fuss.</p>
-        <div class="contact-details">
-          <div class="c-row"><span class="c-icon lang-de">Adresse</span><span class="c-icon lang-en">Address</span><div class="c-text">Seestraße 88<br>5330 Fuschl am See, Österreich</div></div>
-          <div class="c-row"><span class="c-icon lang-de">Telefon</span><span class="c-icon lang-en">Phone</span><div class="c-text"><a href="tel:+4362268313">+43 6226 8313</a></div></div>
-          <div class="c-row"><span class="c-icon">E-Mail</span><div class="c-text"><a href="mailto:seeberghof.fuschl@gmail.com">seeberghof.fuschl@gmail.com</a></div></div>
-          <div class="c-row"><span class="c-icon lang-de">Kontakt</span><span class="c-icon lang-en">Contact</span><div class="c-text">Mathilde Pöckl</div></div>
-        </div>
+    <div style="max-width:680px; margin:0 auto;">
+      <p class="label">Kontakt &amp; Anfrage</p>
+      <h2 class="display-title contact-title">Wir freuen uns<br><em>auf Sie</em></h2>
+      <p class="body-text contact-body-text lang-de" style="max-width:100%;">Haben Sie Fragen zu Verfügbarkeit, Preisen oder Anreise? Schreiben Sie uns — wir antworten persönlich und unkompliziert.</p>
+      <div class="contact-details" style="margin-top:2rem;">
+        <div class="c-row"><span class="c-icon">Adresse</span><div class="c-text">Seestraße 88<br>5330 Fuschl am See, Österreich</div></div>
+        <div class="c-row"><span class="c-icon">Telefon</span><div class="c-text"><a href="tel:+4362268313">+43 6226 8313</a></div></div>
+        <div class="c-row"><span class="c-icon">E-Mail</span><div class="c-text"><a href="mailto:seeberghof.fuschl@gmail.com">seeberghof.fuschl@gmail.com</a></div></div>
+        <div class="c-row"><span class="c-icon">Kontakt</span><div class="c-text">Mathilde Pöckl</div></div>
       </div>
-      <div>
-        <form class="contact-form" action="https://formspree.io/f/DEINE_ID_HIER" method="POST">
-          <input type="hidden" name="_subject" value="Neue Buchungsanfrage – Seeberghof" />
-          <input type="hidden" name="_next" value="https://www.annaluciasams.com/#kontakt" />
-          <input type="text" name="_gotcha" style="display:none" />
-          <div class="form-row">
-            <div class="field">
-              <label><span class="lang-de">Name</span><span class="lang-en">Name</span></label>
-              <input type="text" name="Name" required data-de="Ihr Name" data-en="Your name" placeholder="Ihr Name" />
-            </div>
-            <div class="field">
-              <label>E-Mail</label>
-              <input type="email" name="E-Mail" required data-de="Ihre E-Mail" data-en="Your e-mail" placeholder="Ihre E-Mail" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="field">
-              <label><span class="lang-de">Telefon</span><span class="lang-en">Phone</span></label>
-              <input type="tel" name="Telefon" data-de="Ihre Telefonnummer" data-en="Your phone number" placeholder="Ihre Telefonnummer" />
-            </div>
-            <div class="field">
-              <label><span class="lang-de">Personen</span><span class="lang-en">Guests</span></label>
-              <input type="number" name="Personenanzahl" min="1" max="12" data-de="Anzahl Personen" data-en="Number of guests" placeholder="Anzahl Personen" />
-            </div>
-          </div>
-          <div class="field">
-            <label><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span></label>
-            <select name="Ferienwohnung" required>
-              <option value="" disabled selected>Bitte wählen …</option>
-              <option value="Schober (40 m², 2 Personen)">Schober (40 m², 2 Personen)</option>
-              <option value="Seeblick (70 m², 2–6 Personen)">Seeblick (70 m², 2–6 Personen)</option>
-              <option value="Schafberg (90 m², 2–8 Personen)">Schafberg (90 m², 2–8 Personen)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label><span class="lang-de">Reisezeitraum</span><span class="lang-en">Travel dates</span></label>
-            <input type="text" name="Reisezeitraum" required data-de="z.B. 10.–17. Juli 2026" data-en="e.g. 10–17 July 2026" placeholder="z.B. 10.–17. Juli 2026" />
-          </div>
-          <div class="field">
-            <label><span class="lang-de">Nachricht</span><span class="lang-en">Message</span></label>
-            <textarea name="Nachricht" data-de="Haustiere, Wünsche, Fragen …" data-en="Pets, wishes, questions …" placeholder="Haustiere, Wünsche, Fragen …"></textarea>
-          </div>
-          <button type="submit" class="btn-send">
-            <span class="lang-de">Anfrage senden →</span>
-            <span class="lang-en">Send enquiry →</span>
-          </button>
-        </form>
+      <div style="margin-top:2.5rem;">
+        <a href="mailto:seeberghof.fuschl@gmail.com?subject=Anfrage%20Seeberghof" class="btn-send" style="text-decoration:none; display:inline-block;">
+          E-Mail schreiben →
+        </a>
       </div>
     </div>
   </div>
@@ -1031,12 +965,10 @@ body.en li.lang-de, body.en p.lang-de { display: none !important; }
 <!-- ══ FOOTER ══ -->
 
 <footer>
-  <svg width="180" height="48" viewBox="0 0 210 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:hidden;">
-    <polyline points="4,38 16,16 26,30 34,20 46,38" stroke="#8c6d3f" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-    <polygon points="4,38 16,16 26,30 34,20 46,38" fill="#8c6d3f" opacity="0.08"/>
-    <text x="66" y="27" font-family="Plus Jakarta Sans, sans-serif" font-size="17" font-weight="300" fill="#33281c" letter-spacing="2.5">SEEBERGHOF</text>
-    <text x="66" y="42" font-family="DM Sans, sans-serif" font-size="7" font-weight="300" fill="#8a7d6c" letter-spacing="4">FUSCHL AM SEE</text>
-  </svg>
+  <div style="display:flex; flex-direction:column; gap:3px;">
+    <span style="font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:300; letter-spacing:2.5px; color:#33281c;">SEEBERGHOF</span>
+    <span style="font-family:'DM Sans',sans-serif; font-size:7px; font-weight:300; letter-spacing:4px; color:#8a7d6c;">FUSCHL AM SEE</span>
+  </div>
   <div class="footer-links">
     <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
     <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
