@@ -1,1241 +1,589 @@
-
-
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Seeberghof · Fuschl am See</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Informatik lernen · 1. Semester</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf9;--card:#fff;--ink:#1c1917;--muted:#78716c;--line:#e7e5e4;--soft:#f5f5f4;
+  --ok:#3B6D11;--ok-bg:#EAF3DE;--bad:#A32D2D;--bad-bg:#FCEBEB;--miss:#854F0B;--miss-bg:#FAEEDA;
+  --fs:#534AB7;--fs-bg:#EEEDFE;--dr:#0F766E;--dr-bg:#E0F2EF;--java:#C2410C;--java-bg:#FDEDE3;--all:#44403c;--all-bg:#f0efed;
+  --accent:var(--fs);--accent-bg:var(--fs-bg);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#161514;--card:#1f1e1c;--ink:#f5f5f4;--muted:#a8a29e;--line:#34322f;--soft:#292725;
+    --ok:#8BC34A;--ok-bg:#24301a;--bad:#F08080;--bad-bg:#3a1f1f;--miss:#E0A84C;--miss-bg:#3a2e17;
+    --fs:#A8A1F0;--fs-bg:#2a2742;--dr:#5EC9BC;--dr-bg:#17312e;--java:#F59563;--java-bg:#3a2519;--all:#d6d3d1;--all-bg:#2c2a28;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:1.5rem 1rem 4rem}
+a{color:inherit}
+code,pre{font-family:"JetBrains Mono",ui-monospace,monospace}
+code{font-size:.88em;background:var(--soft);padding:.1em .35em;border-radius:4px}
+button{font:inherit;color:inherit}
 
-:root {
-  --white: #fdfaf5;
-  --off: #f7f2ea;
-  --light: #ede4d6;
-  --mid: #c8baa8;
-  --stone: #8a7d6c;
-  --dark: #33281c;
-  --green: #7a6e5a;
-  --green-light: #9a8e78;
-  --green-pale: #f0ebe2;
-  --gold: #b8922e;
-  --gold-light: #d4aa48;
-  --warm: #9a8e78;
-  --warm-pale: #f5f0e8;
-  --accent: #8c6d3f;
-  --accent-pale: #f2ebe0;
-}
+/* Header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem}
+.brand{font-weight:700;font-size:15px;text-decoration:none;letter-spacing:-.01em}
+.brand span{color:var(--muted);font-weight:500}
+.back{font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
 
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  background: var(--off);
-  color: var(--dark);
-  overflow-x: hidden;
-}
+/* Home */
+.hero h1{font-size:clamp(28px,6vw,40px);line-height:1.15;letter-spacing:-.02em;font-weight:700;margin-bottom:.6rem}
+.hero p{color:var(--muted);font-size:16px;max-width:52ch;margin-bottom:2rem}
+.topics{display:grid;gap:14px}
+.topic{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.25rem 1.25rem 1.1rem;border-left:5px solid var(--c)}
+.topic h2{font-size:19px;font-weight:600;letter-spacing:-.01em}
+.topic .sub{color:var(--muted);font-size:14px;margin:.2rem 0 1rem}
+.topic .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;border:1px solid var(--line);background:var(--card)}
+.pill:hover{background:var(--soft)}
+.pill.pr{background:var(--c);border-color:var(--c);color:#fff}
+@media (prefers-color-scheme:dark){.pill.pr{color:#161514}}
+.pill.pr:hover{filter:brightness(1.08)}
+.best{font-size:12px;color:var(--muted);margin-left:auto}
+.mix{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border:1px dashed var(--line);border-radius:14px}
+.mix p{font-size:14px;color:var(--muted)}
+.foot{margin-top:3rem;font-size:13px;color:var(--muted);text-align:center}
+.foot a{color:var(--muted)}
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--light); }
-::-webkit-scrollbar-thumb { background: var(--accent); }
+/* Topic page */
+.th{margin-bottom:1.25rem}
+.th .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);background:var(--accent-bg);padding:3px 10px;border-radius:999px;margin-bottom:.5rem}
+.th h1{font-size:clamp(24px,5vw,32px);letter-spacing:-.02em;line-height:1.2}
+.tabs{display:flex;gap:4px;background:var(--soft);padding:4px;border-radius:12px;margin-bottom:1.5rem;width:fit-content}
+.tabs a{padding:7px 18px;border-radius:9px;font-size:14px;font-weight:500;text-decoration:none;color:var(--muted)}
+.tabs a.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 
-/* ══ NAV ══ */
-#nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-  transition: background 0.4s, box-shadow 0.4s;
-}
-#nav.scrolled {
-  background: rgba(253,250,245,0.97);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.08);
-}
+/* Glossary */
+.gtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1rem}
+.search{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;font-size:15px}
+.search:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
+.toggle{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);cursor:pointer;user-select:none}
+.toggle input{accent-color:var(--accent);width:16px;height:16px}
+.terms{display:grid;gap:10px}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1.1rem}
+.term dt{font-weight:600;font-size:15px;color:var(--accent)}
+.term dd{font-size:14.5px;margin-top:.25rem}
+.term dd .ex2{display:block;color:var(--muted);font-size:13.5px;margin-top:.35rem}
+.hide .term{cursor:pointer}
+.hide .term:not(.open) dd{filter:blur(6px);opacity:.5;user-select:none}
+.hide .term:not(.open)::after{content:"Tippen zum Aufdecken";display:block;font-size:12px;color:var(--muted);margin-top:.35rem}
+.empty{color:var(--muted);font-size:14px;padding:1rem 0}
 
-.nav-bar {
-  max-width: 1400px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2.5rem; height: 72px;
-}
+/* Quiz */
+.pb{height:5px;background:var(--line);border-radius:3px;margin-bottom:1.25rem;overflow:hidden}
+.pf{height:100%;background:var(--accent);border-radius:3px;transition:width .3s}
+.qh{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;gap:8px}
+.qn{font-size:13px;color:var(--muted)}
+.qtag{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.25rem}
+.qt{font-size:16.5px;line-height:1.55;font-weight:500;margin-bottom:.4rem}
+.hint{font-size:13px;color:var(--muted);margin-bottom:1rem}
+pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem;font-size:13.5px;line-height:1.55;overflow-x:auto;margin:.25rem 0 1rem}
+.os{display:flex;flex-direction:column;gap:8px;margin-bottom:1.1rem}
+.op{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:var(--card);text-align:left;width:100%;font-size:15px;line-height:1.45}
+.op:hover:not(:disabled){background:var(--soft)}
+.op:disabled{cursor:default}
+.ol{font-size:13px;font-weight:600;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--line);border-radius:5px;color:var(--muted);flex-shrink:0;margin-top:1px}
+.single .ol{border-radius:50%}
+.op.sel{background:var(--accent-bg);border-color:var(--accent)}
+.op.sel .ol{border-color:var(--accent);background:var(--accent);color:#fff}
+.op.cor{background:var(--ok-bg);border-color:var(--ok)}
+.op.cor .ol{border-color:var(--ok);background:var(--ok);color:#fff}
+.op.wrg{background:var(--bad-bg);border-color:var(--bad)}
+.op.wrg .ol{border-color:var(--bad);background:var(--bad);color:#fff}
+.op.mis{background:var(--miss-bg);border-color:var(--miss)}
+.op.mis .ol{border-color:var(--miss);color:var(--miss)}
+@media (prefers-color-scheme:dark){.op.sel .ol,.op.cor .ol,.op.wrg .ol{color:#161514}}
+.ac{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{padding:10px 22px;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;border:1px solid var(--line);background:var(--card)}
+.btn:hover:not(:disabled){background:var(--soft)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.pr{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){.btn.pr{color:#161514}}
+.btn.pr:hover:not(:disabled){filter:brightness(1.08);background:var(--accent)}
+.fb{font-size:14px;font-weight:600}
+.fb.y{color:var(--ok)}.fb.n{color:var(--bad)}
+.ex{background:var(--soft);border-radius:10px;padding:.9rem 1.1rem;margin-top:1rem;font-size:14.5px;line-height:1.6}
+.ex b{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted);margin-top:.75rem}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 
-.nav-logo { display: flex; align-items: center; text-decoration: none; flex: 0 0 auto; margin-right: 2.5rem; gap: 12px; }
-.logo-mark { width: 44px; height: 44px; flex-shrink: 0; overflow: hidden; }
-.logo-text { display: flex; flex-direction: column; justify-content: center; gap: 2px; }
-.logo-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 300; letter-spacing: 2.5px; color: white; line-height: 1; transition: color 0.4s; }
-.logo-sub { font-family: 'DM Sans', sans-serif; font-size: 7px; font-weight: 300; letter-spacing: 4px; color: rgba(255,255,255,0.6); line-height: 1; transition: color 0.4s; }
-#nav.scrolled .logo-name { color: #33281c; }
-#nav.scrolled .logo-sub { color: #8a7d6c; }
-#nav.scrolled .logo-mark svg polyline { stroke: #8c6d3f; }
-.nav-links-desktop {
-  display: flex; align-items: center; gap: 0; list-style: none; flex: 1;
-}
-.nav-links-desktop li a {
-  display: block; padding: 0.4rem 1rem;
-  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(255,255,255,0.85); text-decoration: none;
-  font-family: 'DM Sans', sans-serif;
-  transition: color 0.2s;
-}
-.nav-links-desktop li a:hover { color: #fff; }
-#nav.scrolled .nav-links-desktop li a { color: var(--stone); }
-#nav.scrolled .nav-links-desktop li a:hover { color: var(--dark); }
-.nav-right { display: flex; align-items: center; gap: 1rem; }
-
-.lang-toggle { display: flex; align-items: center; gap: 0; border: 1px solid rgba(255,255,255,0.35); border-radius: 50px; overflow: hidden; }
-#nav.scrolled .lang-toggle { border-color: var(--mid); }
-.lang-btn {
-  background: none; border: none; cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400;
-  padding: 0.38rem 0.75rem; color: rgba(255,255,255,0.6);
-  transition: background 0.2s, color 0.2s; border-radius: 50px;
-}
-.lang-btn.active { background: rgba(255,255,255,0.22); color: #fff; }
-#nav.scrolled .lang-btn { color: var(--stone); }
-#nav.scrolled .lang-btn.active { background: var(--green); color: #fff; }
-.lang-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
-#nav.scrolled .lang-divider { background: var(--mid); }
-
-.nav-burger { display: none; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 8px; }
-.nav-burger span { display: block; width: 24px; height: 2px; background: #fff; transition: background 0.3s; border-radius: 2px; }
-#nav.scrolled .nav-burger span { background: var(--dark); }
-
-.mobile-nav { display: none; flex-direction: column; background: var(--white); border-top: 1px solid var(--light); padding: 1rem 0 1.5rem; position: relative; z-index: 299; }
-.mobile-nav.open { display: flex; }
-.mobile-nav a { padding: 0.8rem 2rem; color: var(--dark); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.06em; border-bottom: 1px solid var(--light); transition: color 0.15s; }
-.mobile-nav a:hover { color: var(--green); }
-.mobile-lang { display: flex; gap: 0.5rem; padding: 1rem 2rem; border-bottom: 1px solid var(--light); }
-.mobile-lang button { background: none; border: 1px solid var(--mid); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.9rem; color: var(--stone); border-radius: 50px; transition: background 0.2s, color 0.2s; }
-.mobile-lang button.active { background: var(--green); border-color: var(--green); color: #fff; }
-
-/* ══ HERO ══ */
-.hero { height: 100vh; position: relative; display: flex; align-items: flex-end; overflow: hidden; }
-.hero-fallback { position: absolute; inset: 0; background: url('Seeberghof.jpg') bottom center/cover; }
-.hero-video-wrap { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
-.hero-video {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw; height: 56.25vw;
-  min-height: 100vh; min-width: 177.78vh;
-  border: none; pointer-events: none; object-fit: cover;
-}
-.hero-blocker { position: absolute; inset: 0; z-index: 99; cursor: default; background: transparent; pointer-events: all; }
-.hero-overlay {
-  position: absolute; inset: 0; z-index: 100;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.04) 40%, rgba(0,0,0,0.58) 100%);
-}
-.hero-content {
-  position: relative; z-index: 101;
-  width: 100%; padding: 0 6vw 2vh;
-  display: flex; align-items: flex-end; justify-content: space-between;
-}
-.hero-title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2.4rem, 6vw, 5rem);
-  font-weight: 300; color: #fff; line-height: 1.15;
-  margin-bottom: 1.5rem; letter-spacing: 0.02em;
-}
-.hero-meta { text-align: right; color: rgba(255,255,255,0.6); font-size: 0.72rem; letter-spacing: 0.1em; line-height: 2; }
-.hero-meta strong { display: block; color: rgba(255,255,255,0.88); font-weight: 400; font-size: 0.85rem; }
-
-/* ══ REGION ══ */
-.region-section { background: var(--off); }
-.region-tabs {
-  display: flex; gap: 0.5rem; flex-wrap: wrap;
-  margin-bottom: 2.5rem;
-}
-.region-tab {
-  background: var(--off); border: 1.5px solid var(--light); cursor: pointer;
-  font-family: 'DM Sans', sans-serif; font-size: 0.79rem; font-weight: 400;
-  letter-spacing: 0.04em; color: var(--stone);
-  padding: 0.55rem 1.15rem; border-radius: 50px;
-  transition: color 0.2s, background 0.2s, border-color 0.2s; white-space: nowrap;
-}
-.region-tab:hover { background: var(--light); color: var(--dark); border-color: var(--mid); }
-.region-tab.active { background: var(--green); color: #fff; border-color: var(--green); font-weight: 500; }
-.region-tab.active .tab-dist { color: rgba(255,255,255,0.6); }
-.tab-dist { font-size: 0.7rem; color: var(--mid); }
-.region-panel { display: none; }
-.region-panel.active { display: block; }
-.sight-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-.sight-card {
-  background: var(--white); border-radius: 12px; padding: 1.35rem 1.5rem;
-  border: 1px solid var(--light);
-  box-shadow: 0 2px 14px rgba(0,0,0,0.04);
-  transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
-  display: flex; flex-direction: column;
-}
-.sight-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-3px); border-color: var(--mid); }
-.sight-card-top { margin-bottom: 0.7rem; }
-.sight-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.93rem; font-weight: 500; color: var(--dark); }
-.sight-tag {
-  display: inline-block; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 0.18rem 0.6rem; border-radius: 50px;
-  background: var(--accent-pale); color: var(--accent); margin-bottom: 0.6rem; width: fit-content;
-}
-.sight-card p { font-size: 0.81rem; color: var(--stone); line-height: 1.65; flex: 1; }
-.sight-link {
-  display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem;
-  font-size: 0.67rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--accent); text-decoration: none; font-weight: 400;
-  transition: color 0.2s;
-}
-.sight-link:hover { color: var(--dark); }
-.sight-link::after { content: ' →'; }
-@media (max-width: 900px) { .sight-list { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .sight-list { grid-template-columns: 1fr; } }
-
-/* ══ SHARED ══ */
-.section { padding: 7rem 0; }
-.section-inner { max-width: 1280px; margin: 0 auto; padding: 0 4vw; }
-.label {
-  font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 1.1rem; font-weight: 400;
-}
-#geschichte .label { color: #b8922e; }
-#ferienwohnungen .label { color: #7a6e5a; }
-#region .label { color: #6e7e5a; }
-#kontakt .label { color: #8c6d3f; }
-.display-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 300; line-height: 1.15; color: var(--dark); }
-.body-text { font-size: 1rem; line-height: 1.88; color: var(--stone); max-width: 520px; margin-top: 1.4rem; }
-.divider { width: 40px; height: 1px; background: var(--mid); margin: 2rem 0; }
-
-/* ══ ABOUT ══ */
-.about-section { background: var(--white); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-.about-image-stack { position: relative; }
-.about-img-main { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 4px; }
-.about-img-accent {
-  position: absolute; bottom: -3rem; right: -3rem;
-  width: 55%; aspect-ratio: 1; object-fit: cover;
-  border: 8px solid var(--white);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.12); border-radius: 4px;
-}
-.about-badge {
-  position: absolute; bottom: 2rem; right: -2rem;
-  background: var(--green); color: #fff;
-  width: 90px; height: 90px; border-radius: 50%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5;
-}
-.about-badge strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 300; display: block; line-height: 1; }
-.title-accent { color: var(--accent); }
-.signature { font-family: 'DM Sans', sans-serif; font-style: italic; font-size: 1.1rem; font-weight: 300; color: var(--accent); margin-top: 2rem; }
-
-
-
-/* ══ LANDSCAPE ══ */
-.landscape { height: 52vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.landscape-img {
-  position: absolute; inset: 0;
-  background: linear-gradient(rgba(25,38,28,0.52), rgba(25,38,28,0.52)),
-    url('Schober/Blick Balkon 2.JPG') center/cover;
-}
-.landscape-content { position: relative; text-align: center; }
-.landscape-quote { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300; font-size: clamp(1.3rem, 3vw, 2.1rem); color: #fff; line-height: 1.55; max-width: 720px; padding: 0 2rem; }
-.landscape-line { width: 40px; height: 1px; background: var(--gold-light); margin: 1.5rem auto; }
-.landscape-cite { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
-
-/* ══ APARTMENTS ══ */
-.apts-section { background: var(--off); }
-.apts-header { margin-bottom: 3.5rem; }
-.apts-note { font-size: 0.92rem; color: var(--stone); line-height: 1.7; margin-top: 1rem; max-width: 480px; }
-
-.apt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-.apt-card { background: var(--white); cursor: pointer; display: flex; flex-direction: column; transition: box-shadow 0.3s, transform 0.3s; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
-.apt-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.13); transform: translateY(-4px); }
-.apt-card:hover .apt-img { transform: scale(1.05); }
-.apt-img-wrap { overflow: hidden; aspect-ratio: 4/3; flex-shrink: 0; position: relative; }
-.apt-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; filter: brightness(1.1); }
-.apt-season-badge { position: absolute; top: 12px; right: 12px; background: var(--accent); color: #fff; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.28rem 0.7rem; border-radius: 50px; }
-.apt-body { padding: 2rem 1.8rem 1.8rem; flex: 1; display: flex; flex-direction: column; }
-.apt-tag { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; font-weight: 400; }
-.apt-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.7rem; line-height: 1.1; }
-.apt-feats { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
-.apt-feat { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--light); padding: 0.22rem 0.8rem; color: var(--stone); border-radius: 50px; }
-.apt-prices { margin-top: auto; padding-top: 1.2rem; border-top: 1px solid var(--light); }
-.price-row { display: flex; justify-content: space-between; padding: 0.38rem 0; font-size: 0.82rem; }
-.price-period { color: var(--stone); font-size: 0.76rem; }
-.price-amt { font-weight: 500; color: var(--dark); }
-.apt-open-btn {
-  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  margin-top: 1.3rem; padding: 0.75rem 1.5rem;
-  background: var(--accent-pale); color: var(--accent);
-  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
-  border: 1px solid rgba(192,120,80,0.2); border-radius: 50px; cursor: pointer; width: 100%;
-  font-family: 'DM Sans', sans-serif; font-weight: 400;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-.apt-open-btn:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
-
-.info-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.8rem; }
-.info-cell { background: var(--white); flex: 1; min-width: 180px; padding: 1.5rem 2rem; font-size: 0.82rem; line-height: 1.7; border-radius: 12px; border-left: 3px solid var(--accent); }
-.info-cell strong { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; font-weight: 500; }
-
-/* ══ CONTACT ══ */
-.contact-section { background: #e8dfd4; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
-.contact-title em { color: var(--accent); font-style: normal; }
-.contact-body-text { color: var(--stone); margin-top: 1.4rem; max-width: 400px; }
-.contact-details { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
-.c-row { display: flex; gap: 1rem; }
-.c-icon { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); font-weight: 500; margin-top: 0.3rem; min-width: 48px; }
-.c-text { font-size: 0.9rem; line-height: 1.7; color: var(--stone); }
-.c-text a { color: var(--green); text-decoration: none; transition: color 0.2s; }
-.c-text a:hover { color: var(--dark); }
-
-.contact-form { display: flex; flex-direction: column; gap: 1rem; padding-top: 0.5rem; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.contact-form input, .contact-form textarea, .contact-form select {
-  background: #fff;
-  border: 1.5px solid var(--mid);
-  color: var(--dark); padding: 0.95rem 1.2rem; border-radius: 8px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
-  outline: none; width: 100%; transition: border-color 0.2s, box-shadow 0.2s;
-  -webkit-appearance: none;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-}
-.contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--mid); }
-.contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(140,109,63,0.1);
-}
-.contact-form textarea { min-height: 140px; resize: vertical; }
-.contact-form label {
-  display: block; font-size: 0.65rem; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--stone);
-  margin-bottom: 0.4rem; font-weight: 400;
-}
-.contact-form .field { display: flex; flex-direction: column; }
-.btn-send {
-  background: var(--accent); color: #fff; border: none;
-  padding: 1rem 2.5rem; border-radius: 50px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-  cursor: pointer; align-self: flex-start; transition: background 0.25s;
-  margin-top: 0.5rem;
-}
-.btn-send:hover { background: var(--green-light); }
-
-/* ══ FOOTER ══ */
-footer {
-  background: #d6cfc4; padding: 2.5rem 4vw;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-}
-.footer-links { display: flex; gap: 2rem; }
-.footer-links a { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--dark); }
-.footer-copy { font-size: 0.7rem; color: var(--stone); }
-
-/* ══ MODAL ══ */
-.modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.85); z-index: 1000;
-  overflow-y: auto; -webkit-overflow-scrolling: touch;
-}
-.modal-overlay.open { display: block; }
-.modal {
-  background: #fff; width: calc(100% - 2rem); max-width: 860px;
-  margin: 3rem auto 4rem; position: relative;
-  border-radius: 12px; overflow: hidden;
-  animation: mIn 0.3s ease;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-}
-@keyframes mIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-.modal-close {
-  position: absolute; top: 12px; right: 12px; z-index: 10;
-  background: rgba(0,0,0,0.5); color: #fff; border: none;
-  width: 36px; height: 36px; border-radius: 50%;
-  font-size: 1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-}
-.modal-close:hover { background: rgba(0,0,0,0.8); }
-/* Modal slider */
-.modal-slider { position: relative; width: 100%; aspect-ratio: 16/7; overflow: hidden; background: var(--light); }
-.modal-slider-track { display: flex; height: 100%; transition: transform 0.4s ease; }
-.modal-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
-.modal-slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(1.1); }
-.modal-slide-ph { width: 100%; height: 100%; background: var(--off); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
-.modal-slide-ph span { font-size: 2rem; opacity: 0.3; }
-.modal-slide-ph p { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); }
-.slider-btn {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255,255,255,0.88); border: none; cursor: pointer;
-  width: 40px; height: 40px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; color: var(--dark); z-index: 5;
-  transition: background 0.2s; box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-}
-.slider-btn:hover { background: white; }
-.slider-btn.prev { left: 12px; }
-.slider-btn.next { right: 12px; }
-.slider-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
-.slider-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
-.slider-dot.active { background: white; }
-.modal-body { padding: 2.5rem 3rem 3rem; background: var(--white); }
-.modal-tag { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
-.modal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2rem; font-weight: 400; color: var(--dark); margin-bottom: 1rem; }
-.modal-feats { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
-.modal-feat { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--light); padding: 0.28rem 0.85rem; color: var(--stone); border-radius: 50px; }
-.modal-desc { font-size: 0.95rem; color: var(--stone); line-height: 1.88; margin-bottom: 2rem; max-width: 600px; }
-.modal-prices { margin-bottom: 2rem; }
-.modal-prices h4 { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.8rem; }
-.m-price-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--light); font-size: 0.9rem; }
-.m-price-row:last-child { border-bottom: none; }
-.m-period { color: var(--stone); }
-.m-amt { font-weight: 500; color: var(--dark); }
-.modal-cta-btn { background: var(--green); color: #fff; border: none; padding: 0.95rem 2.5rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
-.modal-cta-btn:hover { background: var(--green-light); }
-
-/* ══ RESPONSIVE ══ */
-@media (max-width: 1024px) {
-  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .about-img-accent { display: none; }
-  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .apt-grid { grid-template-columns: 1fr 1fr; }
-  .nav-links-desktop { display: none; }
-  .nav-burger { display: flex !important; }
-  .hero-meta { display: none; }
-  .section { padding: 5rem 0; }
-}
-@media (max-width: 768px) {
-  .apt-grid { grid-template-columns: 1fr; }
-  .apts-header { margin-bottom: 2rem; }
-  .landscape { height: 45vh; }
-  .form-row { grid-template-columns: 1fr; }
-  footer { flex-direction: column; text-align: center; gap: 1.5rem; }
-  .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
-  .modal-slider { aspect-ratio: 4/3; }
-  .hero { height: 100vh; }
-  .hero-fallback { background-size: 100% auto; background-position: top center; }
-  .hero-content { padding: 0 4vw 0.5vw; }
-  .hero-title { font-size: clamp(1.8rem, 7vw, 2.4rem); }
-  .card-slide img { object-position: center; }
-}
-@media (max-width: 480px) {
-  .nav-bar { padding: 0 1rem; height: 62px; }
-  .section-inner { padding: 0 1.2rem; }
-  .hero-content { padding: 0 1.2rem 4vh; }
-  .modal-body { padding: 1.2rem; }
-  .modal-title { font-size: 1.5rem; }
-  .btn-send { width: 100%; text-align: center; align-self: stretch; }
-  .region-tab { padding: 0.8rem 1rem; font-size: 0.7rem; }
-}
-
-/* ══ CARD SLIDER ══ */
-.card-slider-wrap { overflow: hidden; aspect-ratio: 4/5; flex-shrink: 0; position: relative; }
-.card-slider-track { display: flex; height: 100%; transition: transform 0.4s ease; will-change: transform; }
-.card-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
-.card-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; filter: brightness(1.05); }
-.card-btn {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: none; border: none; cursor: pointer;
-  width: 30px; height: 30px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem; color: white; z-index: 5;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.5); transition: opacity 0.2s;
-}
-.card-btn:hover { opacity: 0.7; }
-.card-btn.prev { left: 8px; }
-.card-btn.next { right: 8px; }
-.card-dots-wrap { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
-.card-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
-.card-dot.active { background: white; }
-
-.nav-links-desktop li a span,
-.mobile-nav a span { display: inline !important; }
-.nav-links-desktop li a span.lang-en,
-.mobile-nav a span.lang-en { display: none !important; }
-body.en .nav-links-desktop li a span.lang-en,
-body.en .mobile-nav a span.lang-en { display: inline !important; }
-body.en .nav-links-desktop li a span.lang-de,
-body.en .mobile-nav a span.lang-de { display: none !important; }
-.lang-en { display: none !important; }
-body.en .lang-de { display: none !important; }
-body.en .lang-en { display: revert !important; }
-span.lang-en, em.lang-en, strong.lang-en, a.lang-en, li.lang-en, p.lang-en { display: none !important; }
-body.en span.lang-en, body.en em.lang-en, body.en strong.lang-en, body.en a.lang-en { display: inline !important; }
-body.en li.lang-en { display: list-item !important; }
-body.en p.lang-en { display: block !important; }
-body.en span.lang-de, body.en em.lang-de, body.en strong.lang-de, body.en a.lang-de { display: none !important; }
-body.en li.lang-de, body.en p.lang-de { display: none !important; }
-
-  </style>
+/* Result */
+.res{text-align:center;padding:1.5rem 0}
+.rs{font-size:56px;font-weight:700;color:var(--accent);letter-spacing:-.03em;line-height:1}
+.rl{color:var(--muted);margin:.5rem 0 1.5rem}
+.rb{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.me{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem;text-align:left}
+.mv{font-size:22px;font-weight:600}
+.ml{font-size:12px;color:var(--muted)}
+.res .ac{justify-content:center}
+.wl{text-align:left;margin-top:2rem}
+.wl h3{font-size:15px;margin-bottom:.6rem}
+.wl li{font-size:14px;margin:0 0 .5rem 1.2rem;color:var(--muted)}
+</style>
 </head>
 <body>
-
-<!-- ══ NAV ══ -->
-
-<nav id="nav">
-  <div class="nav-bar">
-    <!-- Logo links -->
-    <a href="#" class="nav-logo" aria-label="Seeberghof">
-      <div class="logo-text" id="logo-text">
-        <div class="logo-name">SEEBERGHOF</div>
-        <div class="logo-sub">FUSCHL AM SEE</div>
-      </div>
-    </a>
-
-<!-- Desktop nav links -->
-<ul class="nav-links-desktop">
-  <li><a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a></li>
-  <li><a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a></li>
-  <li><a href="#region"><span class="lang-de">Rund um den Fuschlsee</span><span class="lang-en">Around the Fuschlsee</span></a></li>
-  <li><a href="#kontakt"><span class="lang-de">Kontakt</span><span class="lang-en">Contact</span></a></li>
-</ul>
-
-<!-- Right: DE/EN + burger -->
-<div class="nav-right">
-  <button class="nav-burger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menü">
-    <span></span><span></span><span></span>
-  </button>
-</div>
-
-  </div>
-
-  <div class="mobile-nav">
-    <a href="#ferienwohnungen">Wohnungen</a>
-    <a href="#ueber-uns">Über uns</a>
-    <a href="#region">Rund um den Fuschlsee</a>
-    <a href="#kontakt">Kontakt</a>
-  </div>
-</nav>
-
-<!-- ══ HERO ══ -->
-
-<section class="hero">
-  <div class="hero-media">
-    <div class="hero-fallback"></div>
-    <div class="hero-video-wrap">
-      <video class="hero-video" autoplay muted loop playsinline>
-        <source src="hero.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="hero-overlay"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-text">
-      <h1 class="hero-title">
-        <span class="lang-de">Herzlich Willkommen<br>am Seeberghof</span>
-        <span class="lang-en">Welcome to<br>Seeberghof</span>
-      </h1>
-    </div>
-    <div class="hero-meta">
-      <strong>Fuschl am See</strong>
-      <span class="lang-de">Familiär geführter Bauernhof<br>Salzkammergut, Österreich</span>
-      <span class="lang-en">Family-run farm<br>Salzkammergut, Austria</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FERIENWOHNUNGEN ══ -->
-
-<section class="section apts-section" id="ferienwohnungen" style="background: var(--white);">
-  <div class="section-inner">
-    <div class="apts-header">
-      <div>
-        <p class="label">
-          <span class="lang-de">Unterkunft</span>
-          <span class="lang-en">Accommodation</span>
-        </p>
-        <h2 class="display-title">
-          <span class="lang-de">Unsere <em style="color:var(--green);font-style:normal">Ferienwohnungen</em></span>
-          <span class="lang-en">Our <em style="color:var(--green);font-style:normal">Apartments</em></span>
-        </h2>
-      </div>
-      <p class="apts-note lang-de">Alle drei Wohnungen haben einen Balkon mit Blick auf die umliegenden Berge und den Fuschlsee sowie Zugang zu den gemeinsamen Freizeiteinrichtungen: Tischtennistisch, Gokart und Tischfußball. Klicken Sie für mehr Details &amp; Fotos.</p>
-      <p class="apts-note lang-en">All three apartments have a balcony with views of the surrounding mountains and the Fuschlsee, as well as access to the shared leisure facilities: table tennis, go-kart and table football. Click for more details &amp; photos.</p>
-    </div>
-
-<div class="apt-grid">
-  <!-- SCHOBER -->
-  <div class="apt-card" onclick="openModal('m-schober')">
-    <div class="card-slider-wrap">
-      <div class="card-slider-track" id="ctrack-schober">
-        <div class="card-slide"><img src="Schober/Blick Balkon 2.JPG" alt="Schober – Aussicht" /></div>
-        <div class="card-slide"><img src="Schober/Schlafzimmer 1.JPG" alt="Schober – Schlafzimmer" /></div>
-        <div class="card-slide"><img src="Schober/Kueche 1.JPG" alt="Schober – Küche" /></div>
-        <div class="card-slide"><img src="Schober/Badezimmer.JPG" alt="Schober – Badezimmer" /></div>
-      </div>
-      <button class="card-btn prev" onclick="event.stopPropagation();cardSlide('schober',-1)">&#8592;</button>
-      <button class="card-btn next" onclick="event.stopPropagation();cardSlide('schober',1)">&#8594;</button>
-      <div class="card-dots-wrap" id="cdots-schober">
-        <button class="card-dot active" onclick="event.stopPropagation();cardGo('schober',0)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('schober',1)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('schober',2)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('schober',3)"></button>
-      </div>
-      <div class="apt-season-badge">ab € 72,–/Nacht</div>
-    </div>
-    <div class="apt-body">
-      <p class="apt-tag lang-de">40 m² · 2 Personen</p>
-      <p class="apt-tag lang-en">40 m² · 2 Persons</p>
-      <h3 class="apt-name">Schober</h3>
-      <div class="apt-feats">
-        <span class="apt-feat lang-de">1 Schlafzimmer</span><span class="apt-feat lang-en">1 Bedroom</span>
-        <span class="apt-feat lang-de">Küche</span><span class="apt-feat lang-en">Kitchen</span>
-        <span class="apt-feat lang-de">Dusche &amp; WC</span><span class="apt-feat lang-en">Shower &amp; WC</span>
-        <span class="apt-feat">Balkon · Seeblick</span>
-      </div>
-      <div class="apt-prices">
-        <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 72,–</span></div>
-        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 80,–</span></div>
-      </div>
-      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
-    </div>
-  </div>
-
-  <!-- SEEBLICK -->
-  <div class="apt-card" onclick="openModal('m-seeblick')">
-    <div class="card-slider-wrap">
-      <div class="card-slider-track" id="ctrack-seeblick">
-        <div class="card-slide"><img src="Seeblick/Balkon.JPG" alt="Seeblick – Balkon" /></div>
-        <div class="card-slide"><img src="Seeblick/Wohnzimmer 1.JPG" alt="Seeblick – Wohnzimmer" /></div>
-        <div class="card-slide"><img src="Seeblick/Schlafzimmer 1.JPG" alt="Seeblick – Schlafzimmer" /></div>
-        <div class="card-slide"><img src="Seeblick/Kinderzimmer.JPG" alt="Seeblick – Kinderzimmer" /></div>
-        <div class="card-slide"><img src="Seeblick/Kueche 1.JPG" alt="Seeblick – Küche" /></div>
-        <div class="card-slide"><img src="Seeblick/Badezimmer.JPG" alt="Seeblick – Badezimmer" /></div>
-      </div>
-      <button class="card-btn prev" onclick="event.stopPropagation();cardSlide('seeblick',-1)">&#8592;</button>
-      <button class="card-btn next" onclick="event.stopPropagation();cardSlide('seeblick',1)">&#8594;</button>
-      <div class="card-dots-wrap" id="cdots-seeblick">
-        <button class="card-dot active" onclick="event.stopPropagation();cardGo('seeblick',0)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',1)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',2)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',3)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',4)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('seeblick',5)"></button>
-      </div>
-      <div class="apt-season-badge">ab € 88,–/Nacht</div>
-    </div>
-    <div class="apt-body">
-      <p class="apt-tag lang-de">70 m² · 2–6 Personen</p>
-      <p class="apt-tag lang-en">70 m² · 2–6 Persons</p>
-      <h3 class="apt-name">Seeblick</h3>
-      <div class="apt-feats">
-        <span class="apt-feat lang-de">2 Schlafzimmer</span><span class="apt-feat lang-en">2 Bedrooms</span>
-        <span class="apt-feat lang-de">Küche</span><span class="apt-feat lang-en">Kitchen</span>
-        <span class="apt-feat lang-de">Dusche &amp; WC getrennt</span><span class="apt-feat lang-en">Separate shower &amp; WC</span>
-        <span class="apt-feat">Balkon · Seeblick</span>
-      </div>
-      <div class="apt-prices">
-        <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 88,–</span></div>
-        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 95,–</span></div>
-      </div>
-      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
-    </div>
-  </div>
-
-  <!-- SCHAFBERG -->
-  <div class="apt-card" onclick="openModal('m-schafberg')">
-    <div class="card-slider-wrap">
-      <div class="card-slider-track" id="ctrack-schafberg">
-        <div class="card-slide"><img src="Schafberg/Balkon.JPG" alt="Schafberg – Balkon" /></div>
-        <div class="card-slide"><img src="Schafberg/Schlafzimmer 1.JPG" alt="Schafberg – Schlafzimmer" /></div>
-        <div class="card-slide"><img src="Schafberg/Schlafzimmer 2.JPG" alt="Schafberg – Schlafzimmer 2" /></div>
-        <div class="card-slide"><img src="Schafberg/Kueche 1.JPG" alt="Schafberg – Küche" /></div>
-        <div class="card-slide"><img src="Schafberg/Badezimmer.JPG" alt="Schafberg – Badezimmer" /></div>
-      </div>
-      <button class="card-btn prev" onclick="event.stopPropagation();cardSlide('schafberg',-1)">&#8592;</button>
-      <button class="card-btn next" onclick="event.stopPropagation();cardSlide('schafberg',1)">&#8594;</button>
-      <div class="card-dots-wrap" id="cdots-schafberg">
-        <button class="card-dot active" onclick="event.stopPropagation();cardGo('schafberg',0)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('schafberg',1)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('schafberg',2)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('schafberg',3)"></button>
-        <button class="card-dot" onclick="event.stopPropagation();cardGo('schafberg',4)"></button>
-      </div>
-      <div class="apt-season-badge">ab € 95,–/Nacht</div>
-    </div>
-    <div class="apt-body">
-      <p class="apt-tag lang-de">90 m² · 2–8 Personen</p>
-      <p class="apt-tag lang-en">90 m² · 2–8 Persons</p>
-      <h3 class="apt-name">Schafberg</h3>
-      <div class="apt-feats">
-        <span class="apt-feat lang-de">3 Schlafzimmer</span><span class="apt-feat lang-en">3 Bedrooms</span>
-        <span class="apt-feat lang-de">Küche</span><span class="apt-feat lang-en">Kitchen</span>
-        <span class="apt-feat lang-de">Dusche &amp; WC getrennt</span><span class="apt-feat lang-en">Separate shower &amp; WC</span>
-        <span class="apt-feat">Balkon · Seeblick</span>
-      </div>
-      <div class="apt-prices">
-        <div class="price-row"><span class="price-period lang-de">Mai – Jun &amp; Sep – Nov</span><span class="price-period lang-en">May – Jun &amp; Sep – Nov</span><span class="price-amt">ab € 95,–</span></div>
-        <div class="price-row"><span class="price-period">Jul – Aug</span><span class="price-amt">ab € 100,–</span></div>
-      </div>
-      <button class="apt-open-btn"><span class="lang-de">Details &amp; Fotos ansehen →</span><span class="lang-en">View details &amp; photos →</span></button>
-    </div>
-  </div>
-</div>
-
-<div class="info-row">
-  <div class="info-cell"><strong><span class="lang-de">Ortstaxe</span><span class="lang-en">Tourist tax</span></strong><span class="lang-de">Wird zusätzlich zum Mietpreis verrechnet</span><span class="lang-en">Charged in addition to the rental price</span></div>
-  <div class="info-cell"><strong><span class="lang-de">Endreinigung</span><span class="lang-en">Final cleaning</span></strong>€ 40,– <span class="lang-de">bis</span><span class="lang-en">to</span> € 50,–</div>
-  <div class="info-cell"><strong><span class="lang-de">Kinderermäßigung</span><span class="lang-en">Child discount</span></strong><span class="lang-de">Auf Anfrage</span><span class="lang-en">On request</span></div>
-  <div class="info-cell"><strong><span class="lang-de">Haustiere</span><span class="lang-en">Pets</span></strong><span class="lang-de">Auf Anfrage</span><span class="lang-en">On request</span></div>
-</div>
-
-  </div>
-</section>
-
-<!-- ══ ÜBER UNS ══ -->
-
-<section class="section about-section" id="ueber-uns" style="background:var(--off);">
-  <div class="section-inner">
-    <div style="max-width:720px; margin:0 auto;">
-      <p class="label">
-        <span class="lang-de">Unser Hof</span>
-        <span class="lang-en">Our Farm</span>
-      </p>
-      <h2 class="display-title">
-        <span class="lang-de">Erholung pur —<br><span class="title-accent">mitten in der Natur</span></span>
-        <span class="lang-en">Pure relaxation —<br><span class="title-accent">in the heart of nature</span></span>
-      </h2>
-      <div class="divider"></div>
-      <p class="body-text lang-de">Der Seeberghof liegt in ruhiger und leicht erreichbarer Lage in Fuschl am See im Salzkammergut — eingebettet zwischen dem Schober mit seinem Nebengipfel Frauenkopf und dem türkisblauen Fuschlsee. Nur 800 m vom Ortszentrum und 8 Minuten zu Fuß vom Badestrand entfernt. Als familiengeführter Bauernhof inmitten schöner Bergwelt legen wir Wert auf eine persönliche, herzliche Atmosphäre. Kinder haben draußen viel Platz, Erwachsene genießen die Ruhe und die Natur — ein Landurlaub, der für Sie und Ihre Familie garantiert zum Erlebnis wird.</p>
-      <p class="body-text lang-en">Seeberghof is located in a peaceful and easily accessible setting in Fuschl am See in the Salzkammergut — nestled between the Schober mountain with its secondary peak Frauenkopf and the turquoise Fuschlsee. Just 800 m from the village centre and 8 minutes on foot from the bathing beach. As a family-run farm amidst beautiful mountain scenery, we value a personal and warm atmosphere. Children have plenty of space outside, while adults enjoy the peace and nature — a countryside holiday that is guaranteed to become an experience for you and your family.</p>
-      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--light); border-radius:10px; overflow:hidden; margin-top:2rem; max-width:400px;">
-        <div style="background:var(--off); padding:1.2rem 1rem; text-align:center;">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.8rem; font-weight:300; color:var(--accent); line-height:1;">1950</div>
-          <div style="font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;"><span class="lang-de">Gegründet</span><span class="lang-en">Founded</span></div>
-        </div>
-        <div style="background:var(--off); padding:1.2rem 1rem; text-align:center;">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.8rem; font-weight:300; color:var(--accent); line-height:1;">2.</div>
-          <div style="font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;"><span class="lang-de">Generation</span><span class="lang-en">Generation</span></div>
-        </div>
-      </div>
-      <div class="signature">— Mathilde Pöckl &amp; Familie</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ LANDSCAPE QUOTE ══ -->
-
-<div class="landscape">
-  <div class="landscape-img"></div>
-  <div class="landscape-content">
-    <blockquote class="landscape-quote">
-      <span class="lang-de">Sommerliche Leichtigkeit, kristallklares Wasser, frische Bergluft — Willkommen im Salzkammergut.</span>
-      <span class="lang-en">Summer ease, crystal-clear water, fresh mountain air — welcome to the Salzkammergut.</span>
-    </blockquote>
-    <div class="landscape-line"></div>
-    <p class="landscape-cite">Seeberghof · Fuschl am See</p>
-  </div>
-</div>
-
-<!-- ══ SEHENSWÜRDIGKEITEN ══ -->
-
-<section class="section region-section" id="region" style="background: #f0ece4;">
-  <div class="section-inner">
-    <p class="label">
-      <span class="lang-de">Die Region</span>
-      <span class="lang-en">The Region</span>
-    </p>
-    <h2 class="display-title" style="margin-bottom:0.5rem">
-      <span class="lang-de">Rund um den <em style="color:var(--green);font-style:normal">Fuschlsee</em></span>
-      <span class="lang-en">Around the <em style="color:var(--green);font-style:normal">Fuschlsee</em></span>
-    </h2>
-    <p class="body-text" style="margin-bottom:2.5rem">
-      <span class="lang-de">Vom Seeberghof aus erreichen Sie einige der schönsten Orte des Salzkammerguts bequem mit dem Auto.</span>
-      <span class="lang-en">From Seeberghof, some of the most beautiful places in the Salzkammergut are easily reached by car.</span>
-    </p>
-
-<div class="region-tabs">
-  <button class="region-tab active" onclick="showRegion('fuschl',this)">Fuschl am See <span class="tab-dist">· vor Ort</span></button>
-  <button class="region-tab" onclick="showRegion('salzburg',this)">Salzburg <span class="tab-dist">· ca. 25 min</span></button>
-  <button class="region-tab" onclick="showRegion('bad-ischl',this)">Bad Ischl <span class="tab-dist">· ca. 30 min</span></button>
-  <button class="region-tab" onclick="showRegion('wolfgangsee',this)">Wolfgangsee <span class="tab-dist">· ca. 10 min</span></button>
-  <button class="region-tab" onclick="showRegion('hallstatt',this)">Hallstatt <span class="tab-dist">· ca. 60 min</span></button>
-  <button class="region-tab" onclick="showRegion('mondsee',this)">Mondsee <span class="tab-dist">· ca. 20 min</span></button>
-</div>
-
-<!-- FUSCHL AM SEE -->
-<div class="region-panel active" id="panel-fuschl">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Golfclub Waldhof</h4></div>
-      <span class="sight-tag">Sport</span>
-      <p class="lang-de">9-Loch-Golfplatz direkt am Fuschlsee — ideal für Anfänger und Profis, mit Driving Range und der gemütlichen Waldhof-Alm.</p>
-      <p class="lang-en">9-hole golf course right on the Fuschlsee — ideal for beginners and pros, with driving range and the cosy Waldhof Alm.</p>
-      <a class="sight-link" href="https://www.golfclub-waldhof.at" target="_blank" rel="noopener">golfclub-waldhof.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Frauenkopf</h4></div>
-      <span class="sight-tag">Wandern</span>
-      <p class="lang-de">Beliebtes Wanderziel direkt über dem Fuschlsee — auch für Familien geeignet, mit wunderschönem Ausblick auf See und Bergwelt.</p>
-      <p class="lang-en">Popular hiking destination above the Fuschlsee — suitable for families, with beautiful views over the lake and mountains.</p>
-      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Schober</h4></div>
-      <span class="sight-tag">Wandern</span>
-      <p class="lang-de">Der Hausberg des Fuschlsees — vom Seeberghof aus sichtbar. Herrliche Wanderung mit atemberaubendem Blick über See und Alpen.</p>
-      <p class="lang-en">The local mountain of the Fuschlsee — visible from the Seeberghof. A wonderful hike with breathtaking views over the lake and Alps.</p>
-      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Rumingmühle</h4></div>
-      <span class="sight-tag">Gastronomie</span>
-      <p class="lang-de">Über 150 Jahre alte Mühle direkt am Fuschlsee — berühmt für frisch gebackene Krapfen. Im Sommer di., fr. und sa. nachmittags geöffnet.</p>
-      <p class="lang-en">Over 150-year-old mill right on the Fuschlsee — famous for freshly baked Krapfen. Open in summer on Tue, Fri and Sat afternoons.</p>
-      <a class="sight-link" href="https://fuschlsee.salzkammergut.at" target="_blank" rel="noopener">fuschlsee.salzkammergut.at</a>
-    </div>
-  </div>
-</div>
-
-    <!-- BAD ISCHL -->
-<div class="region-panel" id="panel-bad-ischl">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Café Zauner</h4></div>
-      <span class="sight-tag">Gastronomie</span>
-      <p class="lang-de">Eine der bekanntesten Konditoreien Österreichs seit 1832 — legendärer Zaunerstollen und kaiserliche Mehlspeisen. Absolutes Muss!</p>
-      <p class="lang-en">One of Austria's most famous patisseries since 1832 — legendary Zaunerstollen and imperial pastries. An absolute must!</p>
-      <a class="sight-link" href="https://www.zauner.at" target="_blank" rel="noopener">zauner.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Kaiservilla</span><span class="lang-en">Imperial Villa</span></h4></div>
-      <span class="sight-tag">Museum</span>
-      <p class="lang-de">Sommerresidenz von Kaiser Franz Joseph I. — über 60 Jahre kaiserliche Sommerfrische. Heute Museum mit kaiserlichen Erinnerungsstücken.</p>
-      <p class="lang-en">Summer residence of Emperor Franz Joseph I. for over 60 years. Today a museum with imperial memorabilia and beautiful park.</p>
-      <a class="sight-link" href="https://www.kaiservilla.at" target="_blank" rel="noopener">kaiservilla.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Katrinseilbahn</h4></div>
-      <span class="sight-tag">Natur</span>
-      <p class="lang-de">Gondelbahn auf den 1.400 m hohen Katrinberg — Wanderwege, Almwiesen und Panoramablick über das Salzkammergut.</p>
-      <p class="lang-en">Cable car up to the 1,400 m Katrin mountain — hiking trails, alpine meadows and panoramic views over the Salzkammergut.</p>
-      <a class="sight-link" href="https://www.katrinseilbahn.com" target="_blank" rel="noopener">katrinseilbahn.com</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Leharvilla</h4></div>
-      <span class="sight-tag">Museum</span>
-      <p class="lang-de">Sommerresidenz des Operettenkomponisten Franz Lehár — stilvoll restauriertes Museum direkt am Ufer der Traun in Bad Ischl.</p>
-      <p class="lang-en">Summer residence of operetta composer Franz Lehár — elegantly restored museum on the banks of the Traun in Bad Ischl.</p>
-      <a class="sight-link" href="https://www.stadtmuseum.at/leharvilla" target="_blank" rel="noopener">stadtmuseum.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- SALZBURG -->
-<div class="region-panel" id="panel-salzburg">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Festung Hohensalzburg</span><span class="lang-en">Hohensalzburg Fortress</span></h4></div>
-      <span class="sight-tag">Kultur</span>
-      <p class="lang-de">Eine der größten erhaltenen Burganlagen Europas, erbaut 1077 — mit Panoramablick über Salzburg und die Alpen.</p>
-      <p class="lang-en">One of Europe's largest preserved fortresses, built in 1077 — with panoramic views over Salzburg and the Alps.</p>
-      <a class="sight-link" href="https://www.festung-hohensalzburg.at" target="_blank" rel="noopener">festung-hohensalzburg.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Mozarts Geburtshaus</span><span class="lang-en">Mozart's Birthplace</span></h4></div>
-      <span class="sight-tag">Museum</span>
-      <p class="lang-de">Getreidegasse 9 — hier wurde Mozart 1756 geboren. Museum mit Originalinstrumenten, Portraits und persönlichen Gegenständen.</p>
-      <p class="lang-en">Getreidegasse 9 — where Mozart was born in 1756. Museum with original instruments, portraits and personal items.</p>
-      <a class="sight-link" href="https://mozarteum.at/mozart-museen/mozarts-geburtshaus" target="_blank" rel="noopener">mozarteum.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Museum der Moderne</h4></div>
-      <span class="sight-tag">Kunst</span>
-      <p class="lang-de">Zeitgenössische und moderne Kunst auf dem Mönchsberg — mit atemberaubendem Blick über die Salzburger Altstadt.</p>
-      <p class="lang-en">Contemporary and modern art on the Mönchsberg — with breathtaking views over Salzburg's old town.</p>
-      <a class="sight-link" href="https://www.museumdermoderne.at" target="_blank" rel="noopener">museumdermoderne.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Dom zu Salzburg</span><span class="lang-en">Salzburg Cathedral</span></h4></div>
-      <span class="sight-tag">Kultur</span>
-      <p class="lang-de">Der frühbarocke Dom am Domplatz — eines der bedeutendsten Sakralgebäude Österreichs mit beeindruckender Orgel und Kuppelgemälden.</p>
-      <p class="lang-en">The early baroque cathedral on Domplatz — one of Austria's most important religious buildings with a magnificent organ and dome paintings.</p>
-      <a class="sight-link" href="https://www.salzburger-dom.at" target="_blank" rel="noopener">salzburger-dom.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- WOLFGANGSEE -->
-<div class="region-panel" id="panel-wolfgangsee">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Schafbergbahn</span><span class="lang-en">Schafberg Railway</span></h4></div>
-      <span class="sight-tag">Ausflug</span>
-      <p class="lang-de">Historische Zahnradbahn seit 1893 auf den 1.783 m hohen Schafberg — Blick auf bis zu 13 Seen des Salzkammerguts.</p>
-      <p class="lang-en">Historic rack railway since 1893 to the 1,783 m Schafberg — views of up to 13 lakes in the Salzkammergut.</p>
-      <a class="sight-link" href="https://www.5schaetze.at" target="_blank" rel="noopener">5schaetze.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Wolfgangsee Schifffahrt</span><span class="lang-en">Lake Wolfgang Boats</span></h4></div>
-      <span class="sight-tag">Ausflug</span>
-      <p class="lang-de">Schifffahrt zwischen St. Wolfgang, St. Gilgen und Strobl — das Salzkammergut entspannt vom Wasser aus erleben.</p>
-      <p class="lang-en">Ferry between St. Wolfgang, St. Gilgen and Strobl — experience the Salzkammergut from the water.</p>
-      <a class="sight-link" href="https://www.schifffahrt-am-wolfgangsee.at" target="_blank" rel="noopener">schifffahrt-am-wolfgangsee.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>St. Wolfgang</h4></div>
-      <span class="sight-tag">Ortschaft</span>
-      <p class="lang-de">Malerischer Ort am Wolfgangsee — mit der berühmten Wallfahrtskirche, dem Weißen Rössl und einer schönen Seepromenade.</p>
-      <p class="lang-en">Picturesque village on the Wolfgangsee — with the famous pilgrimage church, the White Horse Inn and a beautiful lakeside promenade.</p>
-      <a class="sight-link" href="https://wolfgangsee.salzkammergut.at" target="_blank" rel="noopener">wolfgangsee.salzkammergut.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Postalm</h4></div>
-      <span class="sight-tag">Natur</span>
-      <p class="lang-de">Das größte zusammenhängende Almgebiet Österreichs — ein weites Hochplateau über dem Wolfgangsee, ideal zum Wandern und Biken.</p>
-      <p class="lang-en">Austria's largest contiguous alpine pasture — a vast high plateau above the Wolfgangsee, ideal for hiking and cycling.</p>
-      <a class="sight-link" href="https://www.postalm.at" target="_blank" rel="noopener">postalm.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4>Abarena</h4></div>
-      <span class="sight-tag">Freizeit</span>
-      <p class="lang-de">Allwetter-Freizeitpark in Abersee — Minigolf, Klettern, Boote und mehr. Ideal für Familien auch bei schlechtem Wetter.</p>
-      <p class="lang-en">All-weather leisure park in Abersee — mini golf, climbing, boats and more. Ideal for families in any weather.</p>
-      <a class="sight-link" href="https://www.abarena.at" target="_blank" rel="noopener">abarena.at</a>
-    </div>
-  </div>
-</div>
-
-<!-- HALLSTATT -->
-<div class="region-panel" id="panel-hallstatt">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Salzbergwerk</span><span class="lang-en">Salt Mine</span></h4></div>
-      <span class="sight-tag">Ausflug</span>
-      <p class="lang-de">Das älteste Salzbergwerk der Welt — seit über 7.000 Jahren. Bergmanns-Zug, Rutschen und unterirdischer Salzsee.</p>
-      <p class="lang-en">The world's oldest salt mine — for over 7,000 years. Miners' train, slides and underground salt lake.</p>
-      <a class="sight-link" href="https://www.salzwelten.at" target="_blank" rel="noopener">salzwelten.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Beinhaus</span><span class="lang-en">Bone House</span></h4></div>
-      <span class="sight-tag">Historisch</span>
-      <p class="lang-de">Einzigartiges Beinhaus in der St.-Michaels-Kapelle — 1.200 bemalte Schädel aus dem 12. Jahrhundert.</p>
-      <p class="lang-en">Unique charnel house in St. Michael's Chapel — 1,200 painted skulls from the 12th century.</p>
-      <a class="sight-link" href="https://beinhaus.hallstatt.net" target="_blank" rel="noopener">beinhaus.hallstatt.net</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Ortszentrum</span><span class="lang-en">Village Centre</span></h4></div>
-      <span class="sight-tag">Spaziergang</span>
-      <p class="lang-de">Eines der schönsten Dörfer der Welt — UNESCO-Welterbe mit farbenprächtigen Häusern, engen Gassen und traumhaftem Seeblick.</p>
-      <p class="lang-en">One of the most beautiful villages in the world — UNESCO World Heritage with colourful houses, narrow lanes and stunning lake views.</p>
-      <a class="sight-link" href="https://www.hallstatt.net" target="_blank" rel="noopener">hallstatt.net</a>
-    </div>
-  </div>
-</div>
-
-<!-- MONDSEE -->
-<div class="region-panel" id="panel-mondsee">
-  <div class="sight-list">
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Basilika St. Michael</span><span class="lang-en">Basilica St. Michael</span></h4></div>
-      <span class="sight-tag">Kultur</span>
-      <p class="lang-de">Weltberühmt durch „The Sound of Music" — hier wurde die Hochzeitsszene gedreht. Prachtvoller vergoldeter Barockaltar.</p>
-      <p class="lang-en">World-famous through "The Sound of Music" — the wedding scene was filmed here. Magnificent gilded baroque altar.</p>
-      <a class="sight-link" href="https://www.pfarre-mondsee.at" target="_blank" rel="noopener">pfarre-mondsee.at</a>
-    </div>
-    <div class="sight-card">
-      <div class="sight-card-top"><h4><span class="lang-de">Mondsee Baden</span><span class="lang-en">Mondsee Swimming</span></h4></div>
-      <span class="sight-tag">Natur</span>
-      <p class="lang-de">Einer der wärmsten Seen des Salzkammerguts — perfekt zum Baden im Sommer, mit Liegewiesen und Blick auf die Drachenwand.</p>
-      <p class="lang-en">One of the warmest lakes in the Salzkammergut — perfect for swimming, with lawns and views of the Drachenwand rock face.</p>
-      <a class="sight-link" href="https://www.mondsee.at" target="_blank" rel="noopener">mondsee.at</a>
-    </div>
-  </div>
-</div>
-
-  </div>
-</section>
-
-<!-- ══ KONTAKT ══ -->
-
-<section class="section contact-section" id="kontakt">
-  <div class="section-inner">
-    <div style="max-width:680px; margin:0 auto; text-align:center;">
-      <p class="label">Kontakt</p>
-      <h2 class="display-title contact-title">Wir freuen uns<br><em>auf Sie</em></h2>
-      <div style="margin-top:2.5rem;">
-        <a href="mailto:seeberghof.fuschl@gmail.com" class="btn-send" style="text-decoration:none; display:inline-block;">
-          seeberghof.fuschl@gmail.com
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FOOTER ══ -->
-
-<footer>
-  <div style="display:flex; flex-direction:column; gap:3px;">
-    <span style="font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:300; letter-spacing:2.5px; color:#33281c;">SEEBERGHOF</span>
-    <span style="font-family:'DM Sans',sans-serif; font-size:7px; font-weight:300; letter-spacing:4px; color:#8a7d6c;">FUSCHL AM SEE</span>
-  </div>
-  <div class="footer-links">
-    <a href="#ueber-uns"><span class="lang-de">Über uns</span><span class="lang-en">About</span></a>
-    <a href="#ferienwohnungen"><span class="lang-de">Wohnungen</span><span class="lang-en">Apartments</span></a>
-    <a href="#kontakt">Kontakt</a>
-  </div>
-  <div style="text-align:right;">
-    <p class="footer-copy">© 2026 Seeberghof · Familie Pöckl · Fuschl am See</p>
-    <p class="footer-copy" style="margin-top:0.3rem;">made with love</p>
-  </div>
-</footer>
-
-<!-- ══ MODALS ══ -->
-
-<div class="modal-overlay" id="m-schober">
-  <button class="modal-close" onclick="closeModal('m-schober')">✕</button>
-  <div class="modal">
-    <div class="modal-slider" id="slider-schober">
-      <div class="modal-slider-track" id="track-schober">
-        <div class="modal-slide"><img src="Schober/Blick Balkon 2.JPG" alt="Schober – Aussicht" /></div>
-        <div class="modal-slide"><img src="Schober/Schlafzimmer 1.JPG" alt="Schober – Schlafzimmer" /></div>
-        <div class="modal-slide"><img src="Schober/Kueche 1.JPG" alt="Schober – Küche" /></div>
-        <div class="modal-slide"><img src="Schober/Badezimmer.JPG" alt="Schober – Badezimmer" /></div>
-      </div>
-      <button class="slider-btn prev" onclick="slideModal('schober', -1)">&#8592;</button>
-      <button class="slider-btn next" onclick="slideModal('schober', 1)">&#8594;</button>
-      <div class="slider-dots" id="dots-schober">
-        <button class="slider-dot active" onclick="goSlide('schober',0)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',1)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',2)"></button>
-        <button class="slider-dot" onclick="goSlide('schober',3)"></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-tag lang-de">40 m² · 2 Personen</p><p class="modal-tag lang-en">40 m² · 2 Persons</p>
-      <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schober</h2>
-      <div class="modal-feats">
-        <span class="modal-feat lang-de">2 Personen</span><span class="modal-feat lang-en">2 Persons</span>
-        <span class="modal-feat lang-de">1 Schlafzimmer</span><span class="modal-feat lang-en">1 Bedroom</span>
-        <span class="modal-feat lang-de">Küche</span><span class="modal-feat lang-en">Kitchen</span>
-        <span class="modal-feat lang-de">Dusche &amp; WC</span><span class="modal-feat lang-en">Shower &amp; WC</span>
-        <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
-        <span class="modal-feat">Seeblick</span>
-      </div>
-      <p class="modal-desc lang-de">Gemütliche Wohnung für 2 Personen mit einem Schlafzimmer, vollausgestatteter Küche mit Geschirrspüler und Bad. Ideal für Paare, die Ruhe und Natur suchen.</p>
-      <p class="modal-desc lang-en">Cosy apartment for 2 people with one bedroom, fully equipped kitchen with dishwasher and bathroom. Ideal for couples looking for peace and nature.</p>
-      <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 72,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 80,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 72,–</span></div>
-      </div></div>
-      </div>
-      <button class="modal-cta-btn" onclick="closeModal('m-schober');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
-        <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="m-seeblick">
-  <button class="modal-close" onclick="closeModal('m-seeblick')">✕</button>
-  <div class="modal">
-    <div class="modal-slider" id="slider-seeblick">
-      <div class="modal-slider-track" id="track-seeblick">
-        <div class="modal-slide"><img src="Seeblick/Balkon.JPG" alt="Seeblick – Balkon" /></div>
-        <div class="modal-slide"><img src="Seeblick/Wohnzimmer 1.JPG" alt="Seeblick – Wohnzimmer" /></div>
-        <div class="modal-slide"><img src="Seeblick/Schlafzimmer 1.JPG" alt="Seeblick – Schlafzimmer" /></div>
-        <div class="modal-slide"><img src="Seeblick/Kinderzimmer.JPG" alt="Seeblick – Kinderzimmer" /></div>
-        <div class="modal-slide"><img src="Seeblick/Kueche 1.JPG" alt="Seeblick – Küche" /></div>
-        <div class="modal-slide"><img src="Seeblick/Badezimmer.JPG" alt="Seeblick – Badezimmer" /></div>
-      </div>
-      <button class="slider-btn prev" onclick="slideModal('seeblick', -1)">&#8592;</button>
-      <button class="slider-btn next" onclick="slideModal('seeblick', 1)">&#8594;</button>
-      <div class="slider-dots" id="dots-seeblick">
-        <button class="slider-dot active" onclick="goSlide('seeblick',0)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',1)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',2)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',3)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',4)"></button>
-        <button class="slider-dot" onclick="goSlide('seeblick',5)"></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-tag lang-de">70 m² · 2–6 Personen</p><p class="modal-tag lang-en">70 m² · 2–6 Persons</p>
-      <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Seeblick</h2>
-      <div class="modal-feats">
-        <span class="modal-feat lang-de">2–6 Personen</span><span class="modal-feat lang-en">2–6 Persons</span>
-        <span class="modal-feat lang-de">2 Schlafzimmer</span><span class="modal-feat lang-en">2 Bedrooms</span>
-        <span class="modal-feat lang-de">Küche</span><span class="modal-feat lang-en">Kitchen</span>
-        <span class="modal-feat lang-de">Dusche &amp; WC getrennt</span><span class="modal-feat lang-en">Separate shower &amp; WC</span>
-        <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
-        <span class="modal-feat">Seeblick</span>
-      </div>
-      <p class="modal-desc lang-de">Geräumige Familienwohnung mit Schlafzimmer, separatem Kinderzimmer, Wohnzimmer, vollausgestatteter Küche mit Geschirrspüler sowie getrenntem WC und Bad. Perfekt für Familien mit Kindern.</p>
-      <p class="modal-desc lang-en">Spacious family apartment with bedroom, separate children's room, living room, fully equipped kitchen with dishwasher, as well as separate WC and bathroom. Perfect for families with children.</p>
-      <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 88,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 95,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 88,–</span></div>
-      </div></div>
-      </div>
-      <button class="modal-cta-btn" onclick="closeModal('m-seeblick');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
-        <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="m-schafberg">
-  <button class="modal-close" onclick="closeModal('m-schafberg')">✕</button>
-  <div class="modal">
-    <div class="modal-slider" id="slider-schafberg">
-      <div class="modal-slider-track" id="track-schafberg">
-        <div class="modal-slide"><img src="Schafberg/Balkon.JPG" alt="Schafberg – Balkon" /></div>
-        <div class="modal-slide"><img src="Schafberg/Schlafzimmer 1.JPG" alt="Schafberg – Schlafzimmer" /></div>
-        <div class="modal-slide"><img src="Schafberg/Schlafzimmer 2.JPG" alt="Schafberg – Schlafzimmer" /></div>
-        <div class="modal-slide"><img src="Schafberg/Kueche 1.JPG" alt="Schafberg – Küche" /></div>
-        <div class="modal-slide"><img src="Schafberg/Badezimmer.JPG" alt="Schafberg – Badezimmer" /></div>
-      </div>
-      <button class="slider-btn prev" onclick="slideModal('schafberg', -1)">&#8592;</button>
-      <button class="slider-btn next" onclick="slideModal('schafberg', 1)">&#8594;</button>
-      <div class="slider-dots" id="dots-schafberg">
-        <button class="slider-dot active" onclick="goSlide('schafberg',0)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',1)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',2)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',3)"></button>
-        <button class="slider-dot" onclick="goSlide('schafberg',4)"></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-tag lang-de">90 m² · 2–8 Personen</p><p class="modal-tag lang-en">90 m² · 2–8 Persons</p>
-      <h2 class="modal-title"><span class="lang-de">Ferienwohnung</span><span class="lang-en">Apartment</span> Schafberg</h2>
-      <div class="modal-feats">
-        <span class="modal-feat lang-de">2–8 Personen</span><span class="modal-feat lang-en">2–8 Persons</span>
-        <span class="modal-feat lang-de">3 Schlafzimmer</span><span class="modal-feat lang-en">3 Bedrooms</span>
-        <span class="modal-feat lang-de">Küche</span><span class="modal-feat lang-en">Kitchen</span>
-        <span class="modal-feat lang-de">Dusche &amp; WC getrennt</span><span class="modal-feat lang-en">Separate shower &amp; WC</span>
-        <span class="modal-feat lang-de">Sonniger Balkon</span><span class="modal-feat lang-en">Sunny balcony</span>
-        <span class="modal-feat">Seeblick</span>
-      </div>
-      <p class="modal-desc lang-de">Unsere größte Wohnung mit zwei Schlafzimmern, Kinderzimmer, Wohnzimmer, vollausgestatteter Küche mit Geschirrspüler sowie getrenntem WC und Bad. Viel Platz für die ganze Familie.</p>
-      <p class="modal-desc lang-en">Our largest apartment with two bedrooms, children's room, living room, fully equipped kitchen with dishwasher, as well as separate WC and bathroom. Plenty of space for the whole family.</p>
-      <div class="modal-prices">
-        <h4><span class="lang-de">Preise pro Nacht</span><span class="lang-en">Prices per night</span></h4>
-        <div class="m-price-row"><span class="m-period">01.05. – 30.06.2026</span><span class="m-amt">ab € 95,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.07. – 31.08.2026</span><span class="m-amt">ab € 100,–</span></div>
-        <div class="m-price-row"><span class="m-period">01.09. – 01.11.2026</span><span class="m-amt">ab € 95,–</span></div>
-      </div></div>
-      </div>
-      <button class="modal-cta-btn" onclick="closeModal('m-schafberg');document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
-        <span class="lang-de">Jetzt anfragen →</span><span class="lang-en">Enquire now →</span>
-      </button>
-    </div>
-  </div>
-</div>
+<div class="wrap" id="app"></div>
 
 <script>
+/* ============================================================
+   INHALTE
+   Begriffe: [Begriff, Erklärung, optional Beispiel]
+   Quiz: {q: Frage, code?: Java-/Code-Schnipsel, o: Antworten, c: Indizes der richtigen, e: Erklärung}
+   `backticks` werden als Code dargestellt.
+   ============================================================ */
+var T = {
+fs: {
+  name: "Formale Systeme",
+  sub: "Logik, Mengen, Relationen, Funktionen, Beweise, Sprachen & Automaten",
+  terms: [
+    ["Aussage", "Ein Satz, der eindeutig entweder wahr (1) oder falsch (0) ist.", "„7 ist eine Primzahl“ – aber nicht „Mach das Fenster zu“"],
+    ["Junktor", "Verknüpft Aussagen zu neuen Aussagen: ¬ (nicht), ∧ (und), ∨ (oder), → (wenn … dann), ↔ (genau dann, wenn)."],
+    ["Negation ¬A", "Kehrt den Wahrheitswert um: ¬A ist wahr, wenn A falsch ist."],
+    ["Konjunktion A ∧ B", "„Und“: nur wahr, wenn A und B beide wahr sind."],
+    ["Disjunktion A ∨ B", "„Oder“ (einschließend): wahr, wenn mindestens eine der beiden wahr ist – also auch, wenn beide wahr sind."],
+    ["Implikation A → B", "„Wenn A, dann B“. Nur falsch, wenn A wahr und B falsch ist. Ist A falsch, ist die Implikation immer wahr.", "A → B ≡ ¬A ∨ B"],
+    ["Äquivalenz A ↔ B", "Wahr, wenn A und B denselben Wahrheitswert haben (beide wahr oder beide falsch)."],
+    ["Wahrheitstafel", "Tabelle, die für jede mögliche Belegung der Variablen den Wahrheitswert einer Formel angibt. Bei n Variablen gibt es 2ⁿ Zeilen."],
+    ["Belegung", "Eine Zuordnung von Wahrheitswerten (0/1) zu allen Variablen einer Formel – also eine Zeile der Wahrheitstafel."],
+    ["Tautologie", "Eine Formel, die bei jeder Belegung wahr ist (allgemeingültig).", "A ∨ ¬A"],
+    ["Kontradiktion", "Eine Formel, die bei jeder Belegung falsch ist (unerfüllbar).", "A ∧ ¬A"],
+    ["Erfüllbar", "Es gibt mindestens eine Belegung, unter der die Formel wahr ist."],
+    ["Logisch äquivalent (≡)", "Zwei Formeln haben unter allen Belegungen denselben Wahrheitswert."],
+    ["De Morgan’sche Gesetze", "Negation „dreht“ ∧ und ∨ um: ¬(A ∧ B) ≡ ¬A ∨ ¬B und ¬(A ∨ B) ≡ ¬A ∧ ¬B."],
+    ["Kontraposition", "A → B ist äquivalent zu ¬B → ¬A. Wichtig für Beweise."],
+    ["KNF / DNF", "Konjunktive Normalform: UND von ODER-Klauseln, z. B. (A ∨ B) ∧ (¬A ∨ C). Disjunktive Normalform: ODER von UND-Termen, z. B. (A ∧ B) ∨ (¬A ∧ C)."],
+    ["Quantoren ∀ / ∃", "∀ = „für alle“, ∃ = „es existiert (mindestens) ein“. Negation: ¬∀x P(x) ≡ ∃x ¬P(x) und ¬∃x P(x) ≡ ∀x ¬P(x)."],
+    ["Prädikat", "Eine Aussageform mit Variablen, die erst durch Einsetzen wahr oder falsch wird.", "P(x): „x ist gerade“ – P(4) ist wahr, P(3) falsch."],
+    ["Menge", "Zusammenfassung unterscheidbarer Objekte (Elemente). Reihenfolge und Wiederholungen spielen keine Rolle.", "{1, 2, 2, 3} = {3, 1, 2}"],
+    ["Teilmenge A ⊆ B", "Jedes Element von A ist auch in B. Die leere Menge ∅ ist Teilmenge jeder Menge."],
+    ["Vereinigung, Schnitt, Differenz", "A ∪ B: in A oder B. A ∩ B: in A und B. A \\ B: in A, aber nicht in B."],
+    ["Potenzmenge 𝒫(A)", "Die Menge aller Teilmengen von A. Hat A n Elemente, hat 𝒫(A) genau 2ⁿ Elemente.", "𝒫({1,2}) = {∅, {1}, {2}, {1,2}}"],
+    ["Kartesisches Produkt A × B", "Menge aller geordneten Paare (a, b) mit a ∈ A und b ∈ B. |A × B| = |A| · |B|."],
+    ["Relation", "Eine Teilmenge von A × B – sie sagt, welche Elemente „in Beziehung“ stehen."],
+    ["Reflexiv", "Jedes Element steht mit sich selbst in Relation: (a, a) ∈ R für alle a."],
+    ["Symmetrisch", "Wenn (a, b) ∈ R, dann auch (b, a) ∈ R."],
+    ["Antisymmetrisch", "Wenn (a, b) ∈ R und (b, a) ∈ R, dann a = b."],
+    ["Transitiv", "Wenn (a, b) ∈ R und (b, c) ∈ R, dann auch (a, c) ∈ R."],
+    ["Äquivalenzrelation", "Reflexiv, symmetrisch und transitiv. Teilt die Menge in disjunkte Äquivalenzklassen ein.", "„hat denselben Rest bei Division durch 3“"],
+    ["Halbordnung (partielle Ordnung)", "Reflexiv, antisymmetrisch und transitiv.", "≤ auf ℕ, ⊆ auf Mengen"],
+    ["Funktion f: A → B", "Ordnet jedem Element von A genau ein Element von B zu."],
+    ["Injektiv", "Verschiedene Eingaben ergeben verschiedene Ausgaben: aus f(x) = f(y) folgt x = y."],
+    ["Surjektiv", "Jedes Element von B wird getroffen: für jedes b gibt es ein a mit f(a) = b."],
+    ["Bijektiv", "Injektiv und surjektiv – jede Ausgabe wird genau einmal getroffen. Dann gibt es eine Umkehrfunktion."],
+    ["Vollständige Induktion", "Beweistechnik für Aussagen über alle n ≥ n₀: (1) Induktionsanfang: zeige die Aussage für n₀. (2) Induktionsschritt: zeige, dass aus „gilt für n“ (Induktionsvoraussetzung) folgt „gilt für n + 1“."],
+    ["Widerspruchsbeweis", "Man nimmt das Gegenteil der Behauptung an und leitet daraus einen Widerspruch her.", "√2 ist irrational (klassischer Beweis)"],
+    ["Alphabet Σ", "Eine endliche, nicht-leere Menge von Zeichen.", "Σ = {0, 1} oder Σ = {a, b}"],
+    ["Wort", "Endliche Folge von Zeichen aus Σ. |w| ist die Länge des Wortes."],
+    ["Leeres Wort ε", "Das Wort der Länge 0. Es ist ein Wort, aber kein Zeichen des Alphabets."],
+    ["Σ* (Kleene-Stern)", "Die Menge aller Wörter über Σ, inklusive ε. Σ⁺ = Σ* ohne ε."],
+    ["Formale Sprache", "Eine beliebige Teilmenge L ⊆ Σ*.", "L = alle Wörter über {a,b}, die mit b enden"],
+    ["Grammatik", "Regelwerk (Variablen, Terminale, Produktionsregeln, Startsymbol), mit dem man die Wörter einer Sprache erzeugen kann."],
+    ["DEA (deterministischer endlicher Automat)", "Hat endlich viele Zustände, einen Startzustand, Endzustände und für jeden Zustand und jedes Zeichen genau einen Übergang. Ein Wort wird akzeptiert, wenn man nach dem Lesen in einem Endzustand ist."],
+    ["NEA (nichtdeterministischer endlicher Automat)", "Wie ein DEA, aber pro Zustand und Zeichen sind mehrere (oder keine) Übergänge erlaubt. Akzeptiert, wenn es mindestens einen Weg in einen Endzustand gibt. Jeder NEA lässt sich in einen DEA umwandeln."],
+    ["Regulärer Ausdruck", "Kurzschreibweise für reguläre Sprachen mit Verkettung, | (oder) und * (beliebig oft, auch 0-mal).", "a*b = b, ab, aab, aaab, …"]
+  ],
+  quiz: [
+    {q:"Wann ist die Implikation A → B falsch?", o:["Wenn A wahr und B falsch ist","Wenn A falsch und B wahr ist","Wenn A und B beide falsch sind","Wenn A und B beide wahr sind"], c:[0],
+     e:"A → B ist nur dann falsch, wenn die Voraussetzung A wahr ist, die Folgerung B aber falsch. Ist A falsch, ist die Implikation immer wahr („aus Falschem folgt Beliebiges“). Merke: A → B ≡ ¬A ∨ B."},
+    {q:"Wie viele Zeilen hat eine Wahrheitstafel für eine Formel mit 3 Variablen?", o:["3","6","8","9"], c:[2],
+     e:"Jede Variable kann 0 oder 1 sein. Bei n Variablen gibt es also 2ⁿ Kombinationen: 2³ = 8 Zeilen."},
+    {q:"Welche Formel ist eine Tautologie?", o:["A ∨ ¬A","A ∧ ¬A","A → ¬A","A ∨ B"], c:[0],
+     e:"`A ∨ ¬A` ist immer wahr – entweder A oder ¬A ist wahr. `A ∧ ¬A` ist immer falsch (Kontradiktion). `A → ¬A` ist falsch, wenn A wahr ist. `A ∨ B` ist falsch, wenn beide falsch sind – also nur erfüllbar, nicht allgemeingültig."},
+    {q:"Welche Formel ist äquivalent zu ¬(A ∧ B)?", o:["¬A ∧ ¬B","¬A ∨ ¬B","A ∨ B","¬A → ¬B"], c:[1],
+     e:"De Morgan: Die Negation wandert in die Klammer und dreht ∧ zu ∨. „Nicht (A und B)“ heißt: mindestens eines von beiden ist falsch, also ¬A ∨ ¬B."},
+    {q:"Welche Formeln sind äquivalent zu A → B?", o:["¬A ∨ B","¬B → ¬A","B → A","A ∧ ¬B"], c:[0,1],
+     e:"`¬A ∨ B` ist die Standard-Umformung der Implikation. `¬B → ¬A` ist die Kontraposition und ebenfalls äquivalent. `B → A` ist die Umkehrung – die ist NICHT äquivalent (Regen → nass, aber nass → Regen stimmt nicht). `A ∧ ¬B` ist genau die Negation von A → B."},
+    {q:"Welche dieser Formeln sind erfüllbar?", o:["A ∧ B","A ∧ ¬A","A → A","(A ∨ B) ∧ ¬A"], c:[0,2,3],
+     e:"Erfüllbar = mindestens eine Belegung macht die Formel wahr. `A ∧ B`: A=1, B=1. `A → A` ist sogar eine Tautologie (also erst recht erfüllbar). `(A ∨ B) ∧ ¬A`: A=0, B=1. Nur `A ∧ ¬A` ist unerfüllbar."},
+    {q:"Was ist die Negation von „∀x: P(x)“?", o:["∀x: ¬P(x)","∃x: ¬P(x)","∃x: P(x)","¬∃x: P(x)"], c:[1],
+     e:"„Nicht alle x haben P“ bedeutet: „es gibt mindestens ein x ohne P“. Der Quantor dreht sich um (∀ ↔ ∃) und die Negation wandert nach innen. `∀x: ¬P(x)` („kein x hat P“) ist viel stärker."},
+    {q:"Wie viele Elemente hat die Potenzmenge von {1, 2, 3}?", o:["3","6","8","9"], c:[2],
+     e:"Für jedes der 3 Elemente entscheidet man: drin oder nicht drin → 2³ = 8 Teilmengen: ∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}. Nicht vergessen: ∅ und die Menge selbst gehören dazu."},
+    {q:"Welche Aussagen zur leeren Menge ∅ sind richtig?", o:["∅ ⊆ M für jede Menge M","∅ ∈ M für jede Menge M","|∅| = 0","{∅} ist ebenfalls leer"], c:[0,2],
+     e:"∅ ist Teilmenge jeder Menge (es gibt kein Element in ∅, das nicht in M wäre). Sie hat 0 Elemente. Aber ∅ ist nicht automatisch ein ELEMENT jeder Menge (⊆ ≠ ∈). Und {∅} ist nicht leer – sie enthält genau ein Element, nämlich ∅."},
+    {q:"A = {1, 2} und B = {x, y, z}. Wie viele Elemente hat A × B?", o:["5","6","8","9"], c:[1],
+     e:"|A × B| = |A| · |B| = 2 · 3 = 6. Die Paare: (1,x), (1,y), (1,z), (2,x), (2,y), (2,z). Achtung: Paare sind geordnet, (1,x) ≠ (x,1)."},
+    {q:"Welche Eigenschaften hat die Relation ≤ auf den natürlichen Zahlen?", o:["reflexiv","symmetrisch","antisymmetrisch","transitiv"], c:[0,2,3],
+     e:"Reflexiv: a ≤ a gilt immer. Antisymmetrisch: aus a ≤ b und b ≤ a folgt a = b. Transitiv: aus a ≤ b und b ≤ c folgt a ≤ c. Nicht symmetrisch: 1 ≤ 2, aber nicht 2 ≤ 1. → ≤ ist eine Halbordnung (sogar eine totale Ordnung)."},
+    {q:"Gegeben ist R = {(1,1), (2,2), (1,2)} auf der Menge {1, 2}. Welche Eigenschaften hat R?", o:["reflexiv","symmetrisch","antisymmetrisch","transitiv"], c:[0,2,3],
+     e:"Reflexiv: (1,1) und (2,2) sind drin. Nicht symmetrisch: (1,2) ist drin, (2,1) fehlt. Antisymmetrisch: es gibt kein Paar (a,b) und (b,a) mit a ≠ b. Transitiv: alle Ketten (1,1)+(1,2) → (1,2) und (1,2)+(2,2) → (1,2) sind erfüllt."},
+    {q:"Welche drei Eigenschaften braucht eine Äquivalenzrelation?", o:["reflexiv, symmetrisch, transitiv","reflexiv, antisymmetrisch, transitiv","symmetrisch, antisymmetrisch, transitiv","injektiv, surjektiv, bijektiv"], c:[0],
+     e:"Äquivalenzrelation = reflexiv + symmetrisch + transitiv (z. B. „gleicher Rest bei Division durch 3“). Reflexiv + antisymmetrisch + transitiv wäre eine Halbordnung. Injektiv/surjektiv/bijektiv sind Eigenschaften von Funktionen, nicht von Relationen allgemein."},
+    {q:"f: ℤ → ℤ mit f(x) = 2x. Welche Aussage stimmt?", o:["injektiv, aber nicht surjektiv","surjektiv, aber nicht injektiv","bijektiv","weder injektiv noch surjektiv"], c:[0],
+     e:"Injektiv: aus 2x = 2y folgt x = y. Nicht surjektiv: ungerade Zahlen (z. B. 3) werden nie getroffen, denn 2x ist immer gerade."},
+    {q:"f: ℝ → ℝ mit f(x) = x². Welche Aussage stimmt?", o:["injektiv, aber nicht surjektiv","surjektiv, aber nicht injektiv","bijektiv","weder injektiv noch surjektiv"], c:[3],
+     e:"Nicht injektiv: f(2) = f(−2) = 4. Nicht surjektiv: negative Zahlen werden nie getroffen (x² ≥ 0). Würde man f: [0, ∞) → [0, ∞) betrachten, wäre sie bijektiv – Definitions- und Zielmenge sind also wichtig!"},
+    {q:"Was zeigt man im Induktionsschritt der vollständigen Induktion?", o:["Dass die Aussage für n = 0 bzw. n = 1 gilt","Dass aus der Gültigkeit für n die Gültigkeit für n + 1 folgt","Dass die Aussage für alle n gilt, indem man ein Beispiel nachrechnet","Dass das Gegenteil zu einem Widerspruch führt"], c:[1],
+     e:"Induktionsanfang = Startwert prüfen (Antwort 1). Induktionsschritt = „wenn es für n gilt (Induktionsvoraussetzung), dann auch für n + 1“. Zusammen ergibt das eine Kette wie Dominosteine. Beispiele beweisen nichts allgemein; „Gegenteil → Widerspruch“ ist ein Widerspruchsbeweis."},
+    {q:"Σ = {a, b}. Wie viele verschiedene Wörter der Länge 3 gibt es über Σ?", o:["3","6","8","9"], c:[2],
+     e:"Jede der 3 Stellen kann a oder b sein: 2 · 2 · 2 = 2³ = 8 (aaa, aab, aba, abb, baa, bab, bba, bbb). Allgemein: |Σ|ⁿ Wörter der Länge n."},
+    {q:"Welche Aussagen über das leere Wort ε sind richtig?", o:["|ε| = 0","ε ∈ Σ*","ε ∈ Σ","{ε} = ∅"], c:[0,1],
+     e:"ε hat Länge 0 und gehört zu Σ* (Σ* enthält alle Wörter, auch das leere). ε ist aber kein Zeichen des Alphabets, also nicht in Σ. Und {ε} ist eine Sprache mit einem Wort, während ∅ gar kein Wort enthält – das ist nicht dasselbe!"},
+    {q:"Ein DEA über {a, b} akzeptiert genau die Wörter, die auf b enden. Welche Wörter werden akzeptiert?", o:["ab","ba","b","ε","aab"], c:[0,2,4],
+     e:"„ab“, „b“ und „aab“ enden auf b → akzeptiert. „ba“ endet auf a. ε hat gar kein letztes Zeichen, endet also nicht auf b → nicht akzeptiert."},
+    {q:"Welche Wörter beschreibt der reguläre Ausdruck a*b?", o:["b","aaab","ab","ba","a"], c:[0,1,2],
+     e:"`a*` heißt: beliebig viele a, auch null. Danach muss genau ein b kommen und dann ist Schluss. Also b, ab, aab, aaab, … „ba“ hat nach dem b noch ein Zeichen, „a“ hat kein b."},
+    {q:"Wann akzeptiert ein DEA ein Eingabewort?", o:["Wenn er nach dem Lesen des ganzen Wortes in einem Endzustand ist","Wenn er irgendwann während des Lesens einen Endzustand besucht","Wenn er jeden Zustand mindestens einmal besucht","Wenn das Wort nur Zeichen aus Σ enthält"], c:[0],
+     e:"Entscheidend ist nur der Zustand NACH dem letzten Zeichen. Zwischendurch einen Endzustand zu besuchen reicht nicht. Dass das Wort aus Σ besteht, ist Voraussetzung, damit der DEA es überhaupt lesen kann – sagt aber nichts über Akzeptanz."}
+  ]
+},
 
-  // Card sliders
-  const cardState = {};
-  function cardSlide(id, dir) {
-    if (!cardState[id]) cardState[id] = 0;
-    const track = document.getElementById('ctrack-' + id);
-    cardState[id] = (cardState[id] + dir + track.children.length) % track.children.length;
-    updateCardSlider(id);
-  }
-  function cardGo(id, idx) {
-    cardState[id] = idx;
-    updateCardSlider(id);
-  }
-  function updateCardSlider(id) {
-    const track = document.getElementById('ctrack-' + id);
-    track.style.transform = 'translateX(-' + (cardState[id] * 100) + '%)';
-    document.querySelectorAll('#cdots-' + id + ' .card-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === cardState[id]);
-    });
-  }
-  // Touch swipe for card sliders
-  document.querySelectorAll('.card-slider-wrap').forEach(wrap => {
-    let startX = 0;
-    const id = wrap.querySelector('.card-slider-track').id.replace('ctrack-', '');
-    wrap.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    wrap.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 40) { cardSlide(id, dx < 0 ? 1 : -1); e.stopPropagation(); }
-    });
+dr: {
+  name: "Digitale Rechenanlagen",
+  sub: "Zahlensysteme, Boolesche Logik, Schaltungen, Rechnerarchitektur",
+  terms: [
+    ["Bit", "Kleinste Informationseinheit: 0 oder 1."],
+    ["Byte", "8 Bit. Damit lassen sich 2⁸ = 256 verschiedene Werte darstellen."],
+    ["KB vs. KiB", "KB (Kilobyte, SI) = 1000 Byte. KiB (Kibibyte, binär) = 1024 Byte = 2¹⁰ Byte. Analog MB/MiB, GB/GiB."],
+    ["Stellenwertsystem", "Der Wert einer Ziffer hängt von ihrer Position ab: Ziffer × Basis^Position.", "1011₂ = 1·8 + 0·4 + 1·2 + 1·1 = 11"],
+    ["Binärsystem (Dualsystem)", "Basis 2, Ziffern 0 und 1. Die Sprache des Computers."],
+    ["Hexadezimalsystem", "Basis 16, Ziffern 0–9 und A–F (A=10 … F=15). Eine Hex-Ziffer entspricht genau 4 Bit.", "1101 0110₂ = D6₁₆"],
+    ["Oktalsystem", "Basis 8, Ziffern 0–7. Eine Oktal-Ziffer entspricht 3 Bit."],
+    ["Umrechnung dezimal → binär", "Wiederholt durch 2 teilen und die Reste notieren; die Reste von unten nach oben gelesen ergeben die Binärzahl."],
+    ["MSB / LSB", "Most Significant Bit = höchstwertiges (linkes) Bit. Least Significant Bit = niederwertigstes (rechtes) Bit."],
+    ["Zweierkomplement", "Darstellung negativer ganzer Zahlen: alle Bits invertieren und 1 addieren. Das MSB ist bei negativen Zahlen 1. Bereich bei n Bit: −2ⁿ⁻¹ bis 2ⁿ⁻¹ − 1.", "−5 (8 Bit) = 11111011"],
+    ["Überlauf (Overflow)", "Das Ergebnis passt nicht mehr in die verfügbaren Bits und „springt um“.", "8 Bit Zweierkomplement: 127 + 1 = −128"],
+    ["Gleitkommazahl (IEEE 754)", "Darstellung als Vorzeichen · Mantisse · 2^Exponent. Single Precision (float): 32 Bit = 1 Vorzeichen + 8 Exponent + 23 Mantisse. Double: 64 Bit = 1 + 11 + 52."],
+    ["Rundungsfehler", "Viele Dezimalbrüche (z. B. 0,1) sind binär nicht endlich darstellbar und werden gerundet gespeichert."],
+    ["ASCII", "Zeichencode mit 7 Bit = 128 Zeichen (Buchstaben, Ziffern, Steuerzeichen).", "'A' = 65, 'a' = 97, '0' = 48"],
+    ["Unicode / UTF-8", "Unicode nummeriert (fast) alle Zeichen der Welt. UTF-8 speichert sie mit 1–4 Byte; die ersten 128 Zeichen sind identisch mit ASCII."],
+    ["Boolesche Algebra", "Rechnen mit den Werten 0 und 1 und den Operationen UND, ODER, NICHT – die mathematische Grundlage von Schaltungen."],
+    ["AND / OR / NOT", "AND: 1 nur wenn alle Eingänge 1. OR: 1 wenn mindestens ein Eingang 1. NOT: invertiert."],
+    ["XOR (exklusives Oder)", "1, wenn genau einer der beiden Eingänge 1 ist (wenn die Eingänge verschieden sind)."],
+    ["NAND / NOR", "NICHT-UND bzw. NICHT-ODER. Beide sind „universell“: Aus nur NAND- (oder nur NOR-)Gattern lässt sich jede boolesche Funktion bauen."],
+    ["Schaltnetz", "Kombinatorische Schaltung ohne Speicher: Der Ausgang hängt nur von den aktuellen Eingängen ab.", "Addierer, Multiplexer"],
+    ["Schaltwerk", "Sequentielle Schaltung mit Speicher (Rückkopplung): Der Ausgang hängt auch vom bisherigen Zustand ab.", "Zähler, Register"],
+    ["Halbaddierer", "Addiert zwei Bits. Summe = A XOR B, Übertrag (Carry) = A AND B."],
+    ["Volladdierer", "Addiert drei Bits (A, B und den Übertrag von der vorherigen Stelle). Mehrere Volladdierer hintereinander ergeben einen n-Bit-Addierer."],
+    ["Multiplexer (MUX)", "Wählt mit Steuerleitungen einen von mehreren Eingängen aus und leitet ihn zum Ausgang. Mit k Steuerbits: 2ᵏ Eingänge."],
+    ["Flipflop", "Grundlegendes Speicherelement, das genau 1 Bit speichert.", "SR-, D-, JK-Flipflop"],
+    ["Register", "Kleiner, sehr schneller Speicher direkt in der CPU, aus mehreren Flipflops aufgebaut."],
+    ["KV-Diagramm", "Karnaugh-Veitch-Diagramm: grafische Methode, um boolesche Ausdrücke zu vereinfachen, indem man benachbarte Einsen zu Blöcken zusammenfasst."],
+    ["Von-Neumann-Architektur", "Rechnermodell aus CPU (Rechenwerk + Steuerwerk), Speicher, Ein-/Ausgabe und Bus. Programme und Daten liegen im selben Speicher."],
+    ["Von-Neumann-Flaschenhals", "Weil Befehle und Daten über denselben Bus geholt werden, bremst die Verbindung zum Speicher die CPU aus."],
+    ["Harvard-Architektur", "Getrennte Speicher (und Busse) für Programm und Daten – Befehle und Daten können gleichzeitig geladen werden."],
+    ["CPU", "Prozessor: führt Befehle aus. Besteht v. a. aus ALU (Rechenwerk), Steuerwerk und Registern."],
+    ["ALU", "Arithmetic Logic Unit (Rechenwerk): führt Rechen- und Logikoperationen aus."],
+    ["Steuerwerk", "Holt und dekodiert Befehle und steuert die übrigen Komponenten."],
+    ["Befehlszähler (PC)", "Program Counter: Register mit der Adresse des nächsten auszuführenden Befehls."],
+    ["Befehlszyklus", "Fetch (Befehl holen) → Decode (dekodieren) → Execute (ausführen) – dann von vorne."],
+    ["Bus", "Gemeinsame Leitungen zur Datenübertragung zwischen Komponenten: Datenbus, Adressbus, Steuerbus."],
+    ["Taktfrequenz", "Wie viele Takte pro Sekunde die CPU ausführt, z. B. 3 GHz = 3 Milliarden Takte pro Sekunde."],
+    ["Speicherhierarchie", "Von schnell/klein/teuer zu langsam/groß/billig: Register → Cache → Arbeitsspeicher (RAM) → SSD/Festplatte."],
+    ["Cache", "Schneller Zwischenspeicher zwischen CPU und RAM, nutzt Lokalität aus (kürzlich bzw. benachbart genutzte Daten werden wahrscheinlich bald wieder gebraucht)."],
+    ["RAM vs. ROM", "RAM: Arbeitsspeicher, les- und schreibbar, flüchtig (Inhalt weg ohne Strom). ROM: Festwertspeicher, nicht flüchtig."]
+  ],
+  quiz: [
+    {q:"Welchen Dezimalwert hat die Binärzahl 1011₂?", o:["9","11","13","1011"], c:[1],
+     e:"Stellenwerte von rechts: 1, 2, 4, 8. Also 1·8 + 0·4 + 1·2 + 1·1 = 8 + 2 + 1 = 11."},
+    {q:"Wie lautet die Dezimalzahl 42 im Binärsystem?", o:["101010","100110","110010","101100"], c:[0],
+     e:"42 = 32 + 8 + 2 → Bits bei 32, 8 und 2 gesetzt: 1·32 + 0·16 + 1·8 + 0·4 + 1·2 + 0·1 = 101010₂. Alternativ: 42:2=21 R0, 21:2=10 R1, 10:2=5 R0, 5:2=2 R1, 2:2=1 R0, 1:2=0 R1 → von unten gelesen 101010."},
+    {q:"Welchen Dezimalwert hat 0xFF (hexadezimal FF)?", o:["15","16","255","256"], c:[2],
+     e:"F = 15. FF₁₆ = 15·16 + 15 = 255. Das ist auch 11111111₂ – der größte Wert, der in ein Byte passt."},
+    {q:"Wie lautet 1101 0110₂ in Hexadezimal?", o:["D6","B6","D9","6D"], c:[0],
+     e:"Je 4 Bit ergeben eine Hex-Ziffer: 1101 = 8+4+1 = 13 = D, 0110 = 4+2 = 6. Ergebnis: D6. (6D wäre die falsche Reihenfolge.)"},
+    {q:"Wie viele verschiedene Werte kann man mit 10 Bit darstellen?", o:["10","100","512","1024"], c:[3],
+     e:"Mit n Bit gibt es 2ⁿ Kombinationen: 2¹⁰ = 1024. (Darstellbar sind z. B. die Zahlen 0 bis 1023.)"},
+    {q:"Wie wird −5 als 8-Bit-Zweierkomplement dargestellt?", o:["10000101","11111010","11111011","00000101"], c:[2],
+     e:"Vorgehen: +5 = 00000101 → alle Bits invertieren: 11111010 (das wäre das Einerkomplement) → +1: 11111011. 10000101 wäre die Vorzeichen-Betrag-Darstellung."},
+    {q:"Welchen Wertebereich hat eine 8-Bit-Zahl im Zweierkomplement?", o:["0 bis 255","−127 bis 127","−128 bis 127","−256 bis 255"], c:[2],
+     e:"Bei n Bit: −2ⁿ⁻¹ bis 2ⁿ⁻¹ − 1, also −128 bis 127. Der Bereich ist unsymmetrisch, weil die 0 bei den „positiven“ Mustern (MSB = 0) mitgezählt wird. 0 bis 255 gilt für vorzeichenlose (unsigned) 8-Bit-Zahlen."},
+    {q:"Welche Aussagen zum Zweierkomplement sind richtig?", o:["Es gibt nur eine Darstellung der Null","Bei negativen Zahlen ist das höchstwertige Bit 1","Der Wertebereich ist symmetrisch um 0","Subtraktion kann als Addition durchgeführt werden"], c:[0,1,3],
+     e:"Genau deshalb wird es in Computern verwendet: nur eine Null (anders als beim Einerkomplement mit +0 und −0), das MSB zeigt das Vorzeichen, und a − b = a + (−b) – das Rechenwerk braucht nur einen Addierer. Der Bereich ist aber NICHT symmetrisch (−128 … 127)."},
+    {q:"Was ergibt 127 + 1 bei einer 8-Bit-Zahl im Zweierkomplement?", o:["128","0","−128","−1"], c:[2],
+     e:"01111111 + 1 = 10000000. Das MSB ist jetzt 1, also negativ: 10000000 = −128. Das nennt man Überlauf (Overflow). In Java passiert dasselbe: `Integer.MAX_VALUE + 1` ergibt `Integer.MIN_VALUE`."},
+    {q:"Wann liefert ein XOR-Gatter mit zwei Eingängen eine 1?", o:["Wenn beide Eingänge 1 sind","Wenn genau ein Eingang 1 ist","Wenn mindestens ein Eingang 1 ist","Wenn beide Eingänge 0 sind"], c:[1],
+     e:"XOR = „entweder oder“: 1, wenn die Eingänge verschieden sind. Wahrheitstafel: 00→0, 01→1, 10→1, 11→0. „Mindestens einer“ wäre OR."},
+    {q:"Mit welchem Gattertyp allein kann man jede beliebige boolesche Funktion bauen?", o:["NAND","NOR","AND","XOR"], c:[0,1],
+     e:"NAND und NOR sind beide funktional vollständig (universell). Z. B. NOT A = A NAND A. Mit nur AND kann man nicht negieren, mit nur XOR kann man kein AND bauen."},
+    {q:"Wie berechnet ein Halbaddierer Summe S und Übertrag C aus A und B?", o:["S = A XOR B, C = A AND B","S = A OR B, C = A AND B","S = A AND B, C = A XOR B","S = A XOR B, C = A OR B"], c:[0],
+     e:"1 + 1 = 10₂: Summe 0, Übertrag 1. 1 + 0 = 01₂: Summe 1, Übertrag 0. Die Summe ist also genau dann 1, wenn die Eingänge verschieden sind (XOR), der Übertrag nur, wenn beide 1 sind (AND)."},
+    {q:"Was unterscheidet ein Schaltwerk von einem Schaltnetz?", o:["Ein Schaltwerk hat Speicher – der Ausgang hängt auch vom vorherigen Zustand ab","Ein Schaltwerk kann nur AND- und OR-Gatter enthalten","Ein Schaltnetz ist immer schneller","Es gibt keinen Unterschied"], c:[0],
+     e:"Schaltnetz = kombinatorisch: Ausgang hängt nur von den aktuellen Eingängen ab (z. B. Addierer). Schaltwerk = sequentiell: enthält Speicherelemente wie Flipflops (Rückkopplung), z. B. Zähler oder Register."},
+    {q:"Wie viele Dateneingänge kann ein Multiplexer mit 3 Steuerleitungen auswählen?", o:["3","6","8","9"], c:[2],
+     e:"Mit 3 Steuerbits lassen sich 2³ = 8 verschiedene Eingänge adressieren."},
+    {q:"Was ist das zentrale Merkmal der Von-Neumann-Architektur?", o:["Programme und Daten liegen im selben Speicher","Programme und Daten haben getrennte Speicher","Die CPU hat keinen Befehlszähler","Es gibt keinen Bus"], c:[0],
+     e:"Bei Von Neumann teilen sich Befehle und Daten einen gemeinsamen Speicher und Bus. Das macht den Rechner flexibel, führt aber zum Von-Neumann-Flaschenhals. Getrennte Speicher = Harvard-Architektur."},
+    {q:"In welcher Reihenfolge läuft der Befehlszyklus ab?", o:["Fetch → Decode → Execute","Decode → Fetch → Execute","Execute → Fetch → Decode","Fetch → Execute → Decode"], c:[0],
+     e:"Erst den Befehl aus dem Speicher holen (Fetch, Adresse steht im Befehlszähler), dann verstehen, was zu tun ist (Decode), dann ausführen (Execute). Danach zeigt der Befehlszähler auf den nächsten Befehl."},
+    {q:"Was speichert der Befehlszähler (Program Counter)?", o:["Die Adresse des nächsten auszuführenden Befehls","Die Anzahl bisher ausgeführter Befehle","Das Ergebnis der letzten Rechnung","Die Taktfrequenz"], c:[0],
+     e:"Trotz des Namens zählt er keine Befehle mit, sondern zeigt auf die Speicheradresse des nächsten Befehls. Bei Sprüngen (z. B. Schleifen) wird er auf eine andere Adresse gesetzt."},
+    {q:"Welcher Speicher ist am schnellsten?", o:["Register","Cache","Arbeitsspeicher (RAM)","SSD"], c:[0],
+     e:"Speicherhierarchie: Register (in der CPU, wenige Bytes) → Cache → RAM → SSD/HDD. Je schneller, desto kleiner und teurer pro Byte."},
+    {q:"Welche Aussagen zu Größenangaben sind richtig?", o:["1 Byte = 8 Bit","1 KiB = 1024 Byte","1 KB (SI) = 1000 Byte","1 Byte = 10 Bit"], c:[0,1,2],
+     e:"1 Byte = 8 Bit. Die Präfixe mit „i“ (KiB, MiB, GiB) sind Zweierpotenzen (2¹⁰ = 1024), die SI-Präfixe (KB, MB, GB) Zehnerpotenzen. Deshalb hat eine „1 TB“-Festplatte im Betriebssystem oft nur ca. 931 GiB."},
+    {q:"Wie ist eine float-Zahl nach IEEE 754 (Single Precision, 32 Bit) aufgeteilt?", o:["1 Bit Vorzeichen, 8 Bit Exponent, 23 Bit Mantisse","1 Bit Vorzeichen, 11 Bit Exponent, 20 Bit Mantisse","8 Bit Vorzeichen, 8 Bit Exponent, 16 Bit Mantisse","16 Bit vor dem Komma, 16 Bit nach dem Komma"], c:[0],
+     e:"Single: 1 + 8 + 23 = 32 Bit. Double (64 Bit): 1 + 11 + 52. Die letzte Option beschreibt eine Festkommadarstellung, keine Gleitkommazahl."},
+    {q:"Warum ergibt 0.1 + 0.2 im Computer nicht exakt 0.3?", o:["Weil 0,1 im Binärsystem nicht endlich darstellbar ist und gerundet wird","Weil die CPU falsch rechnet","Weil Gleitkommazahlen nur ganze Zahlen speichern","Weil der Cache zu klein ist"], c:[0],
+     e:"0,1 ist binär ein periodischer Bruch (0,000110011…₂), ähnlich wie 1/3 = 0,333… im Dezimalsystem. Er wird auf die verfügbaren Mantissen-Bits gerundet. Ergebnis z. B. 0.30000000000000004. Deshalb vergleicht man Gleitkommazahlen nie mit ==."},
+    {q:"Wie viele Zeichen umfasst der (Standard-)ASCII-Code?", o:["128","256","1024","65536"], c:[0],
+     e:"ASCII nutzt 7 Bit → 2⁷ = 128 Zeichen. 256 wären 8-Bit-Erweiterungen (z. B. ISO-8859-1). Unicode ist viel größer; UTF-8 ist zu ASCII kompatibel."}
+  ]
+},
+
+java: {
+  name: "Programmieren in Java",
+  sub: "Grundbegriffe, Datentypen, Operatoren, Kontrollstrukturen, Methoden & Klassen",
+  terms: [
+    ["Quellcode", "Der vom Menschen geschriebene Programmtext in einer .java-Datei."],
+    ["Compiler (javac)", "Übersetzt den Quellcode (.java) in Bytecode (.class) und meldet dabei Syntax- und Typfehler."],
+    ["Bytecode", "Plattformunabhängiger Zwischencode in .class-Dateien, der von der JVM ausgeführt wird."],
+    ["JVM", "Java Virtual Machine: führt Bytecode aus. Gibt es für jedes Betriebssystem – daher „Write once, run anywhere“."],
+    ["JRE / JDK", "JRE = Laufzeitumgebung (JVM + Standardbibliothek) zum Ausführen. JDK = JRE + Entwicklungswerkzeuge wie javac zum Entwickeln."],
+    ["main-Methode", "Einstiegspunkt jedes Programms.", "public static void main(String[] args)"],
+    ["Klasse", "Bauplan für Objekte: beschreibt Attribute (Daten) und Methoden (Verhalten)."],
+    ["Objekt / Instanz", "Ein konkretes Exemplar einer Klasse, erzeugt mit new.", "Hund bello = new Hund();"],
+    ["Attribut", "Variable, die zu einem Objekt (oder einer Klasse) gehört und dessen Zustand speichert."],
+    ["Methode", "Benannter Codeblock, der eine Aufgabe erledigt. Hat Rückgabetyp, Namen und Parameterliste.", "int quadrat(int x) { return x * x; }"],
+    ["Konstruktor", "Spezielle Methode, die beim Erzeugen eines Objekts mit new aufgerufen wird. Heißt genau wie die Klasse und hat keinen Rückgabetyp (auch nicht void)."],
+    ["Variable", "Benannter Speicherplatz mit festem Typ."],
+    ["Deklaration / Initialisierung", "Deklaration: Typ und Name festlegen (int x;). Initialisierung: ersten Wert zuweisen (x = 5;). Oft beides zusammen: int x = 5;"],
+    ["Primitive Datentypen", "Die 8 eingebauten Grundtypen: byte, short, int, long (ganze Zahlen), float, double (Kommazahlen), char (Zeichen), boolean (true/false)."],
+    ["Referenztyp", "Alle nicht-primitiven Typen (Klassen, Arrays, String). Die Variable speichert einen Verweis auf das Objekt, nicht das Objekt selbst."],
+    ["String", "Klasse für Zeichenketten – kein primitiver Typ. Strings sind unveränderlich (immutable).", "String s = \"Hallo\";"],
+    ["null", "Besonderer Wert für Referenzvariablen: zeigt auf kein Objekt."],
+    ["Typumwandlung (Casting)", "Implizit (automatisch), wenn kein Informationsverlust droht (int → double). Explizit mit (Typ), wenn Informationen verloren gehen können.", "int x = (int) 3.99;  // x = 3"],
+    ["Integer-Division", "Teilt man zwei ganze Zahlen, wird der Nachkommateil abgeschnitten.", "7 / 2 ergibt 3"],
+    ["Modulo %", "Rest einer ganzzahligen Division.", "7 % 2 ergibt 1 → praktisch für „ist x gerade?“ (x % 2 == 0)"],
+    ["++ / --", "Erhöht bzw. verringert um 1. x++ (Postfix) liefert den alten Wert, ++x (Präfix) den neuen."],
+    ["== vs. equals()", "== vergleicht bei Objekten, ob es dasselbe Objekt ist (Referenz). equals() vergleicht den Inhalt. Strings daher immer mit equals() vergleichen."],
+    ["&& / || (Kurzschlussauswertung)", "Logisches UND/ODER. Der rechte Teil wird nur ausgewertet, wenn nötig: bei false && … und true || … steht das Ergebnis schon fest."],
+    ["if / else", "Verzweigung: führt Code nur aus, wenn eine Bedingung true ist."],
+    ["switch", "Mehrfachverzweigung über einen Wert. Ohne break „fällt“ die Ausführung in den nächsten case durch."],
+    ["for-Schleife", "Zählschleife mit Initialisierung, Bedingung und Schritt.", "for (int i = 0; i < 5; i++) { … }"],
+    ["while / do-while", "while prüft die Bedingung vor jedem Durchlauf (evtl. 0-mal). do-while prüft danach – der Körper läuft mindestens einmal."],
+    ["Array", "Feste Anzahl von Elementen gleichen Typs. Index beginnt bei 0, letzter Index ist length − 1.", "int[] a = new int[5];"],
+    ["Rückgabetyp / void", "Gibt an, welchen Typ eine Methode mit return zurückliefert. void = keine Rückgabe."],
+    ["Parameter / Argument", "Parameter: Variable in der Methodendefinition. Argument: konkreter Wert beim Aufruf."],
+    ["Überladen (Overloading)", "Mehrere Methoden mit gleichem Namen, aber unterschiedlicher Parameterliste."],
+    ["static", "Gehört zur Klasse statt zu einem Objekt. Statische Methoden kann man ohne Objekt aufrufen.", "Math.sqrt(16)"],
+    ["Sichtbarkeit public / private", "public: von überall sichtbar. private: nur innerhalb derselben Klasse."],
+    ["Kapselung", "Attribute private machen und nur über Methoden (Getter/Setter) zugänglich machen – schützt vor falscher Verwendung."],
+    ["Gültigkeitsbereich (Scope)", "Eine Variable ist nur in dem Block { … } sichtbar, in dem sie deklariert wurde."],
+    ["final", "Der Wert kann nach der Zuweisung nicht mehr geändert werden (Konstante).", "final double PI = 3.14159;"],
+    ["Namenskonventionen", "Klassen: GroßAmAnfang (MeinProgramm). Variablen und Methoden: kleinAmAnfang (anzahlSchritte). Konstanten: GROSS_MIT_UNTERSTRICH."],
+    ["Kommentare", "// einzeilig, /* … */ mehrzeilig, /** … */ Javadoc (Dokumentation)."],
+    ["Exception", "Ausnahme, die zur Laufzeit auftritt, z. B. NullPointerException, ArrayIndexOutOfBoundsException, ArithmeticException (Division durch 0)."],
+    ["Syntax-, Laufzeit-, logischer Fehler", "Syntaxfehler: Compiler meckert. Laufzeitfehler: Programm stürzt beim Ausführen ab (Exception). Logischer Fehler: läuft, liefert aber falsches Ergebnis."],
+    ["Rekursion", "Eine Methode ruft sich selbst auf. Braucht einen Basisfall (Abbruchbedingung), sonst StackOverflowError."]
+  ],
+  quiz: [
+    {q:"Was gibt dieser Code aus?", code:"System.out.println(7 / 2);", o:["3.5","3","4","3.0"], c:[1],
+     e:"7 und 2 sind beide `int` → Integer-Division, der Nachkommateil wird abgeschnitten (nicht gerundet!). Für 3.5 müsste mindestens ein Operand ein `double` sein, z. B. `7 / 2.0`."},
+    {q:"Welchen Wert hat d?", code:"double d = 10 / 4;", o:["2.5","2.0","2","Compilerfehler"], c:[1],
+     e:"Zuerst wird `10 / 4` als Integer-Division gerechnet = 2. Erst danach wird die 2 in ein `double` umgewandelt → 2.0. Die Typumwandlung passiert zu spät, um die Nachkommastellen zu retten."},
+    {q:"Was ergibt 17 % 5?", o:["3","2","3.4","0"], c:[1],
+     e:"% ist der Rest der ganzzahligen Division: 17 = 3 · 5 + 2, also Rest 2."},
+    {q:"Was gibt dieser Code aus?", code:"System.out.println(1 + 2 + \"3\");", o:["123","33","6","15"], c:[1],
+     e:"Java rechnet von links nach rechts: `1 + 2` = 3 (Zahl + Zahl). Dann `3 + \"3\"` = \"33\" (Zahl + String = Verkettung). Umgekehrt ergibt `\"1\" + 2 + 3` den String \"123\", weil ab dem ersten String alles verkettet wird."},
+    {q:"Welche dieser Typen sind primitive Datentypen?", o:["int","String","boolean","char","Integer","double"], c:[0,2,3,5],
+     e:"Die 8 primitiven Typen: byte, short, int, long, float, double, char, boolean – alle kleingeschrieben. `String` ist eine Klasse (Referenztyp). `Integer` ist die Wrapper-Klasse zu `int`, also ebenfalls ein Referenztyp."},
+    {q:"Welche Zeile führt zu einem Compilerfehler?", o:["double d = 3;","int x = 3.5;","long l = 10;","float f = 2.5f;"], c:[1],
+     e:"`3.5` ist ein `double`. Beim Umwandeln in `int` ginge der Nachkommateil verloren, deshalb verlangt Java einen expliziten Cast: `int x = (int) 3.5;`. Die anderen Umwandlungen (int → double, int → long) sind verlustfrei und passieren automatisch. `2.5f` ist ein float-Literal."},
+    {q:"Welchen Wert hat x?", code:"int x = (int) 3.99;", o:["3","4","3.99","Compilerfehler"], c:[0],
+     e:"Der Cast nach `int` schneidet die Nachkommastellen ab (Richtung 0) – es wird nicht gerundet. Zum Runden gibt es `Math.round(3.99)`."},
+    {q:"Welche Werte haben x und y nach diesem Code?", code:"int x = 5;\nint y = x++;", o:["x = 6, y = 5","x = 6, y = 6","x = 5, y = 6","x = 5, y = 5"], c:[0],
+     e:"`x++` (Postfix) liefert zuerst den alten Wert (5) für y und erhöht x danach auf 6. Bei `int y = ++x;` (Präfix) würde x zuerst erhöht und y = 6."},
+    {q:"Wie vergleicht man den Inhalt zweier Strings s1 und s2 richtig?", o:["s1.equals(s2)","s1 == s2","s1 = s2","s1.compare(s2) == true"], c:[0],
+     e:"`equals` vergleicht die Zeichen. `==` prüft nur, ob beide Variablen auf dasselbe Objekt zeigen – das kann bei gleichem Inhalt trotzdem false sein. `=` ist eine Zuweisung, kein Vergleich. `compare` gibt es so nicht (es gibt `compareTo`, das liefert aber einen int)."},
+    {q:"Was passiert bei diesem Code?", code:"int x = 0;\nif (x != 0 && 10 / x > 1) {\n    System.out.println(\"groß\");\n}", o:["Nichts wird ausgegeben, kein Fehler","ArithmeticException (Division durch 0)","Compilerfehler","Es wird „groß“ ausgegeben"], c:[0],
+     e:"`&&` wertet kurzschlussartig aus: `x != 0` ist false, also steht das Ergebnis schon fest und `10 / x` wird gar nicht berechnet. Das ist ein häufiger Trick, um Fehler zu vermeiden. Mit `&` (ohne Kurzschluss) gäbe es eine ArithmeticException."},
+    {q:"Was ergibt !(true && false) || false?", o:["true","false","Compilerfehler","null"], c:[0],
+     e:"Schritt für Schritt: `true && false` = false → `!false` = true → `true || false` = true."},
+    {q:"Wie oft wird der Schleifenkörper ausgeführt?", code:"for (int i = 1; i <= 10; i += 3) {\n    System.out.println(i);\n}", o:["3-mal","4-mal","10-mal","Endlos"], c:[1],
+     e:"i nimmt die Werte 1, 4, 7, 10 an – alle ≤ 10. Danach ist i = 13 und die Bedingung false. Also 4 Durchläufe. Bei `i < 10` wären es nur 3."},
+    {q:"Was gibt dieser Code aus?", code:"int n = 0;\nwhile (n < 3) {\n    n++;\n}\nSystem.out.println(n);", o:["2","3","4","0"], c:[1],
+     e:"Die Schleife läuft für n = 0, 1, 2 und erhöht jeweils. Wenn n = 3 ist, ist `n < 3` false und die Schleife endet. Ausgegeben wird 3."},
+    {q:"Was ist das Besondere an einer do-while-Schleife?", o:["Der Körper wird mindestens einmal ausgeführt","Sie läuft immer genau einmal","Sie braucht keine Bedingung","Sie ist schneller als while"], c:[0],
+     e:"`do { … } while (bedingung);` prüft die Bedingung erst NACH dem Durchlauf. Eine normale while-Schleife prüft vorher und kann deshalb auch 0-mal laufen."},
+    {q:"Was gibt dieser Code aus?", code:"int k = 1;\nswitch (k) {\n    case 1: System.out.print(\"A\");\n    case 2: System.out.print(\"B\");\n            break;\n    case 3: System.out.print(\"C\");\n}", o:["A","AB","ABC","Nichts"], c:[1],
+     e:"case 1 passt → „A“. Da dort kein `break` steht, fällt die Ausführung in case 2 durch (Fall-through) → „B“. Dann kommt `break` und der switch wird verlassen. Ergebnis: AB."},
+    {q:"Was gibt dieser Code aus?", code:"System.out.println('a' + 1);", o:["b","a1","98","Compilerfehler"], c:[2],
+     e:"Ein `char` ist intern eine Zahl (Unicode/ASCII: 'a' = 97). Bei `+` mit einem int wird gerechnet: 97 + 1 = 98, und das Ergebnis ist ein `int`. Für „b“ müsste man zurückcasten: `(char)('a' + 1)`."},
+    {q:"Gegeben: int[] a = {4, 7, 1}; Welche Aussagen stimmen?", o:["a.length ist 3","a[0] ist 4","a[3] ist 1","a[a.length - 1] ist 1"], c:[0,1,3],
+     e:"Indizes beginnen bei 0: a[0] = 4, a[1] = 7, a[2] = 1. Der letzte Index ist `length - 1` = 2. Ein Zugriff auf `a[3]` wirft eine ArrayIndexOutOfBoundsException."},
+    {q:"Welchen Wert haben die Elemente nach int[] a = new int[5]; ?", o:["Alle 0","Alle null","Zufällige Werte","Compilerfehler, weil keine Werte angegeben sind"], c:[0],
+     e:"Arrays werden in Java automatisch mit Standardwerten gefüllt: 0 bei Zahlen, false bei boolean, '\\u0000' bei char und null bei Referenztypen (z. B. String[])."},
+    {q:"Was passiert bei diesem Code?", code:"for (int i = 0; i < 3; i++) { }\nSystem.out.println(i);", o:["Ausgabe: 3","Ausgabe: 2","Compilerfehler","Ausgabe: 0"], c:[2],
+     e:"`i` wurde im Kopf der for-Schleife deklariert und existiert nur innerhalb der Schleife (Scope). Außerhalb kennt der Compiler `i` nicht → „cannot find symbol“."},
+    {q:"Welche Aussagen über einen Konstruktor sind richtig?", o:["Er heißt genauso wie die Klasse","Er hat den Rückgabetyp void","Er wird beim Erzeugen eines Objekts mit new aufgerufen","Eine Klasse kann mehrere Konstruktoren haben"], c:[0,2,3],
+     e:"Ein Konstruktor trägt den Klassennamen und hat GAR KEINEN Rückgabetyp – auch nicht void (mit void wäre es eine normale Methode!). Er läuft bei `new`. Mehrere Konstruktoren mit unterschiedlichen Parametern sind möglich (Überladen)."},
+    {q:"Was bedeutet static bei einer Methode?", o:["Sie gehört zur Klasse und kann ohne Objekt aufgerufen werden","Sie kann nicht verändert werden","Sie ist nur innerhalb der Klasse sichtbar","Sie gibt nichts zurück"], c:[0],
+     e:"Statische Methoden gehören zur Klasse, z. B. `Math.max(3, 5)` – man braucht kein Math-Objekt. „Nicht veränderbar“ wäre final, „nur in der Klasse sichtbar“ private, „gibt nichts zurück“ void."},
+    {q:"Welche Methoden sind gültige Überladungen von int summe(int a, int b)?", o:["int summe(int a, int b, int c)","double summe(double a, double b)","double summe(int x, int y)","int summe(int b, int a)"], c:[0,1],
+     e:"Überladen = gleicher Name, aber unterschiedliche Parameterliste (Anzahl oder Typen). Nur einen anderen Rückgabetyp oder andere Parameter-NAMEN zu haben reicht nicht – `summe(int, int)` gäbe es dann doppelt → Compilerfehler."},
+    {q:"Was bedeutet private bei einem Attribut?", o:["Es ist nur innerhalb derselben Klasse sichtbar","Es kann nicht geändert werden","Es gehört zur Klasse statt zum Objekt","Es wird nicht gespeichert"], c:[0],
+     e:"private schränkt die Sichtbarkeit auf die eigene Klasse ein. Von außen greift man dann über Getter/Setter zu – das nennt man Kapselung. „Nicht änderbar“ = final, „gehört zur Klasse“ = static."},
+    {q:"Wann tritt eine NullPointerException auf?", o:["Wenn man auf eine Methode oder ein Attribut einer Referenz zugreift, die null ist","Wenn man durch 0 teilt","Wenn ein Array-Index zu groß ist","Wenn eine int-Variable 0 ist"], c:[0],
+     e:"Beispiel: `String s = null; s.length();` → es gibt kein Objekt, dessen Länge man abfragen könnte. Division durch 0 → ArithmeticException, falscher Index → ArrayIndexOutOfBoundsException. Primitive Typen wie int können gar nicht null sein."},
+    {q:"Was passiert bei dieser Methode, wenn man fak(3) aufruft?", code:"int fak(int n) {\n    return n * fak(n - 1);\n}", o:["StackOverflowError, weil der Basisfall fehlt","Ergebnis 6","Ergebnis 0","Compilerfehler"], c:[0],
+     e:"Es fehlt die Abbruchbedingung, z. B. `if (n <= 1) return 1;`. Ohne sie ruft sich die Methode endlos selbst auf (3, 2, 1, 0, −1, …), bis der Aufrufstapel voll ist → StackOverflowError. Der Compiler erkennt das nicht."},
+    {q:"Was macht der Java-Compiler javac?", o:["Er übersetzt .java-Quellcode in Bytecode (.class)","Er führt den Bytecode aus","Er übersetzt direkt in Maschinencode für Windows","Er sucht logische Fehler im Programm"], c:[0],
+     e:"javac erzeugt plattformunabhängigen Bytecode. Ausgeführt wird dieser von der JVM (Befehl `java`). Logische Fehler findet der Compiler nicht – nur Syntax- und Typfehler."},
+    {q:"Welche Aussagen zu Fehlerarten sind richtig?", o:["Ein fehlendes Semikolon ist ein Syntaxfehler","Eine Division durch 0 bei int ist ein Laufzeitfehler","Ein logischer Fehler wird vom Compiler gemeldet","Eine falsche Formel, die ein falsches Ergebnis liefert, ist ein logischer Fehler"], c:[0,1,3],
+     e:"Syntaxfehler findet der Compiler (fehlendes ;, Klammern …). Laufzeitfehler treten erst beim Ausführen auf (ArithmeticException). Logische Fehler bemerkt weder Compiler noch JVM – das Programm läuft, rechnet aber falsch. Deshalb testen!"}
+  ]
+}
+};
+
+var ORDER = ["fs","dr","java"];
+var COL = {fs:"fs", dr:"dr", java:"java", all:"all"};
+var L = "ABCDEFGH";
+
+/* ---------- Helpers ---------- */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function fmt(s){return esc(s).replace(/`([^`]+)`/g,"<code>$1</code>")}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem("ilern_"+k));localStorage.setItem("ilern_"+k,JSON.stringify(v))}catch(e){return null}}
+function setAccent(id){var r=document.documentElement.style;r.setProperty("--accent","var(--"+COL[id]+")");r.setProperty("--accent-bg","var(--"+COL[id]+"-bg)")}
+var app = document.getElementById("app");
+function header(back){return '<div class="top"><a class="brand" href="#/">Informatik lernen <span>· 1. Semester</span></a>'+(back?'<a class="back" href="#/">← Übersicht</a>':'')+'</div>'}
+
+/* ---------- Home ---------- */
+function home(){
+  setAccent("fs");
+  var h = header(false);
+  h += '<div class="hero"><h1>Die wichtigsten Begriffe – zum Nachschlagen und Üben.</h1><p>Wähle ein Fach. Unter „Begriffe“ findest du alle Grundbegriffe mit kurzer Erklärung, im Quiz prüfst du dich selbst – zu jeder Frage gibt es eine Erklärung, warum was richtig ist.</p></div><div class="topics">';
+  ORDER.forEach(function(id){
+    var t=T[id], b=store("best_"+id);
+    h += '<div class="topic" style="--c:var(--'+id+')"><h2>'+esc(t.name)+'</h2><p class="sub">'+esc(t.sub)+'</p><div class="row">'+
+      '<a class="pill" href="#/'+id+'/begriffe">Begriffe · '+t.terms.length+'</a>'+
+      '<a class="pill pr" href="#/'+id+'/quiz">Quiz · '+t.quiz.length+' Fragen</a>'+
+      (b!=null?'<span class="best">Bestes Ergebnis: '+b+' %</span>':'')+'</div></div>';
   });
+  var n = ORDER.reduce(function(s,id){return s+T[id].quiz.length},0), ba=store("best_all");
+  h += '</div><div class="mix" style="--c:var(--all)"><p><b style="color:var(--ink)">Alles gemischt</b> – '+n+' Fragen aus allen drei Fächern'+(ba!=null?' · Bestes: '+ba+' %':'')+'</p><a class="pill pr" href="#/all/quiz">Mix-Quiz starten</a></div>';
+  h += '<p class="foot">Auch hier: <a href="biochemie_quiz.html">Biochemie-Quizzes</a></p>';
+  app.innerHTML = h;
+}
 
-  // Modal sliders
-  const sliderState = {};
-  function initSlider(id) {
-    if (!sliderState[id]) sliderState[id] = 0;
+/* ---------- Glossary ---------- */
+var hideDefs = false;
+function glossary(id){
+  setAccent(id);
+  var t=T[id];
+  app.innerHTML = header(true)+
+    '<div class="th"><span class="tag">Begriffe</span><h1>'+esc(t.name)+'</h1></div>'+
+    '<nav class="tabs"><a class="on" href="#/'+id+'/begriffe">Begriffe</a><a href="#/'+id+'/quiz">Quiz</a></nav>'+
+    '<div class="gtools"><input class="search" id="s" type="search" placeholder="Begriff suchen …" autocomplete="off">'+
+    '<label class="toggle"><input type="checkbox" id="hd"'+(hideDefs?' checked':'')+'> Erklärungen verdecken</label></div>'+
+    '<dl class="terms'+(hideDefs?' hide':'')+'" id="tl"></dl>';
+  var tl=document.getElementById("tl"), s=document.getElementById("s");
+  function draw(){
+    var f=s.value.trim().toLowerCase();
+    var list=t.terms.filter(function(x){return !f||(x[0]+" "+x[1]+" "+(x[2]||"")).toLowerCase().indexOf(f)>=0});
+    tl.innerHTML = list.length ? list.map(function(x){
+      return '<div class="term"><dt>'+esc(x[0])+'</dt><dd>'+fmt(x[1])+(x[2]?'<span class="ex2">'+(x[2].indexOf("=")>=0||/[;(){}]/.test(x[2])?'<code>'+esc(x[2])+'</code>':'z. B. '+esc(x[2]))+'</span>':'')+'</dd></div>';
+    }).join("") : '<p class="empty">Kein Begriff gefunden.</p>';
   }
-  function slideModal(id, dir) {
-    initSlider(id);
-    const track = document.getElementById('track-' + id);
-    const count = track.children.length;
-    sliderState[id] = (sliderState[id] + dir + count) % count;
-    updateSlider(id);
-  }
-  function goSlide(id, idx) {
-    initSlider(id);
-    sliderState[id] = idx;
-    updateSlider(id);
-  }
-  function updateSlider(id) {
-    const track = document.getElementById('track-' + id);
-    track.style.transform = 'translateX(-' + (sliderState[id] * 100) + '%)';
-    document.querySelectorAll('#dots-' + id + ' .slider-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === sliderState[id]);
-    });
-  }
-  // Reset slider when modal opens
-  const origOpenModal = openModal;
-  function openModal(id) {
-    document.getElementById(id).classList.add('open');
-    document.body.style.overflow = 'hidden';
-    const modalId = id.replace('m-', '');
-    if (sliderState[modalId] !== undefined) {
-      sliderState[modalId] = 0;
-      updateSlider(modalId);
-    }
-  }
+  s.oninput=draw;
+  document.getElementById("hd").onchange=function(){hideDefs=this.checked;tl.classList.toggle("hide",hideDefs);tl.querySelectorAll(".open").forEach(function(e){e.classList.remove("open")})};
+  tl.onclick=function(e){var c=e.target.closest(".term");if(c&&hideDefs)c.classList.toggle("open")};
+  draw();
+}
 
-  // Region tabs
-  function showRegion(id, btn) {
-    document.querySelectorAll('.region-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.region-tab').forEach(b => b.classList.remove('active'));
-    document.getElementById('panel-' + id).classList.add('active');
-    btn.classList.add('active');
-  }
-
-  // Nav scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 80);
+/* ---------- Quiz ---------- */
+var S;
+function quiz(id, onlyWrong){
+  setAccent(id);
+  var pool;
+  if(id==="all"){pool=[];ORDER.forEach(function(k){T[k].quiz.forEach(function(q){pool.push({q:q,t:k})})})}
+  else pool=T[id].quiz.map(function(q){return {q:q,t:id}});
+  if(onlyWrong) pool=onlyWrong;
+  pool=shuffle(pool).map(function(p){var idx=shuffle(p.q.o.map(function(_,i){return i}));return {q:p.q,t:p.t,idx:idx}});
+  S={id:id,list:pool,i:0,sel:[],done:false,right:0,wrong:[]};
+  drawQ();
+}
+function drawQ(){
+  var id=S.id, it=S.list[S.i], q=it.q, multi=q.c.length>1, name=id==="all"?"Alles gemischt":T[id].name;
+  var h=header(true)+'<div class="th"><span class="tag">Quiz</span><h1>'+esc(name)+'</h1></div>';
+  if(id!=="all") h+='<nav class="tabs"><a href="#/'+id+'/begriffe">Begriffe</a><a class="on" href="#/'+id+'/quiz">Quiz</a></nav>';
+  h+='<div class="pb"><div class="pf" style="width:'+(S.i/S.list.length*100)+'%"></div></div>';
+  h+='<div class="qh"><span class="qn">Frage '+(S.i+1)+' von '+S.list.length+'</span>'+
+     (id==="all"?'<span class="qtag" style="color:var(--'+it.t+');background:var(--'+it.t+'-bg)">'+esc(T[it.t].name)+'</span>':'')+'</div>';
+  h+='<div class="qcard"><p class="qt">'+fmt(q.q)+'</p>';
+  h+='<p class="hint">'+(multi?'Mehrere Antworten richtig – wähle alle passenden.':'Eine Antwort ist richtig.')+'</p>';
+  if(q.code) h+='<pre class="code">'+esc(q.code)+'</pre>';
+  h+='<div class="os'+(multi?'':' single')+'">';
+  it.idx.forEach(function(oi,pos){
+    var cls="op";
+    if(S.done){var isC=q.c.indexOf(oi)>=0, isS=S.sel.indexOf(oi)>=0; cls+=isC&&isS?" cor":isC?" mis":isS?" wrg":"";}
+    else if(S.sel.indexOf(oi)>=0) cls+=" sel";
+    h+='<button class="'+cls+'" data-o="'+oi+'"'+(S.done?' disabled':'')+'><span class="ol">'+L[pos]+'</span><span>'+fmt(q.o[oi])+'</span></button>';
   });
-
-  // Logo color on scroll
-  // Logo color handled via CSS on nav.scrolled
-
-  // Mobile nav
-  document.querySelectorAll('.mobile-nav a').forEach(a => {
-    a.addEventListener('click', () => document.querySelector('.mobile-nav').classList.remove('open'));
-  });
-
-  // Modals
-  function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
-  });
-
-  // Language
-  function setLang(lang) {
-    document.body.classList.toggle('en', lang === 'en');
-    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.getElementById('mbtn-de').classList.toggle('active', lang === 'de');
-    document.getElementById('mbtn-en').classList.toggle('active', lang === 'en');
-    document.querySelectorAll('[data-de][data-en]').forEach(el => {
-      el.placeholder = lang === 'en' ? el.dataset.en : el.dataset.de;
-    });
-    document.querySelectorAll('select option[data-de]').forEach(el => {
-      el.textContent = lang === 'en' ? el.dataset.en : el.dataset.de;
-    });
+  h+='</div><div class="ac">';
+  if(!S.done) h+='<button class="btn pr" id="chk"'+(S.sel.length?'':' disabled')+'>Prüfen</button>';
+  else {
+    var ok=S.lastOk;
+    h+='<button class="btn pr" id="nx">'+(S.i<S.list.length-1?'Weiter →':'Ergebnis ansehen')+'</button><span class="fb '+(ok?'y':'n')+'">'+(ok?'✓ Richtig!':'✗ Nicht ganz')+'</span>';
   }
+  h+='</div>';
+  if(S.done){
+    h+='<div class="ex"><b>Erklärung</b>'+fmt(q.e)+'</div>';
+    if(!S.lastOk) h+='<div class="legend"><span><i style="background:var(--ok)"></i>richtig gewählt</span><span><i style="background:var(--miss)"></i>übersehen</span><span><i style="background:var(--bad)"></i>falsch gewählt</span></div>';
+  }
+  h+='</div>';
+  app.innerHTML=h;
+  app.querySelectorAll(".op").forEach(function(b){b.onclick=function(){
+    var o=+b.dataset.o, k=S.sel.indexOf(o);
+    if(multi){ if(k>=0)S.sel.splice(k,1); else S.sel.push(o); } else S.sel=[o];
+    drawQ();
+  }});
+  var chk=document.getElementById("chk"); if(chk) chk.onclick=check;
+  var nx=document.getElementById("nx"); if(nx) nx.onclick=next;
+}
+function check(){
+  var q=S.list[S.i].q;
+  var ok=S.sel.length===q.c.length && q.c.every(function(c){return S.sel.indexOf(c)>=0});
+  S.lastOk=ok; S.done=true;
+  if(ok) S.right++; else S.wrong.push(S.list[S.i]);
+  drawQ();
+}
+function next(){
+  if(S.i<S.list.length-1){S.i++;S.sel=[];S.done=false;drawQ();window.scrollTo(0,0)}
+  else result();
+}
+function result(){
+  var id=S.id, n=S.list.length, pct=Math.round(S.right/n*100);
+  if(!S.retry){var prev=store("best_"+id); if(prev==null||pct>prev) store("best_"+id,pct);}
+  var msg=pct>=90?"Ausgezeichnet!":pct>=70?"Sehr gut – fast alles sitzt.":pct>=50?"Gute Basis – schau dir die falschen Fragen nochmal an.":"Dranbleiben – am Anfang ist alles neu. Wiederhole die Begriffe und versuch’s nochmal!";
+  var h=header(true)+'<div class="res"><div class="rs">'+pct+' %</div><p class="rl">'+msg+'</p>'+
+    '<div class="rb"><div class="me"><div class="mv">'+S.right+'</div><div class="ml">richtig</div></div><div class="me"><div class="mv">'+S.wrong.length+'</div><div class="ml">falsch</div></div><div class="me"><div class="mv">'+n+'</div><div class="ml">Fragen</div></div></div>'+
+    '<div class="ac">'+(S.wrong.length?'<button class="btn pr" id="rw">Falsche wiederholen</button>':'')+'<button class="btn'+(S.wrong.length?'':' pr')+'" id="ra">Neu starten</button>'+(id!=="all"?'<a class="btn" style="text-decoration:none" href="#/'+id+'/begriffe">Begriffe ansehen</a>':'')+'</div>';
+  if(S.wrong.length){
+    h+='<div class="wl"><h3>Diese Fragen solltest du dir nochmal anschauen:</h3><ul>'+S.wrong.map(function(w){return '<li>'+fmt(w.q.q)+(w.q.code?' <code>'+esc(w.q.code.split("\n")[0])+(w.q.code.indexOf("\n")>=0?' …':'')+'</code>':'')+'</li>'}).join("")+'</ul></div>';
+  }
+  h+='</div>';
+  app.innerHTML=h; window.scrollTo(0,0);
+  var wrong=S.wrong;
+  var rw=document.getElementById("rw"); if(rw) rw.onclick=function(){quiz(id,wrong);S.retry=true};
+  document.getElementById("ra").onclick=function(){quiz(id)};
+}
+
+/* ---------- Router ---------- */
+function route(){
+  var p=location.hash.replace(/^#\/?/,"").split("/");
+  var id=p[0], view=p[1];
+  if((T[id]||id==="all") && view==="quiz") quiz(id);
+  else if(T[id] && view==="begriffe") glossary(id);
+  else home();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+route();
 </script>
-
 </body>
 </html>
