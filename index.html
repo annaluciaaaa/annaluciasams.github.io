@@ -13,57 +13,87 @@
   --bg:#fafaf9;--card:#fff;--ink:#1c1917;--muted:#78716c;--line:#e7e5e4;--soft:#f5f5f4;
   --ok:#3B6D11;--ok-bg:#EAF3DE;--bad:#A32D2D;--bad-bg:#FCEBEB;--miss:#854F0B;--miss-bg:#FAEEDA;
   --fs:#534AB7;--fs-bg:#EEEDFE;--dr:#0F766E;--dr-bg:#E0F2EF;--java:#C2410C;--java-bg:#FDEDE3;--all:#44403c;--all-bg:#f0efed;
-  --accent:var(--fs);--accent-bg:var(--fs-bg);
+  --accent:var(--fs);--accent-bg:var(--fs-bg);--on-accent:#fff;
 }
 @media (prefers-color-scheme:dark){
   :root{
     --bg:#161514;--card:#1f1e1c;--ink:#f5f5f4;--muted:#a8a29e;--line:#34322f;--soft:#292725;
     --ok:#8BC34A;--ok-bg:#24301a;--bad:#F08080;--bad-bg:#3a1f1f;--miss:#E0A84C;--miss-bg:#3a2e17;
     --fs:#A8A1F0;--fs-bg:#2a2742;--dr:#5EC9BC;--dr-bg:#17312e;--java:#F59563;--java-bg:#3a2519;--all:#d6d3d1;--all-bg:#2c2a28;
-    color-scheme:dark;
+    --on-accent:#161514;color-scheme:dark;
   }
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
-.wrap{max-width:760px;margin:0 auto;padding:1.5rem 1rem 4rem}
+.wrap{max-width:780px;margin:0 auto;padding:1.25rem 1rem 4rem}
 a{color:inherit}
 code,pre{font-family:"JetBrains Mono",ui-monospace,monospace}
 code{font-size:.88em;background:var(--soft);padding:.1em .35em;border-radius:4px}
+.ov{text-decoration:overline;text-decoration-thickness:1.5px}
 button{font:inherit;color:inherit}
 
-/* Header */
-.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem}
-.brand{font-weight:700;font-size:15px;text-decoration:none;letter-spacing:-.01em}
-.brand span{color:var(--muted);font-weight:500}
-.back{font-size:14px;color:var(--muted);text-decoration:none}
-.back:hover{color:var(--ink)}
+/* Header / Breadcrumb */
+.top{display:flex;align-items:center;flex-wrap:wrap;gap:.35rem .5rem;margin-bottom:1.75rem;font-size:14px}
+.top a{text-decoration:none;color:var(--muted)}
+.top a:hover{color:var(--ink)}
+.top .brand{font-weight:700;color:var(--ink)}
+.top .sep{color:var(--muted);opacity:.5}
+.top .cur{color:var(--ink);font-weight:500}
 
 /* Home */
-.hero h1{font-size:clamp(28px,6vw,40px);line-height:1.15;letter-spacing:-.02em;font-weight:700;margin-bottom:.6rem}
-.hero p{color:var(--muted);font-size:16px;max-width:52ch;margin-bottom:2rem}
-.topics{display:grid;gap:14px}
-.topic{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.25rem 1.25rem 1.1rem;border-left:5px solid var(--c)}
-.topic h2{font-size:19px;font-weight:600;letter-spacing:-.01em}
-.topic .sub{color:var(--muted);font-size:14px;margin:.2rem 0 1rem}
-.topic .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;border:1px solid var(--line);background:var(--card)}
-.pill:hover{background:var(--soft)}
-.pill.pr{background:var(--c);border-color:var(--c);color:#fff}
-@media (prefers-color-scheme:dark){.pill.pr{color:#161514}}
-.pill.pr:hover{filter:brightness(1.08)}
-.best{font-size:12px;color:var(--muted);margin-left:auto}
+.hero h1{font-size:clamp(27px,6vw,38px);line-height:1.15;letter-spacing:-.02em;font-weight:700;margin-bottom:.6rem}
+.hero p{color:var(--muted);font-size:16px;max-width:56ch;margin-bottom:1.75rem}
+.subjects{display:grid;gap:14px}
+.subj{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.25rem;border-left:5px solid var(--c);transition:transform .12s,box-shadow .12s}
+.subj:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.subj h2{font-size:19px;font-weight:600;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:1rem}
+.subj h2 span{color:var(--c);font-size:15px}
+.subj .sub{color:var(--muted);font-size:14px;margin:.2rem 0 .6rem}
+.stats{display:flex;flex-wrap:wrap;gap:6px}
+.stat{font-size:12.5px;padding:2px 10px;border-radius:999px;background:var(--soft);color:var(--muted)}
 .mix{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border:1px dashed var(--line);border-radius:14px}
 .mix p{font-size:14px;color:var(--muted)}
 .foot{margin-top:3rem;font-size:13px;color:var(--muted);text-align:center}
 .foot a{color:var(--muted)}
 
-/* Topic page */
-.th{margin-bottom:1.25rem}
-.th .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);background:var(--accent-bg);padding:3px 10px;border-radius:999px;margin-bottom:.5rem}
+/* Buttons / Pills */
+.pill{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;border:1px solid var(--line);background:var(--card);cursor:pointer}
+.pill:hover{background:var(--soft)}
+.pill.pr{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.pill.pr:hover{filter:brightness(1.08)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+/* Subject / Topic header */
+.th{margin-bottom:1.1rem}
+.tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);background:var(--accent-bg);padding:3px 10px;border-radius:999px;margin-bottom:.5rem}
 .th h1{font-size:clamp(24px,5vw,32px);letter-spacing:-.02em;line-height:1.2}
-.tabs{display:flex;gap:4px;background:var(--soft);padding:4px;border-radius:12px;margin-bottom:1.5rem;width:fit-content}
-.tabs a{padding:7px 18px;border-radius:9px;font-size:14px;font-weight:500;text-decoration:none;color:var(--muted)}
+.th .src{font-size:13px;color:var(--muted);margin-top:.35rem}
+.note{font-size:14px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:.75rem 1rem;margin-bottom:1.25rem}
+.actions{margin-bottom:1.5rem}
+
+/* Topic list */
+.topics{display:grid;gap:10px}
+.topic{display:flex;gap:14px;align-items:flex-start;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1.1rem;transition:border-color .12s}
+.topic:hover{border-color:var(--accent)}
+.num{flex-shrink:0;width:30px;height:30px;border-radius:8px;background:var(--accent-bg);color:var(--accent);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.topic h3{font-size:16px;font-weight:600;line-height:1.35}
+.topic .meta{font-size:13px;color:var(--muted);margin-top:.15rem}
+.topic .best{font-size:12px;font-weight:600;color:var(--ok)}
+
+.tabs{display:flex;gap:4px;background:var(--soft);padding:4px;border-radius:12px;margin-bottom:1.25rem;width:fit-content;max-width:100%;overflow-x:auto}
+.tabs a{padding:7px 18px;border-radius:9px;font-size:14px;font-weight:500;text-decoration:none;color:var(--muted);white-space:nowrap}
 .tabs a.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+
+details.kat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.75rem 1rem;margin-bottom:1.25rem;font-size:14px}
+details.kat summary{cursor:pointer;font-weight:600}
+details.kat ul{margin:.6rem 0 0 1.2rem;color:var(--muted)}
+details.kat li{margin-bottom:.25rem}
+
+.pn{display:flex;justify-content:space-between;gap:10px;margin-top:2rem;flex-wrap:wrap}
+.pn a{flex:1;min-width:200px;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;font-size:14px;background:var(--card)}
+.pn a:hover{border-color:var(--accent)}
+.pn small{display:block;color:var(--muted);font-size:12px}
+.pn .nx{text-align:right}
 
 /* Glossary */
 .gtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1rem}
@@ -72,22 +102,32 @@ button{font:inherit;color:inherit}
 .toggle{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);cursor:pointer;user-select:none}
 .toggle input{accent-color:var(--accent);width:16px;height:16px}
 .terms{display:grid;gap:10px}
-.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1.1rem}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.85rem 1.1rem}
 .term dt{font-weight:600;font-size:15px;color:var(--accent)}
 .term dd{font-size:14.5px;margin-top:.25rem}
-.term dd .ex2{display:block;color:var(--muted);font-size:13.5px;margin-top:.35rem}
+.term .ex2{display:block;color:var(--muted);font-size:13.5px;margin-top:.35rem}
 .hide .term{cursor:pointer}
 .hide .term:not(.open) dd{filter:blur(6px);opacity:.5;user-select:none}
 .hide .term:not(.open)::after{content:"Tippen zum Aufdecken";display:block;font-size:12px;color:var(--muted);margin-top:.35rem}
 .empty{color:var(--muted);font-size:14px;padding:1rem 0}
 
+/* Symbols */
+.sgroup{margin-bottom:1.5rem}
+.sgroup h2{font-size:15px;font-weight:600;margin-bottom:.5rem;color:var(--accent)}
+.sym{display:grid;grid-template-columns:minmax(90px,170px) 1fr;gap:.2rem 1rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.65rem 1rem;margin-bottom:6px;align-items:baseline}
+.sym .s{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:16px;font-weight:500;word-break:break-word;grid-row:span 3}
+.sym .n{font-weight:600;font-size:14.5px}
+.sym .m{font-size:14px;color:var(--muted)}
+.sym .x{font-size:13px}
+@media (max-width:520px){.sym{grid-template-columns:1fr}.sym .s{grid-row:auto}}
+
 /* Quiz */
-.pb{height:5px;background:var(--line);border-radius:3px;margin-bottom:1.25rem;overflow:hidden}
+.pb{height:5px;background:var(--line);border-radius:3px;margin-bottom:1.1rem;overflow:hidden}
 .pf{height:100%;background:var(--accent);border-radius:3px;transition:width .3s}
-.qh{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;gap:8px}
+.qh{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem;gap:8px;flex-wrap:wrap}
 .qn{font-size:13px;color:var(--muted)}
 .qtag{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px}
-.qcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.25rem}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.2rem}
 .qt{font-size:16.5px;line-height:1.55;font-weight:500;margin-bottom:.4rem}
 .hint{font-size:13px;color:var(--muted);margin-bottom:1rem}
 pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem;font-size:13.5px;line-height:1.55;overflow-x:auto;margin:.25rem 0 1rem}
@@ -98,20 +138,18 @@ pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;
 .ol{font-size:13px;font-weight:600;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--line);border-radius:5px;color:var(--muted);flex-shrink:0;margin-top:1px}
 .single .ol{border-radius:50%}
 .op.sel{background:var(--accent-bg);border-color:var(--accent)}
-.op.sel .ol{border-color:var(--accent);background:var(--accent);color:#fff}
+.op.sel .ol{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
 .op.cor{background:var(--ok-bg);border-color:var(--ok)}
-.op.cor .ol{border-color:var(--ok);background:var(--ok);color:#fff}
+.op.cor .ol{border-color:var(--ok);background:var(--ok);color:var(--on-accent)}
 .op.wrg{background:var(--bad-bg);border-color:var(--bad)}
-.op.wrg .ol{border-color:var(--bad);background:var(--bad);color:#fff}
+.op.wrg .ol{border-color:var(--bad);background:var(--bad);color:var(--on-accent)}
 .op.mis{background:var(--miss-bg);border-color:var(--miss)}
 .op.mis .ol{border-color:var(--miss);color:var(--miss)}
-@media (prefers-color-scheme:dark){.op.sel .ol,.op.cor .ol,.op.wrg .ol{color:#161514}}
 .ac{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.btn{padding:10px 22px;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;border:1px solid var(--line);background:var(--card)}
+.btn{padding:10px 22px;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;border:1px solid var(--line);background:var(--card);text-decoration:none}
 .btn:hover:not(:disabled){background:var(--soft)}
 .btn:disabled{opacity:.45;cursor:default}
-.btn.pr{background:var(--accent);border-color:var(--accent);color:#fff}
-@media (prefers-color-scheme:dark){.btn.pr{color:#161514}}
+.btn.pr{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .btn.pr:hover:not(:disabled){filter:brightness(1.08);background:var(--accent)}
 .fb{font-size:14px;font-weight:600}
 .fb.y{color:var(--ok)}.fb.n{color:var(--bad)}
@@ -121,7 +159,7 @@ pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 
 /* Result */
-.res{text-align:center;padding:1.5rem 0}
+.res{text-align:center;padding:1.25rem 0}
 .rs{font-size:56px;font-weight:700;color:var(--accent);letter-spacing:-.03em;line-height:1}
 .rl{color:var(--muted);margin:.5rem 0 1.5rem}
 .rb{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
@@ -131,362 +169,107 @@ pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;
 .res .ac{justify-content:center}
 .wl{text-align:left;margin-top:2rem}
 .wl h3{font-size:15px;margin-bottom:.6rem}
-.wl li{font-size:14px;margin:0 0 .5rem 1.2rem;color:var(--muted)}
+.wl li{font-size:14px;margin:0 0 .6rem 1.2rem;color:var(--muted)}
+.wl li small{display:block;font-size:12px}
 </style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
 
+<script src="daten-fs.js"></script>
+<script src="daten-dr.js"></script>
+<script src="daten-java.js"></script>
 <script>
-/* ============================================================
-   INHALTE
-   Begriffe: [Begriff, Erklärung, optional Beispiel]
-   Quiz: {q: Frage, code?: Java-/Code-Schnipsel, o: Antworten, c: Indizes der richtigen, e: Erklärung}
-   `backticks` werden als Code dargestellt.
-   ============================================================ */
-var T = {
-fs: {
-  name: "Formale Systeme",
-  sub: "Logik, Mengen, Relationen, Funktionen, Beweise, Sprachen & Automaten",
-  terms: [
-    ["Aussage", "Ein Satz, der eindeutig entweder wahr (1) oder falsch (0) ist.", "„7 ist eine Primzahl“ – aber nicht „Mach das Fenster zu“"],
-    ["Junktor", "Verknüpft Aussagen zu neuen Aussagen: ¬ (nicht), ∧ (und), ∨ (oder), → (wenn … dann), ↔ (genau dann, wenn)."],
-    ["Negation ¬A", "Kehrt den Wahrheitswert um: ¬A ist wahr, wenn A falsch ist."],
-    ["Konjunktion A ∧ B", "„Und“: nur wahr, wenn A und B beide wahr sind."],
-    ["Disjunktion A ∨ B", "„Oder“ (einschließend): wahr, wenn mindestens eine der beiden wahr ist – also auch, wenn beide wahr sind."],
-    ["Implikation A → B", "„Wenn A, dann B“. Nur falsch, wenn A wahr und B falsch ist. Ist A falsch, ist die Implikation immer wahr.", "A → B ≡ ¬A ∨ B"],
-    ["Äquivalenz A ↔ B", "Wahr, wenn A und B denselben Wahrheitswert haben (beide wahr oder beide falsch)."],
-    ["Wahrheitstafel", "Tabelle, die für jede mögliche Belegung der Variablen den Wahrheitswert einer Formel angibt. Bei n Variablen gibt es 2ⁿ Zeilen."],
-    ["Belegung", "Eine Zuordnung von Wahrheitswerten (0/1) zu allen Variablen einer Formel – also eine Zeile der Wahrheitstafel."],
-    ["Tautologie", "Eine Formel, die bei jeder Belegung wahr ist (allgemeingültig).", "A ∨ ¬A"],
-    ["Kontradiktion", "Eine Formel, die bei jeder Belegung falsch ist (unerfüllbar).", "A ∧ ¬A"],
-    ["Erfüllbar", "Es gibt mindestens eine Belegung, unter der die Formel wahr ist."],
-    ["Logisch äquivalent (≡)", "Zwei Formeln haben unter allen Belegungen denselben Wahrheitswert."],
-    ["De Morgan’sche Gesetze", "Negation „dreht“ ∧ und ∨ um: ¬(A ∧ B) ≡ ¬A ∨ ¬B und ¬(A ∨ B) ≡ ¬A ∧ ¬B."],
-    ["Kontraposition", "A → B ist äquivalent zu ¬B → ¬A. Wichtig für Beweise."],
-    ["KNF / DNF", "Konjunktive Normalform: UND von ODER-Klauseln, z. B. (A ∨ B) ∧ (¬A ∨ C). Disjunktive Normalform: ODER von UND-Termen, z. B. (A ∧ B) ∨ (¬A ∧ C)."],
-    ["Quantoren ∀ / ∃", "∀ = „für alle“, ∃ = „es existiert (mindestens) ein“. Negation: ¬∀x P(x) ≡ ∃x ¬P(x) und ¬∃x P(x) ≡ ∀x ¬P(x)."],
-    ["Prädikat", "Eine Aussageform mit Variablen, die erst durch Einsetzen wahr oder falsch wird.", "P(x): „x ist gerade“ – P(4) ist wahr, P(3) falsch."],
-    ["Menge", "Zusammenfassung unterscheidbarer Objekte (Elemente). Reihenfolge und Wiederholungen spielen keine Rolle.", "{1, 2, 2, 3} = {3, 1, 2}"],
-    ["Teilmenge A ⊆ B", "Jedes Element von A ist auch in B. Die leere Menge ∅ ist Teilmenge jeder Menge."],
-    ["Vereinigung, Schnitt, Differenz", "A ∪ B: in A oder B. A ∩ B: in A und B. A \\ B: in A, aber nicht in B."],
-    ["Potenzmenge 𝒫(A)", "Die Menge aller Teilmengen von A. Hat A n Elemente, hat 𝒫(A) genau 2ⁿ Elemente.", "𝒫({1,2}) = {∅, {1}, {2}, {1,2}}"],
-    ["Kartesisches Produkt A × B", "Menge aller geordneten Paare (a, b) mit a ∈ A und b ∈ B. |A × B| = |A| · |B|."],
-    ["Relation", "Eine Teilmenge von A × B – sie sagt, welche Elemente „in Beziehung“ stehen."],
-    ["Reflexiv", "Jedes Element steht mit sich selbst in Relation: (a, a) ∈ R für alle a."],
-    ["Symmetrisch", "Wenn (a, b) ∈ R, dann auch (b, a) ∈ R."],
-    ["Antisymmetrisch", "Wenn (a, b) ∈ R und (b, a) ∈ R, dann a = b."],
-    ["Transitiv", "Wenn (a, b) ∈ R und (b, c) ∈ R, dann auch (a, c) ∈ R."],
-    ["Äquivalenzrelation", "Reflexiv, symmetrisch und transitiv. Teilt die Menge in disjunkte Äquivalenzklassen ein.", "„hat denselben Rest bei Division durch 3“"],
-    ["Halbordnung (partielle Ordnung)", "Reflexiv, antisymmetrisch und transitiv.", "≤ auf ℕ, ⊆ auf Mengen"],
-    ["Funktion f: A → B", "Ordnet jedem Element von A genau ein Element von B zu."],
-    ["Injektiv", "Verschiedene Eingaben ergeben verschiedene Ausgaben: aus f(x) = f(y) folgt x = y."],
-    ["Surjektiv", "Jedes Element von B wird getroffen: für jedes b gibt es ein a mit f(a) = b."],
-    ["Bijektiv", "Injektiv und surjektiv – jede Ausgabe wird genau einmal getroffen. Dann gibt es eine Umkehrfunktion."],
-    ["Vollständige Induktion", "Beweistechnik für Aussagen über alle n ≥ n₀: (1) Induktionsanfang: zeige die Aussage für n₀. (2) Induktionsschritt: zeige, dass aus „gilt für n“ (Induktionsvoraussetzung) folgt „gilt für n + 1“."],
-    ["Widerspruchsbeweis", "Man nimmt das Gegenteil der Behauptung an und leitet daraus einen Widerspruch her.", "√2 ist irrational (klassischer Beweis)"],
-    ["Alphabet Σ", "Eine endliche, nicht-leere Menge von Zeichen.", "Σ = {0, 1} oder Σ = {a, b}"],
-    ["Wort", "Endliche Folge von Zeichen aus Σ. |w| ist die Länge des Wortes."],
-    ["Leeres Wort ε", "Das Wort der Länge 0. Es ist ein Wort, aber kein Zeichen des Alphabets."],
-    ["Σ* (Kleene-Stern)", "Die Menge aller Wörter über Σ, inklusive ε. Σ⁺ = Σ* ohne ε."],
-    ["Formale Sprache", "Eine beliebige Teilmenge L ⊆ Σ*.", "L = alle Wörter über {a,b}, die mit b enden"],
-    ["Grammatik", "Regelwerk (Variablen, Terminale, Produktionsregeln, Startsymbol), mit dem man die Wörter einer Sprache erzeugen kann."],
-    ["DEA (deterministischer endlicher Automat)", "Hat endlich viele Zustände, einen Startzustand, Endzustände und für jeden Zustand und jedes Zeichen genau einen Übergang. Ein Wort wird akzeptiert, wenn man nach dem Lesen in einem Endzustand ist."],
-    ["NEA (nichtdeterministischer endlicher Automat)", "Wie ein DEA, aber pro Zustand und Zeichen sind mehrere (oder keine) Übergänge erlaubt. Akzeptiert, wenn es mindestens einen Weg in einen Endzustand gibt. Jeder NEA lässt sich in einen DEA umwandeln."],
-    ["Regulärer Ausdruck", "Kurzschreibweise für reguläre Sprachen mit Verkettung, | (oder) und * (beliebig oft, auch 0-mal).", "a*b = b, ab, aab, aaab, …"]
-  ],
-  quiz: [
-    {q:"Wann ist die Implikation A → B falsch?", o:["Wenn A wahr und B falsch ist","Wenn A falsch und B wahr ist","Wenn A und B beide falsch sind","Wenn A und B beide wahr sind"], c:[0],
-     e:"A → B ist nur dann falsch, wenn die Voraussetzung A wahr ist, die Folgerung B aber falsch. Ist A falsch, ist die Implikation immer wahr („aus Falschem folgt Beliebiges“). Merke: A → B ≡ ¬A ∨ B."},
-    {q:"Wie viele Zeilen hat eine Wahrheitstafel für eine Formel mit 3 Variablen?", o:["3","6","8","9"], c:[2],
-     e:"Jede Variable kann 0 oder 1 sein. Bei n Variablen gibt es also 2ⁿ Kombinationen: 2³ = 8 Zeilen."},
-    {q:"Welche Formel ist eine Tautologie?", o:["A ∨ ¬A","A ∧ ¬A","A → ¬A","A ∨ B"], c:[0],
-     e:"`A ∨ ¬A` ist immer wahr – entweder A oder ¬A ist wahr. `A ∧ ¬A` ist immer falsch (Kontradiktion). `A → ¬A` ist falsch, wenn A wahr ist. `A ∨ B` ist falsch, wenn beide falsch sind – also nur erfüllbar, nicht allgemeingültig."},
-    {q:"Welche Formel ist äquivalent zu ¬(A ∧ B)?", o:["¬A ∧ ¬B","¬A ∨ ¬B","A ∨ B","¬A → ¬B"], c:[1],
-     e:"De Morgan: Die Negation wandert in die Klammer und dreht ∧ zu ∨. „Nicht (A und B)“ heißt: mindestens eines von beiden ist falsch, also ¬A ∨ ¬B."},
-    {q:"Welche Formeln sind äquivalent zu A → B?", o:["¬A ∨ B","¬B → ¬A","B → A","A ∧ ¬B"], c:[0,1],
-     e:"`¬A ∨ B` ist die Standard-Umformung der Implikation. `¬B → ¬A` ist die Kontraposition und ebenfalls äquivalent. `B → A` ist die Umkehrung – die ist NICHT äquivalent (Regen → nass, aber nass → Regen stimmt nicht). `A ∧ ¬B` ist genau die Negation von A → B."},
-    {q:"Welche dieser Formeln sind erfüllbar?", o:["A ∧ B","A ∧ ¬A","A → A","(A ∨ B) ∧ ¬A"], c:[0,2,3],
-     e:"Erfüllbar = mindestens eine Belegung macht die Formel wahr. `A ∧ B`: A=1, B=1. `A → A` ist sogar eine Tautologie (also erst recht erfüllbar). `(A ∨ B) ∧ ¬A`: A=0, B=1. Nur `A ∧ ¬A` ist unerfüllbar."},
-    {q:"Was ist die Negation von „∀x: P(x)“?", o:["∀x: ¬P(x)","∃x: ¬P(x)","∃x: P(x)","¬∃x: P(x)"], c:[1],
-     e:"„Nicht alle x haben P“ bedeutet: „es gibt mindestens ein x ohne P“. Der Quantor dreht sich um (∀ ↔ ∃) und die Negation wandert nach innen. `∀x: ¬P(x)` („kein x hat P“) ist viel stärker."},
-    {q:"Wie viele Elemente hat die Potenzmenge von {1, 2, 3}?", o:["3","6","8","9"], c:[2],
-     e:"Für jedes der 3 Elemente entscheidet man: drin oder nicht drin → 2³ = 8 Teilmengen: ∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}. Nicht vergessen: ∅ und die Menge selbst gehören dazu."},
-    {q:"Welche Aussagen zur leeren Menge ∅ sind richtig?", o:["∅ ⊆ M für jede Menge M","∅ ∈ M für jede Menge M","|∅| = 0","{∅} ist ebenfalls leer"], c:[0,2],
-     e:"∅ ist Teilmenge jeder Menge (es gibt kein Element in ∅, das nicht in M wäre). Sie hat 0 Elemente. Aber ∅ ist nicht automatisch ein ELEMENT jeder Menge (⊆ ≠ ∈). Und {∅} ist nicht leer – sie enthält genau ein Element, nämlich ∅."},
-    {q:"A = {1, 2} und B = {x, y, z}. Wie viele Elemente hat A × B?", o:["5","6","8","9"], c:[1],
-     e:"|A × B| = |A| · |B| = 2 · 3 = 6. Die Paare: (1,x), (1,y), (1,z), (2,x), (2,y), (2,z). Achtung: Paare sind geordnet, (1,x) ≠ (x,1)."},
-    {q:"Welche Eigenschaften hat die Relation ≤ auf den natürlichen Zahlen?", o:["reflexiv","symmetrisch","antisymmetrisch","transitiv"], c:[0,2,3],
-     e:"Reflexiv: a ≤ a gilt immer. Antisymmetrisch: aus a ≤ b und b ≤ a folgt a = b. Transitiv: aus a ≤ b und b ≤ c folgt a ≤ c. Nicht symmetrisch: 1 ≤ 2, aber nicht 2 ≤ 1. → ≤ ist eine Halbordnung (sogar eine totale Ordnung)."},
-    {q:"Gegeben ist R = {(1,1), (2,2), (1,2)} auf der Menge {1, 2}. Welche Eigenschaften hat R?", o:["reflexiv","symmetrisch","antisymmetrisch","transitiv"], c:[0,2,3],
-     e:"Reflexiv: (1,1) und (2,2) sind drin. Nicht symmetrisch: (1,2) ist drin, (2,1) fehlt. Antisymmetrisch: es gibt kein Paar (a,b) und (b,a) mit a ≠ b. Transitiv: alle Ketten (1,1)+(1,2) → (1,2) und (1,2)+(2,2) → (1,2) sind erfüllt."},
-    {q:"Welche drei Eigenschaften braucht eine Äquivalenzrelation?", o:["reflexiv, symmetrisch, transitiv","reflexiv, antisymmetrisch, transitiv","symmetrisch, antisymmetrisch, transitiv","injektiv, surjektiv, bijektiv"], c:[0],
-     e:"Äquivalenzrelation = reflexiv + symmetrisch + transitiv (z. B. „gleicher Rest bei Division durch 3“). Reflexiv + antisymmetrisch + transitiv wäre eine Halbordnung. Injektiv/surjektiv/bijektiv sind Eigenschaften von Funktionen, nicht von Relationen allgemein."},
-    {q:"f: ℤ → ℤ mit f(x) = 2x. Welche Aussage stimmt?", o:["injektiv, aber nicht surjektiv","surjektiv, aber nicht injektiv","bijektiv","weder injektiv noch surjektiv"], c:[0],
-     e:"Injektiv: aus 2x = 2y folgt x = y. Nicht surjektiv: ungerade Zahlen (z. B. 3) werden nie getroffen, denn 2x ist immer gerade."},
-    {q:"f: ℝ → ℝ mit f(x) = x². Welche Aussage stimmt?", o:["injektiv, aber nicht surjektiv","surjektiv, aber nicht injektiv","bijektiv","weder injektiv noch surjektiv"], c:[3],
-     e:"Nicht injektiv: f(2) = f(−2) = 4. Nicht surjektiv: negative Zahlen werden nie getroffen (x² ≥ 0). Würde man f: [0, ∞) → [0, ∞) betrachten, wäre sie bijektiv – Definitions- und Zielmenge sind also wichtig!"},
-    {q:"Was zeigt man im Induktionsschritt der vollständigen Induktion?", o:["Dass die Aussage für n = 0 bzw. n = 1 gilt","Dass aus der Gültigkeit für n die Gültigkeit für n + 1 folgt","Dass die Aussage für alle n gilt, indem man ein Beispiel nachrechnet","Dass das Gegenteil zu einem Widerspruch führt"], c:[1],
-     e:"Induktionsanfang = Startwert prüfen (Antwort 1). Induktionsschritt = „wenn es für n gilt (Induktionsvoraussetzung), dann auch für n + 1“. Zusammen ergibt das eine Kette wie Dominosteine. Beispiele beweisen nichts allgemein; „Gegenteil → Widerspruch“ ist ein Widerspruchsbeweis."},
-    {q:"Σ = {a, b}. Wie viele verschiedene Wörter der Länge 3 gibt es über Σ?", o:["3","6","8","9"], c:[2],
-     e:"Jede der 3 Stellen kann a oder b sein: 2 · 2 · 2 = 2³ = 8 (aaa, aab, aba, abb, baa, bab, bba, bbb). Allgemein: |Σ|ⁿ Wörter der Länge n."},
-    {q:"Welche Aussagen über das leere Wort ε sind richtig?", o:["|ε| = 0","ε ∈ Σ*","ε ∈ Σ","{ε} = ∅"], c:[0,1],
-     e:"ε hat Länge 0 und gehört zu Σ* (Σ* enthält alle Wörter, auch das leere). ε ist aber kein Zeichen des Alphabets, also nicht in Σ. Und {ε} ist eine Sprache mit einem Wort, während ∅ gar kein Wort enthält – das ist nicht dasselbe!"},
-    {q:"Ein DEA über {a, b} akzeptiert genau die Wörter, die auf b enden. Welche Wörter werden akzeptiert?", o:["ab","ba","b","ε","aab"], c:[0,2,4],
-     e:"„ab“, „b“ und „aab“ enden auf b → akzeptiert. „ba“ endet auf a. ε hat gar kein letztes Zeichen, endet also nicht auf b → nicht akzeptiert."},
-    {q:"Welche Wörter beschreibt der reguläre Ausdruck a*b?", o:["b","aaab","ab","ba","a"], c:[0,1,2],
-     e:"`a*` heißt: beliebig viele a, auch null. Danach muss genau ein b kommen und dann ist Schluss. Also b, ab, aab, aaab, … „ba“ hat nach dem b noch ein Zeichen, „a“ hat kein b."},
-    {q:"Wann akzeptiert ein DEA ein Eingabewort?", o:["Wenn er nach dem Lesen des ganzen Wortes in einem Endzustand ist","Wenn er irgendwann während des Lesens einen Endzustand besucht","Wenn er jeden Zustand mindestens einmal besucht","Wenn das Wort nur Zeichen aus Σ enthält"], c:[0],
-     e:"Entscheidend ist nur der Zustand NACH dem letzten Zeichen. Zwischendurch einen Endzustand zu besuchen reicht nicht. Dass das Wort aus Σ besteht, ist Voraussetzung, damit der DEA es überhaupt lesen kann – sagt aber nichts über Akzeptanz."}
-  ]
-},
-
-dr: {
-  name: "Digitale Rechenanlagen",
-  sub: "Zahlensysteme, Boolesche Logik, Schaltungen, Rechnerarchitektur",
-  terms: [
-    ["Bit", "Kleinste Informationseinheit: 0 oder 1."],
-    ["Byte", "8 Bit. Damit lassen sich 2⁸ = 256 verschiedene Werte darstellen."],
-    ["KB vs. KiB", "KB (Kilobyte, SI) = 1000 Byte. KiB (Kibibyte, binär) = 1024 Byte = 2¹⁰ Byte. Analog MB/MiB, GB/GiB."],
-    ["Stellenwertsystem", "Der Wert einer Ziffer hängt von ihrer Position ab: Ziffer × Basis^Position.", "1011₂ = 1·8 + 0·4 + 1·2 + 1·1 = 11"],
-    ["Binärsystem (Dualsystem)", "Basis 2, Ziffern 0 und 1. Die Sprache des Computers."],
-    ["Hexadezimalsystem", "Basis 16, Ziffern 0–9 und A–F (A=10 … F=15). Eine Hex-Ziffer entspricht genau 4 Bit.", "1101 0110₂ = D6₁₆"],
-    ["Oktalsystem", "Basis 8, Ziffern 0–7. Eine Oktal-Ziffer entspricht 3 Bit."],
-    ["Umrechnung dezimal → binär", "Wiederholt durch 2 teilen und die Reste notieren; die Reste von unten nach oben gelesen ergeben die Binärzahl."],
-    ["MSB / LSB", "Most Significant Bit = höchstwertiges (linkes) Bit. Least Significant Bit = niederwertigstes (rechtes) Bit."],
-    ["Zweierkomplement", "Darstellung negativer ganzer Zahlen: alle Bits invertieren und 1 addieren. Das MSB ist bei negativen Zahlen 1. Bereich bei n Bit: −2ⁿ⁻¹ bis 2ⁿ⁻¹ − 1.", "−5 (8 Bit) = 11111011"],
-    ["Überlauf (Overflow)", "Das Ergebnis passt nicht mehr in die verfügbaren Bits und „springt um“.", "8 Bit Zweierkomplement: 127 + 1 = −128"],
-    ["Gleitkommazahl (IEEE 754)", "Darstellung als Vorzeichen · Mantisse · 2^Exponent. Single Precision (float): 32 Bit = 1 Vorzeichen + 8 Exponent + 23 Mantisse. Double: 64 Bit = 1 + 11 + 52."],
-    ["Rundungsfehler", "Viele Dezimalbrüche (z. B. 0,1) sind binär nicht endlich darstellbar und werden gerundet gespeichert."],
-    ["ASCII", "Zeichencode mit 7 Bit = 128 Zeichen (Buchstaben, Ziffern, Steuerzeichen).", "'A' = 65, 'a' = 97, '0' = 48"],
-    ["Unicode / UTF-8", "Unicode nummeriert (fast) alle Zeichen der Welt. UTF-8 speichert sie mit 1–4 Byte; die ersten 128 Zeichen sind identisch mit ASCII."],
-    ["Boolesche Algebra", "Rechnen mit den Werten 0 und 1 und den Operationen UND, ODER, NICHT – die mathematische Grundlage von Schaltungen."],
-    ["AND / OR / NOT", "AND: 1 nur wenn alle Eingänge 1. OR: 1 wenn mindestens ein Eingang 1. NOT: invertiert."],
-    ["XOR (exklusives Oder)", "1, wenn genau einer der beiden Eingänge 1 ist (wenn die Eingänge verschieden sind)."],
-    ["NAND / NOR", "NICHT-UND bzw. NICHT-ODER. Beide sind „universell“: Aus nur NAND- (oder nur NOR-)Gattern lässt sich jede boolesche Funktion bauen."],
-    ["Schaltnetz", "Kombinatorische Schaltung ohne Speicher: Der Ausgang hängt nur von den aktuellen Eingängen ab.", "Addierer, Multiplexer"],
-    ["Schaltwerk", "Sequentielle Schaltung mit Speicher (Rückkopplung): Der Ausgang hängt auch vom bisherigen Zustand ab.", "Zähler, Register"],
-    ["Halbaddierer", "Addiert zwei Bits. Summe = A XOR B, Übertrag (Carry) = A AND B."],
-    ["Volladdierer", "Addiert drei Bits (A, B und den Übertrag von der vorherigen Stelle). Mehrere Volladdierer hintereinander ergeben einen n-Bit-Addierer."],
-    ["Multiplexer (MUX)", "Wählt mit Steuerleitungen einen von mehreren Eingängen aus und leitet ihn zum Ausgang. Mit k Steuerbits: 2ᵏ Eingänge."],
-    ["Flipflop", "Grundlegendes Speicherelement, das genau 1 Bit speichert.", "SR-, D-, JK-Flipflop"],
-    ["Register", "Kleiner, sehr schneller Speicher direkt in der CPU, aus mehreren Flipflops aufgebaut."],
-    ["KV-Diagramm", "Karnaugh-Veitch-Diagramm: grafische Methode, um boolesche Ausdrücke zu vereinfachen, indem man benachbarte Einsen zu Blöcken zusammenfasst."],
-    ["Von-Neumann-Architektur", "Rechnermodell aus CPU (Rechenwerk + Steuerwerk), Speicher, Ein-/Ausgabe und Bus. Programme und Daten liegen im selben Speicher."],
-    ["Von-Neumann-Flaschenhals", "Weil Befehle und Daten über denselben Bus geholt werden, bremst die Verbindung zum Speicher die CPU aus."],
-    ["Harvard-Architektur", "Getrennte Speicher (und Busse) für Programm und Daten – Befehle und Daten können gleichzeitig geladen werden."],
-    ["CPU", "Prozessor: führt Befehle aus. Besteht v. a. aus ALU (Rechenwerk), Steuerwerk und Registern."],
-    ["ALU", "Arithmetic Logic Unit (Rechenwerk): führt Rechen- und Logikoperationen aus."],
-    ["Steuerwerk", "Holt und dekodiert Befehle und steuert die übrigen Komponenten."],
-    ["Befehlszähler (PC)", "Program Counter: Register mit der Adresse des nächsten auszuführenden Befehls."],
-    ["Befehlszyklus", "Fetch (Befehl holen) → Decode (dekodieren) → Execute (ausführen) – dann von vorne."],
-    ["Bus", "Gemeinsame Leitungen zur Datenübertragung zwischen Komponenten: Datenbus, Adressbus, Steuerbus."],
-    ["Taktfrequenz", "Wie viele Takte pro Sekunde die CPU ausführt, z. B. 3 GHz = 3 Milliarden Takte pro Sekunde."],
-    ["Speicherhierarchie", "Von schnell/klein/teuer zu langsam/groß/billig: Register → Cache → Arbeitsspeicher (RAM) → SSD/Festplatte."],
-    ["Cache", "Schneller Zwischenspeicher zwischen CPU und RAM, nutzt Lokalität aus (kürzlich bzw. benachbart genutzte Daten werden wahrscheinlich bald wieder gebraucht)."],
-    ["RAM vs. ROM", "RAM: Arbeitsspeicher, les- und schreibbar, flüchtig (Inhalt weg ohne Strom). ROM: Festwertspeicher, nicht flüchtig."]
-  ],
-  quiz: [
-    {q:"Welchen Dezimalwert hat die Binärzahl 1011₂?", o:["9","11","13","1011"], c:[1],
-     e:"Stellenwerte von rechts: 1, 2, 4, 8. Also 1·8 + 0·4 + 1·2 + 1·1 = 8 + 2 + 1 = 11."},
-    {q:"Wie lautet die Dezimalzahl 42 im Binärsystem?", o:["101010","100110","110010","101100"], c:[0],
-     e:"42 = 32 + 8 + 2 → Bits bei 32, 8 und 2 gesetzt: 1·32 + 0·16 + 1·8 + 0·4 + 1·2 + 0·1 = 101010₂. Alternativ: 42:2=21 R0, 21:2=10 R1, 10:2=5 R0, 5:2=2 R1, 2:2=1 R0, 1:2=0 R1 → von unten gelesen 101010."},
-    {q:"Welchen Dezimalwert hat 0xFF (hexadezimal FF)?", o:["15","16","255","256"], c:[2],
-     e:"F = 15. FF₁₆ = 15·16 + 15 = 255. Das ist auch 11111111₂ – der größte Wert, der in ein Byte passt."},
-    {q:"Wie lautet 1101 0110₂ in Hexadezimal?", o:["D6","B6","D9","6D"], c:[0],
-     e:"Je 4 Bit ergeben eine Hex-Ziffer: 1101 = 8+4+1 = 13 = D, 0110 = 4+2 = 6. Ergebnis: D6. (6D wäre die falsche Reihenfolge.)"},
-    {q:"Wie viele verschiedene Werte kann man mit 10 Bit darstellen?", o:["10","100","512","1024"], c:[3],
-     e:"Mit n Bit gibt es 2ⁿ Kombinationen: 2¹⁰ = 1024. (Darstellbar sind z. B. die Zahlen 0 bis 1023.)"},
-    {q:"Wie wird −5 als 8-Bit-Zweierkomplement dargestellt?", o:["10000101","11111010","11111011","00000101"], c:[2],
-     e:"Vorgehen: +5 = 00000101 → alle Bits invertieren: 11111010 (das wäre das Einerkomplement) → +1: 11111011. 10000101 wäre die Vorzeichen-Betrag-Darstellung."},
-    {q:"Welchen Wertebereich hat eine 8-Bit-Zahl im Zweierkomplement?", o:["0 bis 255","−127 bis 127","−128 bis 127","−256 bis 255"], c:[2],
-     e:"Bei n Bit: −2ⁿ⁻¹ bis 2ⁿ⁻¹ − 1, also −128 bis 127. Der Bereich ist unsymmetrisch, weil die 0 bei den „positiven“ Mustern (MSB = 0) mitgezählt wird. 0 bis 255 gilt für vorzeichenlose (unsigned) 8-Bit-Zahlen."},
-    {q:"Welche Aussagen zum Zweierkomplement sind richtig?", o:["Es gibt nur eine Darstellung der Null","Bei negativen Zahlen ist das höchstwertige Bit 1","Der Wertebereich ist symmetrisch um 0","Subtraktion kann als Addition durchgeführt werden"], c:[0,1,3],
-     e:"Genau deshalb wird es in Computern verwendet: nur eine Null (anders als beim Einerkomplement mit +0 und −0), das MSB zeigt das Vorzeichen, und a − b = a + (−b) – das Rechenwerk braucht nur einen Addierer. Der Bereich ist aber NICHT symmetrisch (−128 … 127)."},
-    {q:"Was ergibt 127 + 1 bei einer 8-Bit-Zahl im Zweierkomplement?", o:["128","0","−128","−1"], c:[2],
-     e:"01111111 + 1 = 10000000. Das MSB ist jetzt 1, also negativ: 10000000 = −128. Das nennt man Überlauf (Overflow). In Java passiert dasselbe: `Integer.MAX_VALUE + 1` ergibt `Integer.MIN_VALUE`."},
-    {q:"Wann liefert ein XOR-Gatter mit zwei Eingängen eine 1?", o:["Wenn beide Eingänge 1 sind","Wenn genau ein Eingang 1 ist","Wenn mindestens ein Eingang 1 ist","Wenn beide Eingänge 0 sind"], c:[1],
-     e:"XOR = „entweder oder“: 1, wenn die Eingänge verschieden sind. Wahrheitstafel: 00→0, 01→1, 10→1, 11→0. „Mindestens einer“ wäre OR."},
-    {q:"Mit welchem Gattertyp allein kann man jede beliebige boolesche Funktion bauen?", o:["NAND","NOR","AND","XOR"], c:[0,1],
-     e:"NAND und NOR sind beide funktional vollständig (universell). Z. B. NOT A = A NAND A. Mit nur AND kann man nicht negieren, mit nur XOR kann man kein AND bauen."},
-    {q:"Wie berechnet ein Halbaddierer Summe S und Übertrag C aus A und B?", o:["S = A XOR B, C = A AND B","S = A OR B, C = A AND B","S = A AND B, C = A XOR B","S = A XOR B, C = A OR B"], c:[0],
-     e:"1 + 1 = 10₂: Summe 0, Übertrag 1. 1 + 0 = 01₂: Summe 1, Übertrag 0. Die Summe ist also genau dann 1, wenn die Eingänge verschieden sind (XOR), der Übertrag nur, wenn beide 1 sind (AND)."},
-    {q:"Was unterscheidet ein Schaltwerk von einem Schaltnetz?", o:["Ein Schaltwerk hat Speicher – der Ausgang hängt auch vom vorherigen Zustand ab","Ein Schaltwerk kann nur AND- und OR-Gatter enthalten","Ein Schaltnetz ist immer schneller","Es gibt keinen Unterschied"], c:[0],
-     e:"Schaltnetz = kombinatorisch: Ausgang hängt nur von den aktuellen Eingängen ab (z. B. Addierer). Schaltwerk = sequentiell: enthält Speicherelemente wie Flipflops (Rückkopplung), z. B. Zähler oder Register."},
-    {q:"Wie viele Dateneingänge kann ein Multiplexer mit 3 Steuerleitungen auswählen?", o:["3","6","8","9"], c:[2],
-     e:"Mit 3 Steuerbits lassen sich 2³ = 8 verschiedene Eingänge adressieren."},
-    {q:"Was ist das zentrale Merkmal der Von-Neumann-Architektur?", o:["Programme und Daten liegen im selben Speicher","Programme und Daten haben getrennte Speicher","Die CPU hat keinen Befehlszähler","Es gibt keinen Bus"], c:[0],
-     e:"Bei Von Neumann teilen sich Befehle und Daten einen gemeinsamen Speicher und Bus. Das macht den Rechner flexibel, führt aber zum Von-Neumann-Flaschenhals. Getrennte Speicher = Harvard-Architektur."},
-    {q:"In welcher Reihenfolge läuft der Befehlszyklus ab?", o:["Fetch → Decode → Execute","Decode → Fetch → Execute","Execute → Fetch → Decode","Fetch → Execute → Decode"], c:[0],
-     e:"Erst den Befehl aus dem Speicher holen (Fetch, Adresse steht im Befehlszähler), dann verstehen, was zu tun ist (Decode), dann ausführen (Execute). Danach zeigt der Befehlszähler auf den nächsten Befehl."},
-    {q:"Was speichert der Befehlszähler (Program Counter)?", o:["Die Adresse des nächsten auszuführenden Befehls","Die Anzahl bisher ausgeführter Befehle","Das Ergebnis der letzten Rechnung","Die Taktfrequenz"], c:[0],
-     e:"Trotz des Namens zählt er keine Befehle mit, sondern zeigt auf die Speicheradresse des nächsten Befehls. Bei Sprüngen (z. B. Schleifen) wird er auf eine andere Adresse gesetzt."},
-    {q:"Welcher Speicher ist am schnellsten?", o:["Register","Cache","Arbeitsspeicher (RAM)","SSD"], c:[0],
-     e:"Speicherhierarchie: Register (in der CPU, wenige Bytes) → Cache → RAM → SSD/HDD. Je schneller, desto kleiner und teurer pro Byte."},
-    {q:"Welche Aussagen zu Größenangaben sind richtig?", o:["1 Byte = 8 Bit","1 KiB = 1024 Byte","1 KB (SI) = 1000 Byte","1 Byte = 10 Bit"], c:[0,1,2],
-     e:"1 Byte = 8 Bit. Die Präfixe mit „i“ (KiB, MiB, GiB) sind Zweierpotenzen (2¹⁰ = 1024), die SI-Präfixe (KB, MB, GB) Zehnerpotenzen. Deshalb hat eine „1 TB“-Festplatte im Betriebssystem oft nur ca. 931 GiB."},
-    {q:"Wie ist eine float-Zahl nach IEEE 754 (Single Precision, 32 Bit) aufgeteilt?", o:["1 Bit Vorzeichen, 8 Bit Exponent, 23 Bit Mantisse","1 Bit Vorzeichen, 11 Bit Exponent, 20 Bit Mantisse","8 Bit Vorzeichen, 8 Bit Exponent, 16 Bit Mantisse","16 Bit vor dem Komma, 16 Bit nach dem Komma"], c:[0],
-     e:"Single: 1 + 8 + 23 = 32 Bit. Double (64 Bit): 1 + 11 + 52. Die letzte Option beschreibt eine Festkommadarstellung, keine Gleitkommazahl."},
-    {q:"Warum ergibt 0.1 + 0.2 im Computer nicht exakt 0.3?", o:["Weil 0,1 im Binärsystem nicht endlich darstellbar ist und gerundet wird","Weil die CPU falsch rechnet","Weil Gleitkommazahlen nur ganze Zahlen speichern","Weil der Cache zu klein ist"], c:[0],
-     e:"0,1 ist binär ein periodischer Bruch (0,000110011…₂), ähnlich wie 1/3 = 0,333… im Dezimalsystem. Er wird auf die verfügbaren Mantissen-Bits gerundet. Ergebnis z. B. 0.30000000000000004. Deshalb vergleicht man Gleitkommazahlen nie mit ==."},
-    {q:"Wie viele Zeichen umfasst der (Standard-)ASCII-Code?", o:["128","256","1024","65536"], c:[0],
-     e:"ASCII nutzt 7 Bit → 2⁷ = 128 Zeichen. 256 wären 8-Bit-Erweiterungen (z. B. ISO-8859-1). Unicode ist viel größer; UTF-8 ist zu ASCII kompatibel."}
-  ]
-},
-
-java: {
-  name: "Programmieren in Java",
-  sub: "Grundbegriffe, Datentypen, Operatoren, Kontrollstrukturen, Methoden & Klassen",
-  terms: [
-    ["Quellcode", "Der vom Menschen geschriebene Programmtext in einer .java-Datei."],
-    ["Compiler (javac)", "Übersetzt den Quellcode (.java) in Bytecode (.class) und meldet dabei Syntax- und Typfehler."],
-    ["Bytecode", "Plattformunabhängiger Zwischencode in .class-Dateien, der von der JVM ausgeführt wird."],
-    ["JVM", "Java Virtual Machine: führt Bytecode aus. Gibt es für jedes Betriebssystem – daher „Write once, run anywhere“."],
-    ["JRE / JDK", "JRE = Laufzeitumgebung (JVM + Standardbibliothek) zum Ausführen. JDK = JRE + Entwicklungswerkzeuge wie javac zum Entwickeln."],
-    ["main-Methode", "Einstiegspunkt jedes Programms.", "public static void main(String[] args)"],
-    ["Klasse", "Bauplan für Objekte: beschreibt Attribute (Daten) und Methoden (Verhalten)."],
-    ["Objekt / Instanz", "Ein konkretes Exemplar einer Klasse, erzeugt mit new.", "Hund bello = new Hund();"],
-    ["Attribut", "Variable, die zu einem Objekt (oder einer Klasse) gehört und dessen Zustand speichert."],
-    ["Methode", "Benannter Codeblock, der eine Aufgabe erledigt. Hat Rückgabetyp, Namen und Parameterliste.", "int quadrat(int x) { return x * x; }"],
-    ["Konstruktor", "Spezielle Methode, die beim Erzeugen eines Objekts mit new aufgerufen wird. Heißt genau wie die Klasse und hat keinen Rückgabetyp (auch nicht void)."],
-    ["Variable", "Benannter Speicherplatz mit festem Typ."],
-    ["Deklaration / Initialisierung", "Deklaration: Typ und Name festlegen (int x;). Initialisierung: ersten Wert zuweisen (x = 5;). Oft beides zusammen: int x = 5;"],
-    ["Primitive Datentypen", "Die 8 eingebauten Grundtypen: byte, short, int, long (ganze Zahlen), float, double (Kommazahlen), char (Zeichen), boolean (true/false)."],
-    ["Referenztyp", "Alle nicht-primitiven Typen (Klassen, Arrays, String). Die Variable speichert einen Verweis auf das Objekt, nicht das Objekt selbst."],
-    ["String", "Klasse für Zeichenketten – kein primitiver Typ. Strings sind unveränderlich (immutable).", "String s = \"Hallo\";"],
-    ["null", "Besonderer Wert für Referenzvariablen: zeigt auf kein Objekt."],
-    ["Typumwandlung (Casting)", "Implizit (automatisch), wenn kein Informationsverlust droht (int → double). Explizit mit (Typ), wenn Informationen verloren gehen können.", "int x = (int) 3.99;  // x = 3"],
-    ["Integer-Division", "Teilt man zwei ganze Zahlen, wird der Nachkommateil abgeschnitten.", "7 / 2 ergibt 3"],
-    ["Modulo %", "Rest einer ganzzahligen Division.", "7 % 2 ergibt 1 → praktisch für „ist x gerade?“ (x % 2 == 0)"],
-    ["++ / --", "Erhöht bzw. verringert um 1. x++ (Postfix) liefert den alten Wert, ++x (Präfix) den neuen."],
-    ["== vs. equals()", "== vergleicht bei Objekten, ob es dasselbe Objekt ist (Referenz). equals() vergleicht den Inhalt. Strings daher immer mit equals() vergleichen."],
-    ["&& / || (Kurzschlussauswertung)", "Logisches UND/ODER. Der rechte Teil wird nur ausgewertet, wenn nötig: bei false && … und true || … steht das Ergebnis schon fest."],
-    ["if / else", "Verzweigung: führt Code nur aus, wenn eine Bedingung true ist."],
-    ["switch", "Mehrfachverzweigung über einen Wert. Ohne break „fällt“ die Ausführung in den nächsten case durch."],
-    ["for-Schleife", "Zählschleife mit Initialisierung, Bedingung und Schritt.", "for (int i = 0; i < 5; i++) { … }"],
-    ["while / do-while", "while prüft die Bedingung vor jedem Durchlauf (evtl. 0-mal). do-while prüft danach – der Körper läuft mindestens einmal."],
-    ["Array", "Feste Anzahl von Elementen gleichen Typs. Index beginnt bei 0, letzter Index ist length − 1.", "int[] a = new int[5];"],
-    ["Rückgabetyp / void", "Gibt an, welchen Typ eine Methode mit return zurückliefert. void = keine Rückgabe."],
-    ["Parameter / Argument", "Parameter: Variable in der Methodendefinition. Argument: konkreter Wert beim Aufruf."],
-    ["Überladen (Overloading)", "Mehrere Methoden mit gleichem Namen, aber unterschiedlicher Parameterliste."],
-    ["static", "Gehört zur Klasse statt zu einem Objekt. Statische Methoden kann man ohne Objekt aufrufen.", "Math.sqrt(16)"],
-    ["Sichtbarkeit public / private", "public: von überall sichtbar. private: nur innerhalb derselben Klasse."],
-    ["Kapselung", "Attribute private machen und nur über Methoden (Getter/Setter) zugänglich machen – schützt vor falscher Verwendung."],
-    ["Gültigkeitsbereich (Scope)", "Eine Variable ist nur in dem Block { … } sichtbar, in dem sie deklariert wurde."],
-    ["final", "Der Wert kann nach der Zuweisung nicht mehr geändert werden (Konstante).", "final double PI = 3.14159;"],
-    ["Namenskonventionen", "Klassen: GroßAmAnfang (MeinProgramm). Variablen und Methoden: kleinAmAnfang (anzahlSchritte). Konstanten: GROSS_MIT_UNTERSTRICH."],
-    ["Kommentare", "// einzeilig, /* … */ mehrzeilig, /** … */ Javadoc (Dokumentation)."],
-    ["Exception", "Ausnahme, die zur Laufzeit auftritt, z. B. NullPointerException, ArrayIndexOutOfBoundsException, ArithmeticException (Division durch 0)."],
-    ["Syntax-, Laufzeit-, logischer Fehler", "Syntaxfehler: Compiler meckert. Laufzeitfehler: Programm stürzt beim Ausführen ab (Exception). Logischer Fehler: läuft, liefert aber falsches Ergebnis."],
-    ["Rekursion", "Eine Methode ruft sich selbst auf. Braucht einen Basisfall (Abbruchbedingung), sonst StackOverflowError."]
-  ],
-  quiz: [
-    {q:"Was gibt dieser Code aus?", code:"System.out.println(7 / 2);", o:["3.5","3","4","3.0"], c:[1],
-     e:"7 und 2 sind beide `int` → Integer-Division, der Nachkommateil wird abgeschnitten (nicht gerundet!). Für 3.5 müsste mindestens ein Operand ein `double` sein, z. B. `7 / 2.0`."},
-    {q:"Welchen Wert hat d?", code:"double d = 10 / 4;", o:["2.5","2.0","2","Compilerfehler"], c:[1],
-     e:"Zuerst wird `10 / 4` als Integer-Division gerechnet = 2. Erst danach wird die 2 in ein `double` umgewandelt → 2.0. Die Typumwandlung passiert zu spät, um die Nachkommastellen zu retten."},
-    {q:"Was ergibt 17 % 5?", o:["3","2","3.4","0"], c:[1],
-     e:"% ist der Rest der ganzzahligen Division: 17 = 3 · 5 + 2, also Rest 2."},
-    {q:"Was gibt dieser Code aus?", code:"System.out.println(1 + 2 + \"3\");", o:["123","33","6","15"], c:[1],
-     e:"Java rechnet von links nach rechts: `1 + 2` = 3 (Zahl + Zahl). Dann `3 + \"3\"` = \"33\" (Zahl + String = Verkettung). Umgekehrt ergibt `\"1\" + 2 + 3` den String \"123\", weil ab dem ersten String alles verkettet wird."},
-    {q:"Welche dieser Typen sind primitive Datentypen?", o:["int","String","boolean","char","Integer","double"], c:[0,2,3,5],
-     e:"Die 8 primitiven Typen: byte, short, int, long, float, double, char, boolean – alle kleingeschrieben. `String` ist eine Klasse (Referenztyp). `Integer` ist die Wrapper-Klasse zu `int`, also ebenfalls ein Referenztyp."},
-    {q:"Welche Zeile führt zu einem Compilerfehler?", o:["double d = 3;","int x = 3.5;","long l = 10;","float f = 2.5f;"], c:[1],
-     e:"`3.5` ist ein `double`. Beim Umwandeln in `int` ginge der Nachkommateil verloren, deshalb verlangt Java einen expliziten Cast: `int x = (int) 3.5;`. Die anderen Umwandlungen (int → double, int → long) sind verlustfrei und passieren automatisch. `2.5f` ist ein float-Literal."},
-    {q:"Welchen Wert hat x?", code:"int x = (int) 3.99;", o:["3","4","3.99","Compilerfehler"], c:[0],
-     e:"Der Cast nach `int` schneidet die Nachkommastellen ab (Richtung 0) – es wird nicht gerundet. Zum Runden gibt es `Math.round(3.99)`."},
-    {q:"Welche Werte haben x und y nach diesem Code?", code:"int x = 5;\nint y = x++;", o:["x = 6, y = 5","x = 6, y = 6","x = 5, y = 6","x = 5, y = 5"], c:[0],
-     e:"`x++` (Postfix) liefert zuerst den alten Wert (5) für y und erhöht x danach auf 6. Bei `int y = ++x;` (Präfix) würde x zuerst erhöht und y = 6."},
-    {q:"Wie vergleicht man den Inhalt zweier Strings s1 und s2 richtig?", o:["s1.equals(s2)","s1 == s2","s1 = s2","s1.compare(s2) == true"], c:[0],
-     e:"`equals` vergleicht die Zeichen. `==` prüft nur, ob beide Variablen auf dasselbe Objekt zeigen – das kann bei gleichem Inhalt trotzdem false sein. `=` ist eine Zuweisung, kein Vergleich. `compare` gibt es so nicht (es gibt `compareTo`, das liefert aber einen int)."},
-    {q:"Was passiert bei diesem Code?", code:"int x = 0;\nif (x != 0 && 10 / x > 1) {\n    System.out.println(\"groß\");\n}", o:["Nichts wird ausgegeben, kein Fehler","ArithmeticException (Division durch 0)","Compilerfehler","Es wird „groß“ ausgegeben"], c:[0],
-     e:"`&&` wertet kurzschlussartig aus: `x != 0` ist false, also steht das Ergebnis schon fest und `10 / x` wird gar nicht berechnet. Das ist ein häufiger Trick, um Fehler zu vermeiden. Mit `&` (ohne Kurzschluss) gäbe es eine ArithmeticException."},
-    {q:"Was ergibt !(true && false) || false?", o:["true","false","Compilerfehler","null"], c:[0],
-     e:"Schritt für Schritt: `true && false` = false → `!false` = true → `true || false` = true."},
-    {q:"Wie oft wird der Schleifenkörper ausgeführt?", code:"for (int i = 1; i <= 10; i += 3) {\n    System.out.println(i);\n}", o:["3-mal","4-mal","10-mal","Endlos"], c:[1],
-     e:"i nimmt die Werte 1, 4, 7, 10 an – alle ≤ 10. Danach ist i = 13 und die Bedingung false. Also 4 Durchläufe. Bei `i < 10` wären es nur 3."},
-    {q:"Was gibt dieser Code aus?", code:"int n = 0;\nwhile (n < 3) {\n    n++;\n}\nSystem.out.println(n);", o:["2","3","4","0"], c:[1],
-     e:"Die Schleife läuft für n = 0, 1, 2 und erhöht jeweils. Wenn n = 3 ist, ist `n < 3` false und die Schleife endet. Ausgegeben wird 3."},
-    {q:"Was ist das Besondere an einer do-while-Schleife?", o:["Der Körper wird mindestens einmal ausgeführt","Sie läuft immer genau einmal","Sie braucht keine Bedingung","Sie ist schneller als while"], c:[0],
-     e:"`do { … } while (bedingung);` prüft die Bedingung erst NACH dem Durchlauf. Eine normale while-Schleife prüft vorher und kann deshalb auch 0-mal laufen."},
-    {q:"Was gibt dieser Code aus?", code:"int k = 1;\nswitch (k) {\n    case 1: System.out.print(\"A\");\n    case 2: System.out.print(\"B\");\n            break;\n    case 3: System.out.print(\"C\");\n}", o:["A","AB","ABC","Nichts"], c:[1],
-     e:"case 1 passt → „A“. Da dort kein `break` steht, fällt die Ausführung in case 2 durch (Fall-through) → „B“. Dann kommt `break` und der switch wird verlassen. Ergebnis: AB."},
-    {q:"Was gibt dieser Code aus?", code:"System.out.println('a' + 1);", o:["b","a1","98","Compilerfehler"], c:[2],
-     e:"Ein `char` ist intern eine Zahl (Unicode/ASCII: 'a' = 97). Bei `+` mit einem int wird gerechnet: 97 + 1 = 98, und das Ergebnis ist ein `int`. Für „b“ müsste man zurückcasten: `(char)('a' + 1)`."},
-    {q:"Gegeben: int[] a = {4, 7, 1}; Welche Aussagen stimmen?", o:["a.length ist 3","a[0] ist 4","a[3] ist 1","a[a.length - 1] ist 1"], c:[0,1,3],
-     e:"Indizes beginnen bei 0: a[0] = 4, a[1] = 7, a[2] = 1. Der letzte Index ist `length - 1` = 2. Ein Zugriff auf `a[3]` wirft eine ArrayIndexOutOfBoundsException."},
-    {q:"Welchen Wert haben die Elemente nach int[] a = new int[5]; ?", o:["Alle 0","Alle null","Zufällige Werte","Compilerfehler, weil keine Werte angegeben sind"], c:[0],
-     e:"Arrays werden in Java automatisch mit Standardwerten gefüllt: 0 bei Zahlen, false bei boolean, '\\u0000' bei char und null bei Referenztypen (z. B. String[])."},
-    {q:"Was passiert bei diesem Code?", code:"for (int i = 0; i < 3; i++) { }\nSystem.out.println(i);", o:["Ausgabe: 3","Ausgabe: 2","Compilerfehler","Ausgabe: 0"], c:[2],
-     e:"`i` wurde im Kopf der for-Schleife deklariert und existiert nur innerhalb der Schleife (Scope). Außerhalb kennt der Compiler `i` nicht → „cannot find symbol“."},
-    {q:"Welche Aussagen über einen Konstruktor sind richtig?", o:["Er heißt genauso wie die Klasse","Er hat den Rückgabetyp void","Er wird beim Erzeugen eines Objekts mit new aufgerufen","Eine Klasse kann mehrere Konstruktoren haben"], c:[0,2,3],
-     e:"Ein Konstruktor trägt den Klassennamen und hat GAR KEINEN Rückgabetyp – auch nicht void (mit void wäre es eine normale Methode!). Er läuft bei `new`. Mehrere Konstruktoren mit unterschiedlichen Parametern sind möglich (Überladen)."},
-    {q:"Was bedeutet static bei einer Methode?", o:["Sie gehört zur Klasse und kann ohne Objekt aufgerufen werden","Sie kann nicht verändert werden","Sie ist nur innerhalb der Klasse sichtbar","Sie gibt nichts zurück"], c:[0],
-     e:"Statische Methoden gehören zur Klasse, z. B. `Math.max(3, 5)` – man braucht kein Math-Objekt. „Nicht veränderbar“ wäre final, „nur in der Klasse sichtbar“ private, „gibt nichts zurück“ void."},
-    {q:"Welche Methoden sind gültige Überladungen von int summe(int a, int b)?", o:["int summe(int a, int b, int c)","double summe(double a, double b)","double summe(int x, int y)","int summe(int b, int a)"], c:[0,1],
-     e:"Überladen = gleicher Name, aber unterschiedliche Parameterliste (Anzahl oder Typen). Nur einen anderen Rückgabetyp oder andere Parameter-NAMEN zu haben reicht nicht – `summe(int, int)` gäbe es dann doppelt → Compilerfehler."},
-    {q:"Was bedeutet private bei einem Attribut?", o:["Es ist nur innerhalb derselben Klasse sichtbar","Es kann nicht geändert werden","Es gehört zur Klasse statt zum Objekt","Es wird nicht gespeichert"], c:[0],
-     e:"private schränkt die Sichtbarkeit auf die eigene Klasse ein. Von außen greift man dann über Getter/Setter zu – das nennt man Kapselung. „Nicht änderbar“ = final, „gehört zur Klasse“ = static."},
-    {q:"Wann tritt eine NullPointerException auf?", o:["Wenn man auf eine Methode oder ein Attribut einer Referenz zugreift, die null ist","Wenn man durch 0 teilt","Wenn ein Array-Index zu groß ist","Wenn eine int-Variable 0 ist"], c:[0],
-     e:"Beispiel: `String s = null; s.length();` → es gibt kein Objekt, dessen Länge man abfragen könnte. Division durch 0 → ArithmeticException, falscher Index → ArrayIndexOutOfBoundsException. Primitive Typen wie int können gar nicht null sein."},
-    {q:"Was passiert bei dieser Methode, wenn man fak(3) aufruft?", code:"int fak(int n) {\n    return n * fak(n - 1);\n}", o:["StackOverflowError, weil der Basisfall fehlt","Ergebnis 6","Ergebnis 0","Compilerfehler"], c:[0],
-     e:"Es fehlt die Abbruchbedingung, z. B. `if (n <= 1) return 1;`. Ohne sie ruft sich die Methode endlos selbst auf (3, 2, 1, 0, −1, …), bis der Aufrufstapel voll ist → StackOverflowError. Der Compiler erkennt das nicht."},
-    {q:"Was macht der Java-Compiler javac?", o:["Er übersetzt .java-Quellcode in Bytecode (.class)","Er führt den Bytecode aus","Er übersetzt direkt in Maschinencode für Windows","Er sucht logische Fehler im Programm"], c:[0],
-     e:"javac erzeugt plattformunabhängigen Bytecode. Ausgeführt wird dieser von der JVM (Befehl `java`). Logische Fehler findet der Compiler nicht – nur Syntax- und Typfehler."},
-    {q:"Welche Aussagen zu Fehlerarten sind richtig?", o:["Ein fehlendes Semikolon ist ein Syntaxfehler","Eine Division durch 0 bei int ist ein Laufzeitfehler","Ein logischer Fehler wird vom Compiler gemeldet","Eine falsche Formel, die ein falsches Ergebnis liefert, ist ein logischer Fehler"], c:[0,1,3],
-     e:"Syntaxfehler findet der Compiler (fehlendes ;, Klammern …). Laufzeitfehler treten erst beim Ausführen auf (ArithmeticException). Logische Fehler bemerkt weder Compiler noch JVM – das Programm läuft, rechnet aber falsch. Deshalb testen!"}
-  ]
-}
-};
-
 var ORDER = ["fs","dr","java"];
-var COL = {fs:"fs", dr:"dr", java:"java", all:"all"};
 var L = "ABCDEFGH";
+var app = document.getElementById("app");
 
 /* ---------- Helpers ---------- */
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
-function fmt(s){return esc(s).replace(/`([^`]+)`/g,"<code>$1</code>")}
+function ov(h){return h.replace(/([^\u0305])\u0305/g,'<span class="ov">$1</span>')}
+function fmt(s){return ov(esc(s).replace(/`([^`]+)`/g,"<code>$1</code>"))}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem("ilern_"+k));localStorage.setItem("ilern_"+k,JSON.stringify(v))}catch(e){return null}}
-function setAccent(id){var r=document.documentElement.style;r.setProperty("--accent","var(--"+COL[id]+")");r.setProperty("--accent-bg","var(--"+COL[id]+"-bg)")}
-var app = document.getElementById("app");
-function header(back){return '<div class="top"><a class="brand" href="#/">Informatik lernen <span>· 1. Semester</span></a>'+(back?'<a class="back" href="#/">← Übersicht</a>':'')+'</div>'}
+function setAccent(id){var r=document.documentElement.style;r.setProperty("--accent","var(--"+id+")");r.setProperty("--accent-bg","var(--"+id+"-bg)")}
+function count(f,key){return FACH[f].themen.reduce(function(s,t){return s+t[key].length},0)}
+function topicIdx(f,tid){var th=FACH[f].themen;for(var i=0;i<th.length;i++)if(th[i].id===tid)return i;return -1}
+function crumbs(parts){
+  var h='<nav class="top"><a class="brand" href="#/">Informatik lernen</a>';
+  parts.forEach(function(p,i){h+='<span class="sep">›</span>'+(p[1]&&i<parts.length-1?'<a href="'+p[1]+'">'+esc(p[0])+'</a>':'<span class="cur">'+esc(p[0])+'</span>')});
+  return h+'</nav>';
+}
 
 /* ---------- Home ---------- */
 function home(){
   setAccent("fs");
-  var h = header(false);
-  h += '<div class="hero"><h1>Die wichtigsten Begriffe – zum Nachschlagen und Üben.</h1><p>Wähle ein Fach. Unter „Begriffe“ findest du alle Grundbegriffe mit kurzer Erklärung, im Quiz prüfst du dich selbst – zu jeder Frage gibt es eine Erklärung, warum was richtig ist.</p></div><div class="topics">';
-  ORDER.forEach(function(id){
-    var t=T[id], b=store("best_"+id);
-    h += '<div class="topic" style="--c:var(--'+id+')"><h2>'+esc(t.name)+'</h2><p class="sub">'+esc(t.sub)+'</p><div class="row">'+
-      '<a class="pill" href="#/'+id+'/begriffe">Begriffe · '+t.terms.length+'</a>'+
-      '<a class="pill pr" href="#/'+id+'/quiz">Quiz · '+t.quiz.length+' Fragen</a>'+
-      (b!=null?'<span class="best">Bestes Ergebnis: '+b+' %</span>':'')+'</div></div>';
+  var h = '<nav class="top"><span class="brand">Informatik lernen</span><span class="sep">·</span><span>1. Semester</span></nav>';
+  h += '<div class="hero"><h1>Begriffe, Zeichen und Quizfragen – nach deinen Unterlagen.</h1><p>Jedes Fach ist in Themen aufgeteilt, so wie die Foliensätze bzw. Skript-Kapitel. Zu jedem Thema gibt es die Begriffe zum Nachlesen und ein Quiz mit Erklärung, warum was richtig ist.</p></div><div class="subjects">';
+  ORDER.forEach(function(f){
+    var F=FACH[f];
+    h += '<a class="subj" href="#/'+f+'" style="--c:var(--'+f+')"><h2>'+esc(F.name)+'<span>→</span></h2><p class="sub">'+esc(F.sub)+'</p><div class="stats">'+
+      '<span class="stat">'+F.themen.length+' Themen</span><span class="stat">'+count(f,"terms")+' Begriffe</span><span class="stat">'+count(f,"quiz")+' Fragen</span>'+
+      (F.zeichen?'<span class="stat">Zeichen & Symbole</span>':'')+'</div></a>';
   });
-  var n = ORDER.reduce(function(s,id){return s+T[id].quiz.length},0), ba=store("best_all");
-  h += '</div><div class="mix" style="--c:var(--all)"><p><b style="color:var(--ink)">Alles gemischt</b> – '+n+' Fragen aus allen drei Fächern'+(ba!=null?' · Bestes: '+ba+' %':'')+'</p><a class="pill pr" href="#/all/quiz">Mix-Quiz starten</a></div>';
+  var n = ORDER.reduce(function(s,f){return s+count(f,"quiz")},0), ba=store("best_all");
+  h += '</div><div class="mix" style="--accent:var(--all);--accent-bg:var(--all-bg)"><p><b style="color:var(--ink)">Alles gemischt</b> – '+n+' Fragen aus allen Fächern'+(ba!=null?' · Bestes: '+ba+' %':'')+'</p><a class="pill pr" href="#/alle/quiz">Mix-Quiz starten</a></div>';
   h += '<p class="foot">Auch hier: <a href="biochemie_quiz.html">Biochemie-Quizzes</a></p>';
   app.innerHTML = h;
 }
 
+/* ---------- Subject ---------- */
+function subject(f){
+  setAccent(f);
+  var F=FACH[f], bf=store("best_"+f);
+  var h = crumbs([[F.name]]);
+  h += '<div class="th"><span class="tag">Fach</span><h1>'+esc(F.name)+'</h1></div>';
+  if(F.hinweis) h += '<p class="note">'+fmt(F.hinweis)+'</p>';
+  h += '<div class="row actions">'+(F.zeichen?'<a class="pill" href="#/'+f+'/zeichen">Zeichen & Symbole</a>':'')+
+       '<a class="pill pr" href="#/'+f+'/quiz">Alle '+count(f,"quiz")+' Fragen mischen</a>'+(bf!=null?'<span class="stat">Bestes: '+bf+' %</span>':'')+'</div>';
+  h += '<div class="topics">';
+  F.themen.forEach(function(t,i){
+    var b=store("best_"+f+"_"+t.id);
+    h += '<a class="topic" href="#/'+f+'/'+t.id+'"><span class="num">'+(i+1)+'</span><div><h3>'+esc(t.name)+'</h3>'+
+      '<p class="meta">'+t.terms.length+' Begriffe · '+t.quiz.length+' Fragen'+(t.kat?' · '+t.kat.length+'× Fragenkatalog':'')+' · '+esc(t.quelle)+'</p>'+
+      (b!=null?'<p class="best">Bestes Quiz-Ergebnis: '+b+' %</p>':'')+'</div></a>';
+  });
+  h += '</div>';
+  app.innerHTML = h;
+}
+
+/* ---------- Topic header ---------- */
+function topicHead(f,i,view){
+  var F=FACH[f], t=F.themen[i];
+  var h = crumbs([[F.name,"#/"+f],[t.name]]);
+  h += '<div class="th"><span class="tag">Thema '+(i+1)+' von '+F.themen.length+'</span><h1>'+esc(t.name)+'</h1><p class="src">Quelle: '+esc(t.quelle)+'</p></div>';
+  h += '<nav class="tabs"><a'+(view==="b"?' class="on"':'')+' href="#/'+f+'/'+t.id+'">Begriffe ('+t.terms.length+')</a><a'+(view==="q"?' class="on"':'')+' href="#/'+f+'/'+t.id+'/quiz">Quiz ('+t.quiz.length+')</a></nav>';
+  return h;
+}
+function prevNext(f,i,suffix){
+  var th=FACH[f].themen, h='<div class="pn">';
+  if(i>0) h+='<a href="#/'+f+'/'+th[i-1].id+suffix+'"><small>← vorheriges Thema</small>'+esc(th[i-1].name)+'</a>';
+  if(i<th.length-1) h+='<a class="nx" href="#/'+f+'/'+th[i+1].id+suffix+'"><small>nächstes Thema →</small>'+esc(th[i+1].name)+'</a>';
+  return h+'</div>';
+}
+
 /* ---------- Glossary ---------- */
 var hideDefs = false;
-function glossary(id){
-  setAccent(id);
-  var t=T[id];
-  app.innerHTML = header(true)+
-    '<div class="th"><span class="tag">Begriffe</span><h1>'+esc(t.name)+'</h1></div>'+
-    '<nav class="tabs"><a class="on" href="#/'+id+'/begriffe">Begriffe</a><a href="#/'+id+'/quiz">Quiz</a></nav>'+
-    '<div class="gtools"><input class="search" id="s" type="search" placeholder="Begriff suchen …" autocomplete="off">'+
-    '<label class="toggle"><input type="checkbox" id="hd"'+(hideDefs?' checked':'')+'> Erklärungen verdecken</label></div>'+
-    '<dl class="terms'+(hideDefs?' hide':'')+'" id="tl"></dl>';
+function glossary(f,i){
+  setAccent(f);
+  var t=FACH[f].themen[i];
+  var h = topicHead(f,i,"b");
+  if(t.kat) h += '<details class="kat"><summary>Fragenkatalog: '+t.kat.length+' Prüfungspunkt'+(t.kat.length>1?'e':'')+' zu diesem Thema</summary><ul>'+t.kat.map(function(k){return '<li>'+esc(k)+'</li>'}).join("")+'</ul></details>';
+  h += '<div class="gtools"><input class="search" id="s" type="search" placeholder="Begriff suchen …" autocomplete="off">'+
+       '<label class="toggle"><input type="checkbox" id="hd"'+(hideDefs?' checked':'')+'> Erklärungen verdecken</label></div>'+
+       '<dl class="terms'+(hideDefs?' hide':'')+'" id="tl"></dl>';
+  h += '<div class="ac" style="margin-top:1.5rem"><a class="btn pr" href="#/'+f+'/'+t.id+'/quiz">Quiz zu diesem Thema starten</a></div>';
+  h += prevNext(f,i,"");
+  app.innerHTML = h;
   var tl=document.getElementById("tl"), s=document.getElementById("s");
   function draw(){
-    var f=s.value.trim().toLowerCase();
-    var list=t.terms.filter(function(x){return !f||(x[0]+" "+x[1]+" "+(x[2]||"")).toLowerCase().indexOf(f)>=0});
+    var q=s.value.trim().toLowerCase();
+    var list=t.terms.filter(function(x){return !q||(x.join(" ")).toLowerCase().indexOf(q)>=0});
     tl.innerHTML = list.length ? list.map(function(x){
-      return '<div class="term"><dt>'+esc(x[0])+'</dt><dd>'+fmt(x[1])+(x[2]?'<span class="ex2">'+(x[2].indexOf("=")>=0||/[;(){}]/.test(x[2])?'<code>'+esc(x[2])+'</code>':'z. B. '+esc(x[2]))+'</span>':'')+'</dd></div>';
+      return '<div class="term"><dt>'+ov(esc(x[0]))+'</dt><dd>'+fmt(x[1])+(x[2]?'<span class="ex2">Beispiel: '+fmt(x[2])+'</span>':'')+'</dd></div>';
     }).join("") : '<p class="empty">Kein Begriff gefunden.</p>';
   }
   s.oninput=draw;
@@ -495,26 +278,62 @@ function glossary(id){
   draw();
 }
 
+/* ---------- Symbols ---------- */
+function symbols(f){
+  setAccent(f);
+  var F=FACH[f];
+  var h = crumbs([[F.name,"#/"+f],["Zeichen & Symbole"]]);
+  h += '<div class="th"><span class="tag">Nachschlagen</span><h1>Zeichen & Symbole</h1><p class="src">'+esc(F.name)+' – Schreibweisen aus den Unterlagen</p></div>';
+  h += '<div class="gtools"><input class="search" id="s" type="search" placeholder="Zeichen oder Bedeutung suchen …" autocomplete="off"></div><div id="sl"></div>';
+  app.innerHTML = h;
+  var sl=document.getElementById("sl"), s=document.getElementById("s");
+  function draw(){
+    var q=s.value.trim().toLowerCase(), out="";
+    F.zeichen.forEach(function(g){
+      var rows=g.rows.filter(function(r){return !q||(r.join(" ")+" "+g.g).toLowerCase().indexOf(q)>=0});
+      if(!rows.length) return;
+      out+='<section class="sgroup"><h2>'+esc(g.g)+'</h2>'+rows.map(function(r){
+        return '<div class="sym"><div class="s">'+ov(esc(r[0]))+'</div><div class="n">'+ov(esc(r[1]))+'</div>'+
+          (r[2]?'<div class="m">'+ov(esc(r[2]))+'</div>':'')+(r[3]?'<div class="x">Beispiel: <code>'+ov(esc(r[3]))+'</code></div>':'')+'</div>';
+      }).join("")+'</section>';
+    });
+    sl.innerHTML = out || '<p class="empty">Nichts gefunden.</p>';
+  }
+  s.oninput=draw; draw();
+}
+
 /* ---------- Quiz ---------- */
 var S;
-function quiz(id, onlyWrong){
-  setAccent(id);
-  var pool;
-  if(id==="all"){pool=[];ORDER.forEach(function(k){T[k].quiz.forEach(function(q){pool.push({q:q,t:k})})})}
-  else pool=T[id].quiz.map(function(q){return {q:q,t:id}});
-  if(onlyWrong) pool=onlyWrong;
-  pool=shuffle(pool).map(function(p){var idx=shuffle(p.q.o.map(function(_,i){return i}));return {q:p.q,t:p.t,idx:idx}});
-  S={id:id,list:pool,i:0,sel:[],done:false,right:0,wrong:[]};
+function buildPool(scope){
+  var pool=[];
+  function add(f,t){t.quiz.forEach(function(q){pool.push({q:q,f:f,t:t})})}
+  if(scope.all) ORDER.forEach(function(f){FACH[f].themen.forEach(function(t){add(f,t)})});
+  else if(scope.i==null) FACH[scope.f].themen.forEach(function(t){add(scope.f,t)});
+  else add(scope.f,FACH[scope.f].themen[scope.i]);
+  return pool;
+}
+function quiz(scope, onlyWrong){
+  setAccent(scope.all?"all":scope.f);
+  var pool = onlyWrong || buildPool(scope);
+  pool = shuffle(pool).map(function(p){return {q:p.q,f:p.f,t:p.t,idx:shuffle(p.q.o.map(function(_,i){return i}))}});
+  S={scope:scope,list:pool,i:0,sel:[],done:false,right:0,wrong:[],retry:!!onlyWrong};
   drawQ();
 }
+function quizHead(){
+  var sc=S.scope;
+  if(sc.all) return crumbs([["Alles gemischt"]])+'<div class="th"><span class="tag">Quiz</span><h1>Alles gemischt</h1></div>';
+  var F=FACH[sc.f];
+  if(sc.i==null) return crumbs([[F.name,"#/"+sc.f],["Fach-Quiz"]])+'<div class="th"><span class="tag">Quiz · alle Themen</span><h1>'+esc(F.name)+'</h1></div>';
+  return topicHead(sc.f,sc.i,"q");
+}
+function bestKey(){var sc=S.scope;return sc.all?"best_all":sc.i==null?"best_"+sc.f:"best_"+sc.f+"_"+FACH[sc.f].themen[sc.i].id}
 function drawQ(){
-  var id=S.id, it=S.list[S.i], q=it.q, multi=q.c.length>1, name=id==="all"?"Alles gemischt":T[id].name;
-  var h=header(true)+'<div class="th"><span class="tag">Quiz</span><h1>'+esc(name)+'</h1></div>';
-  if(id!=="all") h+='<nav class="tabs"><a href="#/'+id+'/begriffe">Begriffe</a><a class="on" href="#/'+id+'/quiz">Quiz</a></nav>';
+  var it=S.list[S.i], q=it.q, multi=q.c.length>1, sc=S.scope;
+  var h=quizHead();
   h+='<div class="pb"><div class="pf" style="width:'+(S.i/S.list.length*100)+'%"></div></div>';
-  h+='<div class="qh"><span class="qn">Frage '+(S.i+1)+' von '+S.list.length+'</span>'+
-     (id==="all"?'<span class="qtag" style="color:var(--'+it.t+');background:var(--'+it.t+'-bg)">'+esc(T[it.t].name)+'</span>':'')+'</div>';
-  h+='<div class="qcard"><p class="qt">'+fmt(q.q)+'</p>';
+  h+='<div class="qh"><span class="qn">Frage '+(S.i+1)+' von '+S.list.length+'</span>';
+  if(sc.all||sc.i==null) h+='<span class="qtag" style="color:var(--'+it.f+');background:var(--'+it.f+'-bg)">'+(sc.all?esc(FACH[it.f].kurz)+' · ':'')+esc(it.t.name)+'</span>';
+  h+='</div><div class="qcard"><p class="qt">'+fmt(q.q)+'</p>';
   h+='<p class="hint">'+(multi?'Mehrere Antworten richtig – wähle alle passenden.':'Eine Antwort ist richtig.')+'</p>';
   if(q.code) h+='<pre class="code">'+esc(q.code)+'</pre>';
   h+='<div class="os'+(multi?'':' single')+'">';
@@ -526,10 +345,7 @@ function drawQ(){
   });
   h+='</div><div class="ac">';
   if(!S.done) h+='<button class="btn pr" id="chk"'+(S.sel.length?'':' disabled')+'>Prüfen</button>';
-  else {
-    var ok=S.lastOk;
-    h+='<button class="btn pr" id="nx">'+(S.i<S.list.length-1?'Weiter →':'Ergebnis ansehen')+'</button><span class="fb '+(ok?'y':'n')+'">'+(ok?'✓ Richtig!':'✗ Nicht ganz')+'</span>';
-  }
+  else h+='<button class="btn pr" id="nx">'+(S.i<S.list.length-1?'Weiter →':'Ergebnis ansehen')+'</button><span class="fb '+(S.lastOk?'y':'n')+'">'+(S.lastOk?'✓ Richtig!':'✗ Nicht ganz')+'</span>';
   h+='</div>';
   if(S.done){
     h+='<div class="ex"><b>Erklärung</b>'+fmt(q.e)+'</div>';
@@ -546,10 +362,10 @@ function drawQ(){
   var nx=document.getElementById("nx"); if(nx) nx.onclick=next;
 }
 function check(){
-  var q=S.list[S.i].q;
+  var it=S.list[S.i], q=it.q;
   var ok=S.sel.length===q.c.length && q.c.every(function(c){return S.sel.indexOf(c)>=0});
   S.lastOk=ok; S.done=true;
-  if(ok) S.right++; else S.wrong.push(S.list[S.i]);
+  if(ok) S.right++; else S.wrong.push(it);
   drawQ();
 }
 function next(){
@@ -557,28 +373,37 @@ function next(){
   else result();
 }
 function result(){
-  var id=S.id, n=S.list.length, pct=Math.round(S.right/n*100);
-  if(!S.retry){var prev=store("best_"+id); if(prev==null||pct>prev) store("best_"+id,pct);}
-  var msg=pct>=90?"Ausgezeichnet!":pct>=70?"Sehr gut – fast alles sitzt.":pct>=50?"Gute Basis – schau dir die falschen Fragen nochmal an.":"Dranbleiben – am Anfang ist alles neu. Wiederhole die Begriffe und versuch’s nochmal!";
-  var h=header(true)+'<div class="res"><div class="rs">'+pct+' %</div><p class="rl">'+msg+'</p>'+
+  var sc=S.scope, n=S.list.length, pct=Math.round(S.right/n*100);
+  if(!S.retry){var k=bestKey(), prev=store(k); if(prev==null||pct>prev) store(k,pct);}
+  var msg=pct>=90?"Ausgezeichnet!":pct>=70?"Sehr gut – fast alles sitzt.":pct>=50?"Gute Basis – schau dir die falschen Fragen nochmal an.":"Dranbleiben – am Anfang ist alles neu. Lies die Begriffe nochmal und versuch’s erneut!";
+  var h=quizHead()+'<div class="res"><div class="rs">'+pct+' %</div><p class="rl">'+msg+(S.retry?' (Wiederholungsrunde)':'')+'</p>'+
     '<div class="rb"><div class="me"><div class="mv">'+S.right+'</div><div class="ml">richtig</div></div><div class="me"><div class="mv">'+S.wrong.length+'</div><div class="ml">falsch</div></div><div class="me"><div class="mv">'+n+'</div><div class="ml">Fragen</div></div></div>'+
-    '<div class="ac">'+(S.wrong.length?'<button class="btn pr" id="rw">Falsche wiederholen</button>':'')+'<button class="btn'+(S.wrong.length?'':' pr')+'" id="ra">Neu starten</button>'+(id!=="all"?'<a class="btn" style="text-decoration:none" href="#/'+id+'/begriffe">Begriffe ansehen</a>':'')+'</div>';
+    '<div class="ac">'+(S.wrong.length?'<button class="btn pr" id="rw">Falsche wiederholen</button>':'')+'<button class="btn'+(S.wrong.length?'':' pr')+'" id="ra">Neu starten</button>'+
+    (sc.i!=null&&!sc.all?'<a class="btn" href="#/'+sc.f+'/'+FACH[sc.f].themen[sc.i].id+'">Begriffe ansehen</a>':'')+'</div>';
   if(S.wrong.length){
-    h+='<div class="wl"><h3>Diese Fragen solltest du dir nochmal anschauen:</h3><ul>'+S.wrong.map(function(w){return '<li>'+fmt(w.q.q)+(w.q.code?' <code>'+esc(w.q.code.split("\n")[0])+(w.q.code.indexOf("\n")>=0?' …':'')+'</code>':'')+'</li>'}).join("")+'</ul></div>';
+    h+='<div class="wl"><h3>Diese Fragen solltest du dir nochmal anschauen:</h3><ul>'+S.wrong.map(function(w){
+      return '<li>'+fmt(w.q.q)+(w.q.code?' <code>'+esc(w.q.code.split("\n")[0])+(w.q.code.indexOf("\n")>=0?' …':'')+'</code>':'')+
+        '<small>'+esc(FACH[w.f].kurz)+' · <a href="#/'+w.f+'/'+w.t.id+'">'+esc(w.t.name)+'</a></small></li>'}).join("")+'</ul></div>';
   }
   h+='</div>';
+  if(sc.i!=null&&!sc.all) h+=prevNext(sc.f,sc.i,"/quiz");
   app.innerHTML=h; window.scrollTo(0,0);
   var wrong=S.wrong;
-  var rw=document.getElementById("rw"); if(rw) rw.onclick=function(){quiz(id,wrong);S.retry=true};
-  document.getElementById("ra").onclick=function(){quiz(id)};
+  var rw=document.getElementById("rw"); if(rw) rw.onclick=function(){quiz(sc,wrong)};
+  document.getElementById("ra").onclick=function(){quiz(sc)};
 }
 
 /* ---------- Router ---------- */
 function route(){
-  var p=location.hash.replace(/^#\/?/,"").split("/");
-  var id=p[0], view=p[1];
-  if((T[id]||id==="all") && view==="quiz") quiz(id);
-  else if(T[id] && view==="begriffe") glossary(id);
+  var p=location.hash.replace(/^#\/?/,"").split("/").filter(Boolean);
+  var f=p[0];
+  if(f==="alle"&&p[1]==="quiz") quiz({all:true});
+  else if(FACH[f]){
+    if(!p[1]) subject(f);
+    else if(p[1]==="zeichen"&&FACH[f].zeichen) symbols(f);
+    else if(p[1]==="quiz") quiz({f:f});
+    else { var i=topicIdx(f,p[1]); if(i<0) subject(f); else if(p[2]==="quiz") quiz({f:f,i:i}); else glossary(f,i); }
+  }
   else home();
   window.scrollTo(0,0);
 }
