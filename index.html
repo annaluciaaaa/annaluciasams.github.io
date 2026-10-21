@@ -12,14 +12,14 @@
 :root{
   --bg:#fafaf9;--card:#fff;--ink:#1c1917;--muted:#78716c;--line:#e7e5e4;--soft:#f5f5f4;
   --ok:#3B6D11;--ok-bg:#EAF3DE;--bad:#A32D2D;--bad-bg:#FCEBEB;--miss:#854F0B;--miss-bg:#FAEEDA;
-  --fs:#534AB7;--fs-bg:#EEEDFE;--dr:#0F766E;--dr-bg:#E0F2EF;--java:#C2410C;--java-bg:#FDEDE3;--all:#44403c;--all-bg:#f0efed;
+  --fs:#534AB7;--fs-bg:#EEEDFE;--dr:#0F766E;--dr-bg:#E0F2EF;--java:#C2410C;--java-bg:#FDEDE3;--linux:#1D4ED8;--linux-bg:#E3EBFD;--all:#44403c;--all-bg:#f0efed;
   --accent:var(--fs);--accent-bg:var(--fs-bg);--on-accent:#fff;
 }
 @media (prefers-color-scheme:dark){
   :root{
     --bg:#161514;--card:#1f1e1c;--ink:#f5f5f4;--muted:#a8a29e;--line:#34322f;--soft:#292725;
     --ok:#8BC34A;--ok-bg:#24301a;--bad:#F08080;--bad-bg:#3a1f1f;--miss:#E0A84C;--miss-bg:#3a2e17;
-    --fs:#A8A1F0;--fs-bg:#2a2742;--dr:#5EC9BC;--dr-bg:#17312e;--java:#F59563;--java-bg:#3a2519;--all:#d6d3d1;--all-bg:#2c2a28;
+    --fs:#A8A1F0;--fs-bg:#2a2742;--dr:#5EC9BC;--dr-bg:#17312e;--java:#F59563;--java-bg:#3a2519;--linux:#86A8F7;--linux-bg:#1c2742;--all:#d6d3d1;--all-bg:#2c2a28;
     --on-accent:#161514;color-scheme:dark;
   }
 }
@@ -179,8 +179,9 @@ pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;
 <script src="daten-fs.js"></script>
 <script src="daten-dr.js"></script>
 <script src="daten-java.js"></script>
+<script src="daten-linux.js"></script>
 <script>
-var ORDER = ["fs","dr","java"];
+var ORDER = ["fs","dr","java","linux"];
 var L = "ABCDEFGH";
 var app = document.getElementById("app");
 
