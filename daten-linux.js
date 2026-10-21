@@ -1,14 +1,139 @@
-/* Linux & Terminal – allgemeine Grundlagen (Bash), keine Vorlesungsunterlagen */
+/* Einführung UNIX (PS & VO, Uni Salzburg, WS 2026/27)
+   Thema 1–2 nach den Übungsblättern 1 und 2, danach allgemeine Linux-Grundlagen (Bash) als Ergänzung */
 window.FACH = window.FACH || {};
 FACH.linux = {
-  name: "Linux & Terminal",
-  kurz: "Linux",
-  sub: "Shell-Grundlagen, wichtige Befehle, Rechte, Pipes und Skripte",
-  hinweis: "Allgemeine Linux-Grundlagen (Bash-Shell), nicht nach Vorlesungsunterlagen. Tipp: Probier jeden Befehl selbst im Terminal aus – auf dem Mac funktionieren fast alle genauso (dort läuft die zsh).",
+  name: "Einführung UNIX",
+  kurz: "UNIX",
+  sub: "PS & VO – Übungsblätter + Linux-Grundlagen, Befehle & Quiz",
+  hinweis: "Thema 1 und 2 folgen den Übungsblättern 1 und 2 aus dem PS. Die übrigen Themen sind allgemeine Linux-Grundlagen zum Vor- und Nachlernen – sie werden angepasst, wenn neue Blätter dazukommen. Tipp: Probier jeden Befehl selbst im Terminal aus (auf dem Mac läuft die zsh, fast alles funktioniert gleich).",
   themen: [
 
   /* ---------------------------------------------------------- */
-  { id: "grundlagen", name: "Grundlagen: Linux, Shell & Terminal", quelle: "Allgemeine Linux-Grundlagen",
+  { id: "uebung1", name: "Übung 1: Anmelden, Passwort, SSH & Dateien anzeigen", quelle: "Übungsblatt 1 (PS Einführung UNIX WS26)",
+    terms: [
+      ["firefox &", "Startet Firefox aus der Bash-Shell. Das & schickt das Programm in den Hintergrund – das Terminal bleibt weiter benutzbar.", "firefox &"],
+      ["passwd", "Ändert das eigene Passwort: erst das alte, dann zweimal das neue eingeben. Beim Tippen werden keine Zeichen (auch keine Sternchen) angezeigt – das ist normal."],
+      ["man passwd", "Handbuchseite zu passwd. Lesen und überlegen, was darin bedenklich sein könnte (Blatt 1, Block 2). Mit `q` beenden."],
+      ["Passwortstärke", "Wie schwer ein Passwort zu erraten ist. Entscheidend ist vor allem die Länge und Zufälligkeit (Entropie) – nicht ein einzelnes Sonderzeichen."],
+      ["Sicheres Passwort – Empfehlungen", "Lang (z. B. eine Passphrase aus mehreren zufälligen Wörtern), für jeden Dienst ein eigenes, keine persönlichen Daten oder Wörterbuchwörter, Passwortmanager verwenden, nirgends offen aufschreiben."],
+      ["nano kennwort.txt", "Öffnet (bzw. erstellt) die Datei kennwort.txt im Editor nano. Strg+O speichert, Strg+X beendet."],
+      ["SSH (Secure Shell)", "Verschlüsselte Verbindung zu einem entfernten Rechner, auf dem man dann Befehle ausführt."],
+      ["Schlüsselpaar (public/private)", "Zwei zusammengehörige Schlüssel: Der private bleibt geheim auf deinem Rechner, der öffentliche darf weitergegeben werden und kommt auf den Server.", "~/.ssh/id_rsa (privat), ~/.ssh/id_rsa.pub (öffentlich)"],
+      ["ssh-keygen -b 4096", "Erzeugt ein neues Schlüsselpaar. -b 4096 = Schlüssellänge 4096 Bit (bei RSA). Neuere OpenSSH-Versionen erzeugen standardmäßig ed25519 – RSA explizit mit `-t rsa`.", "ssh-keygen -t rsa -b 4096"],
+      ["Passphrase", "Optionales Passwort, das beim ssh-keygen den privaten Schlüssel verschlüsselt – falls jemand die Datei stiehlt, kann er sie ohne Passphrase nicht benutzen."],
+      ["ssh-copy-id", "Kopiert deinen öffentlichen Schlüssel auf den Server (in dessen Datei ~/.ssh/authorized_keys). Danach klappt die Anmeldung per Schlüssel.", "ssh-copy-id <username>@sshstud.cs.sbg.ac.at"],
+      ["~/.ssh/authorized_keys", "Datei auf dem Server mit allen öffentlichen Schlüsseln, die sich als dieser Benutzer anmelden dürfen."],
+      ["ssh user@host", "Meldet dich auf einem entfernten Rechner an. Beim ersten Mal fragt SSH, ob du dem Fingerprint des Servers vertraust (yes); er wird dann in ~/.ssh/known_hosts gespeichert.", "ssh <username>@sshstud.cs.sbg.ac.at"],
+      ["wget", "Lädt eine Datei aus dem Web herunter und speichert sie unter ihrem Namen im aktuellen Ordner.", "wget https://www.ietf.org/rfc/rfc2235.txt"],
+      ["curl", "Holt Daten von einer URL – ohne Option landet der Inhalt nur auf dem Bildschirm. `-O` speichert unter dem Originalnamen, `-o name` unter einem eigenen.", "curl -O https://www.ietf.org/rfc/rfc2235.txt"],
+      ["RFC", "Request for Comments – Dokumente der IETF, die Internet-Standards beschreiben. RFC 2235 ist „Hobbes' Internet Timeline“, eine Zeitleiste der Internetgeschichte."],
+      ["cat", "Gibt die ganze Datei auf einmal aus – bei langen Dateien rauscht alles durch.", "cat rfc2235.txt"],
+      ["more", "Zeigt eine Datei seitenweise an (Leertaste = weiter). Älter und einfacher als less.", "more rfc2235.txt"],
+      ["less", "Wie more, kann aber auch zurückblättern und ist komfortabler („less is more“). `q` beendet.", "less rfc2235.txt"],
+      ["Suchen in more / less", "`/Begriff` + Enter sucht vorwärts, `n` springt zum nächsten Treffer (in less: `N` zum vorherigen, `?Begriff` sucht rückwärts).", "/Sputnik"],
+      ["grep (Suche ohne Anzeigeprogramm)", "Gibt direkt alle Zeilen mit dem Begriff aus. `-n` zeigt Zeilennummern, `-i` ignoriert Groß-/Kleinschreibung.", "grep -n Sputnik rfc2235.txt"]
+    ],
+    quiz: [
+      {q:"Was bewirkt das `&` in `firefox &`?", o:["Firefox läuft im Hintergrund, das Terminal bleibt benutzbar","Firefox startet mit Administratorrechten","Firefox startet zweimal","Firefox wird nach dem Schließen des Terminals automatisch beendet"], c:[0],
+       e:"Ohne & wäre das Terminal blockiert, bis Firefox wieder geschlossen wird."},
+      {q:"Was passiert, während du bei `passwd` dein neues Passwort tippst?", o:["Es werden gar keine Zeichen angezeigt – das ist normal","Für jedes Zeichen erscheint ein Sternchen","Das Passwort wird im Klartext angezeigt","Die Eingabe funktioniert nicht, man muss es kopieren"], c:[0],
+       e:"Unix-Programme zeigen Passworteingaben absichtlich gar nicht an – so verrät nicht einmal die Länge etwas. Einfach blind tippen und Enter drücken."},
+      {q:"Welche Empfehlungen für ein sicheres Passwort sind sinnvoll?", o:["Lang – z. B. eine Passphrase aus mehreren zufälligen Wörtern","Für jeden Dienst ein eigenes Passwort","Der Name des Haustiers mit einer 1 am Ende","Einen Passwortmanager verwenden","Ein Wort aus dem Wörterbuch, weil man es sich gut merkt"], c:[0,1,3],
+       e:"Länge und Zufall machen ein Passwort stark. Persönliche Infos und Wörterbuchwörter werden bei Angriffen als Erstes ausprobiert."},
+      {q:"Welchen Schlüssel kopierst du mit ssh-copy-id auf den Server?", o:["Den öffentlichen Schlüssel (id_rsa.pub)","Den privaten Schlüssel (id_rsa)","Beide","Die Passphrase"], c:[0],
+       e:"Der private Schlüssel verlässt nie deinen Rechner. Der Server bekommt nur den öffentlichen, um damit zu prüfen, dass du den passenden privaten besitzt."},
+      {q:"Was macht `ssh-copy-id <username>@sshstud.cs.sbg.ac.at`?", o:["Hängt deinen öffentlichen Schlüssel an ~/.ssh/authorized_keys auf dem Server an","Erzeugt ein neues Schlüsselpaar","Kopiert alle Dateien aus ~/.ssh auf den Server","Meldet dich dauerhaft am Server an"], c:[0],
+       e:"Danach erkennt dich der Server an deinem Schlüssel. Das Erzeugen des Paars macht ssh-keygen, das Anmelden ssh."},
+      {q:"Was bedeutet `-b 4096` bei `ssh-keygen -b 4096`?", o:["Die Schlüssellänge: 4096 Bit","Der Schlüssel ist 4096 Tage gültig","Es werden 4096 Schlüssel erzeugt","Der SSH-Port 4096"], c:[0],
+       e:"-b = bits. Längere RSA-Schlüssel sind schwerer zu knacken."},
+      {q:"Wozu dient die Passphrase, nach der ssh-keygen fragt?", o:["Sie verschlüsselt deinen privaten Schlüssel – gestohlen ist er ohne Passphrase nutzlos","Sie ist das neue Passwort für den Server","Sie wird an den Server geschickt","Sie hat keine Funktion"], c:[0],
+       e:"Die Passphrase bleibt lokal und schützt die Datei ~/.ssh/id_rsa. Leer lassen ist bequemer, aber unsicherer."},
+      {q:"Wie meldest du dich auf dem CS-Student-SSH-Server an?", o:["`ssh <username>@sshstud.cs.sbg.ac.at`","`ssh-copy-id sshstud.cs.sbg.ac.at`","`login sshstud.cs.sbg.ac.at`","`wget sshstud.cs.sbg.ac.at`"], c:[0],
+       e:"Format: ssh benutzer@rechner. Beim ersten Mal den Fingerprint mit yes bestätigen."},
+      {q:"Wie lädst du rfc2235.txt mit curl herunter und speicherst sie unter demselben Namen?", o:["`curl -O https://www.ietf.org/rfc/rfc2235.txt`","`curl https://www.ietf.org/rfc/rfc2235.txt > rfc2235.txt`","`curl https://www.ietf.org/rfc/rfc2235.txt`","`curl --save https://www.ietf.org/rfc/rfc2235.txt`"], c:[0,1],
+       e:"Ohne Option gibt curl den Inhalt nur auf dem Bildschirm aus. Mit `-O` (großes O) oder einer Umleitung `>` landet er in einer Datei. wget speichert automatisch."},
+      {q:"Mit welchen Befehlen kannst du rfc2235.txt anzeigen?", o:["`cat rfc2235.txt`","`more rfc2235.txt`","`less rfc2235.txt`","`mkdir rfc2235.txt`","`wget rfc2235.txt`"], c:[0,1,2],
+       e:"cat gibt alles auf einmal aus, more und less seitenweise. mkdir legt einen Ordner an, wget lädt etwas herunter."},
+      {q:"Du hast die Datei in less geöffnet. Wie suchst du nach „Sputnik“?", o:["`/Sputnik` und Enter, mit `n` zum nächsten Treffer","Strg+F und Sputnik","`grep Sputnik` eintippen","`find Sputnik`"], c:[0],
+       e:"In less und more sucht `/` vorwärts. In less sucht `?` rückwärts und `N` springt zum vorherigen Treffer."},
+      {q:"Wie gibst du alle Zeilen mit „Sputnik“ samt Zeilennummer aus, ohne die Datei zu öffnen?", o:["`grep -n Sputnik rfc2235.txt`","`cat -n Sputnik rfc2235.txt`","`less Sputnik rfc2235.txt`","`find -n Sputnik rfc2235.txt`"], c:[0],
+       e:"grep durchsucht den Inhalt und gibt die passenden Zeilen aus, `-n` ergänzt die Zeilennummern."},
+      {q:"Was ist der Hauptunterschied zwischen more und less?", o:["less kann bequem vor- und zurückblättern, more (klassisch) nur vorwärts","more zeigt mehr Zeilen an als less","less kürzt die Datei","Es gibt keinen Unterschied"], c:[0],
+       e:"less wurde als verbessertes more entwickelt – daher der Spruch „less is more“."}
+    ]},
+
+  /* ---------------------------------------------------------- */
+  { id: "uebung2", name: "Übung 2: Rechte, umask & Verzeichnisse", quelle: "Übungsblatt 2 (PS Einführung UNIX WS26)",
+    terms: [
+      ["Im Home? – pwd", "pwd zeigt das aktuelle Verzeichnis. Steht dort /home/<username> (bzw. derselbe Pfad wie in `echo $HOME`), bist du im Home."],
+      ["Schnellster Weg ins Home", "`cd` ohne Argument – funktioniert von überall. Gleichwertig: `cd ~`."],
+      ["Texteditor", "Programm zum Bearbeiten von reinem Text ohne Formatierung (nano, vim, gedit). Word o. Ä. ist kein Texteditor."],
+      ["~/.bashrc", "Versteckte Datei im Home, die bei jedem Start einer Bash ausgeführt wird. Änderungen gelten erst in neuen Terminals (oder nach `source ~/.bashrc`)."],
+      ["umask", "Maske, die festlegt, welche Rechte neue Dateien und Ordner NICHT bekommen. Ohne Argument zeigt `umask` den aktuellen Wert (oft 022).", "umask"],
+      ["umask 077", "Gruppe und Andere bekommen nichts: neue Dateien rw------- (600), neue Ordner rwx------ (700). Kommentar im Blatt: „all to me, nothing to group and others“."],
+      ["Rechte aus der umask berechnen", "Neue Dateien starten bei 666 (rw-rw-rw-), Ordner bei 777. Die Bits der umask werden weggenommen.", "666 − 022 → 644 (rw-r--r--), 666 − 077 → 600 (rw-------)"],
+      ["unmask", "Gibt es nicht! Tippfehler-Falle – die Shell meldet „command not found“."],
+      ["# Kommentar in .bashrc", "Zeilen mit # werden ignoriert – gut, um zu dokumentieren, wozu eine Einstellung da ist.", "# file protection mask: all to me, nothing to group and others"],
+      ["foo.txt vs. bar.txt", "foo.txt wurde im alten Terminal angelegt (alte umask), bar.txt in einem neuen Terminal, das die geänderte .bashrc schon gelesen hat (umask 077) – darum unterschiedliche Rechte."],
+      ["ls vs. ls -la", "`ls` zeigt nur die Namen sichtbarer Dateien. `ls -la` zeigt auch versteckte Dateien (mit Punkt, z. B. .bashrc) sowie Rechte, Besitzer, Größe und Datum."],
+      ["Mehrere Ordner in einer Zeile", "mkdir nimmt beliebig viele Namen.", "mkdir sub_dir uebung script"],
+      ["Verzeichnisstruktur der Übung", "~/tmp/uv_unix mit den Unterordnern sub_dir (darin text), uebung und script.", "~/tmp/uv_unix/sub_dir/text"],
+      ["Relativer Pfad text → uebung", "Von text zwei Ebenen hoch (sub_dir, dann uv_unix), dann hinein in uebung.", "cd ../../uebung"],
+      ["Absoluter Pfad", "Beginnt bei / (oder ~, das zu /home/<username> wird) und funktioniert von überall.", "cd ~/tmp/uv_unix/sub_dir/text"],
+      ["tree", "Zeigt die Ordnerstruktur als Baum. Sinnvoll ist ein Startordner wie ~/tmp – `tree /` würde das ganze Dateisystem ausgeben und ewig laufen.", "tree ~/tmp"],
+      ["Pfad einer Datei anzeigen", "`realpath datei` (oder `readlink -f datei`) gibt den vollständigen absoluten Pfad aus.", "realpath ownhelp.txt"],
+      ["Datei in der Shell herunterladen", "Mit wget oder curl -O; mit `wget -P ordner URL` direkt in einen bestimmten Ordner.", "cd ~/tmp/uv_unix/sub_dir && wget <URL>/help.txt"],
+      ["cp in einen Ordner", "Ist das Ziel ein Ordner, landet die Kopie mit gleichem Namen darin.", "cp help.txt text/"],
+      ["mv zum Umbenennen", "Umbenennen = verschieben an einen neuen Namen.", "mv help.txt ownhelp.txt"],
+      ["rw-r--r-- (644)", "Besitzer: lesen und schreiben. Gruppe und Andere: nur lesen.", "chmod 644 ownhelp.txt oder chmod u=rw,go=r ownhelp.txt"],
+      ["r und x bei Dateien", "r = Inhalt lesen (also auch kopieren), x = als Programm ausführen."],
+      ["r und x bei Verzeichnissen", "r = Inhalt auflisten (ls), x = hineinwechseln bzw. hindurchgehen, um auf Dateien darin zuzugreifen."],
+      ["Datei mit Nachbar/in teilen (minimal)", "Andere brauchen r auf der Datei und x auf JEDEM Ordner im Pfad (Home, tmp, uv_unix, sub_dir, text). r auf den Ordnern ist nicht nötig, wenn der genaue Pfad bekannt ist.", "chmod o+x ~ ~/tmp ~/tmp/uv_unix ~/tmp/uv_unix/sub_dir ~/tmp/uv_unix/sub_dir/text; chmod o+r ownhelp.txt"],
+      ["Datei von anderen kopieren", "Mit dem Pfad ins fremde Home: ~benutzername ist dessen Home-Verzeichnis.", "cp ~nachbar/tmp/uv_unix/sub_dir/text/ownhelp.txt ~"]
+    ],
+    quiz: [
+      {q:"Mit welchem Befehl kommst du am schnellsten in dein Home-Verzeichnis – egal wo du bist?", o:["`cd`","`cd /home`","`cd ..`","`cd /`"], c:[0],
+       e:"cd ohne Argument springt immer ins eigene Home. /home ist nur der Ordner, in dem alle Homes liegen, / ist die Wurzel."},
+      {q:"Wie überprüfst du, ob du gerade in deinem Home-Verzeichnis bist?", o:["`pwd`","`whoami`","`ls -l`","`umask`"], c:[0],
+       e:"pwd gibt das aktuelle Verzeichnis aus. whoami zeigt nur den Benutzernamen."},
+      {q:"Was bewirkt `umask 077`?", o:["Neue Dateien und Ordner bekommen keine Rechte für Gruppe und Andere","Alle bestehenden Dateien werden auf 077 gesetzt","Gruppe und Andere bekommen alle Rechte","Nur der Ordner, in dem man gerade ist, wird geschützt"], c:[0],
+       e:"umask wirkt nur auf neu angelegte Dateien und Ordner – bestehende ändert sie nicht. 077 nimmt Gruppe und Anderen alle Bits weg."},
+      {q:"Die umask ist 077. Welche Rechte hat eine neue Datei nach `touch foo.txt`?", o:["`rw-------`","`rwx------`","`rw-r--r--`","`----rwxrwx`"], c:[0],
+       e:"Dateien starten bei 666 (ohne x!). 666 ohne die Bits von 077 → 600 = rw-------."},
+      {q:"Die umask ist 022 (typischer Standard). Welche Rechte hat eine neue Datei?", o:["`rw-r--r--`","`rw-------`","`rwxr-xr-x`","`rw-rw-rw-`"], c:[0],
+       e:"666 ohne die w-Bits für Gruppe und Andere → 644 = rw-r--r--."},
+      {q:"Die umask ist 077. Welche Rechte hat ein neuer Ordner nach `mkdir test`?", o:["`rwx------`","`rw-------`","`rwxr-xr-x`","`---------`"], c:[0],
+       e:"Ordner starten bei 777. Ohne 077 → 700 = rwx------. Das x brauchst du selbst, um in den Ordner zu wechseln."},
+      {q:"Du trägst `umask 077` in die .bashrc ein, legst im selben Terminal foo.txt an und in einem NEUEN Terminal bar.txt. Was stimmt?", o:["bar.txt hat rw-------, foo.txt noch die Rechte der alten umask","Beide haben rw-------","Beide haben die alten Rechte","foo.txt hat rw-------, bar.txt die alten Rechte"], c:[0],
+       e:"Die .bashrc wird nur beim Start einer Shell gelesen. Das alte Terminal kennt die neue umask noch nicht (außer nach `source ~/.bashrc`)."},
+      {q:"Was passiert bei `unmask 077`?", o:["Fehlermeldung „command not found“ – diesen Befehl gibt es nicht","Die umask wird aufgehoben","Alle Rechte werden zurückgesetzt","Dasselbe wie umask 077"], c:[0],
+       e:"Das ist die Falle aus dem Übungsblatt: Der Befehl heißt umask (user mask), nicht unmask."},
+      {q:"Welcher Unterschied besteht zwischen `ls` und `ls -la`?", o:["`ls -la` zeigt zusätzlich versteckte Dateien und Details wie Rechte, Besitzer, Größe, Datum","`ls -la` zeigt nur Ordner","`ls -la` sortiert nur alphabetisch","Kein Unterschied"], c:[0],
+       e:"-l = lange Ansicht, -a = auch Dateien mit Punkt am Anfang wie .bashrc (sowie . und ..)."},
+      {q:"Wie legst du in uv_unix die Ordner sub_dir, uebung und script in einer Kommandozeile an?", o:["`mkdir sub_dir uebung script`","`mkdir sub_dir; uebung; script`","`mkdir -r sub_dir uebung script`","`touch sub_dir uebung script`"], c:[0],
+       e:"mkdir nimmt mehrere Namen. Bei der zweiten Variante würde die Shell uebung und script als eigene Befehle ausführen wollen, touch legt Dateien statt Ordner an."},
+      {q:"Du bist in ~/tmp/uv_unix/sub_dir/text. Wie wechselst du mit einem relativen Pfad nach uebung?", o:["`cd ../../uebung`","`cd ../uebung`","`cd uebung`","`cd /uebung`"], c:[0],
+       e:"text → .. = sub_dir → ../.. = uv_unix, darin liegt uebung. `../uebung` würde in sub_dir suchen, `/uebung` ist absolut (an der Wurzel)."},
+      {q:"Welche dieser Befehle wechseln mit einem absoluten Pfad nach text?", o:["`cd ~/tmp/uv_unix/sub_dir/text`","`cd /home/<username>/tmp/uv_unix/sub_dir/text`","`cd ../sub_dir/text`","`cd sub_dir/text`"], c:[0,1],
+       e:"~ wird von der Shell zu /home/<username> ersetzt – beide Pfade sind also absolut und funktionieren von überall. Die anderen hängen vom aktuellen Ordner ab."},
+      {q:"Warum ist `tree /` keine gute Idee?", o:["Es würde das gesamte Dateisystem ab der Wurzel ausgeben – riesig und kaum lesbar","tree funktioniert nur mit relativen Pfaden","Es löscht Dateien","Man braucht dafür immer sudo"], c:[0],
+       e:"Besser: `tree ~/tmp` oder aus ~/tmp heraus einfach `tree` – dann siehst du nur die Übungsstruktur."},
+      {q:"Wie zeigst du den vollständigen Pfad der Datei ownhelp.txt an?", o:["`realpath ownhelp.txt`","`pwd ownhelp.txt`","`cat ownhelp.txt`","`path ownhelp.txt`"], c:[0],
+       e:"realpath (oder readlink -f) gibt den absoluten Pfad aus. pwd zeigt nur den aktuellen Ordner, cat den Inhalt."},
+      {q:"Wie benennst du help.txt in ownhelp.txt um?", o:["`mv help.txt ownhelp.txt`","`cp help.txt ownhelp.txt`","`rename help.txt`","`nano ownhelp.txt`"], c:[0],
+       e:"mv verschiebt bzw. benennt um. cp würde eine zweite Datei anlegen, help.txt bliebe bestehen."},
+      {q:"Was bedeuten die Rechte `rw-r--r--` bei ownhelp.txt?", o:["Besitzer darf lesen und schreiben, Gruppe und Andere nur lesen","Alle dürfen lesen und schreiben","Nur der Besitzer darf lesen","Besitzer darf lesen, schreiben und ausführen"], c:[0],
+       e:"rw- | r-- | r-- = 6 4 4 → `chmod 644 ownhelp.txt`."},
+      {q:"Was braucht dein/e Nachbar/in (für sie/ihn gilt „Andere“) mindestens, um ~/tmp/uv_unix/sub_dir/text/ownhelp.txt zu kopieren, wenn der genaue Pfad bekannt ist?", o:["r auf ownhelp.txt","x auf jedem Ordner im Pfad: Home, tmp, uv_unix, sub_dir, text","r auf allen Ordnern im Pfad","w auf ownhelp.txt","w auf dem Ordner text"], c:[0,1],
+       e:"Kopieren = Lesen, also r auf der Datei. Um überhaupt hinzukommen, braucht man x auf jedem Ordner auf dem Weg. r auf den Ordnern (= auflisten) ist nicht nötig, w schon gar nicht – so wenig Rechte wie möglich!"},
+      {q:"Mit umask 077 sind deine Ordner rwx------. Welcher Befehl öffnet sie gerade so weit, dass andere hindurchgehen, aber nichts auflisten können?", o:["`chmod o+x ordner`","`chmod o+r ordner`","`chmod 777 ordner`","`chmod o+w ordner`"], c:[0],
+       e:"x bei Ordnern = durchgehen. r würde das Auflisten erlauben, 777 gibt allen alles – viel zu viel."},
+      {q:"Was ist ein Texteditor?", o:["Ein Programm zum Bearbeiten von reinem Text ohne Formatierung, z. B. nano oder vim","Jedes Programm, das Text anzeigt, z. B. less","Ein Textverarbeitungsprogramm wie Word","Ein Befehl zum Umbenennen von Textdateien"], c:[0],
+       e:"Konfigurationsdateien wie .bashrc müssen reiner Text bleiben – Word würde Formatierungen hineinschreiben. less zeigt nur an, bearbeiten kann man damit nicht."}
+    ]},
+
+  /* ---------------------------------------------------------- */
+  { id: "grundlagen", name: "Grundlagen: Linux, Shell & Terminal", quelle: "Allgemeine Linux-Grundlagen (Ergänzung)",
     terms: [
       ["Linux", "Freies, quelloffenes Betriebssystem, 1991 von Linus Torvalds begonnen. Genau genommen ist „Linux“ nur der Kernel."],
       ["Kernel", "Kern des Betriebssystems: verwaltet Hardware, Arbeitsspeicher und Prozesse und vermittelt zwischen Programmen und Hardware."],
@@ -50,7 +175,7 @@ FACH.linux = {
     ]},
 
   /* ---------------------------------------------------------- */
-  { id: "navigation", name: "Dateisystem & Navigation", quelle: "Allgemeine Linux-Grundlagen",
+  { id: "navigation", name: "Dateisystem & Navigation", quelle: "Allgemeine Linux-Grundlagen (Ergänzung)",
     terms: [
       ["Verzeichnisbaum", "Alles hängt an einem einzigen Wurzelverzeichnis `/` – es gibt keine Laufwerksbuchstaben wie C: unter Windows. Auch USB-Sticks werden irgendwo in den Baum „eingehängt“."],
       ["/ (Root-Verzeichnis)", "Die Wurzel des gesamten Dateisystems. Nicht zu verwechseln mit dem Benutzer root!"],
@@ -96,7 +221,7 @@ FACH.linux = {
     ]},
 
   /* ---------------------------------------------------------- */
-  { id: "dateien", name: "Dateien & Ordner verwalten", quelle: "Allgemeine Linux-Grundlagen",
+  { id: "dateien", name: "Dateien & Ordner verwalten", quelle: "Allgemeine Linux-Grundlagen (Ergänzung)",
     terms: [
       ["touch", "Legt eine leere Datei an (oder aktualisiert den Zeitstempel einer bestehenden).", "touch notiz.txt"],
       ["mkdir", "Erstellt einen Ordner.", "mkdir uni"],
@@ -141,7 +266,7 @@ FACH.linux = {
     ]},
 
   /* ---------------------------------------------------------- */
-  { id: "lesen", name: "Dateien lesen, suchen & bearbeiten", quelle: "Allgemeine Linux-Grundlagen",
+  { id: "lesen", name: "Dateien lesen, suchen & bearbeiten", quelle: "Allgemeine Linux-Grundlagen (Ergänzung)",
     terms: [
       ["cat", "Gibt den ganzen Inhalt einer Datei aus (auch: mehrere Dateien aneinanderhängen).", "cat notizen.txt"],
       ["less", "Zeigt Dateien seitenweise an. Leertaste = weiter, `/wort` = suchen, `q` = beenden.", "less log.txt"],
@@ -187,7 +312,7 @@ FACH.linux = {
     ]},
 
   /* ---------------------------------------------------------- */
-  { id: "rechte", name: "Benutzer & Rechte", quelle: "Allgemeine Linux-Grundlagen",
+  { id: "rechte", name: "Benutzer & Rechte", quelle: "Allgemeine Linux-Grundlagen (Ergänzung)",
     terms: [
       ["root (Superuser)", "Administrator-Konto mit allen Rechten. Prompt endet mit `#`."],
       ["sudo", "Führt einen einzelnen Befehl mit root-Rechten aus (fragt nach deinem Passwort).", "sudo apt install tree"],
@@ -229,7 +354,7 @@ FACH.linux = {
     ]},
 
   /* ---------------------------------------------------------- */
-  { id: "pipes", name: "Umleitung, Pipes & Verkettung", quelle: "Allgemeine Linux-Grundlagen",
+  { id: "pipes", name: "Umleitung, Pipes & Verkettung", quelle: "Allgemeine Linux-Grundlagen (Ergänzung)",
     terms: [
       ["stdin, stdout, stderr", "Drei Standard-Kanäle jedes Programms: Eingabe (0), normale Ausgabe (1), Fehlerausgabe (2)."],
       [">", "Leitet die Ausgabe in eine Datei um – überschreibt sie!", "ls > liste.txt"],
@@ -272,7 +397,7 @@ FACH.linux = {
     ]},
 
   /* ---------------------------------------------------------- */
-  { id: "prozesse", name: "Prozesse & Jobs", quelle: "Allgemeine Linux-Grundlagen",
+  { id: "prozesse", name: "Prozesse & Jobs", quelle: "Allgemeine Linux-Grundlagen (Ergänzung)",
     terms: [
       ["Prozess", "Ein laufendes Programm. Jedes Programm, jeder Befehl wird beim Start zu einem Prozess."],
       ["PID", "Process ID – eindeutige Nummer jedes laufenden Prozesses."],
@@ -309,7 +434,7 @@ FACH.linux = {
     ]},
 
   /* ---------------------------------------------------------- */
-  { id: "skripte", name: "Variablen & Shell-Skripte", quelle: "Allgemeine Linux-Grundlagen",
+  { id: "skripte", name: "Variablen & Shell-Skripte", quelle: "Allgemeine Linux-Grundlagen (Ergänzung)",
     terms: [
       ["Variable setzen", "NAME=wert – ohne Leerzeichen um das =!", "name=Anna"],
       ["Variable lesen", "Mit $ davor. Bei Bedarf in geschweiften Klammern.", "echo $name, echo ${name}s"],
@@ -359,7 +484,7 @@ FACH.linux = {
     ]},
 
   /* ---------------------------------------------------------- */
-  { id: "system", name: "Pakete, Archive & Netzwerk", quelle: "Allgemeine Linux-Grundlagen",
+  { id: "system", name: "Pakete, Archive & Netzwerk", quelle: "Allgemeine Linux-Grundlagen (Ergänzung)",
     terms: [
       ["Paketverwaltung", "Installiert, aktualisiert und entfernt Software aus Online-Quellen (Repositories). Ubuntu/Debian: apt, Fedora: dnf, Arch: pacman, Mac: brew."],
       ["apt update", "Lädt die aktuellen Paketlisten – installiert noch nichts.", "sudo apt update"],
@@ -459,6 +584,8 @@ FACH.linux = {
       ["755", "rwxr-xr-x", "typisch für Programme & Ordner", ""],
       ["644", "rw-r--r--", "typisch für normale Dateien", ""],
       ["600", "rw-------", "nur für dich", ""],
+      ["umask 022", "Standard-Maske", "neue Dateien 644, neue Ordner 755", ""],
+      ["umask 077", "private Maske", "neue Dateien 600, neue Ordner 700", "in ~/.bashrc (Übung 2)"],
       ["$ / #", "Prompt", "normaler Benutzer / root", ""]
     ]},
     { g: "Tastenkürzel", rows: [
