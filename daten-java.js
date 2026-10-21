@@ -1,15 +1,18 @@
 /* Einführung in die Programmierung (Java) – Inhalte nach den Folien Teil I (Naderlinger/Resmerita, Folien: Hagenauer), WS 2026/27
-   Java 25 mit kompakter Syntax: void main() { … } und IO.println(…) */
+   Java 25 mit kompakter Syntax: void main() { … } und IO.println(…)
+   Dazu: VO-Beispielprogramme Kap01–Kap03 und Wiederholungsfragen Nr. 1–42 (Kap. 1–4) */
 window.FACH = window.FACH || {};
 FACH.java = {
   name: "Programmieren in Java",
   kurz: "Java",
-  sub: "Einführung in die Programmierung – Teil I (Kapitel 1–4)",
-  hinweis: "Die Vorlesung verwendet Java 25 mit kompakter Syntax: Ein Programm beginnt mit void main() { … } und gibt mit IO.println(…) aus. Klassen kommen erst später.",
+  sub: "Einführung in die Programmierung – Teil I (Kapitel 1–4) + VO-Beispielprogramme + Wiederholungsfragen",
+  hinweis: "Die Vorlesung verwendet Java 25 mit kompakter Syntax: Ein Programm beginnt mit void main() { … } und gibt mit IO.println(…) aus. Klassen kommen erst später. Unter jedem Thema siehst du, welche Wiederholungsfragen dazugehören. Die Beispielprogramme aus der VO (Kap01–Kap03) sind mit Code und Schritt-für-Schritt-Erklärung im vorletzten Thema, die Wiederholungsfragen 1–42 als Lernkarten im letzten (Tipp: „Erklärungen verdecken“ anhaken).",
+  katName: "Wiederholungsfragen",
   themen: [
 
   /* ---------------------------------------------------------- */
   { id: "erstes", name: "Erstes Programm", quelle: "Folien Kap. 1 (S. 3–11)",
+    kat: ["1. Was ist ein Compiler, was ist ein Editor?", "2. Was versteht man unter Bytecode?", "3. Wozu dienen Bezeichner, wie sind gültige Bezeichner aufgebaut?", "4. Was ist die Bedeutung von Schlüsselwörtern?", "5. Welche Arten von Kommentaren gibt es?"],
     terms: [
       ["void main()", "Startpunkt jedes einfachen Programms (main-Methode). Darin stehen Deklarationen und Anweisungen.", "void main() { IO.println(\"Hallo\"); }"],
       ["Quellcode, .java-Datei", "Der Programmtext wird mit einem Editor geschrieben und als Datei mit Endung .java gespeichert. Programmname = Dateiname.", "Kreis.java"],
@@ -46,6 +49,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "variablen", name: "Variablen, Zuweisungen & Konstanten", quelle: "Folien Kap. 2 (S. 12–26)",
+    kat: ["6. Wozu werden Variablen verwendet?", "7. Was wird bei der Deklaration festgelegt?", "9. Wie heißt eine Anweisung, die einen Wert in einer Variable speichert?", "10. Was muss erfüllt sein, damit eine Zuweisung möglich ist?", "11. Was bedeutet Initialisierung?"],
     terms: [
       ["Variable", "„Behälter“ mit Namen und Typ zum Speichern von Daten. Kann immer nur einen Wert des vereinbarten Typs speichern."],
       ["Deklaration", "Legt Typ und Namen fest und reserviert Speicher. Muss vor der ersten Verwendung passieren.", "double radius;  int k, n;"],
@@ -85,6 +89,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "ausdruecke", name: "Arithmetische Ausdrücke", quelle: "Folien Kap. 2 (S. 18–20)",
+    kat: ["8. Was sind binäre, was sind unäre Operatoren?"],
     terms: [
       ["Arithmetischer Ausdruck", "Berechnet mit Operatoren einen Zahlenwert aus Variablen und Konstanten."],
       ["Binäre Operatoren + − * /", "Es gilt Punkt- vor Strichrechnung (*, / vor +, −). Nur runde Klammern heben das auf."],
@@ -117,6 +122,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "io", name: "Ein-/Ausgabe & Algorithmen", quelle: "Folien Kap. 2 (S. 27–33)",
+    kat: ["12. Was bedeuten Syntax und Semantik?", "13. Was ist ein Algorithmus?"],
     terms: [
       ["IO.println(argument)", "Ausgabe MIT Zeilenumbruch danach."],
       ["IO.print(argument)", "Ausgabe OHNE Zeilenumbruch."],
@@ -152,6 +158,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "ifwhile", name: "if-Anweisung & while-Schleife", quelle: "Folien Kap. 3–4 (S. 34–41, 61–64)",
+    kat: ["14. Warum heißt die if-Anweisung Verzweigung?", "15. Welche Werte kann eine if-Bedingung ergeben?", "16. Wozu braucht man bei if die geschwungenen Klammern?", "17. Was ist ein Vergleichsoperator, welche Ergebnisse gibt es?", "18. Aus welchen Teilen besteht eine while-Schleife?", "19. Unterschied Schleifenbedingung – if-Bedingung?", "20. Wozu braucht man Schleifen?", "21. Wie oft kann der Rumpf einer while-Schleife ausgeführt werden?", "31. Was sind geschachtelte if-Anweisungen und Mehrfachverzweigungen?"],
     terms: [
       ["if-Anweisung (Verzweigung)", "if (boolean_expression) statement_1 else statement_2 – ist die Bedingung true, wird statement_1 ausgeführt, sonst statement_2. Der else-Zweig kann fehlen."],
       ["Anweisungsblock", "Statt einer einzelnen Anweisung kann ein Block {…} stehen. Einrücken verbessert die Lesbarkeit."],
@@ -189,6 +196,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "methoden", name: "Methoden", quelle: "Folien Kap. 3 (S. 42–48)",
+    kat: ["22. Warum sind Methoden wichtig für die Strukturierung?", "23. Was sind wichtige Bestandteile einer Methode?", "24. Welche Funktion hat ein Parameter?", "25. Was ist eine Methode mit Rückgabewert?", "26. Wie werden Methoden aufgerufen, was ist zu beachten?", "27. Unterschied lokale – globale Variable?"],
     terms: [
       ["Methode", "Eine benannte Anweisungsfolge für eine logisch zusammengehörige Teilaufgabe. Kann beliebig oft aufgerufen werden – wichtig zur Strukturierung."],
       ["Methodenkopf / Methodenrumpf", "Kopf: Rückgabetyp (oder void), Name, Parameter in Klammern. Rumpf: Deklarationen und Anweisungen in { }.", "void printHeader() { … }"],
@@ -223,6 +231,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "fehler", name: "Fehler & Programmierstil", quelle: "Folien Kap. 3 (S. 49–54)",
+    kat: ["28. Welche Arten von Fehlern gibt es?"],
     terms: [
       ["Syntaxfehler (syntax error)", "Verstoß gegen die Sprachregeln. Der Compiler erkennt ihn und meldet einen compile-time error. Immer den ERSTEN Fehler zuerst beheben – die weiteren hängen oft davon ab.", "fehlendes ;, fehlende Klammer, falscher Typ bei Zuweisung"],
       ["Laufzeitfehler (run-time error)", "Tritt während des Programmlaufs auf; das Programm wird mit (oft schwer verständlicher) Fehlermeldung abgebrochen.", "Speicher erschöpft, Eingabe nicht interpretierbar, Datei fehlt, Division durch 0"],
@@ -251,6 +260,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "typen", name: "Primitive Typen & Typkonversion", quelle: "Folien Kap. 4 (S. 56–60)",
+    kat: ["29. Was sind primitive Typen?", "30. Was ist eine Typkonversion (type cast), welche Arten gibt es?"],
     terms: [
       ["Primitive Typen vs. Klassentypen", "Primitive Typen speichern einfache Werte (Zahlen, Zeichen, Wahrheitswerte). Klassentypen kommen später (z. B. String)."],
       ["byte", "1 Byte, −2⁷ … 2⁷−1 (−128 … 127)"],
@@ -289,6 +299,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "boolean", name: "boolean & logische Operatoren", quelle: "Folien Kap. 4 (S. 65–70)",
+    kat: ["32. Welche Werte hat boolean, wo tritt er auf?", "33. Was sind logische Operatoren?", "34. Was bedeutet teilweise Auswertung (lazy evaluation)?"],
     terms: [
       ["boolean", "Primitiver Typ mit den zwei Werten true und false (vordefinierte Literale). Benannt nach George Boole. NICHT kompatibel mit Zahlentypen."],
       ["Vergleich liefert boolean", "Das Ergebnis eines Vergleichs ist vom Typ boolean.", "boolean q = a < 0;"],
@@ -323,6 +334,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "strings", name: "char & Strings", quelle: "Folien Kap. 4 (S. 71–78)",
+    kat: ["35. Welcher Datentyp für einzelne Zeichen?", "36. Wozu ASCII und Unicode?", "37. Literale welchen Typs schreibt man mit '…'?", "38. Unterschied String – primitive Typen?", "39. Wie fügt man Strings zusammen?", "40. Warum Strings nicht mit == vergleichen?", "41. Welche String-Operationen gibt es?"],
     terms: [
       ["char", "Primitiver Typ für einzelne Zeichen. Literale in einfachen Hochkommas.", "char c = 'p';"],
       ["ASCII", "7 Bit für Zeichen → 128 Zeichen, z. B. keine Umlaute."],
@@ -368,6 +380,7 @@ FACH.java = {
 
   /* ---------------------------------------------------------- */
   { id: "switch", name: "switch-Anweisung", quelle: "Folien Kap. 4 (S. 79–80)",
+    kat: ["42. Unterschied switch – if?"],
     terms: [
       ["switch-Anweisung", "Mehrwegverzweigung (die if-Anweisung ist eine Zweiwegverzweigung)."],
       ["Ablauf", "1. switch-Ausdruck berechnen. 2. Zum passenden case-Label springen. Passt keines → zu default. Gibt es kein default → ans Ende der switch-Anweisung."],
@@ -391,6 +404,170 @@ FACH.java = {
        e:"case-Labels sind konstant, eindeutig und typpassend. Variablen sind als Label nicht erlaubt."},
       {q:"Welchen Wert hat tage für monat = 6?", code:"switch (monat) {\n  case 4: case 6: case 9: case 11:\n    tage = 30;\n    break;\n  case 2:\n    tage = 28;\n    break;\n  default:\n    tage = 31;\n}", o:["30","31","28","Compilerfehler"], c:[0],
        e:"Mehrere case-Labels teilen sich eine Anweisungsfolge. 6 passt zu case 6 → tage = 30."}
+    ]
+  },
+
+  /* ---------------------------------------------------------- */
+  { id: "beispiele", name: "Beispielprogramme Kap. 1–3 – so funktionieren sie", quelle: "VO-Beispiele Kap01–Kap03 (.java-Dateien)",
+    terms: [
+      ["Kreis.java (Kap. 1)", "Berechnet Umfang und Fläche eines Kreises mit fest eingetragenem Radius.\n1. `double umfang, flaeche;` deklariert zwei Variablen für Kommazahlen – noch ohne Wert.\n2. `final double PI = 3.14159;` ist eine Konstante: final heißt, der Wert kann später nicht mehr geändert werden. Konstanten schreibt man in GROSSBUCHSTABEN.\n3. `double radius = 30.5;` – Deklaration und Initialisierung in einem Schritt.\n4. Die Formeln rechts vom = werden ausgerechnet und das Ergebnis in die Variable links geschrieben (Zuweisung).\n5. `IO.println(\"Umfang  = \" + umfang);` – das + hängt die Zahl an den Text an (Konkatenation), dann wird die Zeile ausgegeben.", "Ausgabe: Umfang  = 191.63699",
+       "void main(){\n  double umfang, flaeche;\n  final double PI = 3.14159;\n\n  double radius = 30.5;\n\n  umfang = 2 * PI * radius;\n  flaeche = PI * radius * radius;\n\n  IO.println(\"Umfang  = \" + umfang);\n  IO.println(\"Flaeche = \" + flaeche);\n}"],
+      ["KreisMitEingabe.java (Kap. 2)", "Wie Kreis.java, aber der Radius wird über die Tastatur eingegeben.\n1. `IO.print(…)` (ohne ln) gibt die Aufforderung aus – der Cursor bleibt in derselben Zeile.\n2. `IO.readln()` wartet, bis man etwas tippt und Enter drückt, und liefert die Eingabe als String, also als Text.\n3. Mit Text kann man nicht rechnen: `Double.parseDouble(eingabe)` wandelt den String in eine double-Zahl um.\n4. Danach wird wie in Kreis.java gerechnet und ausgegeben. `IO.println()` ohne Argument gibt nur eine Leerzeile aus.\nAchtung: Tippt man z. B. abc oder 2,5 (Komma statt Punkt), bricht das Programm mit einer NumberFormatException ab – ein Laufzeitfehler.", "Eingabe 1 → Umfang = 6.28318",
+       "void main(){\n  double radius, umfang, flaeche;\n  final double PI = 3.14159;\n\n  IO.println();\n  IO.print(\"Bitte Radius eingeben: \");\n\n  String eingabe = IO.readln();\n  radius = Double.parseDouble(eingabe);\n\n  umfang = 2 * PI * radius;\n  flaeche = PI * radius * radius;\n\n  IO.println(\"Umfang  = \" + umfang);\n  IO.println(\"Flaeche = \" + flaeche);\n  IO.println();\n}"],
+      ["ArithmAusdruck.java (Kap. 2)", "Zeigt, wie Java arithmetische Ausdrücke auswertet. Alle vier Variablen sind double, darum wird überall mit Kommazahlen gerechnet.\nRegeln: Klammern zuerst, dann Punkt vor Strich (* / vor + −), bei gleicher Stufe von links nach rechts.\n• `a/b - c/d` → erst a/b und c/d, dann die Differenz.\n• `(a + b)/(a - b)*(c + d)/(c - d)` → / und * sind gleichrangig, also strikt von links nach rechts.\n• `((a*d + b)*d + c)*d + 2.0` → das ist a·d³ + b·d² + c·d + 2, nur geschickt geklammert (Horner-Schema).\n• `(a - b)*(a - b)*(a - b)` → (a − b)³. Java hat keinen Hoch-Operator – ^ bedeutet etwas anderes!\n• `((3/a + 2)/a + 1)/a` → 3/a ist KEINE Ganzzahldivision, weil a double ist. Sobald ein Operand double ist, wird in double gerechnet.", "",
+       "void main() {\n  double a = 12.56;\n  double b = 2.34;\n  double c = 5.67;\n  double d = 8.90;\n\n  IO.println(\"Berechnung arithmetischer Ausdruecke\");\n  IO.println(a/b - c/d);\n  IO.println((a + b)/(a - b)*(c + d)/(c - d));\n  IO.println(((a*d + b)*d + c)*d + 2.0);\n  IO.println((a - b)*(a - b)*(a - b));\n  IO.println(((3/a + 2)/a + 1)/a);\n}"],
+      ["Zuweisung.java (Kap. 2)", "Zeigt, welche Zuweisungen erlaubt sind und wie Typen umgewandelt werden.\na) `int n = 11;` → Ausgabe a) n: 11\n`n = 4.27;` ist verboten: 4.27 ist double, und ein double passt nicht automatisch in ein int (die Nachkommastellen gingen verloren) → Compilerfehler.\nb) `double x = 2 * n + 1;` → rechts wird mit int gerechnet (23), das Ergebnis wird automatisch in double umgewandelt (implizite Typkonversion, int → double ist erlaubt). Ausgabe: b) n: 11 x: 23.0\n`n = x - 0.5;` ist wieder verboten (double → int). Mit Cast ginge es: `n = (int)(x - 0.5);` → 22, die Nachkommastellen werden abgeschnitten.\nc) `n = n + 1;` → zuerst wird rechts ausgerechnet (11 + 1), dann in n gespeichert. Mathematisch „falsch“, in Java ganz normal. Ausgabe: c) n: 12 x: 23.0", "",
+       "void main(){\n  int n = 11;\n  IO.println(\"a) n: \" + n);\n\n//   n = 4.27;      //nicht erlaubt!!\n\n  double x = 2 * n + 1;\n  IO.println(\"b) n: \" + n + \" x: \" + x);\n\n//   n = x - 0.5;   //nicht erlaubt!!\n\n  n = n + 1;\n  IO.println(\"c) n: \" + n + \" x: \" + x);\n}"],
+      ["WertTausch.java (Kap. 2)", "Tauscht die Werte zweier Variablen mit einer Hilfsvariablen. Start: wert1 = 10, wert2 = 20.\n1. `hilf = wert1;` → hilf = 10 (der Wert von wert1 wird gesichert)\n2. `wert1 = wert2;` → wert1 = 20 (der alte Wert 10 wäre jetzt weg – steckt aber noch in hilf)\n3. `wert2 = hilf;` → wert2 = 10\nOhne Hilfsvariable (`wert1 = wert2; wert2 = wert1;`) hätten am Ende beide den Wert 20 – der erste Wert wäre überschrieben.", "Ausgabe: Wert 1: 20, Wert 2: 10",
+       "void main(){\n  IO.println(\"Werttausch von 2 Variablen\");\n  int wert1 = 10;\n  int wert2 = 20;\n\n  int hilf = wert1;\n  wert1 = wert2;\n  wert2 = hilf;\n\n  IO.println(\"Wert 1: \" + wert1);\n  IO.println(\"Wert 2: \" + wert2);\n}"],
+      ["WechselGeld.java (Kap. 2)", "Berechnet, welche Münzen man für einen Betrag braucht – immer zuerst die größte Münze, so braucht man möglichst wenige.\n1. Betrag in Euro einlesen (double, mit Punkt: 2.50) und in Cent umrechnen: `betragCent = (int)(betragEuro * 100);` – der Cast (int) schneidet die Nachkommastellen ab.\n2. Für jede Münze zwei Schritte: Die Ganzzahldivision / ergibt, wie oft die Münze hineinpasst. Modulo % ergibt den Rest, der danach noch übrig ist.\n   `zweiE = betragCent / 200;` `betragCent = betragCent % 200;` usw. bis 2 Cent.\n3. Was am Ende übrig bleibt, sind die 1-Cent-Münzen.\nBeispiel 2.50: 250 / 200 = 1, Rest 50 → 1× 2 €. 50 / 100 = 0 → 0× 1 €. 50 / 50 = 1, Rest 0 → 1× 50 Cent. Alles andere 0.\nVersteckte Falle: Kommazahlen sind im Computer nicht exakt. 0.29 * 100 ergibt 28.999999999999996 – der Cast macht daraus 28, es fehlt ein Cent! Abhilfe wäre Runden: `(int) Math.round(betragEuro * 100)`.", "Eingabe 2.50 → 1× 2-Euro, 1× 50-Cent",
+       "void main(){\n  double betragEuro;\n  int betragCent;\n  int zweiE, einE;                 //Euro-Muenzen\n  int fuenfzigC, zwanzigC, zehnC,  //Cent-Muenzen\n      fuenfC, zweiC, einC;\n\n  IO.println(\"Betrag in Euro eingeben: \");\n  betragEuro = Double.parseDouble(IO.readln());\n\n  //Euro in Cent umwandeln\n  betragCent = (int)(betragEuro * 100);\n\n  //Muenzanzahlen berechnen\n  zweiE = betragCent / 200;\n  betragCent = betragCent % 200;\n  einE = betragCent / 100;\n  betragCent = betragCent % 100;\n  fuenfzigC = betragCent / 50;\n  betragCent = betragCent % 50;\n  zwanzigC = betragCent / 20;\n  betragCent = betragCent % 20;\n  zehnC = betragCent / 10;\n  betragCent = betragCent % 10;\n  fuenfC = betragCent / 5;\n  betragCent = betragCent % 5;\n  zweiC = betragCent / 2;\n  betragCent = betragCent % 2;\n  einC = betragCent;\n\n  IO.println(betragEuro + \" Euro benoetigen folgende Muenzen:\");\n  IO.println(\" 2-Euro : \" + zweiE);\n  IO.println(\" 1-Euro : \" + einE);\n  // … analog für 50, 20, 10, 5, 2, 1 Cent\n}"],
+      ["WechselGeldFehler.java (Kap. 3)", "Dieselbe Aufgabe wie WechselGeld.java, aber mit eingebauten Fehlern – zum Selbstfinden:\n1. `fuenfC, zweiC einC` – zwischen zweiC und einC fehlt das Komma, und am Ende fehlt der Strichpunkt → Syntaxfehler, der Compiler meldet sie.\n2. `betragCent = betragEuro * 100;` – rechts steht ein double, links ein int, der Cast (int) fehlt → Compilerfehler (möglicher Genauigkeitsverlust).\n3. `einE = betragCent % 100;` – hier müsste / stehen, nicht %. Das kompiliert problemlos, liefert aber falsche Ergebnisse → logischer Fehler, den nur Testen findet.\nMerke: Syntax- und Typfehler findet der Compiler, logische Fehler nicht.", "",
+       "  int fuenfzigC, zwanzigC, zehnC,  //Cent-Muenzen\n      fuenfC, zweiC einC\n  …\n  betragCent = betragEuro * 100;\n  …\n  zweiE = betragCent / 200;\n  betragCent = betragCent % 200;\n  einE = betragCent % 100;\n  betragCent = betragCent % 100;"],
+      ["Maximum.java (Kap. 3)", "Liest zwei ganze Zahlen ein und gibt die größere aus.\n1. `Integer.parseInt(IO.readln())` liest eine Zeile und wandelt sie in einen int um.\n2. `if (a >= b) max = a; else max = b;` – die Bedingung a >= b ist true oder false. Bei true läuft der erste Zweig, sonst der else-Zweig. Genau einer der beiden wird immer ausgeführt.\n3. Jeder Zweig besteht nur aus einer Anweisung, darum braucht man keine { }.\nSind beide Zahlen gleich (z. B. 7 und 7), ist a >= b true → max = a = 7. Das Ergebnis stimmt trotzdem.", "Eingabe 3 und 8 → Maximum: 8",
+       "void main() {\n  int a, b, max;\n\n  IO.println(\"Maximum-Berechnung\");\n  IO.println(\" erste Zahl: \");\n  a = Integer.parseInt(IO.readln());\n  IO.println(\" zweite Zahl: \");\n  b = Integer.parseInt(IO.readln());\n\n  if (a >= b)\n    max = a;\n  else\n    max = b;\n\n  IO.println(\" Maximum: \" + max);\n}"],
+      ["Muenzwurf.java (Kap. 3)", "Simuliert einen Münzwurf mit Zufallszahlen.\n1. `Math.random()` liefert bei jedem Aufruf eine zufällige double-Zahl x mit 0 ≤ x < 1.\n2. Ist sie kleiner als 0.5 – das passiert in der Hälfte der Fälle –, wird „Kopf“ ausgegeben, sonst „Zahl“.\n3. `IO.print` ohne ln sorgt dafür, dass „Muenzwurf: “ und das Ergebnis in derselben Zeile stehen.\nJeder Programmstart kann ein anderes Ergebnis liefern.", "Ausgabe z. B.: Muenzwurf: Kopf",
+       "void main() {\n  IO.print(\"Muenzwurf: \");\n  if (Math.random() < 0.5)          //0 <= Math.random() < 1\n    IO.println(\"Kopf\");\n  else\n    IO.println(\"Zahl\");\n}"],
+      ["SummeN.java (Kap. 3)", "Berechnet 1 + 2 + … + n mit einer while-Schleife.\nVariablen: n = Obergrenze (wird eingelesen), sum = 0 (bisherige Summe), i = 1 (aktuelle Zahl).\nSchleife: Solange `i <= n` gilt, wird die aktuelle Zahl dazugezählt (`sum = sum + i;`) und zur nächsten Zahl weitergegangen (`i = i + 1;`).\nAblauf für n = 4: i=1 → sum 1 · i=2 → sum 3 · i=3 → sum 6 · i=4 → sum 10 · i=5: 5 <= 4 ist false → Ende.\nDer Rumpf hat zwei Anweisungen, darum braucht er { }. Fehlte `i = i + 1;`, bliebe i immer 1 → Endlosschleife.\nBei n = 0 läuft die Schleife gar nicht (abweisende Schleife), das Ergebnis ist 0.", "Eingabe 4 → Summe 1 bis 4 : 10",
+       "void main(){\n  int n;       //Obergrenze\n  int sum = 0; //Summe\n  int i = 1;   //Index fuer Werte 1 bis n\n\n  IO.println(\"Summe 1 bis n berechnen, n eingeben:\");\n  n = Integer.parseInt(IO.readln());\n\n  while (i <= n){\n    sum = sum + i;\n    i = i + 1;\n  }\n\n  IO.println();\n  IO.println(\"Summe 1 bis \" + n + \" : \" + sum);\n}"],
+      ["GGTDifferenz.java (Kap. 3)", "ggT von zwei Zahlen mit dem Differenzalgorithmus: Die kleinere Zahl wird so lange von der größeren abgezogen, bis beide gleich sind – das ist dann der ggT.\n1. m und n werden in hilf1 und hilf2 kopiert, damit die Originalwerte für die Ausgabe erhalten bleiben (die Hilfsvariablen werden ja verändert).\n2. `while (hilf1 != hilf2)` – solange beide verschieden sind …\n3. … wird von der größeren die kleinere abgezogen (if-else).\nKeine { } nötig: Der Schleifenrumpf ist genau EINE Anweisung – die ganze if-else-Anweisung.\nBeispiel ggT(12, 18): (12, 18) → (12, 6) → (6, 6) → Ende, ggT = 6.\nAchtung: Bei 0 oder negativen Zahlen werden die Werte nie gleich → Endlosschleife. Das Programm funktioniert nur für positive Zahlen.", "Eingabe 12 und 18 → ggT(12, 18) = 6",
+       "void main(){\n  int m, n;          //Ausgangswerte fuer ggT-Berechnung\n  int hilf1, hilf2;  //Hilfsvariable\n\n  IO.println(\"GGT-Berechnung - 2 Zahlen eingeben\");\n  m = Integer.parseInt(IO.readln());\n  n = Integer.parseInt(IO.readln());\n\n  hilf1 = m; hilf2 = n;  // Originalwerte bleiben erhalten\n\n  while (hilf1 != hilf2)      //keine Klammern noetig,\n    if (hilf1 > hilf2)        // da nur eine if-Anweisung!\n      hilf1 = hilf1 - hilf2;\n    else\n      hilf2 = hilf2 - hilf1;\n\n  IO.println();\n  IO.println(\"ggT(\" + m + \", \" + n + \") = \" + hilf1);\n}"],
+      ["GGT3Zahlen.java (Kap. 3)", "ggT von drei Zahlen. Idee: ggT(m, n, p) = ggT(ggT(m, n), p).\n1. Zuerst wie bei GGTDifferenz den ggT von m und n berechnen → er steht danach in hilf1.\n2. Dann `hilf2 = p;` setzen und dieselbe Schleife noch einmal laufen lassen → ggT von hilf1 und p.\nBeispiel 12, 18, 8: ggT(12, 18) = 6, dann ggT(6, 8) = 2.\nNachteil: Die Schleife steht zweimal fast gleich im Code, die Trennlinie >---…---< ebenfalls. Das lösen die nächsten drei Versionen mit Methoden.", "Eingabe 12, 18, 8 → ggT(12, 18, 8) = 2",
+       "  hilf1 = m; hilf2 = n;\n\n  //ggt von m und n berechnen\n  while (hilf1 != hilf2)\n    if (hilf1 > hilf2)\n      hilf1 = hilf1 - hilf2;\n    else\n      hilf2 = hilf2 - hilf1;\n\n  //ggt von hilf1 und p berechnen\n  hilf2 = p;\n  while (hilf1 != hilf2)\n    if (hilf1 > hilf2)\n      hilf1 = hilf1 - hilf2;\n    else\n      hilf2 = hilf2 - hilf1;\n\n  IO.println(\"ggT(\" + m + \", \" + n + \", \" + p + \") = \" + hilf1);"],
+      ["GGT3Zahlen_m1.java – Methoden ohne Parameter", "Gleiches Programm, aber die Trennlinie wird in Methoden ausgelagert.\n• `void printSeparator()` – void: liefert keinen Wert zurück. () ist die leere Parameterliste. Der Rumpf gibt die Linie aus.\n• `void printHeader()` gibt eine Leerzeile aus und ruft dann selbst printSeparator() auf – Methoden dürfen andere Methoden aufrufen.\n• Aufruf in main mit `printHeader();` – das Programm springt in die Methode, führt sie aus und macht danach direkt hinter der Aufrufstelle weiter.\n• Die Methoden stehen außerhalb von main (nach dessen schließender }).\nVorteil: Soll die Linie anders aussehen, ändert man sie nur an einer Stelle.", "",
+       "void main(){\n  …\n  printHeader();\n  …\n  printSeparator();\n}\n\nvoid printHeader(){\n  IO.println();\n  printSeparator();\n}\n\nvoid printSeparator(){\n  IO.println(\">----------------------------------<\");\n}"],
+      ["GGT3Zahlen_m2.java – Methode mit Parameter", "printSeparator bekommt einen Parameter: `void printSeparator(int anz)`.\n1. Beim Aufruf `printSeparator(33)` wird der Wert 33 in den Parameter anz kopiert.\n2. In der Methode wird zuerst \">\" ausgegeben,\n3. dann mit einer while-Schleife anz-mal \"-\" (Zähler i läuft von 1 bis anz),\n4. am Ende \"<\" mit Zeilenumbruch.\n`IO.print` (ohne ln) sorgt dafür, dass alles in einer Zeile landet.\nprintSeparator(3) gibt also >---< aus. So kann man die Linie beliebig lang machen, ohne die Methode zu ändern.", "printSeparator(3) → >---<",
+       "// Methode mit Parameter anz (Anzahl der \"-\")\nvoid printSeparator(int anz){\n  int i = 1;\n  IO.print(\">\");\n  while (i <= anz){\n    IO.print(\"-\");\n    i = i + 1;\n  }\n  IO.println(\"<\");\n}"],
+      ["GGT3Zahlen_m3.java – Methode mit Rückgabewert", "Die ggT-Berechnung wird zur Methode `int ggt(int a, int b)`.\n• int statt void im Kopf: Die Methode liefert ein int-Ergebnis. `return a;` beendet die Methode und gibt den Wert an den Aufrufer zurück.\n• Aufruf: `hilf = ggt(m, n);` und danach `hilf = ggt(hilf, p);` – der zurückgegebene Wert wird jeweils in hilf gespeichert.\n• Warum braucht man hier keine Kopien wie hilf1/hilf2? Beim Aufruf werden die WERTE von m und n in a und b kopiert (Wertübergabe, call by value). Die Methode verändert nur a und b – m und n bleiben unverändert und können am Ende ausgegeben werden.\n• Die doppelte Schleife ist verschwunden: Der Algorithmus steht nur noch einmal im Code.", "",
+       "void main(){\n  …\n  //ggt von m und n berechnen\n  hilf = ggt(m, n);\n  //ggt von hilf und p berechnen\n  hilf = ggt(hilf, p);\n\n  IO.println(\"ggT(\" + m + \", \" + n + \", \" + p + \") = \" + hilf);\n}\n\n//ggt(a, b) mittels Differenzenmethode\nint ggt(int a, int b){\n  while (a != b)\n    if (a > b)\n      a = a - b;\n    else\n      b = b - a;\n  return a;\n}"],
+      ["Unlesbar.java (Kap. 3)", "Genau dasselbe Programm wie KreisMitEingabe.java – nur alles in einer einzigen Zeile, ohne Leerzeichen und Einrückung.\nEs kompiliert und läuft fehlerfrei: Dem Compiler sind Zeilenumbrüche und zusätzliche Leerzeichen egal, er orientiert sich an ; und { }.\nFür Menschen ist es aber praktisch unlesbar. Darum gibt es Regeln für den Programmierstil: eine Anweisung pro Zeile, einheitlich einrücken, Leerzeichen um Operatoren, sprechende Namen, Kommentare.", "",
+       "void main(){double radius,umfang,flaeche;final double PI = 3.14159;IO.println();IO.println(\"Bitte Radius eingeben:\");radius=Double.parseDouble(IO.readln());umfang=2*PI*radius;flaeche=PI*radius*radius;IO.println(\"Umfang  = \"+umfang);IO.println(\"Flaeche = \"+flaeche);IO.println();}"]
+    ],
+    quiz: [
+      {q:"WertTausch ohne Hilfsvariable: Welche Werte haben die Variablen danach?", code:"int wert1 = 10;\nint wert2 = 20;\nwert1 = wert2;\nwert2 = wert1;", o:["wert1 = 20, wert2 = 20","wert1 = 20, wert2 = 10","wert1 = 10, wert2 = 10","wert1 = 10, wert2 = 20"], c:[0],
+       e:"Nach wert1 = wert2 ist die 10 überschrieben. wert2 = wert1 kopiert dann nur die 20 zurück. Darum braucht WertTausch.java die Hilfsvariable hilf."},
+      {q:"Was gibt dieser Ausschnitt aus Zuweisung.java aus?", code:"int n = 11;\ndouble x = 2 * n + 1;\nIO.println(\"n: \" + n + \" x: \" + x);", o:["n: 11 x: 23.0","n: 11 x: 23","n: 11.0 x: 23.0","Compilerfehler"], c:[0],
+       e:"2 * n + 1 wird als int berechnet (23) und bei der Zuweisung automatisch zu double (23.0). n bleibt int und wird ohne .0 ausgegeben."},
+      {q:"n ist int, x ist double. Welche Zuweisungen meldet der Compiler als Fehler?", o:["`n = 4.27;`","`n = x - 0.5;`","`x = 2 * n + 1;`","`n = n + 1;`","`n = (int)(x - 0.5);`"], c:[0,1],
+       e:"double → int geht nicht automatisch (Nachkommastellen gingen verloren). Mit Cast (int) ist es erlaubt. int → double ist immer automatisch möglich."},
+      {q:"WechselGeld.java: Welche Münzen werden für die Eingabe 2.50 ausgegeben?", o:["1× 2 €, 1× 50 Cent","2× 1 €, 1× 50 Cent","1× 2 €, 2× 20 Cent, 1× 10 Cent","5× 50 Cent"], c:[0],
+       e:"250 / 200 = 1 (Rest 50) → 50 / 100 = 0 → 50 / 50 = 1 (Rest 0). Der Algorithmus nimmt immer zuerst die größte Münze."},
+      {q:"Was berechnet `betragCent = betragCent % 200;` in WechselGeld.java?", o:["Den Rest in Cent, der nach den 2-Euro-Münzen noch übrig ist","Die Anzahl der 2-Euro-Münzen","Den Betrag in Prozent","Den Betrag geteilt durch 200 als Kommazahl"], c:[0],
+       e:"/ liefert, wie oft 200 hineinpasst (Anzahl Münzen), % den Rest. Mit diesem Rest geht es bei der nächstkleineren Münze weiter."},
+      {q:"Eingabe 0.29 in WechselGeld.java: Welchen Wert hat betragCent nach `betragCent = (int)(betragEuro * 100);`?", o:["28","29","30","0"], c:[0],
+       e:"0.29 ist im Computer nicht exakt darstellbar: 0.29 * 100 = 28.999999999999996. Der Cast (int) schneidet ab → 28. Ein Cent fehlt! Mit Math.round wäre es richtig."},
+      {q:"Welche Fehler in WechselGeldFehler.java meldet der Compiler?", o:["`fuenfC, zweiC einC` – fehlendes Komma und fehlender Strichpunkt","`betragCent = betragEuro * 100;` – double an int ohne Cast","`einE = betragCent % 100;` – % statt /"], c:[0,1],
+       e:"Syntax- und Typfehler erkennt der Compiler. Das % statt / ist ein logischer Fehler: Das Programm läuft, rechnet aber falsch."},
+      {q:"Warum braucht `if (a >= b) max = a; else max = b;` in Maximum.java keine geschweiften Klammern?", o:["Jeder Zweig besteht nur aus einer einzigen Anweisung","Weil es Java 25 ist","Bei if sind Klammern nie erlaubt","Weil max eine Konstante ist"], c:[0],
+       e:"{ } braucht man nur, wenn ein Zweig mehrere Anweisungen umfasst."},
+      {q:"Welche Werte kann `Math.random()` liefern?", o:["Eine double-Zahl x mit 0 ≤ x < 1","Nur 0 oder 1","Eine ganze Zahl von 1 bis 6","Eine double-Zahl x mit 0 < x ≤ 1"], c:[0],
+       e:"0 ist möglich, 1 nie. Darum ist `Math.random() < 0.5` genau in der Hälfte der Fälle true."},
+      {q:"SummeN.java mit der Eingabe n = 0: Was wird ausgegeben?", o:["Summe 1 bis 0 : 0","Summe 1 bis 0 : 1","Endlosschleife","Laufzeitfehler"], c:[0],
+       e:"i = 1 und 1 <= 0 ist false – die Schleife wird gar nicht betreten (abweisende Schleife), sum bleibt 0."},
+      {q:"Was passiert, wenn in SummeN.java die Zeile `i = i + 1;` fehlt (n = 3)?", code:"while (i <= n){\n  sum = sum + i;\n}", o:["Endlosschleife – i bleibt immer 1","sum ist am Ende 3","Compilerfehler","Die Schleife läuft genau einmal"], c:[0],
+       e:"Ohne Veränderung von i bleibt die Bedingung 1 <= 3 immer true. Die Schleife endet nie – ein logischer Fehler, kein Compilerfehler."},
+      {q:"GGTDifferenz.java mit 9 und 24: Was ist das Ergebnis?", o:["3","9","6","1"], c:[0],
+       e:"(9, 24) → (9, 15) → (9, 6) → (3, 6) → (3, 3) → ggT = 3."},
+      {q:"GGTDifferenz.java mit 0 und 5: Was passiert?", o:["Endlosschleife","ggT = 5","ggT = 0","Compilerfehler"], c:[0],
+       e:"hilf1 = 0 ist nie größer, also wird immer hilf2 = 5 − 0 = 5 gerechnet. Die Werte werden nie gleich – das Programm funktioniert nur für positive Zahlen."},
+      {q:"Wozu dienen hilf1 und hilf2 in GGTDifferenz.java?", o:["Damit m und n für die Ausgabe unverändert bleiben","In while-Schleifen darf man keine eingelesenen Variablen verwenden","Damit das Programm schneller läuft","Ohne sie gäbe es einen Compilerfehler"], c:[0],
+       e:"Der Algorithmus verändert die Werte. Am Ende soll aber „ggT(12, 18) = 6“ mit den ursprünglichen Zahlen ausgegeben werden."},
+      {q:"GGT3Zahlen.java mit 12, 18 und 8: Was ist das Ergebnis?", o:["2","6","4","1"], c:[0],
+       e:"ggT(12, 18) = 6, danach ggT(6, 8): (6, 8) → (6, 2) → (4, 2) → (2, 2) → 2."},
+      {q:"Was gibt `printSeparator(3)` aus GGT3Zahlen_m2.java aus?", o:["`>---<`","`>--<`","`>----<`","`---`"], c:[0],
+       e:"Zuerst >, dann läuft i von 1 bis 3 → drei Striche, dann < mit Zeilenumbruch."},
+      {q:"GGT3Zahlen_m3.java mit m = 12, n = 18. Welche Werte haben m und n nach `hilf = ggt(m, n);`?", o:["m = 12, n = 18 – unverändert","m = 6, n = 6","m = 0, n = 6","m = 6, n = 18"], c:[0],
+       e:"Call by value: Nur die Werte werden in die Parameter a und b kopiert. Die Methode ändert a und b, nicht m und n."},
+      {q:"Was bedeutet das `int` vor dem Namen in `int ggt(int a, int b)`?", o:["Die Methode liefert ein int-Ergebnis zurück (mit return)","Die Methode darf nur einmal aufgerufen werden","Die Methode hat keinen Rückgabewert","a und b müssen 0 sein"], c:[0],
+       e:"Der Typ vor dem Methodennamen ist der Rückgabetyp. void hieße: kein Rückgabewert."},
+      {q:"Warum wurde in GGT3Zahlen_m1.java die Trennlinie in eine Methode printSeparator() ausgelagert?", o:["Der Code steht nur einmal da, kann mehrfach aufgerufen und an einer Stelle geändert werden","Weil IO.println in main nicht erlaubt ist","Damit das Programm schneller läuft","Weil Methoden immer Rückgabewerte brauchen"], c:[0],
+       e:"Methoden fassen eine Teilaufgabe unter einem Namen zusammen – das spart Wiederholungen und macht das Programm übersichtlicher."},
+      {q:"Was passiert, wenn man Unlesbar.java kompiliert und ausführt?", o:["Es funktioniert genau wie KreisMitEingabe.java","Compilerfehler wegen fehlender Zeilenumbrüche","Laufzeitfehler","Es gibt nichts aus"], c:[0],
+       e:"Dem Compiler sind Leerzeichen und Zeilenumbrüche egal. Lesbarkeit ist nur für Menschen wichtig – aber dafür umso mehr."},
+      {q:"In KreisMitEingabe.java gibt jemand `2,5` ein. Was passiert?", o:["Laufzeitfehler (NumberFormatException) – Double.parseDouble erwartet einen Punkt","Es wird mit 2.5 gerechnet","Es wird mit 2 gerechnet","Der Compiler meldet einen Fehler"], c:[0],
+       e:"Die Eingabe ist erst zur Laufzeit bekannt. parseDouble versteht nur den Dezimalpunkt – 2,5 lässt sich nicht umwandeln, das Programm bricht ab."},
+      {q:"Welcher Ausdruck berechnet a·d³ + b·d² + c·d + 2 (wie in ArithmAusdruck.java)?", o:["`((a*d + b)*d + c)*d + 2.0`","`a*d^3 + b*d^2 + c*d + 2`","`(a + b + c)*d*d*d + 2`","`a*d*3 + b*d*2 + c*d + 2`"], c:[0],
+       e:"Ausmultipliziert: a·d·d·d + b·d·d + c·d + 2. In Java ist ^ KEIN Hoch-Operator. Potenzen schreibt man als Produkt (oder mit Math.pow)."}
+    ]
+  },
+
+  /* ---------------------------------------------------------- */
+  { id: "wiederholung", name: "Wiederholungsfragen Kap. 1–4", quelle: "Wiederholungsfragen (PDF), Nr. 1–42",
+    terms: [
+      ["1. Was ist ein Compiler, was ist ein Editor?", "Editor: Programm zum Schreiben und Bearbeiten des Quelltexts (.java-Datei). Compiler: übersetzt den Quellcode in Bytecode (.class-Datei)."],
+      ["2. Was ist Bytecode?", "Maschinencode für einen virtuellen Prozessor, gespeichert in .class-Dateien. Die JVM (Java Virtual Machine) führt ihn auf dem echten Prozessor aus – darum läuft dasselbe Java-Programm auf verschiedenen Rechnern."],
+      ["3. Wozu dienen Bezeichner und wie sind sie aufgebaut?", "Namen für Programme, Variablen, Konstanten, Methoden … Erlaubt sind Buchstaben, Ziffern, _ und $. Das erste Zeichen darf keine Ziffer sein, Schlüsselwörter sind verboten, Groß-/Kleinschreibung wird unterschieden.", "erlaubt: radius, m2n – verboten: 5ter, sbg-wien, private"],
+      ["4. Was bedeuten Schlüsselwörter?", "Reservierte Wörter mit fest vorgegebener Bedeutung in Java. Sie dürfen nicht als eigene Namen verwendet werden.", "if, while, void, final, int, private"],
+      ["5. Welche Arten von Kommentaren gibt es?", "Zeilenkommentar // (bis zum Zeilenende) und Blockkommentar /* … */ (über mehrere Zeilen). Kommentare haben keine Wirkung auf den Ablauf."],
+      ["6. Wozu werden Variablen verwendet?", "Zum Speichern von Daten: benannte „Behälter“ mit festem Typ, deren Wert sich während des Programms ändern kann."],
+      ["7. Was wird bei der Deklaration festgelegt?", "Name und Typ der Variable. Der Typ bestimmt, welche Werte sie aufnehmen kann. Dafür wird Speicherplatz reserviert.", "double radius;"],
+      ["8. Was sind binäre und unäre Operatoren?", "Binär: zwei Operanden, z. B. a + b, a * b. Unär: ein Operand, z. B. das Vorzeichen −a. Unäre Operatoren binden stärker."],
+      ["9. Wie heißt eine Anweisung, die einen Wert in einer Variable speichert?", "Zuweisung: variable = ausdruck; – zuerst wird rechts ausgerechnet, dann links gespeichert.", "n = n + 1;"],
+      ["10. Was muss für eine Zuweisung erfüllt sein?", "Zuweisungskompatibilität: Der Typ rechts muss gleich sein oder sich automatisch in den Typ links umwandeln lassen – entlang byte → short → int → long → float → double. In die Gegenrichtung (z. B. double → int) nur mit Cast.", "double d = i; ✓ – int i = d; ✗"],
+      ["11. Was bedeutet Initialisierung?", "Die Variable bekommt ihren ersten Wert – oft direkt bei der Deklaration (Deklaration + Zuweisung kombiniert).", "int sum = 0;"],
+      ["12. Was sind Syntax und Semantik?", "Syntax: die Regeln für den korrekten Aufbau (Grammatik) – Verstöße meldet der Compiler. Semantik: die Bedeutung, also was das Programm bei der Ausführung bewirkt."],
+      ["13. Was ist ein Algorithmus?", "Eine eindeutige, endliche Schritt-für-Schritt-Anleitung zur Lösung eines Problems.", "ggT mit dem Differenzalgorithmus"],
+      ["14. Warum heißt die if-Anweisung Verzweigung?", "Der Programmablauf teilt sich: Je nachdem, ob die Bedingung true oder false ist, wird der eine oder der andere Zweig ausgeführt."],
+      ["15. Welche Werte kann eine if-Bedingung ergeben?", "Nur true oder false (Typ boolean)."],
+      ["16. Wozu braucht man bei if die { }?", "Um mehrere Anweisungen zu einem Block zusammenzufassen. Ohne { } gehört nur die erste Anweisung zum if bzw. else. Auch nötig, um ein else dem äußeren if zuzuordnen (dangling else)."],
+      ["17. Was ist ein Vergleichsoperator?", "== != < <= > >= vergleichen zwei Werte. Das Ergebnis ist immer boolean (true oder false). Achtung: = ist die Zuweisung, == der Vergleich."],
+      ["18. Aus welchen Teilen besteht eine while-Schleife?", "Aus der Schleifenbedingung (in runden Klammern) und dem Schleifenrumpf (eine Anweisung oder ein Block { }). Jeder Durchlauf heißt Iteration.", "while (i <= n) { … }"],
+      ["19. Unterschied Schleifenbedingung – if-Bedingung?", "Beide sind boolean-Ausdrücke. Die if-Bedingung wird einmal geprüft, die Schleifenbedingung vor JEDEM Durchlauf erneut."],
+      ["20. Wozu braucht man Schleifen?", "Um Anweisungen zu wiederholen, ohne sie mehrfach hinzuschreiben – auch wenn erst zur Laufzeit feststeht, wie oft.", "Summe 1 bis n"],
+      ["21. Wie oft kann der Rumpf einer while-Schleife laufen?", "0-mal bis beliebig oft (im Fehlerfall unendlich = Endlosschleife). Weil die Bedingung vorher geprüft wird, kann er auch gar nicht laufen: abweisende Schleife."],
+      ["22. Warum sind Methoden wichtig?", "Sie zerlegen ein Programm in kleinere, benannte Teilaufgaben. Code wird nur einmal geschrieben und kann beliebig oft aufgerufen werden – übersichtlicher und leichter zu ändern."],
+      ["23. Was sind wichtige Bestandteile einer Methode?", "Methodenkopf: Rückgabetyp (oder void), Name, Parameterliste in ( ). Methodenrumpf in { }. Bei einem Rückgabewert mindestens eine return-Anweisung.", "int ggt(int a, int b) { … return a; }"],
+      ["24. Welche Funktion haben Parameter?", "Sie übergeben Werte an die Methode. Beim Aufruf wird der Wert des Arguments in den Parameter kopiert.", "printSeparator(33) → anz = 33"],
+      ["25. Was ist eine Methode mit Rückgabewert?", "Eine Methode, die ein Ergebnis liefert: Statt void steht der Ergebnistyp im Kopf, return gibt den Wert zurück. Der Aufruf kann in einem Ausdruck stehen.", "hilf = ggt(m, n);"],
+      ["26. Wie ruft man Methoden auf, was ist zu beachten?", "Über den Namen mit den Argumenten in ( ). Anzahl, Reihenfolge und Typen müssen zu den Parametern passen. Ohne Rückgabewert: als eigene Anweisung. Mit Rückgabewert: in einem Ausdruck, der Typ muss passen."],
+      ["27. Unterschied lokale – globale Variable?", "Lokal: in einer Methode deklariert, nur dort sichtbar und nur während des Aufrufs vorhanden. Global: außerhalb der Methoden deklariert, alle Methoden können sie lesen und ändern – nur verwenden, wenn es nicht anders geht (häufige Fehlerquelle)."],
+      ["28. Welche Arten von Fehlern gibt es?", "Syntaxfehler: Grammatik verletzt, der Compiler meldet sie (z. B. fehlender ;). Laufzeitfehler: treten während der Ausführung auf (z. B. Division durch 0, ungültige Eingabe). Logische Fehler: Programm läuft, liefert aber falsche Ergebnisse – nur durch Testen zu finden."],
+      ["29. Was sind primitive Typen?", "Die eingebauten Grundtypen für einfache Werte – der Typ legt den Wertebereich fest.", "byte, short, int, long, float, double, char, boolean"],
+      ["30. Was ist eine Typkonversion (Cast)?", "Umwandlung eines Werts in einen anderen Typ. Implizit (automatisch) in Richtung größerer Typ, z. B. int → double bei 2 + 1.0. Explizit mit Cast (typ), z. B. (int) 3.7 → 3 – Nachkommastellen werden abgeschnitten."],
+      ["31. Geschachtelte if-Anweisungen, Mehrfachverzweigung?", "Geschachtelt: ein if innerhalb eines Zweigs eines anderen if. Mehrfachverzweigung: eine Kette if … else if … else – ausgeführt wird der erste Zweig, dessen Bedingung erfüllt ist."],
+      ["32. Welche Werte hat boolean, wo kommt er vor?", "true und false. Als Ergebnis von Vergleichen, in Bedingungen von if und while, in boolean-Variablen.", "boolean gefunden = false;"],
+      ["33. Was sind logische Operatoren?", "&& (und), || (oder), ! (nicht) – sie verknüpfen bzw. verneinen boolean-Werte."],
+      ["34. Was heißt teilweise Auswertung (lazy evaluation)?", "Der rechte Operand wird nur berechnet, wenn er noch nötig ist: Ist bei && links false, ist das Ergebnis schon false. Ist bei || links true, ist das Ergebnis schon true.", "x != 0 && 10 / x > 1 – bei x = 0 kein Fehler"],
+      ["35. Welcher Typ für einzelne Zeichen?", "char. char-Werte sind intern Zahlen (Unicode) und können einer int-Variable zugewiesen werden.", "char c = 'a'; int i = c; → 97"],
+      ["36. Wozu ASCII und Unicode?", "Zeichencodes: Jedem Zeichen wird eine Zahl zugeordnet. ASCII hat 128 Zeichen, keine Umlaute. Unicode umfasst fast alle Zeichen aller Schriften – Java verwendet Unicode für char."],
+      ["37. Welche Literale schreibt man mit '…'?", "char-Literale, also ein einzelnes Zeichen.", "'a', '7', '\\n'"],
+      ["38. Unterschied String – primitive Typen?", "Eine primitive Variable enthält direkt den Wert. Eine String-Variable enthält nur eine Referenz (einen Zeiger) auf ein String-Objekt. Strings sind unveränderlich und haben Methoden wie length() oder charAt()."],
+      ["39. Wie fügt man Strings zusammen?", "Konkatenation mit dem Operator +. Dabei entsteht ein neues String-Objekt.", "\"Hallo \" + name"],
+      ["40. Warum Strings nicht mit == vergleichen?", "== vergleicht bei Strings die Referenzen (ob es dasselbe Objekt ist), nicht den Inhalt – das kann trotz gleichem Text false liefern. Den Inhalt vergleicht man mit s1.equals(s2)."],
+      ["41. Welche String-Operationen kennst du?", "length() → Anzahl der Zeichen (int). charAt(i) → Zeichen an Position i, Zählung ab 0 (char). equals(…) → Inhaltsvergleich. compareTo(…) → lexikographischer Vergleich: < 0, = 0 oder > 0. + → Konkatenation."],
+      ["42. Unterschied switch – if?", "if: zwei Wege, beliebige boolean-Bedingung. switch: Mehrwegverzweigung über den Wert EINES Ausdrucks (int, char oder String). case-Labels müssen Konstanten sein. break beendet den switch – ohne break läuft es in den nächsten case weiter. default greift, wenn kein case passt."]
+    ],
+    quiz: [
+      {q:"Was ist Bytecode?", o:["Code für einen virtuellen Prozessor (die JVM), gespeichert in .class-Dateien","Der Quellcode in einer .java-Datei","Direkt ausführbarer Maschinencode für den echten Prozessor","Ein Kommentar im Programm"], c:[0],
+       e:"Der Compiler erzeugt Bytecode, die JVM führt ihn auf dem echten Prozessor aus."},
+      {q:"int i; long l; double d; – Welche Zuweisungen sind OHNE Cast erlaubt?", o:["`d = i;`","`l = i;`","`i = d;`","`i = l;`","`d = l;`"], c:[0,1,4],
+       e:"Automatisch geht es nur in Richtung byte → short → int → long → float → double. i = d und i = l bräuchten einen Cast."},
+      {q:"Was beschreibt die Semantik eines Programms?", o:["Was es bei der Ausführung bewirkt – seine Bedeutung","Die Grammatikregeln für den korrekten Aufbau","Die Einrückung und Formatierung","Die Namen der Dateien"], c:[0],
+       e:"Syntax = korrekte Form, Semantik = Bedeutung bzw. Wirkung."},
+      {q:"Was ist ein Algorithmus?", o:["Eine eindeutige, endliche Schritt-für-Schritt-Anleitung zur Lösung eines Problems","Ein Java-Schlüsselwort","Ein anderes Wort für Compiler","Eine Programmiersprache"], c:[0],
+       e:"Ein Programm ist die Umsetzung eines Algorithmus in einer Programmiersprache."},
+      {q:"Wie oft kann der Rumpf einer while-Schleife ausgeführt werden?", o:["0-mal bis beliebig oft","Mindestens einmal","Genau einmal","Höchstens zehnmal"], c:[0],
+       e:"Die Bedingung wird vor jedem Durchlauf geprüft – ist sie gleich false, läuft der Rumpf nie (abweisende Schleife)."},
+      {q:"Was unterscheidet die Schleifenbedingung von der if-Bedingung?", o:["Beide sind boolean-Ausdrücke – die Schleifenbedingung wird aber vor jedem Durchlauf erneut geprüft","Die Schleifenbedingung muss ein int sein","Die if-Bedingung wird mehrmals geprüft","Nur die if-Bedingung darf Vergleichsoperatoren enthalten"], c:[0],
+       e:"Formal gibt es keinen Unterschied, praktisch wird die Schleifenbedingung oft ausgewertet."},
+      {q:"Das Programm läuft ohne Absturz, liefert aber ein falsches Ergebnis. Welcher Fehlertyp?", o:["Logischer Fehler","Syntaxfehler","Laufzeitfehler","Compilerfehler"], c:[0],
+       e:"Logische Fehler findet weder Compiler noch Laufzeitsystem – nur Testen."},
+      {q:"Während der Ausführung wird eine int-Zahl durch 0 geteilt. Welcher Fehlertyp?", o:["Laufzeitfehler","Syntaxfehler","Compilerfehler","Gar kein Fehler"], c:[0],
+       e:"Der Wert des Teilers steht oft erst zur Laufzeit fest – das Programm bricht dann ab (ArithmeticException)."},
+      {q:"Was passiert hier?", code:"int x = 0;\nif (x != 0 && 10 / x > 1)\n  IO.println(\"groß\");", o:["Nichts wird ausgegeben, kein Fehler – 10 / x wird gar nicht berechnet","Laufzeitfehler: Division durch 0","Ausgabe: groß","Compilerfehler"], c:[0],
+       e:"Lazy evaluation: x != 0 ist false, damit steht das Ergebnis von && schon fest. Der rechte Teil wird übersprungen."},
+      {q:"Womit vergleichst du den INHALT zweier Strings s1 und s2?", o:["`s1.equals(s2)`","`s1 == s2`","`s1 = s2`","`s1.length() == s2.length()`"], c:[0],
+       e:"== vergleicht nur die Referenzen, = ist eine Zuweisung, gleiche Länge heißt nicht gleicher Inhalt."},
+      {q:"Welche Literale haben den Typ char?", o:["`'a'`","`'7'`","`\"a\"`","`'\\n'`"], c:[0,1,3],
+       e:"Einfache Hochkommas = char (auch Escape-Sequenzen wie '\\n'). Doppelte Hochkommas = String, auch bei nur einem Zeichen."},
+      {q:"Was passiert, wenn in einem case das break fehlt?", o:["Die Anweisungen des nächsten case werden auch ausgeführt","Compilerfehler","Die switch-Anweisung wird sofort verlassen","Es wird zu default gesprungen"], c:[0],
+       e:"Ohne break „fällt“ die Ausführung in den nächsten case durch – bis zum nächsten break oder zum Ende des switch."},
+      {q:"Was gehört NICHT zu den primitiven Typen?", o:["String","int","char","boolean"], c:[0],
+       e:"String ist eine Klasse – String-Variablen enthalten Referenzen auf String-Objekte."},
+      {q:"Was stimmt für eine lokale Variable?", o:["Sie ist nur in der Methode bzw. dem Block sichtbar, in dem sie deklariert wurde","Sie ist in allen Methoden sichtbar","Sie behält ihren Wert zwischen zwei Methodenaufrufen","Sie muss immer final sein"], c:[0],
+       e:"Lokale Variablen existieren nur von ihrer Deklaration bis zum Ende ihres Blocks."},
+      {q:"Was ergibt `(int) 3.9`?", o:["3","4","3.9","Compilerfehler"], c:[0],
+       e:"Ein Cast von double nach int schneidet die Nachkommastellen ab – es wird nicht gerundet."}
     ]
   }
   ],

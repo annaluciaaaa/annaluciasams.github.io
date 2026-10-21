@@ -101,10 +101,11 @@ details.kat li{margin-bottom:.25rem}
 .search:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
 .toggle{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);cursor:pointer;user-select:none}
 .toggle input{accent-color:var(--accent);width:16px;height:16px}
-.terms{display:grid;gap:10px}
+.terms{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
 .term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.85rem 1.1rem}
 .term dt{font-weight:600;font-size:15px;color:var(--accent)}
-.term dd{font-size:14.5px;margin-top:.25rem}
+.term dd{font-size:14.5px;margin-top:.25rem;white-space:pre-line}
+.term pre.code{white-space:pre;margin:.6rem 0 0}
 .term .ex2{display:block;color:var(--muted);font-size:13.5px;margin-top:.35rem}
 .hide .term{cursor:pointer}
 .hide .term:not(.open) dd{filter:blur(6px);opacity:.5;user-select:none}
@@ -230,7 +231,7 @@ function subject(f){
   F.themen.forEach(function(t,i){
     var b=store("best_"+f+"_"+t.id);
     h += '<a class="topic" href="#/'+f+'/'+t.id+'"><span class="num">'+(i+1)+'</span><div><h3>'+esc(t.name)+'</h3>'+
-      '<p class="meta">'+t.terms.length+' Begriffe · '+t.quiz.length+' Fragen'+(t.kat?' · '+t.kat.length+'× Fragenkatalog':'')+' · '+esc(t.quelle)+'</p>'+
+      '<p class="meta">'+t.terms.length+' Begriffe · '+t.quiz.length+' Fragen'+(t.kat?' · '+t.kat.length+'× '+(F.katName||'Fragenkatalog'):'')+' · '+esc(t.quelle)+'</p>'+
       (b!=null?'<p class="best">Bestes Quiz-Ergebnis: '+b+' %</p>':'')+'</div></a>';
   });
   h += '</div>';
@@ -258,7 +259,7 @@ function glossary(f,i){
   setAccent(f);
   var t=FACH[f].themen[i];
   var h = topicHead(f,i,"b");
-  if(t.kat) h += '<details class="kat"><summary>Fragenkatalog: '+t.kat.length+' Prüfungspunkt'+(t.kat.length>1?'e':'')+' zu diesem Thema</summary><ul>'+t.kat.map(function(k){return '<li>'+esc(k)+'</li>'}).join("")+'</ul></details>';
+  if(t.kat) h += '<details class="kat"><summary>'+(FACH[f].katName?esc(FACH[f].katName)+': '+t.kat.length+' Frage'+(t.kat.length>1?'n':''):'Fragenkatalog: '+t.kat.length+' Prüfungspunkt'+(t.kat.length>1?'e':''))+' zu diesem Thema</summary><ul>'+t.kat.map(function(k){return '<li>'+esc(k)+'</li>'}).join("")+'</ul></details>';
   h += '<div class="gtools"><input class="search" id="s" type="search" placeholder="Begriff suchen …" autocomplete="off">'+
        '<label class="toggle"><input type="checkbox" id="hd"'+(hideDefs?' checked':'')+'> Erklärungen verdecken</label></div>'+
        '<dl class="terms'+(hideDefs?' hide':'')+'" id="tl"></dl>';
@@ -270,7 +271,7 @@ function glossary(f,i){
     var q=s.value.trim().toLowerCase();
     var list=t.terms.filter(function(x){return !q||(x.join(" ")).toLowerCase().indexOf(q)>=0});
     tl.innerHTML = list.length ? list.map(function(x){
-      return '<div class="term"><dt>'+ov(esc(x[0]))+'</dt><dd>'+fmt(x[1])+(x[2]?'<span class="ex2">Beispiel: '+fmt(x[2])+'</span>':'')+'</dd></div>';
+      return '<div class="term"><dt>'+ov(esc(x[0]))+'</dt><dd>'+fmt(x[1])+(x[2]?'<span class="ex2">Beispiel: '+fmt(x[2])+'</span>':'')+(x[3]?'<pre class="code">'+esc(x[3])+'</pre>':'')+'</dd></div>';
     }).join("") : '<p class="empty">Kein Begriff gefunden.</p>';
   }
   s.oninput=draw;
