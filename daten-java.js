@@ -5,8 +5,8 @@ window.FACH = window.FACH || {};
 FACH.java = {
   name: "Programmieren in Java",
   kurz: "Java",
-  sub: "Einführung in die Programmierung – Teil I (Kapitel 1–4) + VO-Beispielprogramme + Wiederholungsfragen",
-  hinweis: "Die Vorlesung verwendet Java 25 mit kompakter Syntax: Ein Programm beginnt mit void main() { … } und gibt mit IO.println(…) aus. Klassen kommen erst später. Unter jedem Thema siehst du, welche Wiederholungsfragen dazugehören. Die Beispielprogramme aus der VO (Kap01–Kap03) sind mit Code und Schritt-für-Schritt-Erklärung im vorletzten Thema, die Wiederholungsfragen 1–42 als Lernkarten im letzten (Tipp: „Erklärungen verdecken“ anhaken).",
+  sub: "Einführung in die Programmierung – Teil I (Kapitel 1–4) + VO-Beispielprogramme + Wiederholungsfragen + alte Mini-Tests",
+  hinweis: "Die Vorlesung verwendet Java 25 mit kompakter Syntax: Ein Programm beginnt mit void main() { … } und gibt mit IO.println(…) aus. Klassen kommen erst später. Unter jedem Thema siehst du, welche Wiederholungsfragen dazugehören. Die Beispielprogramme aus der VO (Kap01–Kap03) stehen mit Code und Schritt-für-Schritt-Erklärung im Thema „Beispielprogramme“, die Wiederholungsfragen 1–42 als Lernkarten im Thema „Wiederholungsfragen“ (Tipp: „Erklärungen verdecken“ anhaken). Ganz unten folgen die alten PS-Mini-Tests von 2020 mit abgewandelten Fragen („Variante“). Ihr Code ist an Java 25 angepasst. Mini-Test 5–8 greifen schon auf später vor (Arrays, Klassen, Vererbung).",
   katName: "Wiederholungsfragen",
   themen: [
 
