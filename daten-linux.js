@@ -1,11 +1,11 @@
 /* Einführung UNIX (PS & VO, Uni Salzburg, WS 2026/27)
-   Thema 1–2 nach den Übungsblättern 1 und 2, danach allgemeine Linux-Grundlagen (Bash) als Ergänzung */
+   Thema 1–2 nach den Übungsblättern 1 und 2; Übung 3–4, Prüfungsfragen und PS-Test in daten-linux-pruefung.js; danach allgemeine Linux-Grundlagen (Bash) als Ergänzung */
 window.FACH = window.FACH || {};
 FACH.linux = {
   name: "Einführung UNIX",
   kurz: "UNIX",
-  sub: "PS & VO – Übungsblätter + Linux-Grundlagen, Befehle & Quiz",
-  hinweis: "Thema 1 und 2 folgen den Übungsblättern 1 und 2 aus dem PS. Die übrigen Themen sind allgemeine Linux-Grundlagen zum Vor- und Nachlernen – sie werden angepasst, wenn neue Blätter dazukommen. Tipp: Probier jeden Befehl selbst im Terminal aus (auf dem Mac läuft die zsh, fast alles funktioniert gleich).",
+  sub: "PS & VO – Übungsblätter + Prüfungsfragen + Linux-Grundlagen, Befehle & Quiz",
+  hinweis: "Thema 1–4 folgen den Übungsblättern 1–4 aus dem PS. Danach kommen die typischen Prüfungsfragen 1–95 aus der VO (WS24) als Lernkarten und die typischen PS-Test-Aufgaben. Die Vorlagen enthalten keine Lösungen: Die Antworten sind selbst erstellt, nicht offiziell. Die übrigen Themen sind allgemeine Linux-Grundlagen zum Vor- und Nachlernen. Tipp: Probier jeden Befehl selbst im Terminal aus (auf dem Mac läuft die zsh, fast alles funktioniert gleich).",
   themen: [
 
   /* ---------------------------------------------------------- */
