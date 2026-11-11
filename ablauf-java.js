@@ -1472,7 +1472,7 @@ run:function(T){
 }});
 
 P.push({id:"bsp03", gruppe:"ps", name:"Bsp03.java", kurz:"PS · Schrittziel mit Trainingsrunden",
-intro:"Deine Abgabe zu Blatt 3: Schrittziel je nach Alter anpassen, dann so lange Trainingsrunden drehen, bis das Ziel erreicht ist. ⚠️ In deiner Datei steht ganz am Ende noch ein `} { }` zu viel. Damit kompiliert sie nicht! Hier ist es weggelassen.",
+intro:"Deine Abgabe zu Blatt 3: Schrittziel je nach Alter anpassen, dann so lange Trainingsrunden drehen, bis das Ziel erreicht ist.",
 tipp:"Probier Alter 25 und 12000 Schritte (keine Runden nötig) oder 300 Schritte pro Runde.",
 inputs:[{l:"Name",d:"Anna"},{l:"Alter",d:"16"},{l:"Schritte",d:"6000"},{l:"Schritte pro Runde",d:"1000"}],
 max:500,
