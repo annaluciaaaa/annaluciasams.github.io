@@ -27,7 +27,7 @@
 body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:780px;margin:0 auto;padding:1.25rem 1rem 4rem}
 a{color:inherit}
-code,pre{font-family:"JetBrains Mono",ui-monospace,monospace}
+code,pre,.codebox,.vr,.cons,.infields input{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-ligatures:none;font-feature-settings:"liga" 0,"calt" 0}
 code{font-size:.88em;background:var(--soft);padding:.1em .35em;border-radius:4px}
 .ov{text-decoration:overline;text-decoration-thickness:1.5px}
 button{font:inherit;color:inherit}
@@ -172,6 +172,63 @@ pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;
 .wl h3{font-size:15px;margin-bottom:.6rem}
 .wl li{font-size:14px;margin:0 0 .6rem 1.2rem;color:var(--muted)}
 .wl li small{display:block;font-size:12px}
+
+/* Schritt für Schritt */
+.wrap.wide{max-width:1120px}
+.callout{display:flex;gap:14px;align-items:center;text-decoration:none;background:var(--java-bg);border:1px solid var(--java);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.5rem}
+.callout:hover{filter:brightness(1.03)}
+.callout .ic{flex-shrink:0;width:42px;height:42px;border-radius:50%;background:var(--java);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-size:18px}
+.callout b{display:block;font-size:16px}
+.callout span.t{font-size:13.5px;color:var(--muted)}
+.home-callout{margin:14px 0 0}
+.grp{margin:1.75rem 0 .6rem}
+.grp h2{font-size:17px;font-weight:600}
+.grp p{font-size:13.5px;color:var(--muted)}
+.inbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.85rem 1rem;margin-bottom:1rem}
+.inbox h3{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.infields{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.infields label{display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:var(--muted);flex:1;min-width:120px}
+.infields label.lg{flex-basis:100%}
+.infields input{font:inherit;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+.infields input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
+.ctrl{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--bg);padding:.6rem 0;border-bottom:1px solid var(--line);margin-bottom:.8rem}
+.ctrl .btn{padding:8px 14px;font-size:14px}
+.ctrl .cnt{font-size:13px;color:var(--muted);min-width:96px;text-align:center;font-variant-numeric:tabular-nums}
+.ctrl input[type=range]{flex:1;min-width:120px;accent-color:var(--accent)}
+.expl{background:var(--accent-bg);border-left:4px solid var(--accent);border-radius:10px;padding:.85rem 1.1rem;font-size:15px;line-height:1.6;margin-bottom:1rem;white-space:pre-line;min-height:4.2em}
+.expl.err{background:var(--bad-bg);border-color:var(--bad)}
+.expl.stop{background:var(--miss-bg);border-color:var(--miss)}
+.expl .ln{display:block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:.2rem}
+.pgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:820px){.pgrid{grid-template-columns:minmax(0,1fr)}}
+.panel h3{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 .35rem;font-weight:600}
+.codebox{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:auto;max-height:72vh;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.6;padding:.5rem 0;position:relative}
+@media (max-width:820px){.codebox{max-height:52vh}}
+.cl{display:flex;white-space:pre;padding-right:1rem;min-width:fit-content}
+.cl .no{flex-shrink:0;width:2.6em;text-align:right;padding-right:.9em;color:var(--muted);opacity:.55;user-select:none}
+.cl.cur{background:var(--accent-bg);box-shadow:inset 3px 0 0 var(--accent)}
+.cl.cur .no{color:var(--accent);opacity:1;font-weight:600}
+.cl.done .no{opacity:.9}
+.k{color:var(--java);font-weight:500}.st{color:var(--ok)}.cm{color:var(--muted);font-style:italic}.nm{color:var(--fs)}
+.side{display:grid;gap:14px}
+.vars{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.4rem .2rem;font-size:14px}
+.frame{padding:.35rem .7rem}
+.frame+.frame{border-top:1px dashed var(--line)}
+.frame .fn{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:.2rem;font-family:"JetBrains Mono",ui-monospace,monospace}
+.frame.act .fn{color:var(--accent)}
+.frame:not(.act){opacity:.6}
+.vr{display:grid;grid-template-columns:auto 1fr auto;gap:.6rem;align-items:baseline;padding:3px 6px;border-radius:6px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13.5px}
+.vr .ty{color:var(--muted);font-size:11.5px}
+.vr .vv{text-align:right;font-weight:500;word-break:break-all}
+.vr.chg{background:var(--miss-bg)}
+.vr.chg .vv{color:var(--miss)}
+.vr .nov{color:var(--muted);font-weight:400}
+.novars{color:var(--muted);font-size:13px;padding:.3rem .7rem}
+.cons{background:#1c1917;color:#e7e5e4;border-radius:12px;padding:.75rem 1rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.55;white-space:pre-wrap;word-break:break-word;min-height:5em;max-height:40vh;overflow:auto}
+.cons .cin{color:#86A8F7;text-decoration:underline;text-underline-offset:3px}
+.cons .new{background:rgba(245,149,99,.28);border-radius:3px}
+.cons .ph{color:#78716c;font-style:italic}
+.kbd{font-size:12px;color:var(--muted);margin-top:.6rem}
 </style>
 </head>
 <body>
@@ -183,6 +240,7 @@ pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;
 <script src="daten-java-minitests.js"></script>
 <script src="daten-linux.js"></script>
 <script src="daten-linux-pruefung.js"></script>
+<script src="ablauf-java.js"></script>
 <script>
 var ORDER = ["fs","dr","java","linux"];
 var L = "ABCDEFGH";
@@ -215,6 +273,7 @@ function home(){
       (F.zeichen?'<span class="stat">Zeichen & Symbole</span>':'')+'</div></a>';
   });
   var n = ORDER.reduce(function(s,f){return s+count(f,"quiz")},0), ba=store("best_all");
+  if(window.ABLAUF) h += '</div><a class="callout home-callout" href="#/java/ablauf"><span class="ic">▶</span><div><b>Java-Programme Schritt für Schritt</b><span class="t">'+ABLAUF.progs.length+' Programme Zeile für Zeile durchklicken: welche Zeile läuft, was steht in den Variablen, was erscheint in der Konsole.</span></div></a><div>';
   h += '</div><div class="mix" style="--accent:var(--all);--accent-bg:var(--all-bg)"><p><b style="color:var(--ink)">Alles gemischt</b> – '+n+' Fragen aus allen Fächern'+(ba!=null?' · Bestes: '+ba+' %':'')+'</p><a class="pill pr" href="#/alle/quiz">Mix-Quiz starten</a></div>';
   h += '<p class="foot">Auch hier: <a href="biochemie_quiz.html">Biochemie-Quizzes</a></p>';
   app.innerHTML = h;
@@ -227,6 +286,7 @@ function subject(f){
   var h = crumbs([[F.name]]);
   h += '<div class="th"><span class="tag">Fach</span><h1>'+esc(F.name)+'</h1></div>';
   if(F.hinweis) h += '<p class="note">'+fmt(F.hinweis)+'</p>';
+  if(f==="java"&&window.ABLAUF) h += '<a class="callout" href="#/java/ablauf"><span class="ic">▶</span><div><b>Programme Schritt für Schritt</b><span class="t">'+ABLAUF.progs.length+' Programme: einfache Einstiegsbeispiele, VO Kap. 1–5 und deine PS-Abgaben. Du klickst Zeile für Zeile durch und siehst Variablen, Konsole und eine Erklärung.</span></div></a>';
   h += '<div class="row actions">'+(F.zeichen?'<a class="pill" href="#/'+f+'/zeichen">Zeichen & Symbole</a>':'')+
        '<a class="pill pr" href="#/'+f+'/quiz">Alle '+count(f,"quiz")+' Fragen mischen</a>'+(bf!=null?'<span class="stat">Bestes: '+bf+' %</span>':'')+'</div>';
   h += '<div class="topics">';
@@ -397,11 +457,144 @@ function result(){
   document.getElementById("ra").onclick=function(){quiz(sc)};
 }
 
+
+/* ---------- Schritt für Schritt ---------- */
+var AB={timer:null,inp:{}};
+function abStop(){if(AB.timer){clearInterval(AB.timer);AB.timer=null}}
+function fmtB(s){return fmt(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")}
+function hlJava(line){
+  var re=/(\/\/.*$)|("(?:\\.|[^"\\])*")|('(?:\\.|[^'\\])*')|\b(void|int|long|byte|short|double|float|char|boolean|String|final|if|else|while|for|do|return|switch|case|default|break|yield|true|false|new|var)\b|\b(\d+(?:\.\d+)?L?)\b/g;
+  var out="",last=0,m;
+  while((m=re.exec(line))){
+    out+=esc(line.slice(last,m.index));
+    var cls=m[1]?"cm":(m[2]||m[3])?"st":m[4]?"k":"nm";
+    out+='<span class="'+cls+'">'+esc(m[0])+'</span>'; last=re.lastIndex;
+  }
+  return out+esc(line.slice(last));
+}
+function abVal(t,v){
+  if(v===undefined) return '<span class="nov" title="noch kein Wert">?</span>';
+  if(t==="double") return esc(ABLAUF.jd(v));
+  if(t==="String") return esc('"'+v+'"');
+  if(t==="char") return esc("'"+v+"'");
+  return esc(String(v));
+}
+function abList(){
+  setAccent("java");
+  var h=crumbs([[FACH.java.name,"#/java"],["Schritt für Schritt"]]);
+  h+='<div class="th"><span class="tag">Java · interaktiv</span><h1>Programme Schritt für Schritt</h1></div>';
+  h+='<p class="note">Wähle ein Programm und klick dich mit <b>Weiter</b> durch. Die markierte Zeile ist die, die <b>gerade ausgeführt</b> wurde. Rechts siehst du, was in den <b>Variablen</b> steht (gelb = hat sich gerade geändert) und was in der <b>Konsole</b> erscheint. Oben steht jeweils, was passiert und warum. Bei Programmen mit Eingabe kannst du eigene Werte ausprobieren. Alle Ausgaben stimmen mit echtem Java 25 überein.</p>';
+  ABLAUF.gruppen.forEach(function(g){
+    var list=ABLAUF.progs.filter(function(p){return p.gruppe===g[0]});
+    h+='<div class="grp"><h2>'+esc(g[1])+'</h2><p>'+esc(g[2])+'</p></div><div class="topics">';
+    list.forEach(function(p){
+      var n=ABLAUF.progs.indexOf(p)+1;
+      h+='<a class="topic" href="#/java/ablauf/'+p.id+'"><span class="num">'+n+'</span><div><h3>'+esc(p.name)+'</h3><p class="meta">'+esc(p.kurz)+(p.inputs.length?' · mit Eingabe':'')+'</p></div></a>';
+    });
+    h+='</div>';
+  });
+  app.innerHTML=h;
+}
+function abShow(id){
+  setAccent("java");
+  var P=ABLAUF.progs, pi=-1;
+  for(var i=0;i<P.length;i++) if(P[i].id===id) pi=i;
+  if(pi<0){abList();return}
+  var p=P[pi], g=ABLAUF.gruppen.filter(function(x){return x[0]===p.gruppe})[0];
+  var vals=AB.inp[id]||p.inputs.map(function(x){return x.d});
+  var h=crumbs([[FACH.java.name,"#/java"],["Schritt für Schritt","#/java/ablauf"],[p.name]]);
+  h+='<div class="th"><span class="tag">'+esc(g[1])+'</span><h1>'+esc(p.name)+'</h1><p class="src">'+esc(p.kurz)+'</p></div>';
+  h+='<p class="note">'+fmtB(p.intro)+(p.tipp?'<br><br><b>Ausprobieren:</b> '+fmtB(p.tipp):'')+'</p>';
+  if(p.inputs.length){
+    h+='<div class="inbox"><h3>Eingaben (das wird „getippt“)</h3><div class="infields">';
+    p.inputs.forEach(function(x,k){h+='<label'+(x.liste?' class="lg"':'')+'>'+esc(x.l)+'<input data-k="'+k+'" value="'+esc(vals[k])+'" autocomplete="off" spellcheck="false"></label>'});
+    h+='<button class="btn pr" id="abgo">Neu starten</button>'+(AB.inp[id]?'<button class="btn" id="abrs">Standardwerte</button>':'')+'</div></div>';
+  }
+  h+='<div class="ctrl"><button class="btn" id="ab0" title="Zum Anfang">⏮</button><button class="btn" id="abp" title="Zurück (←)">◀ Zurück</button><button class="btn pr" id="abn" title="Weiter (→)">Weiter ▶</button><button class="btn" id="abauto">▶▶ Abspielen</button><span class="cnt" id="abc"></span><input type="range" id="abr" min="0" value="0"></div>';
+  h+='<div class="expl" id="abx"></div>';
+  h+='<div class="pgrid"><div class="panel"><h3>Code</h3><div class="codebox" id="abcode">'+p.code.split("\n").map(function(l,k){return '<div class="cl" data-l="'+(k+1)+'"><span class="no">'+(k+1)+'</span><span>'+(hlJava(l)||" ")+'</span></div>'}).join("")+'</div></div>';
+  h+='<div class="side"><div class="panel"><h3>Variablen</h3><div class="vars" id="abv"></div></div><div class="panel"><h3>Konsole</h3><div class="cons" id="abo"></div></div></div></div>';
+  h+='<p class="kbd">Tipp: Pfeiltasten ← → auf der Tastatur gehen auch.'+(p.id==="muenzwurf"?' Mit „Neu starten“ wird neu geworfen.':'')+'</p>';
+  h+='<div class="pn">'+(pi>0?'<a href="#/java/ablauf/'+P[pi-1].id+'"><small>← vorheriges Programm</small>'+esc(P[pi-1].name)+'</a>':'')+(pi<P.length-1?'<a class="nx" href="#/java/ablauf/'+P[pi+1].id+'"><small>nächstes Programm →</small>'+esc(P[pi+1].name)+'</a>':'')+'</div>';
+  app.innerHTML=h;
+
+  var steps, cur=0;
+  var codeEl=document.getElementById("abcode"), lines=codeEl.querySelectorAll(".cl"), rng=document.getElementById("abr");
+  function start(){
+    abStop(); setAutoLbl();
+    var inp=[];
+    p.inputs.forEach(function(x,k){ if(x.liste) vals[k].split(",").forEach(function(t){t=t.trim(); if(t!=="") inp.push(t)}); else inp.push(vals[k].trim()); });
+    steps=ABLAUF.run(p,inp).steps; cur=0; rng.max=steps.length-1; draw();
+  }
+  function draw(){
+    var s=steps[cur], prev=cur>0?steps[cur-1]:null;
+    document.getElementById("abc").textContent="Schritt "+(cur+1)+" / "+steps.length;
+    rng.value=cur;
+    document.getElementById("abp").disabled=document.getElementById("ab0").disabled=cur===0;
+    document.getElementById("abn").disabled=cur===steps.length-1;
+    var x=document.getElementById("abx");
+    x.className="expl"+(s.err?" err":s.stop?" stop":"");
+    x.innerHTML='<span class="ln">'+(s.err?"Fehler":s.stop?"Angehalten":cur===steps.length-1?"Ende · Zeile "+s.l:"Zeile "+s.l)+'</span>'+fmtB(s.x);
+    lines.forEach(function(el){el.classList.toggle("cur",+el.dataset.l===s.l)});
+    var ce=lines[s.l-1];
+    if(ce){var top=ce.offsetTop, bh=codeEl.clientHeight; if(top<codeEl.scrollTop+20||top>codeEl.scrollTop+bh-40) codeEl.scrollTop=Math.max(0,top-bh/3)}
+    // Variablen
+    var vh="";
+    if(!s.f.length||s.f.every(function(f){return !f.vars.length})&&s.f.length<2) vh='<div class="novars">noch keine Variablen</div>';
+    else {
+      for(var fi=s.f.length-1;fi>=0;fi--){
+        var f=s.f[fi], pf=prev&&prev.f[fi]&&prev.f[fi].n===f.n&&prev.f.length>=fi+1?prev.f[fi]:null;
+        vh+='<div class="frame'+(fi===s.f.length-1?' act':'')+'"><div class="fn">'+esc(f.n)+'()'+(s.f.length>1?(fi===s.f.length-1?' ← läuft gerade':' – wartet'):'')+'</div>';
+        if(!f.vars.length) vh+='<div class="novars">keine Variablen</div>';
+        f.vars.forEach(function(v){
+          var old=null; if(pf) pf.vars.forEach(function(o){if(o[0]===v[0])old=o});
+          var chg=prev&&(!old||old[2]!==v[2]||old[1]!==v[1]);
+          vh+='<div class="vr'+(chg?' chg':'')+'"><span>'+esc(v[0])+'</span><span class="ty">'+esc(v[1])+'</span><span class="vv">'+abVal(v[1],v[2])+'</span></div>';
+        });
+        vh+='</div>';
+      }
+    }
+    document.getElementById("abv").innerHTML=vh;
+    // Konsole
+    var o=s.o, po=prev?prev.o:"", oh;
+    function con(t){return esc(t).replace(/\u0001([^\u0002]*)\u0002/g,'<span class="cin">$1</span>')}
+    if(!o) oh='<span class="ph">(noch keine Ausgabe)</span>';
+    else if(o.indexOf(po)===0&&o.length>po.length) oh=con(po)+'<span class="new">'+con(o.slice(po.length))+'</span>';
+    else oh=con(o);
+    var co=document.getElementById("abo"); co.innerHTML=oh; co.scrollTop=co.scrollHeight;
+  }
+  function go(n){cur=Math.max(0,Math.min(steps.length-1,n)); draw(); if(cur===steps.length-1){abStop();setAutoLbl()}}
+  function setAutoLbl(){var b=document.getElementById("abauto"); if(b) b.textContent=AB.timer?"⏸ Pause":"▶▶ Abspielen"}
+  document.getElementById("abn").onclick=function(){go(cur+1)};
+  document.getElementById("abp").onclick=function(){go(cur-1)};
+  document.getElementById("ab0").onclick=function(){go(0)};
+  rng.oninput=function(){go(+rng.value)};
+  document.getElementById("abauto").onclick=function(){
+    if(AB.timer){abStop()} else { if(cur===steps.length-1) go(0); AB.timer=setInterval(function(){go(cur+1)},1100); }
+    setAutoLbl();
+  };
+  var gob=document.getElementById("abgo");
+  if(gob){
+    var fields=app.querySelectorAll(".infields input");
+    gob.onclick=function(){fields.forEach(function(el){vals[+el.dataset.k]=el.value}); AB.inp[id]=vals.slice(); start()};
+    fields.forEach(function(el){el.onkeydown=function(e){if(e.key==="Enter")gob.click()}});
+    var rs=document.getElementById("abrs"); if(rs) rs.onclick=function(){delete AB.inp[id]; abShow(id)};
+  }
+  AB.key=function(e){
+    if(/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    if(e.key==="ArrowRight"){go(cur+1);e.preventDefault()} else if(e.key==="ArrowLeft"){go(cur-1);e.preventDefault()}
+  };
+  start();
+}
+document.addEventListener("keydown",function(e){if(AB.key&&/^#\/java\/ablauf\/./.test(location.hash))AB.key(e)});
+
 /* ---------- Router ---------- */
 function route(){
   var p=location.hash.replace(/^#\/?/,"").split("/").filter(Boolean);
   var f=p[0];
+  abStop(); app.className="wrap"+(f==="java"&&p[1]==="ablauf"&&p[2]?" wide":"");
   if(f==="alle"&&p[1]==="quiz") quiz({all:true});
+  else if(f==="java"&&p[1]==="ablauf"&&window.ABLAUF){ if(p[2]) abShow(p[2]); else abList(); }
   else if(FACH[f]){
     if(!p[1]) subject(f);
     else if(p[1]==="zeichen"&&FACH[f].zeichen) symbols(f);
