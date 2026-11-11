@@ -251,7 +251,7 @@ textarea.ed.small{min-height:4em;border:1px solid var(--line);border-radius:8px;
 p.sm.mut{margin:.45rem 0 0}
 .uebtn{margin:1rem 0}
 .fbx{border-radius:12px;padding:.85rem 1.1rem;margin:0 0 .8rem;font-size:14.5px;line-height:1.55;border:1px solid}
-.fbx b{display:block;margin-bottom:.15rem}
+.fbx>b{display:block;margin-bottom:.15rem}
 .fbx ul{margin:.4rem 0 0 1.1rem}.fbx li{margin-bottom:.35rem}
 .fbx .wh{display:block;font-size:12.5px;font-weight:600;color:var(--muted)}
 .fbx.bad{background:var(--bad-bg);border-color:var(--bad)}
@@ -264,6 +264,8 @@ p.sm.mut{margin:.45rem 0 0}
 .fbx pre.code{margin:.5rem 0 0}
 .sold{margin-top:.6rem}.sold summary{cursor:pointer;font-weight:600;font-size:14px}
 .tests{display:grid;gap:8px}
+.codebox.static{max-height:none;margin-bottom:.5rem}
+textarea.ed.mono{min-height:5em}
 .tcase{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.55rem .9rem}
 .tcase.bad{border-color:var(--bad)}
 .tch{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -707,7 +709,7 @@ function ueList(){
     h+='<div class="grp"><h2>'+esc(g[1])+' <small class="gd">'+done+'/'+list.length+'</small></h2><p>'+esc(g[2])+'</p></div><div class="topics">';
     list.forEach(function(x){
       var k=A.indexOf(x)+1;
-      h+='<a class="topic" href="#/java/ueben/'+x.id+'"><span class="num'+(sv[x.id]?' ok':'')+'">'+(sv[x.id]?'✓':k)+'</span><div><h3>'+esc(x.titel)+'</h3><p class="meta">'+esc(x.aufgabe.split("\n")[0].replace(/`/g,""))+'</p></div></a>';
+      h+='<a class="topic" href="#/java/ueben/'+x.id+'"><span class="num'+(sv[x.id]?' ok':'')+'">'+(sv[x.id]?'✓':k)+'</span><div><h3>'+esc(x.titel)+'</h3><p class="meta">'+esc(x.kurz||x.aufgabe.split("\n")[0].replace(/`/g,"").replace(/\*\*/g,""))+'</p></div></a>';
     });
     h+='</div>';
   });
@@ -718,6 +720,7 @@ function ueShow(id){
   if(id==="frei"){ueFrei();return}
   var A=UEBUNG.aufgaben, xi=-1; for(var i=0;i<A.length;i++) if(A[i].id===id) xi=i;
   if(xi<0){ueList();return}
+  if(A[xi].typ==="vorhersage"){ueVorhersage(A,xi);return}
   var x=A[xi], g=UEBUNG.gruppen.filter(function(q){return q[0]===x.gruppe})[0], sv=ueSolved();
   var draft=store("ue_code_"+id), code=draft!=null?draft:(x.start||"");
   var set0=x.tests[0].set;
@@ -789,6 +792,54 @@ function ueShow(id){
     var h1=app.querySelector(".th h1"); if(allOk&&!req.length&&h1&&!h1.querySelector(".solved")) h1.insertAdjacentHTML("beforeend",' <span class="solved">✓ gelöst</span>');
   }
   document.getElementById("uechk").onclick=check;
+}
+function ueNav(A,xi){
+  return '<div class="pn">'+(xi>0?'<a href="#/java/ueben/'+A[xi-1].id+'"><small>← vorherige Aufgabe</small>'+esc(A[xi-1].titel)+'</a>':'')+(xi<A.length-1?'<a class="nx" href="#/java/ueben/'+A[xi+1].id+'"><small>nächste Aufgabe →</small>'+esc(A[xi+1].titel)+'</a>':'')+'</div>';
+}
+function ueVorhersage(A,xi){
+  var x=A[xi], id=x.id, g=UEBUNG.gruppen.filter(function(q){return q[0]===x.gruppe})[0], sv=ueSolved();
+  var draft=store("ue_code_"+id)||"";
+  var h=crumbs([[FACH.java.name,"#/java"],["Selbst programmieren","#/java/ueben"],[x.titel]]);
+  h+='<div class="th"><span class="tag">Aufgabe '+(xi+1)+' · '+esc(g[1])+'</span><h1>'+esc(x.titel)+(sv[id]?' <span class="solved">✓ gelöst</span>':'')+'</h1></div>';
+  h+='<div class="task">'+fmtB(x.aufgabe)+'</div>';
+  h+='<div class="codebox static">'+x.code.split("\n").map(function(l,k){return '<div class="cl"><span class="no">'+(k+1)+'</span><span>'+(hlJava(l)||" ")+'</span></div>'}).join("")+'</div>';
+  h+='<h2 class="sh">Deine Antwort – was steht in der Konsole?</h2><div class="edwrap"><textarea id="ued" class="ed small mono" rows="4" spellcheck="false" autocapitalize="off" placeholder="z. B.&#10;3&#10;1">'+esc(draft)+'</textarea></div>';
+  h+='<div class="row uebtn"><button class="btn pr" id="uechk">Prüfen</button><button class="btn" id="uetip">💡 Tipp</button><button class="btn" id="uesol">Auflösen</button><span class="sm mut">Strg/⌘ + Enter = Prüfen</span></div>';
+  h+='<div id="uehint"></div><div id="ueres"></div><div id="uestep"></div>'+ueNav(A,xi);
+  app.innerHTML=h;
+  var ed=document.getElementById("ued"), res=document.getElementById("ueres"), hint=document.getElementById("uehint"), stepEl=document.getElementById("uestep");
+  var comp=MJ.compile(x.code), run=MJ.run(comp,[],{}), soll=run.stdout;
+  ed.addEventListener("input",function(){store("ue_code_"+id,ed.value)});
+  ueEditorKeys(ed,check);
+  function reveal(ok){
+    var o=ok?'<div class="fbx good"><b>✓ Richtig!</b>'+(xi<A.length-1?' <a href="#/java/ueben/'+A[xi+1].id+'">Weiter →</a>':'')+'</div>':'';
+    o+='<div class="fbx tip"><b>Erklärung</b><p>'+fmtB(x.erkl)+'</p></div>';
+    o+='<div class="row" style="margin:.4rem 0 0"><button class="btn" id="uestp">▶ Programm Schritt für Schritt ansehen</button></div>';
+    return o;
+  }
+  function bindStep(){ document.getElementById("uestp").onclick=function(){ var r=MJ.run(comp,[],{trace:true}); stepEl.innerHTML='<h2 class="sh">Schritt für Schritt</h2>'+abPlayerHTML(x.code); abPlayer(r.steps); stepEl.scrollIntoView({behavior:"smooth",block:"start"}); }; }
+  function check(){
+    abStop(); stepEl.innerHTML="";
+    var mine=ed.value;
+    if(!mine.trim()){ res.innerHTML='<div class="fbx warn">Schreib zuerst deine Vermutung hin. 🙂</div>'; return; }
+    var ok=ueNorm(mine)===ueNorm(soll);
+    if(ok){ var s2=ueSolved(); s2[id]=Date.now(); store("ue_solved",s2); var h1=app.querySelector(".th h1"); if(h1&&!h1.querySelector(".solved")) h1.insertAdjacentHTML("beforeend",' <span class="solved">✓ gelöst</span>'); res.innerHTML=reveal(true); }
+    else {
+      var a=ueNorm(mine).split("\n"), b=ueNorm(soll).split("\n"), bad=-1;
+      for(var i=0;i<Math.max(a.length,b.length);i++) if(a[i]!==b[i]){bad=i;break}
+      var close=ueNorm(mine).replace(/\s+/g,"")===ueNorm(soll).replace(/\s+/g,"");
+      res.innerHTML='<div class="fbx bad"><b>✗ Nicht ganz.</b> '+(close?'Die Zeichen stimmen, aber die Zeilen/Leerzeichen sind anders aufgeteilt. Denk an den Unterschied zwischen print und println.':'Der erste Unterschied ist in Zeile '+(bad+1)+' der Ausgabe.')+' Versuch es nochmal – oder klick auf „Auflösen“.</div>';
+    }
+    if(ok) bindStep();
+  }
+  document.getElementById("uechk").onclick=check;
+  document.getElementById("uetip").onclick=function(){ hint.innerHTML='<div class="fbx tip"><b>💡 Tipp</b><p>'+fmtB(x.tipp)+'</p></div>'; };
+  document.getElementById("uesol").onclick=function(){
+    var mine=ed.value;
+    hint.innerHTML='';
+    res.innerHTML='<div class="cmp">'+(mine.trim()?'<div><small>deine Antwort</small><pre>'+esc(mine)+'</pre></div>':'')+'<div><small>richtige Ausgabe</small><pre>'+esc(soll)+'</pre></div></div>'+reveal(false);
+    bindStep();
+  };
 }
 function ueFrei(){
   var code=store("ue_frei"); if(code==null) code='void main() {\n  String name = IO.readln("Wie heißt du? ");\n  IO.println("Hallo " + name + "!");\n}';
