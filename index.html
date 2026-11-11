@@ -279,6 +279,45 @@ textarea.ed.mono{min-height:5em}
 .terr{font-size:13.5px;margin-top:.45rem}
 h2.sh{font-size:16px;margin:1.5rem 0 .6rem}
 h2.sh small{font-weight:400;color:var(--muted);font-size:13px}
+
+/* Prüfungsmodus */
+.prset{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;display:grid;gap:1.1rem}
+.prq h3{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{padding:8px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg);cursor:pointer;font-size:14.5px;font-weight:500;display:flex;flex-direction:column;align-items:center;line-height:1.25}
+.seg button small{font-size:11.5px;color:var(--muted);font-weight:400}
+.seg button.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.seg button.on small{color:inherit;opacity:.85}
+.chks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px 14px;font-size:14.5px}
+.chks label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.chks input{accent-color:var(--accent);width:16px;height:16px}
+.prhist{display:grid;gap:6px}
+.prhist div{display:grid;grid-template-columns:1.4fr 1fr auto auto;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.5rem .9rem;font-size:14px;align-items:center}
+.prbar{position:sticky;top:0;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:var(--bg);padding:.6rem 0;border-bottom:1px solid var(--line);margin-bottom:1rem}
+.prpos{font-size:13px;color:var(--muted);font-weight:600}
+.prpills{display:flex;flex-wrap:wrap;gap:4px;flex:1}
+.prpills button{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:13px;font-weight:600}
+.prpills button.ans{background:var(--accent-bg);border-color:var(--accent);color:var(--accent)}
+.prpills button.cur{outline:2px solid var(--accent);outline-offset:1px}
+.prtime{font-variant-numeric:tabular-nums;font-weight:600;font-size:15px}
+.prtime.low{color:var(--bad)}
+.prnav a{cursor:pointer}
+.prtopics{display:grid;gap:8px}
+.prtop{display:grid;grid-template-columns:minmax(120px,220px) 1fr 52px;gap:12px;align-items:center;font-size:14px}
+.prbarv{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.prbarv div{height:100%;border-radius:5px}
+.prtop b{text-align:right}
+.prlist{display:grid;gap:8px}
+.prr{background:var(--card);border:1px solid var(--line);border-radius:12px}
+.prr summary{display:flex;align-items:center;gap:10px;padding:.7rem 1rem;cursor:pointer;font-size:15px;list-style:none}
+.prr summary::-webkit-details-marker{display:none}
+.prr .prt{flex:1;font-weight:500}
+.prr.ok .tic{background:var(--ok)}.prr.part .tic{background:var(--miss)}.prr.bad .tic{background:var(--bad)}
+.prr.ok{border-color:var(--ok)}.prr.part{border-color:var(--miss)}
+.prbody{padding:0 1rem 1rem;display:grid;gap:.5rem}
+.prbody .task{margin:0;font-size:14px}
+small.lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;margin-top:.3rem}
+.prbody pre.code{margin:0}
 </style>
 </head>
 <body>
@@ -339,6 +378,7 @@ function subject(f){
   var h = crumbs([[F.name]]);
   h += '<div class="th"><span class="tag">Fach</span><h1>'+esc(F.name)+'</h1></div>';
   if(F.hinweis) h += '<p class="note">'+fmt(F.hinweis)+'</p>';
+  if(f==="java"&&window.UEBUNG) h += '<a class="callout" href="#/java/pruefung"><span class="ic">⏱</span><div><b>Prüfungsmodus</b><span class="t">Teste dich wie in einer echten Prüfung: zufällige Aufgaben, Zeitlimit, keine Tipps, am Ende Punkte und Note.</span></div></a>';
   if(f==="java"&&window.UEBUNG) h += '<a class="callout" href="#/java/ueben"><span class="ic">✎</span><div><b>Selbst programmieren – Code-Trainer</b><span class="t">'+UEBUNG.aufgaben.length+' Aufgaben von „Hallo Welt“ bis Methoden. Du schreibst den Code, der Trainer prüft ihn sofort und erklärt Fehler.</span></div></a>';
   if(f==="java"&&window.ABLAUF) h += '<a class="callout" href="#/java/ablauf"><span class="ic">▶</span><div><b>Programme Schritt für Schritt</b><span class="t">'+ABLAUF.progs.length+' Programme: einfache Einstiegsbeispiele, VO Kap. 1–5 und deine PS-Abgaben. Du klickst Zeile für Zeile durch und siehst Variablen, Konsole und eine Erklärung.</span></div></a>';
   h += '<div class="row actions">'+(F.zeichen?'<a class="pill" href="#/'+f+'/zeichen">Zeichen & Symbole</a>':'')+
@@ -703,6 +743,7 @@ function ueList(){
   h+='<div class="th"><span class="tag">Java · Code-Trainer</span><h1>Selbst programmieren</h1></div>';
   h+='<p class="note">Zu jeder Aufgabe schreibst du den Code selbst. Der Trainer prüft ihn sofort: Zuerst, ob er sich übersetzen lässt (mit verständlichen Fehlermeldungen auf Deutsch), dann wird dein Programm mit mehreren Eingaben getestet. Du kannst deinen Code auch <b>Schritt für Schritt</b> ablaufen lassen, um zu sehen, wo etwas schiefgeht. Dein Code wird in diesem Browser gespeichert.</p>';
   h+='<div class="uprog"><div class="pb"><div class="pf" style="width:'+(n/A.length*100)+'%"></div></div><span>'+n+' von '+A.length+' gelöst</span></div>';
+  h+='<a class="callout" href="#/java/pruefung"><span class="ic">⏱</span><div><b>Prüfungsmodus</b><span class="t">Zufällige Aufgaben mit Zeitlimit, ohne Tipps – mit Punkten, Note und Auswertung nach Themen am Ende.</span></div></a>';
   h+='<a class="callout" href="#/java/ueben/frei"><span class="ic">{ }</span><div><b>Freies Programmieren</b><span class="t">Ein leerer Editor: Schreib ein beliebiges Programm, gib Eingaben vor, führ es aus oder klick dich Schritt für Schritt durch.</span></div></a>';
   UEBUNG.gruppen.forEach(function(g){
     var list=A.filter(function(x){return x.gruppe===g[0]}), done=list.filter(function(x){return sv[x.id]}).length;
@@ -880,14 +921,198 @@ function ueFrei(){
   document.getElementById("uestp").onclick=stepIt;
 }
 
+
+/* ---------- Prüfungsmodus ---------- */
+var PR={timer:null};
+function prStop(){if(PR.timer){clearInterval(PR.timer);PR.timer=null}}
+function prState(v){ if(v===undefined) return store("pr_state"); store("pr_state",v); }
+function prFind(id){var A=UEBUNG.aufgaben;for(var i=0;i<A.length;i++)if(A[i].id===id)return A[i];return null}
+function prGrade(x,code){
+  // liefert {pts, max:10, info}
+  if(x.typ==="vorhersage"){
+    var soll=MJ.run(MJ.compile(x.code),[],{}).stdout, ok=!!code.trim()&&ueNorm(code)===ueNorm(soll);
+    return {pts:ok?10:0,ok:ok,soll:soll,vor:true};
+  }
+  if(!code.trim()||code.trim()===(x.start||"").trim()) return {pts:0,empty:true,tests:[]};
+  var a0=UEBUNG.assemble(x,code,x.tests[0]), c0=MJ.compile(a0.src);
+  if(c0.errors.length) return {pts:0,cerr:c0.errors,a:a0,tests:[]};
+  var tests=x.tests.map(function(t,i){
+    var a=UEBUNG.assemble(x,code,t), c=MJ.compile(a.src), r=c.errors.length?{error:c.errors[0],stdout:""}:MJ.run(c,t.in||[],{maxSteps:200000}), exp=ueExpected(x,t,i);
+    return {t:t,ok:!r.error&&ueNorm(r.stdout)===ueNorm(exp),exp:exp,got:r.stdout,error:r.error};
+  });
+  var plain=ueStrip(code), req=[];
+  (x.muss||[]).forEach(function(m){ if(!m[0].test(plain)) req.push(m[1]) });
+  (x.verboten||[]).forEach(function(m){ if(m[0].test(plain)) req.push(m[1]) });
+  var n=tests.filter(function(t){return t.ok}).length, pts=10*n/tests.length;
+  if(req.length) pts=pts/2;
+  pts=Math.round(pts*2)/2;
+  return {pts:pts,ok:n===tests.length&&!req.length,tests:tests,req:req,warn:c0.warnings,a:a0};
+}
+function prNote(pct){return pct>=87.5?[1,"Sehr gut"]:pct>=75?[2,"Gut"]:pct>=62.5?[3,"Befriedigend"]:pct>=50?[4,"Genügend"]:[5,"Nicht genügend"]}
+function prFmtTime(sec){sec=Math.max(0,Math.ceil(sec));var m=Math.floor(sec/60),s=sec%60;return m+":"+(s<10?"0":"")+s}
+function prSetup(){
+  setAccent("java"); prStop();
+  var st=prState();
+  var h=crumbs([[FACH.java.name,"#/java"],["Prüfungsmodus"]]);
+  h+='<div class="th"><span class="tag">Java · Prüfungsmodus</span><h1>Prüfung simulieren</h1></div>';
+  if(st&&!st.done){
+    h+='<div class="fbx warn"><b>Du hast eine laufende Prüfung.</b> '+st.ids.length+' Aufgaben'+(st.end?', noch '+prFmtTime((st.end-Date.now())/1000)+' Minuten':'')+'.<div class="row" style="margin-top:.6rem"><a class="btn pr" href="#/java/pruefung/laeuft">Weitermachen</a><button class="btn" id="prdrop">Verwerfen</button></div></div>';
+  }
+  h+='<p class="note">Zufällige Aufgaben aus dem Code-Trainer, gemischt aus allen Arten: selbst schreiben, Fehler finden und Ausgabe vorhersagen. <b>Während der Prüfung gibt es keine Tipps, Lösungen oder Tests</b>, du kannst nur prüfen, ob dein Code kompiliert. Erst nach der Abgabe siehst du, was richtig war. Jede Aufgabe gibt 10 Punkte, Teilpunkte gibt es für teilweise bestandene Tests.</p>';
+  h+='<div class="prset"><div class="prq"><h3>Wie viele Aufgaben?</h3><div class="seg" id="prn"><button data-v="5">5</button><button data-v="10" class="on">10</button><button data-v="15">15</button></div></div>';
+  h+='<div class="prq"><h3>Zeit</h3><div class="seg" id="prt"><button data-v="3">knapp<small>3 min/Aufgabe</small></button><button data-v="4" class="on">normal<small>4 min/Aufgabe</small></button><button data-v="6">entspannt<small>6 min/Aufgabe</small></button><button data-v="0">ohne Limit</button></div></div>';
+  h+='<div class="prq"><h3>Themen</h3><div class="chks">'+UEBUNG.gruppen.map(function(g){return '<label><input type="checkbox" value="'+g[0]+'" checked> '+esc(g[1])+'</label>'}).join("")+'</div></div>';
+  h+='<div class="row"><button class="btn pr" id="prgo">Prüfung starten</button><span class="sm mut" id="prinfo"></span></div></div>';
+  var hist=store("pr_hist")||[];
+  if(hist.length){
+    h+='<h2 class="sh">Deine letzten Prüfungen</h2><div class="prhist">'+hist.slice(-8).reverse().map(function(r){var d=new Date(r.t);return '<div><span>'+d.toLocaleDateString("de-AT")+' '+d.toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"})+'</span><span>'+r.n+' Aufgaben</span><b>'+r.pct+' %</b><span class="mut">Note '+prNote(r.pct)[0]+'</span></div>'}).join("")+'</div>';
+  }
+  app.innerHTML=h;
+  var n=10, per=4;
+  function seg(id,cb){var el=document.getElementById(id);el.onclick=function(e){var b=e.target.closest("button");if(!b)return;el.querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b)});cb(+b.dataset.v);info()}}
+  function groups(){return [].slice.call(app.querySelectorAll(".chks input:checked")).map(function(c){return c.value})}
+  function info(){var gs=groups(), pool=UEBUNG.aufgaben.filter(function(x){return gs.indexOf(x.gruppe)>=0}).length; document.getElementById("prinfo").textContent=gs.length?(Math.min(n,pool)+" Aufgaben"+(per?" · "+Math.min(n,pool)*per+" Minuten":" · ohne Zeitlimit")+" · "+Math.min(n,pool)*10+" Punkte"):"Wähle mindestens ein Thema."; document.getElementById("prgo").disabled=!gs.length;}
+  seg("prn",function(v){n=v}); seg("prt",function(v){per=v});
+  app.querySelectorAll(".chks input").forEach(function(c){c.onchange=info});
+  info();
+  var dr=document.getElementById("prdrop"); if(dr) dr.onclick=function(){prState(null);prSetup()};
+  document.getElementById("prgo").onclick=function(){
+    var gs=groups(), A=UEBUNG.aufgaben, byG={};
+    gs.forEach(function(g){byG[g]=shuffle(A.filter(function(x){return x.gruppe===g}))});
+    var pick=[], order=shuffle(gs), k=0;
+    while(pick.length<n){ var any=false; order.forEach(function(g){ if(pick.length<n&&byG[g].length){pick.push(byG[g].pop());any=true} }); if(!any) break; k++; }
+    pick.sort(function(a,b){return A.indexOf(a)-A.indexOf(b)});
+    prState({ids:pick.map(function(x){return x.id}),codes:pick.map(function(x){return x.typ==="vorhersage"?"":(x.start||"")}),cur:0,start:Date.now(),end:per?Date.now()+pick.length*per*60000:null,done:false});
+    location.hash="#/java/pruefung/laeuft";
+  };
+}
+function prRun(){
+  setAccent("java"); prStop();
+  var st=prState();
+  if(!st||st.done){ location.hash=st&&st.done?"#/java/pruefung/ergebnis":"#/java/pruefung"; return; }
+  var X=st.ids.map(prFind);
+  function save(){prState(st)}
+  function answered(i){var c=st.codes[i]||"", x=X[i]; return c.trim()&&c.trim()!==(x.start||"").trim()}
+  function draw(){
+    var i=st.cur, x=X[i], code=st.codes[i]||"";
+    var h='<div class="prbar"><span class="prpos">Aufgabe '+(i+1)+' / '+X.length+'</span><div class="prpills">'+X.map(function(_,k){return '<button data-k="'+k+'" class="'+(k===i?'cur ':'')+(answered(k)?'ans':'')+'">'+(k+1)+'</button>'}).join("")+'</div><span class="prtime" id="prtime">'+(st.end?'⏱ '+prFmtTime((st.end-Date.now())/1000):'⏱ ohne Limit')+'</span><button class="btn pr" id="prsub">Abgeben</button></div>';
+    var g=UEBUNG.gruppen.filter(function(q){return q[0]===x.gruppe})[0];
+    h+='<div class="th"><span class="tag">'+esc(g[1])+' · 10 Punkte</span><h1>'+esc(x.titel)+'</h1></div><div class="task">'+fmtB(x.aufgabe)+'</div>';
+    if(x.typ==="vorhersage"){
+      h+='<div class="codebox static">'+x.code.split("\n").map(function(l,k){return '<div class="cl"><span class="no">'+(k+1)+'</span><span>'+(hlJava(l)||" ")+'</span></div>'}).join("")+'</div>';
+      h+='<h2 class="sh">Deine Antwort – was steht in der Konsole?</h2><div class="edwrap"><textarea id="ued" class="ed small mono" rows="4" spellcheck="false" autocapitalize="off">'+esc(code)+'</textarea></div>';
+    } else {
+      var set0=x.tests[0].set;
+      h+='<div class="edwrap">';
+      if(x.vor) h+='<pre class="tpl">'+UEBUNG.fill(x.vor,set0).split("\n").map(hlJava).join("\n")+'</pre>';
+      if(x.inline) h+='<div class="inl"><span class="ilp">'+hlJava(x.inline[0])+'</span><input id="ued" class="inl-in" value="'+esc(code)+'" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="dein Ausdruck"><span class="ilp">'+hlJava(x.inline[1])+'</span></div>';
+      else h+='<textarea id="ued" class="ed" spellcheck="false" autocapitalize="off" autocomplete="off">'+esc(code)+'</textarea>';
+      if(x.nach) h+='<pre class="tpl">'+UEBUNG.fill(x.nach,set0).replace(/^\n/,"").split("\n").map(hlJava).join("\n")+'</pre>';
+      h+='</div><div class="row uebtn"><button class="btn" id="prcomp">Kompilieren</button><span class="sm mut">prüft nur, ob der Code übersetzbar ist – nicht, ob er richtig rechnet</span></div><div id="prc"></div>';
+    }
+    h+='<div class="pn prnav">'+(i>0?'<a href="javascript:void 0" id="prprev"><small>← vorherige</small>Aufgabe '+i+'</a>':'<span></span>')+(i<X.length-1?'<a href="javascript:void 0" class="nx" id="prnext"><small>nächste →</small>Aufgabe '+(i+2)+'</a>':'<a href="javascript:void 0" class="nx" id="prnext2"><small>fertig?</small>Prüfung abgeben</a>')+'</div>';
+    app.innerHTML=h; window.scrollTo(0,0);
+    var ed=document.getElementById("ued");
+    ueAutoRows(ed);
+    ed.addEventListener("input",function(){st.codes[i]=ed.value;save();ueAutoRows(ed);var pb=app.querySelector('.prpills [data-k="'+i+'"]');if(pb)pb.classList.toggle("ans",!!answered(i))});
+    ueEditorKeys(ed,function(){var c=document.getElementById("prcomp");if(c)c.click()});
+    app.querySelector(".prpills").onclick=function(e){var b=e.target.closest("button");if(b){st.cur=+b.dataset.k;save();draw()}};
+    var pv=document.getElementById("prprev"); if(pv) pv.onclick=function(){st.cur--;save();draw()};
+    var nx=document.getElementById("prnext"); if(nx) nx.onclick=function(){st.cur++;save();draw()};
+    var nx2=document.getElementById("prnext2"); if(nx2) nx2.onclick=submitAsk;
+    document.getElementById("prsub").onclick=submitAsk;
+    var cb=document.getElementById("prcomp");
+    if(cb) cb.onclick=function(){
+      var a=UEBUNG.assemble(x,ed.value,x.tests[0]), c=MJ.compile(a.src), out=document.getElementById("prc");
+      out.innerHTML=c.errors.length?ueErrorsHTML(c.errors,a,ed.value,!!x.inline):'<div class="fbx good"><b style="display:inline">✓ Kompiliert ohne Fehler.</b> Ob das Ergebnis stimmt, siehst du nach der Abgabe.</div>'+ueWarnHTML(c.warnings,a,ed.value,!!x.inline);
+    };
+  }
+  function submitAsk(){
+    var open=X.filter(function(_,k){return !answered(k)}).length;
+    var el=document.getElementById("prconfirm");
+    if(el){el.remove();}
+    app.insertAdjacentHTML("afterbegin",'<div class="fbx warn" id="prconfirm"><b>Wirklich abgeben?</b> '+(open?open+' Aufgabe'+(open>1?'n sind':' ist')+' noch unbearbeitet. ':'')+'Danach kannst du nichts mehr ändern.<div class="row" style="margin-top:.6rem"><button class="btn pr" id="pryes">Ja, abgeben</button><button class="btn" id="prno">Weiterarbeiten</button></div></div>');
+    window.scrollTo(0,0);
+    document.getElementById("pryes").onclick=submit;
+    document.getElementById("prno").onclick=function(){document.getElementById("prconfirm").remove()};
+  }
+  function submit(){
+    prStop();
+    var res=X.map(function(x,k){return prGrade(x,st.codes[k]||"")});
+    var pts=res.reduce(function(s,r){return s+r.pts},0), max=X.length*10, pct=Math.round(pts/max*1000)/10;
+    st.done=true; st.pts=pts; st.pct=pct; st.finished=Date.now(); save();
+    var hist=store("pr_hist")||[]; hist.push({t:Date.now(),n:X.length,pct:pct}); store("pr_hist",hist.slice(-30));
+    var sv=ueSolved(); res.forEach(function(r,k){ if(r.ok) sv[X[k].id]=Date.now() }); store("ue_solved",sv);
+    location.hash="#/java/pruefung/ergebnis";
+  }
+  draw();
+  if(st.end){
+    PR.timer=setInterval(function(){
+      var left=(st.end-Date.now())/1000, el=document.getElementById("prtime");
+      if(el){ el.textContent="⏱ "+prFmtTime(left); el.classList.toggle("low",left<120); }
+      if(left<=0){ prStop(); submit(); }
+    },500);
+  }
+}
+function prResult(){
+  setAccent("java"); prStop();
+  var st=prState();
+  if(!st||!st.done){ location.hash="#/java/pruefung"; return; }
+  var X=st.ids.map(prFind), res=X.map(function(x,k){return prGrade(x,st.codes[k]||"")});
+  var pts=res.reduce(function(s,r){return s+r.pts},0), max=X.length*10, pct=Math.round(pts/max*1000)/10, note=prNote(pct);
+  var dur=st.finished&&st.start?Math.round((st.finished-st.start)/60000):null;
+  var h=crumbs([[FACH.java.name,"#/java"],["Prüfungsmodus","#/java/pruefung"],["Ergebnis"]]);
+  h+='<div class="th"><span class="tag">Java · Prüfungsmodus</span><h1>Ergebnis</h1></div>';
+  h+='<div class="res"><div class="rs">'+pct+' %</div><p class="rl">'+(pts%1?pts.toFixed(1):pts)+' von '+max+' Punkten'+(dur!=null?' · '+dur+' Minuten':'')+'</p>';
+  h+='<div class="rb"><div class="me"><div class="mv">'+note[0]+'</div><div class="ml">Note (Richtwert): '+note[1]+'</div></div><div class="me"><div class="mv">'+res.filter(function(r){return r.ok}).length+'</div><div class="ml">ganz richtig</div></div><div class="me"><div class="mv">'+res.filter(function(r){return !r.ok&&r.pts>0}).length+'</div><div class="ml">teilweise</div></div></div>';
+  h+='<p class="sm mut">Notengrenzen hier: ab 87.5 % Sehr gut, 75 % Gut, 62.5 % Befriedigend, 50 % Genügend. Eure LV kann andere Grenzen haben.</p></div>';
+  // nach Themen
+  var byG={}; X.forEach(function(x,k){ (byG[x.gruppe]=byG[x.gruppe]||{p:0,m:0}); byG[x.gruppe].p+=res[k].pts; byG[x.gruppe].m+=10; });
+  h+='<h2 class="sh">Nach Themen</h2><div class="prtopics">';
+  UEBUNG.gruppen.forEach(function(g){ var b=byG[g[0]]; if(!b) return; var q=Math.round(b.p/b.m*100);
+    h+='<div class="prtop"><span>'+esc(g[1])+'</span><div class="prbarv"><div style="width:'+q+'%;background:'+(q>=75?'var(--ok)':q>=50?'var(--miss)':'var(--bad)')+'"></div></div><b>'+q+' %</b></div>'; });
+  h+='</div>';
+  var weak=UEBUNG.gruppen.filter(function(g){var b=byG[g[0]];return b&&b.p/b.m<0.6});
+  if(weak.length) h+='<div class="fbx tip"><b>Das solltest du nochmal üben</b><p>'+weak.map(function(g){return esc(g[1])}).join(", ")+' – im <a href="#/java/ueben">Code-Trainer</a> gibt es dazu weitere Aufgaben mit Tipps.</p></div>';
+  // Aufgaben im Detail
+  h+='<h2 class="sh">Die Aufgaben im Detail</h2><div class="prlist">';
+  X.forEach(function(x,k){
+    var r=res[k], code=st.codes[k]||"", cls=r.ok?"ok":r.pts>0?"part":"bad";
+    h+='<details class="prr '+cls+'"><summary><span class="tic">'+(r.ok?'✓':r.pts>0?'◐':'✗')+'</span><span class="prt">'+(k+1)+'. '+esc(x.titel)+'</span><b>'+r.pts+' / 10</b></summary><div class="prbody">';
+    h+='<div class="task sm">'+fmtB(x.aufgabe)+'</div>';
+    if(r.vor){
+      h+='<div class="codebox static">'+x.code.split("\n").map(function(l,j){return '<div class="cl"><span class="no">'+(j+1)+'</span><span>'+(hlJava(l)||" ")+'</span></div>'}).join("")+'</div>';
+      h+='<div class="cmp"><div><small>deine Antwort</small><pre>'+(esc(code)||'<span class="mut">(leer)</span>')+'</pre></div><div><small>richtige Ausgabe</small><pre>'+esc(r.soll)+'</pre></div></div>';
+      h+='<div class="fbx tip" style="margin-top:.6rem"><b>Erklärung</b><p>'+fmtB(x.erkl)+'</p></div>';
+    } else {
+      h+='<small class="lbl">dein Code</small><pre class="code">'+(r.empty?'<span class="mut">(nicht bearbeitet)</span>':code.split("\n").map(hlJava).join("\n"))+'</pre>';
+      if(r.cerr) h+=ueErrorsHTML(r.cerr,r.a,code,!!x.inline);
+      if(r.req&&r.req.length) h+='<div class="fbx warn"><b>Anforderung nicht erfüllt (Punkte halbiert)</b><ul>'+r.req.map(function(m){return '<li>'+fmtB(m)+'</li>'}).join("")+'</ul></div>';
+      if(r.tests&&r.tests.length){
+        h+='<div class="tests">'+r.tests.map(function(t,i){
+          var o='<div class="tcase '+(t.ok?'ok':'bad')+'"><div class="tch"><span class="tic">'+(t.ok?'✓':'✗')+'</span>Test '+(i+1)+' <span class="mut">· '+esc(ueLabel(t.t))+'</span></div>';
+          if(!t.ok){ o+='<div class="cmp"><div><small>erwartet</small><pre>'+(esc(t.exp)||'<span class="mut">(keine Ausgabe)</span>')+'</pre></div><div><small>dein Programm</small><pre>'+(esc(t.got)||'<span class="mut">(keine Ausgabe)</span>')+'</pre></div></div>'; if(t.error) o+='<p class="terr">💥 '+fmtB(t.error.msg)+'</p>'; }
+          return o+'</div>';
+        }).join("")+'</div>';
+      }
+      h+='<small class="lbl">Musterlösung</small><pre class="code">'+x.loesung.split("\n").map(hlJava).join("\n")+'</pre>';
+    }
+    h+='<p class="sm"><a href="#/java/ueben/'+x.id+'">Diese Aufgabe im Trainer üben →</a></p></div></details>';
+  });
+  h+='</div><div class="row" style="margin-top:1.5rem"><button class="btn pr" id="prnew">Neue Prüfung</button><a class="btn" href="#/java/ueben">Zum Code-Trainer</a></div>';
+  app.innerHTML=h;
+  document.getElementById("prnew").onclick=function(){prState(null);location.hash="#/java/pruefung"};
+}
+
 /* ---------- Router ---------- */
 function route(){
   var p=location.hash.replace(/^#\/?/,"").split("/").filter(Boolean);
   var f=p[0];
-  abStop(); app.className="wrap"+(f==="java"&&(p[1]==="ablauf"||p[1]==="ueben")&&p[2]?" wide":"");
+  abStop(); if(typeof prStop==="function") prStop(); app.className="wrap"+(f==="java"&&((p[1]==="ablauf"||p[1]==="ueben")&&p[2]||p[1]==="pruefung"&&p[2])?" wide":"");
   if(f==="alle"&&p[1]==="quiz") quiz({all:true});
   else if(f==="java"&&p[1]==="ablauf"&&window.ABLAUF){ if(p[2]) abShow(p[2]); else abList(); }
   else if(f==="java"&&p[1]==="ueben"&&window.UEBUNG&&window.MJ){ if(p[2]) ueShow(p[2]); else ueList(); }
+  else if(f==="java"&&p[1]==="pruefung"&&window.UEBUNG&&window.MJ){ if(p[2]==="laeuft") prRun(); else if(p[2]==="ergebnis") prResult(); else prSetup(); }
   else if(FACH[f]){
     if(!p[1]) subject(f);
     else if(p[1]==="zeichen"&&FACH[f].zeichen) symbols(f);
