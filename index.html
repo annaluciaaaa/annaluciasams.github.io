@@ -229,6 +229,54 @@ pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;
 .cons .new{background:rgba(245,149,99,.28);border-radius:3px}
 .cons .ph{color:#78716c;font-style:italic}
 .kbd{font-size:12px;color:var(--muted);margin-top:.6rem}
+
+/* Code-Trainer */
+.uprog{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;font-size:13.5px;color:var(--muted)}
+.uprog .pb{flex:1;margin:0}
+.num.ok{background:var(--ok-bg);color:var(--ok)}
+.grp small.gd{font-size:13px;color:var(--muted);font-weight:500}
+.solved{font-size:14px;font-weight:600;color:var(--ok);background:var(--ok-bg);padding:3px 10px;border-radius:999px;vertical-align:middle;letter-spacing:0}
+.task{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:1rem 1.15rem;font-size:15.5px;line-height:1.65;white-space:pre-line;margin-bottom:1rem}
+.edwrap{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.edwrap:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+pre.tpl{margin:0;padding:.55rem 1rem;background:var(--soft);color:var(--muted);font-size:13.5px;line-height:1.6;white-space:pre;overflow-x:auto}
+pre.tpl span{opacity:.75}
+textarea.ed{display:block;width:100%;border:0;outline:0;resize:vertical;padding:.6rem 1rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-ligatures:none;font-size:14px;line-height:1.6;background:var(--card);color:var(--ink);tab-size:2;min-height:7em;white-space:pre;overflow-x:auto}
+textarea.ed.small{min-height:4em;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.inl{display:flex;align-items:center;gap:0;padding:.45rem 1rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;white-space:pre;overflow-x:auto}
+.inl .ilp{flex-shrink:0}
+.inl-in{flex:1;min-width:160px;font:inherit;font-variant-ligatures:none;padding:5px 8px;border:1.5px dashed var(--accent);border-radius:6px;background:var(--accent-bg);color:var(--ink);outline:0}
+.inl-in:focus{border-style:solid}
+.sm{font-size:13px}.mut{color:var(--muted)}
+p.sm.mut{margin:.45rem 0 0}
+.uebtn{margin:1rem 0}
+.fbx{border-radius:12px;padding:.85rem 1.1rem;margin:0 0 .8rem;font-size:14.5px;line-height:1.55;border:1px solid}
+.fbx b{display:block;margin-bottom:.15rem}
+.fbx ul{margin:.4rem 0 0 1.1rem}.fbx li{margin-bottom:.35rem}
+.fbx .wh{display:block;font-size:12.5px;font-weight:600;color:var(--muted)}
+.fbx.bad{background:var(--bad-bg);border-color:var(--bad)}
+.fbx.bad>b{color:var(--bad)}
+.fbx.good{background:var(--ok-bg);border-color:var(--ok)}
+.fbx.good>b{color:var(--ok);display:inline}
+.fbx.good a{color:var(--ok);font-weight:600}
+.fbx.warn{background:var(--miss-bg);border-color:var(--miss)}
+.fbx.tip{background:var(--card);border-color:var(--line)}
+.fbx pre.code{margin:.5rem 0 0}
+.sold{margin-top:.6rem}.sold summary{cursor:pointer;font-weight:600;font-size:14px}
+.tests{display:grid;gap:8px}
+.tcase{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.55rem .9rem}
+.tcase.bad{border-color:var(--bad)}
+.tch{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tch .mut{font-weight:400}
+.tic{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex-shrink:0}
+.tcase.ok .tic{background:var(--ok)}.tcase.bad .tic{background:var(--bad)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.5rem}
+@media (max-width:600px){.cmp{grid-template-columns:1fr}}
+.cmp small{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.cmp pre{background:var(--soft);border-radius:8px;padding:.5rem .7rem;font-size:13px;white-space:pre-wrap;word-break:break-word;margin-top:2px;min-height:2.2em}
+.terr{font-size:13.5px;margin-top:.45rem}
+h2.sh{font-size:16px;margin:1.5rem 0 .6rem}
+h2.sh small{font-weight:400;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
@@ -241,6 +289,8 @@ pre.code{background:var(--soft);border:1px solid var(--line);border-radius:10px;
 <script src="daten-linux.js"></script>
 <script src="daten-linux-pruefung.js"></script>
 <script src="ablauf-java.js"></script>
+<script src="mini-java.js"></script>
+<script src="uebungen-java.js"></script>
 <script>
 var ORDER = ["fs","dr","java","linux"];
 var L = "ABCDEFGH";
@@ -273,6 +323,7 @@ function home(){
       (F.zeichen?'<span class="stat">Zeichen & Symbole</span>':'')+'</div></a>';
   });
   var n = ORDER.reduce(function(s,f){return s+count(f,"quiz")},0), ba=store("best_all");
+  if(window.UEBUNG) h += '</div><a class="callout home-callout" href="#/java/ueben"><span class="ic">✎</span><div><b>Java selbst programmieren</b><span class="t">'+UEBUNG.aufgaben.length+' Aufgaben: Du schreibst den Code (Vergleiche, if, Schleifen, Methoden …), der Trainer prüft ihn sofort.</span></div></a><div>';
   if(window.ABLAUF) h += '</div><a class="callout home-callout" href="#/java/ablauf"><span class="ic">▶</span><div><b>Java-Programme Schritt für Schritt</b><span class="t">'+ABLAUF.progs.length+' Programme Zeile für Zeile durchklicken: welche Zeile läuft, was steht in den Variablen, was erscheint in der Konsole.</span></div></a><div>';
   h += '</div><div class="mix" style="--accent:var(--all);--accent-bg:var(--all-bg)"><p><b style="color:var(--ink)">Alles gemischt</b> – '+n+' Fragen aus allen Fächern'+(ba!=null?' · Bestes: '+ba+' %':'')+'</p><a class="pill pr" href="#/alle/quiz">Mix-Quiz starten</a></div>';
   h += '<p class="foot">Auch hier: <a href="biochemie_quiz.html">Biochemie-Quizzes</a></p>';
@@ -286,6 +337,7 @@ function subject(f){
   var h = crumbs([[F.name]]);
   h += '<div class="th"><span class="tag">Fach</span><h1>'+esc(F.name)+'</h1></div>';
   if(F.hinweis) h += '<p class="note">'+fmt(F.hinweis)+'</p>';
+  if(f==="java"&&window.UEBUNG) h += '<a class="callout" href="#/java/ueben"><span class="ic">✎</span><div><b>Selbst programmieren – Code-Trainer</b><span class="t">'+UEBUNG.aufgaben.length+' Aufgaben von „Hallo Welt“ bis Methoden. Du schreibst den Code, der Trainer prüft ihn sofort und erklärt Fehler.</span></div></a>';
   if(f==="java"&&window.ABLAUF) h += '<a class="callout" href="#/java/ablauf"><span class="ic">▶</span><div><b>Programme Schritt für Schritt</b><span class="t">'+ABLAUF.progs.length+' Programme: einfache Einstiegsbeispiele, VO Kap. 1–5 und deine PS-Abgaben. Du klickst Zeile für Zeile durch und siehst Variablen, Konsole und eine Erklärung.</span></div></a>';
   h += '<div class="row actions">'+(F.zeichen?'<a class="pill" href="#/'+f+'/zeichen">Zeichen & Symbole</a>':'')+
        '<a class="pill pr" href="#/'+f+'/quiz">Alle '+count(f,"quiz")+' Fragen mischen</a>'+(bf!=null?'<span class="stat">Bestes: '+bf+' %</span>':'')+'</div>';
@@ -495,6 +547,69 @@ function abList(){
   });
   app.innerHTML=h;
 }
+function abPlayerHTML(code){
+  var h='<div class="ctrl"><button class="btn" id="ab0" title="Zum Anfang">⏮</button><button class="btn" id="abp" title="Zurück (←)">◀ Zurück</button><button class="btn pr" id="abn" title="Weiter (→)">Weiter ▶</button><button class="btn" id="abauto">▶▶ Abspielen</button><span class="cnt" id="abc"></span><input type="range" id="abr" min="0" value="0"></div>';
+  h+='<div class="expl" id="abx"></div>';
+  h+='<div class="pgrid"><div class="panel"><h3>Code</h3><div class="codebox" id="abcode">'+code.split("\n").map(function(l,k){return '<div class="cl" data-l="'+(k+1)+'"><span class="no">'+(k+1)+'</span><span>'+(hlJava(l)||" ")+'</span></div>'}).join("")+'</div></div>';
+  h+='<div class="side"><div class="panel"><h3>Variablen</h3><div class="vars" id="abv"></div></div><div class="panel"><h3>Konsole</h3><div class="cons" id="abo"></div></div></div></div>';
+  return h;
+}
+function abPlayer(steps){
+  abStop();
+  var cur=0, codeEl=document.getElementById("abcode"), lines=codeEl.querySelectorAll(".cl"), rng=document.getElementById("abr");
+  rng.max=steps.length-1;
+  function setAutoLbl(){var b=document.getElementById("abauto"); if(b) b.textContent=AB.timer?"⏸ Pause":"▶▶ Abspielen"}
+  function draw(){
+    var s=steps[cur], prev=cur>0?steps[cur-1]:null;
+    document.getElementById("abc").textContent="Schritt "+(cur+1)+" / "+steps.length;
+    rng.value=cur;
+    document.getElementById("abp").disabled=document.getElementById("ab0").disabled=cur===0;
+    document.getElementById("abn").disabled=cur===steps.length-1;
+    var x=document.getElementById("abx");
+    x.className="expl"+(s.err?" err":s.stop?" stop":"");
+    x.innerHTML='<span class="ln">'+(s.err?"Fehler":s.stop?"Angehalten":cur===steps.length-1?"Ende · Zeile "+s.l:"Zeile "+s.l)+'</span>'+fmtB(s.x);
+    lines.forEach(function(el){el.classList.toggle("cur",+el.dataset.l===s.l)});
+    var ce=lines[s.l-1];
+    if(ce){var top=ce.offsetTop, bh=codeEl.clientHeight; if(top<codeEl.scrollTop+20||top>codeEl.scrollTop+bh-40) codeEl.scrollTop=Math.max(0,top-bh/3)}
+    var vh="";
+    if(!s.f.length||s.f.every(function(f){return !f.vars.length})&&s.f.length<2) vh='<div class="novars">noch keine Variablen</div>';
+    else {
+      for(var fi=s.f.length-1;fi>=0;fi--){
+        var f=s.f[fi], pf=prev&&prev.f[fi]&&prev.f[fi].n===f.n?prev.f[fi]:null, isK=f.n==="Konstanten";
+        var act=fi===s.f.length-1;
+        vh+='<div class="frame'+(act||isK?' act':'')+'"><div class="fn">'+esc(f.n)+(isK?'':'()')+(s.f.length>1&&!isK?(act?' ← läuft gerade':' – wartet'):'')+'</div>';
+        if(!f.vars.length) vh+='<div class="novars">keine Variablen</div>';
+        f.vars.forEach(function(v){
+          var old=null; if(pf) pf.vars.forEach(function(o){if(o[0]===v[0])old=o});
+          var chg=prev&&(!old||old[2]!==v[2]||old[1]!==v[1]);
+          vh+='<div class="vr'+(chg?' chg':'')+'"><span>'+esc(v[0])+'</span><span class="ty">'+esc(v[1])+'</span><span class="vv">'+abVal(v[1],v[2])+'</span></div>';
+        });
+        vh+='</div>';
+      }
+    }
+    document.getElementById("abv").innerHTML=vh;
+    var o=s.o, po=prev?prev.o:"", oh;
+    function con(t){return esc(t).replace(/\u0001([^\u0002]*)\u0002/g,'<span class="cin">$1</span>')}
+    if(!o) oh='<span class="ph">(noch keine Ausgabe)</span>';
+    else if(o.indexOf(po)===0&&o.length>po.length) oh=con(po)+'<span class="new">'+con(o.slice(po.length))+'</span>';
+    else oh=con(o);
+    var co=document.getElementById("abo"); co.innerHTML=oh; co.scrollTop=co.scrollHeight;
+  }
+  function go(n){cur=Math.max(0,Math.min(steps.length-1,n)); draw(); if(cur===steps.length-1){abStop();setAutoLbl()}}
+  document.getElementById("abn").onclick=function(){go(cur+1)};
+  document.getElementById("abp").onclick=function(){go(cur-1)};
+  document.getElementById("ab0").onclick=function(){go(0)};
+  rng.oninput=function(){go(+rng.value)};
+  document.getElementById("abauto").onclick=function(){
+    if(AB.timer){abStop()} else { if(cur===steps.length-1) go(0); AB.timer=setInterval(function(){go(cur+1)},1100); }
+    setAutoLbl();
+  };
+  AB.key=function(e){
+    if(/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    if(e.key==="ArrowRight"){go(cur+1);e.preventDefault()} else if(e.key==="ArrowLeft"){go(cur-1);e.preventDefault()}
+  };
+  setAutoLbl(); draw();
+}
 function abShow(id){
   setAccent("java");
   var P=ABLAUF.progs, pi=-1;
@@ -510,69 +625,15 @@ function abShow(id){
     p.inputs.forEach(function(x,k){h+='<label'+(x.liste?' class="lg"':'')+'>'+esc(x.l)+'<input data-k="'+k+'" value="'+esc(vals[k])+'" autocomplete="off" spellcheck="false"></label>'});
     h+='<button class="btn pr" id="abgo">Neu starten</button>'+(AB.inp[id]?'<button class="btn" id="abrs">Standardwerte</button>':'')+'</div></div>';
   }
-  h+='<div class="ctrl"><button class="btn" id="ab0" title="Zum Anfang">⏮</button><button class="btn" id="abp" title="Zurück (←)">◀ Zurück</button><button class="btn pr" id="abn" title="Weiter (→)">Weiter ▶</button><button class="btn" id="abauto">▶▶ Abspielen</button><span class="cnt" id="abc"></span><input type="range" id="abr" min="0" value="0"></div>';
-  h+='<div class="expl" id="abx"></div>';
-  h+='<div class="pgrid"><div class="panel"><h3>Code</h3><div class="codebox" id="abcode">'+p.code.split("\n").map(function(l,k){return '<div class="cl" data-l="'+(k+1)+'"><span class="no">'+(k+1)+'</span><span>'+(hlJava(l)||" ")+'</span></div>'}).join("")+'</div></div>';
-  h+='<div class="side"><div class="panel"><h3>Variablen</h3><div class="vars" id="abv"></div></div><div class="panel"><h3>Konsole</h3><div class="cons" id="abo"></div></div></div></div>';
+  h+=abPlayerHTML(p.code);
   h+='<p class="kbd">Tipp: Pfeiltasten ← → auf der Tastatur gehen auch.'+(p.id==="muenzwurf"?' Mit „Neu starten“ wird neu geworfen.':'')+'</p>';
   h+='<div class="pn">'+(pi>0?'<a href="#/java/ablauf/'+P[pi-1].id+'"><small>← vorheriges Programm</small>'+esc(P[pi-1].name)+'</a>':'')+(pi<P.length-1?'<a class="nx" href="#/java/ablauf/'+P[pi+1].id+'"><small>nächstes Programm →</small>'+esc(P[pi+1].name)+'</a>':'')+'</div>';
   app.innerHTML=h;
-
-  var steps, cur=0;
-  var codeEl=document.getElementById("abcode"), lines=codeEl.querySelectorAll(".cl"), rng=document.getElementById("abr");
   function start(){
-    abStop(); setAutoLbl();
     var inp=[];
     p.inputs.forEach(function(x,k){ if(x.liste) vals[k].split(",").forEach(function(t){t=t.trim(); if(t!=="") inp.push(t)}); else inp.push(vals[k].trim()); });
-    steps=ABLAUF.run(p,inp).steps; cur=0; rng.max=steps.length-1; draw();
+    abPlayer(ABLAUF.run(p,inp).steps);
   }
-  function draw(){
-    var s=steps[cur], prev=cur>0?steps[cur-1]:null;
-    document.getElementById("abc").textContent="Schritt "+(cur+1)+" / "+steps.length;
-    rng.value=cur;
-    document.getElementById("abp").disabled=document.getElementById("ab0").disabled=cur===0;
-    document.getElementById("abn").disabled=cur===steps.length-1;
-    var x=document.getElementById("abx");
-    x.className="expl"+(s.err?" err":s.stop?" stop":"");
-    x.innerHTML='<span class="ln">'+(s.err?"Fehler":s.stop?"Angehalten":cur===steps.length-1?"Ende · Zeile "+s.l:"Zeile "+s.l)+'</span>'+fmtB(s.x);
-    lines.forEach(function(el){el.classList.toggle("cur",+el.dataset.l===s.l)});
-    var ce=lines[s.l-1];
-    if(ce){var top=ce.offsetTop, bh=codeEl.clientHeight; if(top<codeEl.scrollTop+20||top>codeEl.scrollTop+bh-40) codeEl.scrollTop=Math.max(0,top-bh/3)}
-    // Variablen
-    var vh="";
-    if(!s.f.length||s.f.every(function(f){return !f.vars.length})&&s.f.length<2) vh='<div class="novars">noch keine Variablen</div>';
-    else {
-      for(var fi=s.f.length-1;fi>=0;fi--){
-        var f=s.f[fi], pf=prev&&prev.f[fi]&&prev.f[fi].n===f.n&&prev.f.length>=fi+1?prev.f[fi]:null;
-        vh+='<div class="frame'+(fi===s.f.length-1?' act':'')+'"><div class="fn">'+esc(f.n)+'()'+(s.f.length>1?(fi===s.f.length-1?' ← läuft gerade':' – wartet'):'')+'</div>';
-        if(!f.vars.length) vh+='<div class="novars">keine Variablen</div>';
-        f.vars.forEach(function(v){
-          var old=null; if(pf) pf.vars.forEach(function(o){if(o[0]===v[0])old=o});
-          var chg=prev&&(!old||old[2]!==v[2]||old[1]!==v[1]);
-          vh+='<div class="vr'+(chg?' chg':'')+'"><span>'+esc(v[0])+'</span><span class="ty">'+esc(v[1])+'</span><span class="vv">'+abVal(v[1],v[2])+'</span></div>';
-        });
-        vh+='</div>';
-      }
-    }
-    document.getElementById("abv").innerHTML=vh;
-    // Konsole
-    var o=s.o, po=prev?prev.o:"", oh;
-    function con(t){return esc(t).replace(/\u0001([^\u0002]*)\u0002/g,'<span class="cin">$1</span>')}
-    if(!o) oh='<span class="ph">(noch keine Ausgabe)</span>';
-    else if(o.indexOf(po)===0&&o.length>po.length) oh=con(po)+'<span class="new">'+con(o.slice(po.length))+'</span>';
-    else oh=con(o);
-    var co=document.getElementById("abo"); co.innerHTML=oh; co.scrollTop=co.scrollHeight;
-  }
-  function go(n){cur=Math.max(0,Math.min(steps.length-1,n)); draw(); if(cur===steps.length-1){abStop();setAutoLbl()}}
-  function setAutoLbl(){var b=document.getElementById("abauto"); if(b) b.textContent=AB.timer?"⏸ Pause":"▶▶ Abspielen"}
-  document.getElementById("abn").onclick=function(){go(cur+1)};
-  document.getElementById("abp").onclick=function(){go(cur-1)};
-  document.getElementById("ab0").onclick=function(){go(0)};
-  rng.oninput=function(){go(+rng.value)};
-  document.getElementById("abauto").onclick=function(){
-    if(AB.timer){abStop()} else { if(cur===steps.length-1) go(0); AB.timer=setInterval(function(){go(cur+1)},1100); }
-    setAutoLbl();
-  };
   var gob=document.getElementById("abgo");
   if(gob){
     var fields=app.querySelectorAll(".infields input");
@@ -580,21 +641,202 @@ function abShow(id){
     fields.forEach(function(el){el.onkeydown=function(e){if(e.key==="Enter")gob.click()}});
     var rs=document.getElementById("abrs"); if(rs) rs.onclick=function(){delete AB.inp[id]; abShow(id)};
   }
-  AB.key=function(e){
-    if(/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
-    if(e.key==="ArrowRight"){go(cur+1);e.preventDefault()} else if(e.key==="ArrowLeft"){go(cur-1);e.preventDefault()}
-  };
   start();
 }
-document.addEventListener("keydown",function(e){if(AB.key&&/^#\/java\/ablauf\/./.test(location.hash))AB.key(e)});
+document.addEventListener("keydown",function(e){if(AB.key&&/^#\/java\/(ablauf|ueben)\/./.test(location.hash)&&document.getElementById("abcode"))AB.key(e)});
+
+/* ---------- Code-Trainer ---------- */
+function ueSolved(){return store("ue_solved")||{}}
+function ueNorm(s){return String(s).replace(/\r/g,"").split("\n").map(function(l){return l.replace(/\s+$/,"")}).join("\n").replace(/\n+$/,"")}
+function ueStrip(code){return code.replace(/\/\*[\s\S]*?\*\//g,"").replace(/\/\/.*$/gm,"")}
+function ueLabel(t){
+  var p=[];
+  if(t.set) p.push(Object.keys(t.set).map(function(k){return k+" = "+t.set[k]}).join(", "));
+  if(t.in&&t.in.length) p.push("Eingabe: "+t.in.join(", "));
+  return p.join(" · ")||"ohne Eingabe";
+}
+var UE={exp:{}};
+function ueExpected(x,t,i){
+  var k=x.id+"#"+i; if(k in UE.exp) return UE.exp[k];
+  var a=UEBUNG.assemble(x,x.loesung,t), c=MJ.compile(a.src), r=MJ.run(c,t.in||[],{});
+  return UE.exp[k]=r.stdout;
+}
+function ueEditorKeys(ta,onRun){
+  ta.addEventListener("keydown",function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();onRun();return}
+    if(ta.tagName!=="TEXTAREA") { if(e.key==="Enter"){e.preventDefault();onRun()} return; }
+    var v=ta.value, s=ta.selectionStart, en=ta.selectionEnd;
+    if(e.key==="Tab"&&!e.shiftKey){e.preventDefault(); ta.setRangeText("  ",s,en,"end"); ta.dispatchEvent(new Event("input"));}
+    else if(e.key==="Enter"&&!e.shiftKey){
+      var ls=v.lastIndexOf("\n",s-1)+1, line=v.slice(ls,s), ind=(/^[ \t]*/.exec(line)||[""])[0];
+      if(/\{\s*$/.test(line)) ind+="  ";
+      e.preventDefault(); ta.setRangeText("\n"+ind,s,en,"end"); ta.dispatchEvent(new Event("input"));
+    }
+    else if(e.key==="}"){
+      var ls2=v.lastIndexOf("\n",s-1)+1, before=v.slice(ls2,s);
+      if(/^ {2,}$/.test(before)&&s===en){ e.preventDefault(); ta.setRangeText(before.slice(2)+"}",ls2,s,"end"); ta.dispatchEvent(new Event("input")); }
+    }
+  });
+}
+function ueAutoRows(ta){ if(ta.tagName!=="TEXTAREA") return; ta.rows=Math.max(5,ta.value.split("\n").length+1) }
+function ueWhere(line,a,code,inline){
+  if(inline) return "in deinem Ausdruck";
+  var k=line-a.start+1, L=code.split("\n");
+  if(k>=1&&k<=a.n) return "Zeile "+k+(a.start>1?" deines Codes":"")+(L[k-1]&&L[k-1].trim()?": <code>"+esc(L[k-1].trim())+"</code>":"");
+  if(k<1) return "im vorgegebenen Code oben";
+  return "am Ende (im vorgegebenen Code unten) – fehlt in deinem Code vielleicht eine } oder ein ;?";
+}
+function ueErrorsHTML(errs,a,code,inline){
+  return '<div class="fbx bad"><b>✗ Der Code lässt sich so nicht übersetzen (Compilerfehler)</b><ul>'+errs.map(function(e){return '<li><span class="wh">'+ueWhere(e.line,a,code,inline)+'</span>'+fmtB(e.msg)+'</li>'}).join("")+'</ul><p class="sm">Der erste Fehler ist meist der wichtigste – spätere sind oft nur Folgefehler.</p></div>';
+}
+function ueWarnHTML(ws,a,code,inline){
+  if(!ws.length) return "";
+  return '<div class="fbx warn"><b>⚠ Achtung</b><ul>'+ws.map(function(w){return '<li><span class="wh">'+ueWhere(w.line,a,code,inline)+'</span>'+fmtB(w.msg)+'</li>'}).join("")+'</ul></div>';
+}
+function ueCon(t){return esc(t).replace(/\u0001([^\u0002]*)\u0002/g,'<span class="cin">$1</span>')}
+function ueList(){
+  setAccent("java");
+  var A=UEBUNG.aufgaben, sv=ueSolved(), n=A.filter(function(x){return sv[x.id]}).length;
+  var h=crumbs([[FACH.java.name,"#/java"],["Selbst programmieren"]]);
+  h+='<div class="th"><span class="tag">Java · Code-Trainer</span><h1>Selbst programmieren</h1></div>';
+  h+='<p class="note">Zu jeder Aufgabe schreibst du den Code selbst. Der Trainer prüft ihn sofort: Zuerst, ob er sich übersetzen lässt (mit verständlichen Fehlermeldungen auf Deutsch), dann wird dein Programm mit mehreren Eingaben getestet. Du kannst deinen Code auch <b>Schritt für Schritt</b> ablaufen lassen, um zu sehen, wo etwas schiefgeht. Dein Code wird in diesem Browser gespeichert.</p>';
+  h+='<div class="uprog"><div class="pb"><div class="pf" style="width:'+(n/A.length*100)+'%"></div></div><span>'+n+' von '+A.length+' gelöst</span></div>';
+  h+='<a class="callout" href="#/java/ueben/frei"><span class="ic">{ }</span><div><b>Freies Programmieren</b><span class="t">Ein leerer Editor: Schreib ein beliebiges Programm, gib Eingaben vor, führ es aus oder klick dich Schritt für Schritt durch.</span></div></a>';
+  UEBUNG.gruppen.forEach(function(g){
+    var list=A.filter(function(x){return x.gruppe===g[0]}), done=list.filter(function(x){return sv[x.id]}).length;
+    h+='<div class="grp"><h2>'+esc(g[1])+' <small class="gd">'+done+'/'+list.length+'</small></h2><p>'+esc(g[2])+'</p></div><div class="topics">';
+    list.forEach(function(x){
+      var k=A.indexOf(x)+1;
+      h+='<a class="topic" href="#/java/ueben/'+x.id+'"><span class="num'+(sv[x.id]?' ok':'')+'">'+(sv[x.id]?'✓':k)+'</span><div><h3>'+esc(x.titel)+'</h3><p class="meta">'+esc(x.aufgabe.split("\n")[0].replace(/`/g,""))+'</p></div></a>';
+    });
+    h+='</div>';
+  });
+  app.innerHTML=h;
+}
+function ueShow(id){
+  setAccent("java");
+  if(id==="frei"){ueFrei();return}
+  var A=UEBUNG.aufgaben, xi=-1; for(var i=0;i<A.length;i++) if(A[i].id===id) xi=i;
+  if(xi<0){ueList();return}
+  var x=A[xi], g=UEBUNG.gruppen.filter(function(q){return q[0]===x.gruppe})[0], sv=ueSolved();
+  var draft=store("ue_code_"+id), code=draft!=null?draft:(x.start||"");
+  var set0=x.tests[0].set;
+  var h=crumbs([[FACH.java.name,"#/java"],["Selbst programmieren","#/java/ueben"],[x.titel]]);
+  h+='<div class="th"><span class="tag">Aufgabe '+(xi+1)+' · '+esc(g[1])+'</span><h1>'+esc(x.titel)+(sv[id]?' <span class="solved">✓ gelöst</span>':'')+'</h1></div>';
+  h+='<div class="task">'+fmtB(x.aufgabe)+'</div>';
+  h+='<div class="edwrap">';
+  if(x.vor) h+='<pre class="tpl">'+UEBUNG.fill(x.vor,set0).split("\n").map(hlJava).join("\n")+'</pre>';
+  if(x.inline) h+='<div class="inl"><span class="ilp">'+hlJava(x.inline[0])+'</span><input id="ued" class="inl-in" value="'+esc(code)+'" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="dein Ausdruck"><span class="ilp">'+hlJava(x.inline[1])+'</span></div>';
+  else h+='<textarea id="ued" class="ed" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Schreib hier deinen Code …">'+esc(code)+'</textarea>';
+  if(x.nach) h+='<pre class="tpl">'+UEBUNG.fill(x.nach,set0).replace(/^\n/,"").split("\n").map(hlJava).join("\n")+'</pre>';
+  h+='</div>';
+  if(x.vor||x.nach) h+='<p class="sm mut">Grau = vorgegeben'+(set0?' (die Werte wie '+esc(ueLabel({set:set0}))+' werden beim Testen ausgetauscht)':'')+'. Du schreibst nur '+(x.inline?'den Ausdruck in der Zeile.':'den weißen Teil.')+'</p>';
+  h+='<div class="row uebtn"><button class="btn pr" id="uechk">Prüfen</button><button class="btn" id="uetip">💡 Tipp</button><button class="btn" id="uesol">Lösung zeigen</button><button class="btn" id="uerst">Zurücksetzen</button><span class="sm mut">Strg/⌘ + Enter = Prüfen</span></div>';
+  h+='<div id="uehint"></div><div id="ueres"></div><div id="uestep"></div>';
+  h+='<div class="pn">'+(xi>0?'<a href="#/java/ueben/'+A[xi-1].id+'"><small>← vorherige Aufgabe</small>'+esc(A[xi-1].titel)+'</a>':'')+(xi<A.length-1?'<a class="nx" href="#/java/ueben/'+A[xi+1].id+'"><small>nächste Aufgabe →</small>'+esc(A[xi+1].titel)+'</a>':'')+'</div>';
+  app.innerHTML=h;
+  var ed=document.getElementById("ued"), hint=document.getElementById("uehint"), res=document.getElementById("ueres"), stepEl=document.getElementById("uestep");
+  ueAutoRows(ed);
+  ed.addEventListener("input",function(){ store("ue_code_"+id,ed.value); ueAutoRows(ed); });
+  ueEditorKeys(ed,check);
+  document.getElementById("uetip").onclick=function(){ hint.innerHTML='<div class="fbx tip"><b>💡 Tipp</b><p>'+fmtB(x.tipp)+'</p></div>'; };
+  document.getElementById("uesol").onclick=function(){ hint.innerHTML='<div class="fbx tip"><b>Musterlösung</b><p class="sm">Es gibt fast immer mehrere richtige Lösungen – das ist eine davon.</p><pre class="code">'+x.loesung.split("\n").map(hlJava).join("\n")+'</pre></div>'; };
+  document.getElementById("uerst").onclick=function(){ ed.value=x.start||""; store("ue_code_"+id,ed.value); ueAutoRows(ed); res.innerHTML=""; stepEl.innerHTML=""; hint.innerHTML=""; abStop(); };
+  function step(t){
+    var a=UEBUNG.assemble(x,ed.value,t), c=MJ.compile(a.src);
+    if(c.errors.length) return;
+    var r=MJ.run(c,t.in||[],{trace:true,maxSteps:200000});
+    stepEl.innerHTML='<h2 class="sh">Dein Code Schritt für Schritt <small>('+esc(ueLabel(t))+')</small></h2>'+abPlayerHTML(a.src);
+    abPlayer(r.steps);
+    stepEl.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  function check(){
+    abStop(); stepEl.innerHTML="";
+    var code=ed.value;
+    if(!code.trim()){ res.innerHTML='<div class="fbx warn">Schreib zuerst etwas Code. 🙂</div>'; return; }
+    var a0=UEBUNG.assemble(x,code,x.tests[0]), c0=MJ.compile(a0.src);
+    if(c0.errors.length){ res.innerHTML=ueErrorsHTML(c0.errors,a0,code,!!x.inline); return; }
+    var out=ueWarnHTML(c0.warnings,a0,code,!!x.inline), allOk=true, firstBad=null, rows="";
+    x.tests.forEach(function(t,i){
+      var a=UEBUNG.assemble(x,code,t), c=MJ.compile(a.src), r, exp=ueExpected(x,t,i), ok, got;
+      if(c.errors.length){ r={error:c.errors[0],stdout:"",out:""}; }
+      else r=MJ.run(c,t.in||[],{maxSteps:200000});
+      got=r.stdout; ok=!r.error&&ueNorm(got)===ueNorm(exp);
+      if(!ok){ allOk=false; if(!firstBad) firstBad=t; }
+      rows+='<div class="tcase '+(ok?'ok':'bad')+'"><div class="tch"><span class="tic">'+(ok?'✓':'✗')+'</span>Test '+(i+1)+' <span class="mut">· '+esc(ueLabel(t))+'</span></div>';
+      if(!ok){
+        rows+='<div class="cmp"><div><small>erwartet</small><pre>'+(esc(exp)||'<span class="mut">(keine Ausgabe)</span>')+'</pre></div><div><small>dein Programm</small><pre>'+(esc(got)||'<span class="mut">(keine Ausgabe)</span>')+'</pre></div></div>';
+        if(r.error) rows+='<p class="terr">'+(r.timeout?'⏱ ':'💥 ')+fmtB(r.error.msg)+(r.error.line?' <span class="mut">('+ueWhere(r.error.line,a,code,!!x.inline).replace(/<[^>]+>/g,"")+')</span>':'')+'</p>';
+        else if(ueNorm(got).toLowerCase().replace(/\s+/g,"")===ueNorm(exp).toLowerCase().replace(/\s+/g,"")) rows+='<p class="terr">Fast! Nur Leerzeichen oder Groß-/Kleinschreibung sind anders.</p>';
+      }
+      rows+='</div>';
+    });
+    var plain=ueStrip(code), req=[];
+    (x.muss||[]).forEach(function(m){ if(!m[0].test(plain)) req.push(m[1]) });
+    (x.verboten||[]).forEach(function(m){ if(m[0].test(plain)) req.push(m[1]) });
+    if(allOk&&!req.length){
+      var s2=ueSolved(); s2[id]=Date.now(); store("ue_solved",s2);
+      out='<div class="fbx good"><b>✓ Richtig! Alle '+x.tests.length+' Tests bestanden.</b>'+(xi<A.length-1?' <a href="#/java/ueben/'+A[xi+1].id+'">Weiter zur nächsten Aufgabe →</a>':' Das war die letzte Aufgabe – stark!')+'<details class="sold"><summary>Musterlösung zum Vergleich</summary><pre class="code">'+x.loesung.split("\n").map(hlJava).join("\n")+'</pre></details></div>'+out;
+    } else if(allOk){
+      out='<div class="fbx warn"><b>Fast!</b> Die Ausgabe stimmt, aber:<ul>'+req.map(function(m){return '<li>'+fmtB(m)+'</li>'}).join("")+'</ul></div>'+out;
+    } else {
+      out='<div class="fbx bad"><b>✗ Noch nicht ganz.</b> Schau dir unten an, bei welchem Test die Ausgabe anders ist.'+(req.length?'<ul>'+req.map(function(m){return '<li>'+fmtB(m)+'</li>'}).join("")+'</ul>':'')+'</div>'+out;
+    }
+    out+='<div class="tests">'+rows+'</div>';
+    out+='<div class="row" style="margin-top:.8rem"><button class="btn" id="uestp">▶ '+(firstBad?'Fehlgeschlagenen Test':'Test 1')+' Schritt für Schritt ansehen</button></div>';
+    res.innerHTML=out;
+    document.getElementById("uestp").onclick=function(){ step(firstBad||x.tests[0]) };
+    var h1=app.querySelector(".th h1"); if(allOk&&!req.length&&h1&&!h1.querySelector(".solved")) h1.insertAdjacentHTML("beforeend",' <span class="solved">✓ gelöst</span>');
+  }
+  document.getElementById("uechk").onclick=check;
+}
+function ueFrei(){
+  var code=store("ue_frei"); if(code==null) code='void main() {\n  String name = IO.readln("Wie heißt du? ");\n  IO.println("Hallo " + name + "!");\n}';
+  var inp=store("ue_frei_in"); if(inp==null) inp="Anna";
+  var h=crumbs([[FACH.java.name,"#/java"],["Selbst programmieren","#/java/ueben"],["Freies Programmieren"]]);
+  h+='<div class="th"><span class="tag">Java · Code-Trainer</span><h1>Freies Programmieren</h1></div>';
+  h+='<p class="note">Schreib ein beliebiges Programm (mit <code>void main() { … }</code>). Unten trägst du ein, was bei <code>IO.readln()</code> „eingetippt“ werden soll, eine Eingabe pro Zeile. Unterstützt wird alles bis Kapitel 5: Variablen, if/switch, Schleifen, Methoden, Strings. Arrays und Klassen gehen hier noch nicht.</p>';
+  h+='<div class="edwrap"><textarea id="ued" class="ed" spellcheck="false" autocapitalize="off" autocomplete="off">'+esc(code)+'</textarea></div>';
+  h+='<div class="inbox" style="margin-top:.8rem"><h3>Eingaben (eine pro Zeile)</h3><textarea id="uein" class="ed small" rows="3" spellcheck="false">'+esc(inp)+'</textarea></div>';
+  h+='<div class="row uebtn"><button class="btn pr" id="uerun">▶ Ausführen</button><button class="btn" id="uestp">Schritt für Schritt</button><span class="sm mut">Strg/⌘ + Enter = Ausführen</span></div>';
+  h+='<div id="ueres"></div><div id="uestep"></div>';
+  app.innerHTML=h;
+  var ed=document.getElementById("ued"), ein=document.getElementById("uein"), res=document.getElementById("ueres"), stepEl=document.getElementById("uestep");
+  ueAutoRows(ed);
+  ed.addEventListener("input",function(){store("ue_frei",ed.value);ueAutoRows(ed)});
+  ein.addEventListener("input",function(){store("ue_frei_in",ein.value)});
+  function inputs(){ var v=ein.value.replace(/\r/g,""); if(!v.length) return []; var l=v.split("\n"); if(l[l.length-1]==="") l.pop(); return l; }
+  function prep(){
+    abStop(); stepEl.innerHTML="";
+    var a={src:ed.value,start:1,n:ed.value.split("\n").length}, c=MJ.compile(a.src);
+    if(c.errors.length){ res.innerHTML=ueErrorsHTML(c.errors,a,ed.value,false); return null; }
+    return {a:a,c:c,warn:ueWarnHTML(c.warnings,a,ed.value,false)};
+  }
+  function runIt(){
+    var p=prep(); if(!p) return;
+    var r=MJ.run(p.c,inputs(),{maxSteps:500000});
+    res.innerHTML=p.warn+'<h2 class="sh">Konsole</h2><div class="cons">'+(r.out?ueCon(r.out):'<span class="ph">(keine Ausgabe)</span>')+'</div>'+(r.error?'<div class="fbx bad" style="margin-top:.6rem">'+(r.timeout?'⏱ ':'💥 ')+fmtB(r.error.msg)+(r.error.line?' <span class="mut">(Zeile '+r.error.line+')</span>':'')+'</div>':'');
+  }
+  function stepIt(){
+    var p=prep(); if(!p) return;
+    var r=MJ.run(p.c,inputs(),{trace:true,maxSteps:500000});
+    res.innerHTML=p.warn;
+    stepEl.innerHTML=abPlayerHTML(p.a.src); abPlayer(r.steps);
+    stepEl.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  ueEditorKeys(ed,runIt);
+  document.getElementById("uerun").onclick=runIt;
+  document.getElementById("uestp").onclick=stepIt;
+}
 
 /* ---------- Router ---------- */
 function route(){
   var p=location.hash.replace(/^#\/?/,"").split("/").filter(Boolean);
   var f=p[0];
-  abStop(); app.className="wrap"+(f==="java"&&p[1]==="ablauf"&&p[2]?" wide":"");
+  abStop(); app.className="wrap"+(f==="java"&&(p[1]==="ablauf"||p[1]==="ueben")&&p[2]?" wide":"");
   if(f==="alle"&&p[1]==="quiz") quiz({all:true});
   else if(f==="java"&&p[1]==="ablauf"&&window.ABLAUF){ if(p[2]) abShow(p[2]); else abList(); }
+  else if(f==="java"&&p[1]==="ueben"&&window.UEBUNG&&window.MJ){ if(p[2]) ueShow(p[2]); else ueList(); }
   else if(FACH[f]){
     if(!p[1]) subject(f);
     else if(p[1]==="zeichen"&&FACH[f].zeichen) symbols(f);
