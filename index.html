@@ -318,6 +318,16 @@ h2.sh small{font-weight:400;color:var(--muted);font-size:13px}
 .prbody .task{margin:0;font-size:14px}
 small.lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;margin-top:.3rem}
 .prbody pre.code{margin:0}
+
+.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:.5rem}
+@media (max-width:560px){.modes{grid-template-columns:minmax(0,1fr)}}
+.mode{display:flex;flex-direction:column;gap:.3rem;text-decoration:none;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;padding:1rem 1.1rem;transition:transform .12s,box-shadow .12s;cursor:pointer}
+.mode:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.mode .mstep{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.mode .mic{font-size:22px;line-height:1}
+.mode b{font-size:17px;font-weight:600}
+.mode .mt{font-size:13.5px;color:var(--muted);flex:1}
+.mode .stat{align-self:flex-start;margin-top:.2rem}
 </style>
 </head>
 <body>
@@ -364,8 +374,6 @@ function home(){
       (F.zeichen?'<span class="stat">Zeichen & Symbole</span>':'')+'</div></a>';
   });
   var n = ORDER.reduce(function(s,f){return s+count(f,"quiz")},0), ba=store("best_all");
-  if(window.UEBUNG) h += '</div><a class="callout home-callout" href="#/java/ueben"><span class="ic">✎</span><div><b>Java selbst programmieren</b><span class="t">'+UEBUNG.aufgaben.length+' Aufgaben: Du schreibst den Code (Vergleiche, if, Schleifen, Methoden …), der Trainer prüft ihn sofort.</span></div></a><div>';
-  if(window.ABLAUF) h += '</div><a class="callout home-callout" href="#/java/ablauf"><span class="ic">▶</span><div><b>Java-Programme Schritt für Schritt</b><span class="t">'+ABLAUF.progs.length+' Programme Zeile für Zeile durchklicken: welche Zeile läuft, was steht in den Variablen, was erscheint in der Konsole.</span></div></a><div>';
   h += '</div><div class="mix" style="--accent:var(--all);--accent-bg:var(--all-bg)"><p><b style="color:var(--ink)">Alles gemischt</b> – '+n+' Fragen aus allen Fächern'+(ba!=null?' · Bestes: '+ba+' %':'')+'</p><a class="pill pr" href="#/alle/quiz">Mix-Quiz starten</a></div>';
   h += '<p class="foot">Auch hier: <a href="biochemie_quiz.html">Biochemie-Quizzes</a></p>';
   app.innerHTML = h;
@@ -377,10 +385,16 @@ function subject(f){
   var F=FACH[f], bf=store("best_"+f);
   var h = crumbs([[F.name]]);
   h += '<div class="th"><span class="tag">Fach</span><h1>'+esc(F.name)+'</h1></div>';
+  if(f==="java"&&window.UEBUNG&&window.ABLAUF){
+    var nSolved=Object.keys(ueSolved()).length, hist=store("pr_hist")||[], last=hist.length?hist[hist.length-1].pct:null;
+    var M=[["1 · Lesen","📖","Begriffe & Quiz","Alle Themen der VO mit Begriffen zum Nachlesen und Quizfragen.",F.themen.length+" Themen","javascript:void 0",' data-scroll="themen"'],
+           ["2 · Verstehen","▶","Programme Schritt für Schritt","Beispielprogramme Zeile für Zeile durchklicken: Code, Variablen, Konsole und Erklärung.",ABLAUF.progs.length+" Programme","#/java/ablauf",""],
+           ["3 · Üben","✎","Selbst programmieren","Code selbst schreiben, der Trainer prüft ihn sofort und erklärt Fehler.",UEBUNG.aufgaben.length+" Aufgaben"+(nSolved?" · "+nSolved+" gelöst":""),"#/java/ueben",""],
+           ["4 · Testen","⏱","Prüfungsmodus","Zufällige Aufgaben mit Zeitlimit und ohne Tipps – am Ende Punkte und Note.",last!=null?"Zuletzt: "+last+" %":"5–15 Aufgaben","#/java/pruefung",""]];
+    h += '<div class="modes">'+M.map(function(m){return '<a class="mode" href="'+m[5]+'"'+m[6]+'><span class="mstep">'+m[0]+'</span><span class="mic">'+m[1]+'</span><b>'+m[2]+'</b><span class="mt">'+m[3]+'</span><span class="stat">'+m[4]+'</span></a>'}).join("")+'</div>';
+    h += '<h2 class="sh" id="themen">Themen – Begriffe & Quiz</h2>';
+  }
   if(F.hinweis) h += '<p class="note">'+fmt(F.hinweis)+'</p>';
-  if(f==="java"&&window.UEBUNG) h += '<a class="callout" href="#/java/pruefung"><span class="ic">⏱</span><div><b>Prüfungsmodus</b><span class="t">Teste dich wie in einer echten Prüfung: zufällige Aufgaben, Zeitlimit, keine Tipps, am Ende Punkte und Note.</span></div></a>';
-  if(f==="java"&&window.UEBUNG) h += '<a class="callout" href="#/java/ueben"><span class="ic">✎</span><div><b>Selbst programmieren – Code-Trainer</b><span class="t">'+UEBUNG.aufgaben.length+' Aufgaben von „Hallo Welt“ bis Methoden. Du schreibst den Code, der Trainer prüft ihn sofort und erklärt Fehler.</span></div></a>';
-  if(f==="java"&&window.ABLAUF) h += '<a class="callout" href="#/java/ablauf"><span class="ic">▶</span><div><b>Programme Schritt für Schritt</b><span class="t">'+ABLAUF.progs.length+' Programme: einfache Einstiegsbeispiele, VO Kap. 1–5 und deine PS-Abgaben. Du klickst Zeile für Zeile durch und siehst Variablen, Konsole und eine Erklärung.</span></div></a>';
   h += '<div class="row actions">'+(F.zeichen?'<a class="pill" href="#/'+f+'/zeichen">Zeichen & Symbole</a>':'')+
        '<a class="pill pr" href="#/'+f+'/quiz">Alle '+count(f,"quiz")+' Fragen mischen</a>'+(bf!=null?'<span class="stat">Bestes: '+bf+' %</span>':'')+'</div>';
   h += '<div class="topics">';
@@ -392,6 +406,7 @@ function subject(f){
   });
   h += '</div>';
   app.innerHTML = h;
+  var sc=app.querySelector('[data-scroll]'); if(sc) sc.onclick=function(){document.getElementById(sc.dataset.scroll).scrollIntoView({behavior:'smooth'})};
 }
 
 /* ---------- Topic header ---------- */
