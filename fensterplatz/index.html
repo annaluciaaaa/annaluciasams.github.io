@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1D5B42">
+<title>Fensterplatz – Natur entlang der Matterhorn Gotthard Bahn (Prototyp)</title>
+<meta name="description" content="Hackathon-Prototyp: Biodiversität entlang der Matterhorn Gotthard Bahn entdecken.">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:#DCE5DF;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#16201B;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;color:inherit}
+#app{max-width:440px;min-height:100%;margin:0 auto;background:#F4F6F3;position:relative;overflow-x:hidden}
+@media(min-width:520px){#app{min-height:auto;margin:24px auto;border-radius:28px;box-shadow:0 20px 60px rgba(16,37,27,.18);overflow:hidden}}
+.h{font-weight:700;letter-spacing:-.02em}
+.pad{padding:0 20px}
+.card{background:#fff;border:1px solid #DDE4DF;border-radius:16px}
+.btn{height:48px;border-radius:14px;border:0;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
+.pill{align-self:flex-start;height:44px;padding:0 14px 0 8px;border-radius:22px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.02em}
+.ic{width:48px;height:48px;border-radius:24px;background:#E3EEE8;color:#1D5B42;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+@keyframes pulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(2.6);opacity:0}}
+.pulse{animation:pulse 1.6s ease-out infinite}
+.map{position:relative;width:100%;aspect-ratio:350/410;border-radius:20px;background:#E3EBE5;overflow:hidden}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.mk{position:absolute;transform:translate(-50%,-50%)}
+.sheetbg{position:fixed;inset:0;background:rgba(16,37,27,.45);display:flex;align-items:flex-end;justify-content:center;z-index:10}
+.sheet{width:100%;max-width:440px;max-height:85vh;overflow-y:auto;background:#fff;border-radius:28px 28px 0 0;padding:20px 20px calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px}
+:focus-visible{outline:3px solid #C4531A;outline-offset:2px}
+</style>
+</head>
+<body>
+<div id="app" aria-live="polite"></div>
+<script>
+class Content {
+  icons() {
+    return {
+      bee: 'M12 8c2.8 0 4 2.7 4 5.5S14.8 20 12 20s-4-3.7-4-6.5S9.2 8 12 8z M8.4 12h7.2 M8.2 15.5h7.6 M11 8c-1.5-2.5-4.5-3.8-6-2.6s.5 3.8 4 4 M13 8c1.5-2.5 4.5-3.8 6-2.6s-.5 3.8-4 4 M10.5 8L9.5 5 M13.5 8l1-3',
+      hopper: 'M3 15c3-3 9-4.5 15-3.5 M18 11.5l3 1.5-3 1.5c-5 1-10 .8-15 0 M8 14.5l-2 5 M12 14.5l4.5 5 M16 12l2-7 M16.5 12l4-5.5 M18.5 12.5h0',
+      lizard: 'M8 12c2-1.6 5-1.6 8 0s4 2 6 .5 M8 12c-1.8 0-4-.7-4-2s2.2-2 4-2 2.5 1 2.5 2 M11 11l-1.5-3.5-1.5-.5 M11 13l-1.5 3.5-1.5.5 M15 11.5l1.5-3.5 1.5-.5 M15 12.5l1.5 3.5 1.5.5',
+      bird: 'M2 11c3-3 6.5-3 10 1 3.5-4 7-4 10-1 M12 12l-1 3h2z',
+      butterfly: 'M12 7v12 M12 10c-2-4-7-6-8-3s2 6 8 4 M12 10c2-4 7-6 8-3s-2 6-8 4 M12 13c-2 1-6 3-5 6s4 0 5-3 M12 13c2 1 6 3 5 6s-4 0-5-3 M12 7l-2-3 M12 7l2-3',
+      newt: 'M7 12c2-1.5 5-1.5 8 0 2 1 4 2.5 7 1-2 2-5 1.5-7 1-3 1-6 1-8-2 M7 12c-1.8 0-4-.6-4-1.8S5.2 8.5 7 8.5s2.3 1 2.3 1.8 M10 11.5L9 8.5 M10 13.5L9 16.5 M14 12L15 9 M14 13.5l1 3',
+      frog: 'M6 9.5a2 2 0 114 0 M14 9.5a2 2 0 114 0 M5 13.5c0-3 3-4 7-4s7 1 7 4-3 5-7 5-7-2-7-5z M6 16.5l-3 3 M18 16.5l3 3 M9.5 14.5c1.2 1 3.8 1 5 0',
+      bat: 'M12 9l-1.5-2.5 M12 9l1.5-2.5 M2 9c2.5 0 4.5 1.2 5.5 3.5 1-1 2.5-1 3 0 .5-.6 2.5-.6 3 0 .5-1 2-1 3 0 1-2.3 3-3.5 5.5-3.5-2.5 3-3.2 7-6.5 8-1-1-2.5-1-3.5 0-1-1-3-1-4 0-3.3-1-4-5-6.5-8z',
+      moth: 'M12 8v10 M12 10c-2.5-3-8-4-8.5-1.5S7 14 12 13 M12 10c2.5-3 8-4 8.5-1.5S17 14 12 13 M12 13c-1.5 1.5-4 4-3 5.5s2.5-1 3-3 M12 13c1.5 1.5 4 4 3 5.5s-2.5-1-3-3 M12 8c-1-1.5-3-2.5-4-2 M12 8c1-1.5 3-2.5 4-2'
+    };
+  }
+  animals() {
+    const I = this.icons();
+    const SRC = 'Biodiversitätsbericht 2024';
+    const HB = 'Handbuch Biodiversität';
+    return {
+      bergmolch: { name: 'Bergmolch', group: 'Amphibie', d: I.newt, source: SRC, home: 'Konfliktstelle Geschinen',
+        adult: 'Beim Amphibienmonitoring 2024 in Geschinen wurden 134 Bergmolche gezählt. Die Bewertung ergab ein hohes Konfliktpotenzial mit der Bahnstrecke.',
+        kids: 'In Geschinen wurden 2024 ganz viele Bergmolche gezählt: 134 Stück!',
+        help: 'Für 2025 geplant: Amphibienableitbleche auf 700 m und freigeräumte Durchgänge im Gleisschotter.' },
+      grasfrosch: { name: 'Grasfrosch', group: 'Amphibie', d: I.frog, source: SRC, home: 'Konfliktstelle Geschinen',
+        adult: 'Beim Amphibienmonitoring 2024 in Geschinen wurden 19 Grasfrösche gezählt – zusammen mit den Bergmolchen ein Standort mit hohem Konfliktpotenzial.',
+        kids: 'Auch Grasfrösche wurden in Geschinen gezählt: 19 Stück.',
+        help: 'Für 2025 geplant: Amphibienableitbleche auf 700 m und freigeräumte Durchgänge im Gleisschotter.' },
+      reptilien: { name: 'Reptilien', group: 'Tiergruppe', d: I.lizard, source: SRC + ', ' + HB, home: 'Böschungen entlang der Strecke',
+        adult: 'Im Inventar der Bahn sind 11 Konfliktstellen für Reptilien und 10 für Amphibien und Reptilien erfasst. Die Daten stammen von der karch.',
+        kids: 'Wo Reptilien leben, mäht die Bahn extra hoch, damit ihnen nichts passiert.',
+        help: 'Wo viele Reptilien vorkommen, wird mindestens 15 cm hoch gemäht. Kreiselmäher und Schlegelmähköpfe sollen dort vermieden werden.' },
+      wildbiene: { name: 'Wildbienen', group: 'Insekten', d: I.bee, source: HB, home: 'Halbtrockenrasen, Trockenrasen',
+        adult: 'Halbtrockenrasen und Trockenrasen entlang der Strecke sind laut Unterhaltsplan Lebensraum vieler Wildbienen, Schmetterlinge und Heuschrecken.',
+        kids: 'Auf trockenen, mageren Wiesen neben den Gleisen leben viele Wildbienen.',
+        help: 'Diese Flächen werden höchstens einmal im Jahr gemäht, abschnittsweise und mit stehen gelassenen Inseln.' },
+      schmetterling: { name: 'Schmetterlinge', group: 'Insekten', d: I.butterfly, source: HB, home: 'Halbtrockenrasen, Trockenrasen',
+        adult: 'Halbtrockenrasen und Trockenrasen entlang der Strecke sind laut Unterhaltsplan Lebensraum vieler Schmetterlinge.',
+        kids: 'Auf trockenen, mageren Wiesen neben den Gleisen leben viele Schmetterlinge.',
+        help: 'Abschnittsweise Mahd: Ungemähte Bereiche bleiben stehen, damit Insekten Rückzugsgebiete haben.' },
+      heuschrecke: { name: 'Heuschrecken', group: 'Insekten', d: I.hopper, source: HB, home: 'Halbtrockenrasen, Trockenrasen',
+        adult: 'Halbtrockenrasen und Trockenrasen entlang der Strecke sind laut Unterhaltsplan Lebensraum vieler Heuschrecken.',
+        kids: 'Auf trockenen, mageren Wiesen neben den Gleisen leben viele Heuschrecken.',
+        help: 'Schnittgut wird nicht grün abtransportiert, sondern bleibt mindestens drei Tage zum Trocknen liegen.' },
+      voegel: { name: 'Vögel', group: 'Tiergruppe', d: I.bird, source: SRC + ', ' + HB, home: 'Trocken- und Halbtrockenrasen, Fahrleitungen',
+        adult: 'Trocken- und Halbtrockenrasen sind laut Unterhaltsplan Brut- und Nahrungshabitat verschiedener Vogelarten. Fahrleitungsmasten saniert die Bahn nach der BAV-Richtlinie «Vogelschutz bei Fahrleitungsanlagen».',
+        kids: 'Die Bahn baut ihre Masten nach einer besonderen Vogelschutz-Regel um.',
+        help: '2024 wurden auf mehreren Abschnitten Masten vogelsicher saniert, zum Beispiel 25 zwischen Visp und Ackersand.' }
+    };
+  }
+  data() {
+    const HERE = 'WER HIER VORKOMMT – TIPPE FÜR DEN STECKBRIEF';
+    return [
+      { id: 'stn', name: 'St. Niklaus', x: 39, y: 278, lx: 54, ly: 271, habitat: 'Bahnböschung', theme: 'Böschungen mit Zukunft',
+        animals: [], animalLabel: HERE,
+        mgi: 'Bei der Fahrbahnerneuerung St. Niklaus sind bei der Gestaltung der Böschungen Massnahmen zur Aufwertung des bestehenden Lebensraums eingeplant.',
+        fact: 'Die Bahn hat ihre internen Checklisten ergänzt, damit Biodiversität schon in den frühen Phasen der Projektplanung berücksichtigt wird.',
+        adult: 'Biodiversität wird bei der Bahn schon in der Projektplanung mitgedacht. Bei der Fahrbahnerneuerung St. Niklaus ist die Aufwertung der Böschungen von Anfang an Teil der Gestaltung.',
+        kids: 'Die Bahn erneuert hier die Gleise – und plant gleich mit, wie die Böschungen ein besserer Lebensraum werden.',
+        task: 'Schau aus dem Fenster: Wie sieht der Hang neben den Gleisen aus?', badge: 'Hang-Held' },
+      { id: 'visp', name: 'Visp', x: 60, y: 232, lx: 16, ly: 225, habitat: 'Fahrleitung', theme: 'Vogelsichere Masten',
+        animals: ['voegel'], animalLabel: HERE,
+        mgi: '2024 wurden auf dem Abschnitt Visp – Ackersand 25 Fahrleitungsmasten vogelsicher saniert.',
+        fact: 'Laut den Störungsmeldungen gab es 2024 keine Störungen im Zusammenhang mit Vögeln.',
+        adult: 'Die Bahn wendet die Richtlinie «Vogelschutz bei Fahrleitungsanlagen» des Bundesamts für Verkehr bei Erneuerungen an – zusätzlich zu den gesetzlichen Vorgaben in allen Gebieten, auch in Bauzonen.',
+        kids: 'Hier hat die Bahn viele Masten nach einer besonderen Vogelschutz-Regel umgebaut.',
+        task: 'Zähle die Masten, an denen der Zug vorbeifährt!', badge: 'Vogel-Schützer' },
+      { id: 'biel', name: 'Biel VS', x: 148, y: 167, lx: 92, ly: 160, habitat: 'Grünflächen', theme: 'Grünflächen mit Plan',
+        animals: ['wildbiene', 'schmetterling', 'heuschrecke'], animalLabel: 'TIERE IN TROCKEN- UND HALBTROCKENRASEN ENTLANG DER STRECKE',
+        mgi: 'Für ihre Grünflächen führt die Bahn ein Inventar. Der Bericht zeigt dazu einen Beispielausschnitt bei Biel VS.',
+        fact: 'Rund ein Viertel der Grünflächen wurde kartiert. Artenreiche Fettwiesen, Halbtrockenrasen und Trockenrasen werden bereits nach ökologischen Kriterien gepflegt.',
+        adult: 'Abschnittsweise Mahd: Nicht alles wird gleichzeitig gemäht, damit Insekten Rückzugsgebiete haben. Die ungemähten Bereiche wechseln rotationsmässig.',
+        kids: 'Hier wird nicht alles auf einmal gemäht. Ein paar Inseln bleiben stehen – dort finden Insekten Schutz.',
+        task: 'Entdeckst du hohe Grasinseln in einer gemähten Wiese?', badge: 'Wiesen-Kenner' },
+      { id: 'gesch', name: 'Geschinen', x: 170, y: 152, lx: 182, ly: 160, habitat: 'Amphibien-Konfliktstelle', theme: 'Sicherer Weg für Molche',
+        animals: ['bergmolch', 'grasfrosch'], animalLabel: HERE,
+        mgi: 'Für 2025 geplant: Amphibienableitbleche auf einer Strecke von 700 m und freigeräumte Durchgänge im Gleisschotter.',
+        fact: 'Die Bahn arbeitet dafür mit der karch zusammen, der Koordinationsstelle für Amphibien- und Reptilienschutz in der Schweiz.',
+        adult: 'Beim Amphibienmonitoring 2024 wurden hier 134 Bergmolche und 19 Grasfrösche gezählt. Die Bewertung ergab ein hohes Konfliktpotenzial.',
+        kids: 'Hier wurden 2024 viele Molche und Frösche gezählt. Die Bahn plant Bleche und freie Durchgänge unter den Gleisen.',
+        task: 'Wie viele Beine hat ein Molch? Tipp: so viele wie ein Hund.', badge: 'Molch-Retter' },
+      { id: 'and', name: 'Andermatt', x: 255, y: 97, lx: 186, ly: 70, habitat: 'Bahnhof & Fahrleitung', theme: 'Neue Masten, mehr Vogelschutz',
+        animals: ['voegel'], animalLabel: HERE,
+        mgi: 'Für 2025 ist beim Stellwerkersatz Andermatt die Sanierung von 4 Masten nach der Vogelschutz-Richtlinie geplant.',
+        fact: 'Die Zusatzkosten für vogelsichere Masten sind laut Bericht sehr gering, weil sie im Rahmen von Sanierungen umgesetzt werden.',
+        adult: 'Die Masten werden im Erneuerungsrhythmus der Strecke schrittweise saniert. So wächst der Vogelschutz mit jeder Erneuerung.',
+        kids: 'Auch hier bekommt die Bahn neue Masten – nach der Vogelschutz-Regel.',
+        task: 'Siehst du die Masten der Fahrleitung?', badge: 'Mast-Detektiv' },
+      { id: 'ober', name: 'Oberalp', x: 276, y: 88, lx: 268, ly: 102, habitat: 'Passstation', theme: 'Weniger Licht in der Nacht',
+        animals: [], animalLabel: HERE,
+        mgi: 'Der Umbau der Station Oberalp wurde Ende 2024 dem BAV zur Bewilligung eingereicht. Das Projekt wird hinsichtlich Lichtverschmutzung überprüft.',
+        fact: 'Mit einem Relevanzindex weiss die Bahn, wo Massnahmen gegen Lichtverschmutzung am nötigsten sind.',
+        adult: 'Die Bahn richtet sich nach der Vollzugshilfe des BAFU zur Vermeidung von Lichtemissionen. Interne Arbeitsanweisungen sollen Lichtemissionen möglichst reduzieren.',
+        kids: 'Hier wird die Station umgebaut. Dabei achtet die Bahn darauf, dass nachts möglichst wenig Licht nach draussen strahlt.',
+        task: 'Schau dir die Lampen an der Station an: Wohin leuchten sie?', badge: 'Licht-Wächter' }
+    ];
+  }
+  route() {
+    return [
+      { x: 24, y: 340, label: 'Zermatt', lx: 36, ly: 333 },
+      { x: 39, y: 278, station: 'stn' },
+      { x: 60, y: 232, station: 'visp' },
+      { x: 89, y: 222, label: 'Brig', lx: 92, ly: 230 },
+      { x: 130, y: 190, label: 'Fiesch', lx: 134, ly: 198 },
+      { x: 148, y: 167, station: 'biel' },
+      { x: 170, y: 152, station: 'gesch' },
+      { x: 209, y: 125, tunnel: true },
+      { x: 255, y: 97, station: 'and' },
+      { x: 276, y: 88, station: 'ober' },
+      { x: 326, y: 70, label: 'Disentis', lx: 296, ly: 48 }
+    ];
+  }
+}
+const C = new Content();
+
+</script>
+<script>
+const S={screen:'start',mode:'kids',step:0,sel:null,earned:{},toast:false,animal:null};
+const A=C.animals(), D=C.data(), R=C.route(), I=C.icons();
+const ic=(d,s=24,sw=1.6)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+const STAR='M12 3l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.3 6.8 19l1-5.8L3.6 9.1l5.8-.8z', BACK='M15 18l-6-6 6-6', NEXT='M9 6l6 6-6 6', PIN='M12 21s-7-6.2-7-12a7 7 0 0114 0c0 5.8-7 12-7 12z', BULB='M9 18h6 M10 21h4 M12 3a6 6 0 00-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0012 3z';
+const kids=()=>S.mode==='kids';
+const whereOf=id=>D.filter(s=>s.animals.includes(id)).map(s=>s.name).join(', ')||'Entlang der Strecke';
+const pc=(v,t)=>(v/t*100).toFixed(2)+'%';
+const back=(light)=>`<button class="pill" data-a="map" style="border:${light?'0':'1px solid #C9D3CD'};background:${light?'rgba(255,255,255,.14)':'#fff'};color:${light?'#fff':'#16201B'}">${ic(BACK,20,2)}Zur Karte</button>`;
+
+function start(){return `<div style="min-height:100vh;max-height:none;display:flex;flex-direction:column;justify-content:space-between;padding:56px 28px 40px;background:#1D5B42;color:#fff;gap:40px">
+<div style="display:flex;flex-direction:column;gap:20px">${ic('M3 20l6-11 4 6 2-3 6 8z',56)}
+<h1 class="h" style="margin:0;font-size:44px;line-height:1.05">Fensterplatz</h1>
+<p style="margin:0;font-size:18px;line-height:1.5;color:#DCEBE3">Entdecke, wer entlang der Matterhorn Gotthard Bahn lebt – und was die Bahn für die Natur tut.</p>
+<div style="display:flex;gap:10px">${[I.newt,I.butterfly,I.bird,I.bee].map(d=>`<span style="width:48px;height:48px;border-radius:24px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center">${ic(d,26)}</span>`).join('')}</div></div>
+<div style="display:flex;flex-direction:column;gap:14px"><p style="margin:0;font-size:14px;font-weight:600;color:#DCEBE3">Wer fährt mit?</p>
+<button class="btn" data-a="kids" style="height:60px;border-radius:16px;background:#fff;color:#1D5B42;font-size:18px">${ic(STAR,22,2)}Für Kinder</button>
+<button class="btn" data-a="adults" style="height:60px;border-radius:16px;border:2px solid #fff;background:transparent;color:#fff;font-size:18px">Für Erwachsene</button>
+<p style="margin:10px 0 0;font-size:13px;line-height:1.5;color:#DCEBE3;text-align:center">Hackathon-Prototyp · Inhalte aus dem Biodiversitätsbericht 2024 der Matterhorn Gotthard Infrastruktur AG</p></div></div>`}
+
+function map(){
+ const pt=R[S.step]; const near=pt.station?D.find(s=>s.id===pt.station):null;
+ let st='Tippe auf „Fahrt simulieren“ – im fertigen Produkt zeigt GPS, wo du gerade bist.',bg='#fff';
+ if(pt.tunnel){st='Furka-Tunnel: kein GPS. Die Position wird aus dem Fahrplan geschätzt – die App läuft offline weiter.';bg='#E9ECEF'}
+ else if(near){st=`Du bist bei ${near.name}: ${near.theme}. Tippe auf den orangen Punkt!`;bg='#FDF0E8'}
+ else if(S.step>0){st=`Du fährst gerade bei ${pt.label} vorbei.`}
+ const L='24,340 32,321 39,278 58,256 60,232 89,222 105,208 112,199 130,190 148,167 170,152 188,138';
+ let m=`<div class="map"><svg viewBox="0 0 350 410" aria-hidden="true"><path d="M0 280 L50 210 L90 260 L140 170 L190 230 L240 150 L290 200 L350 130 L350 410 L0 410 Z" fill="#D7E2DA"/><path d="M0 360 L70 300 L120 340 L200 280 L260 320 L350 260 L350 410 L0 410 Z" fill="#CCD9CF"/><polyline points="${L}" fill="none" stroke="#1D5B42" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="188,138 230,112" fill="none" stroke="#5E6A63" stroke-width="4" stroke-dasharray="4 6" stroke-linecap="round"/><polyline points="230,112 255,97 276,88 304,80 326,70" fill="none" stroke="#1D5B42" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+ m+=`<span style="position:absolute;left:${pc(214,350)};top:${pc(127,410)};font-size:11px;color:#3F4A44;white-space:nowrap">Furka-Tunnel</span>`;
+ R.filter(r=>r.label).forEach(r=>m+=`<span style="position:absolute;left:${pc(r.lx,350)};top:${pc(r.ly,410)};font-size:12px;color:#3F4A44;white-space:nowrap">${r.label}</span>`);
+ D.forEach(s=>{const on=near&&near.id===s.id;m+=`<button class="mk" data-st="${s.id}" aria-label="Station ${s.name} öffnen" style="left:${pc(s.x,350)};top:${pc(s.y,410)};width:44px;height:44px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center"><span style="width:18px;height:18px;border-radius:9px;background:${on?'#C4531A':'#fff'};border:3px solid #1D5B42"></span></button><span style="position:absolute;left:${pc(s.lx,350)};top:${pc(s.ly,410)};font-size:12px;font-weight:700;white-space:nowrap;pointer-events:none">${s.name}</span>`});
+ m+=`<span class="mk" style="left:${pc(pt.x,350)};top:${pc(pt.y,410)};width:20px;height:20px;pointer-events:none"><span class="pulse" style="position:absolute;inset:0;border-radius:10px;background:#C4531A"></span><span style="position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:7px;background:#C4531A;border:2px solid #fff"></span></span><span style="position:absolute;right:12px;bottom:10px;font-size:11px;color:#3F4A44">Lage der Orte annähernd, vereinfacht</span></div>`;
+ const n=Object.keys(S.earned).length;
+ return `<div style="padding-bottom:28px"><div class="pad" style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;padding-bottom:12px"><div><div class="h" style="font-size:24px">Deine Strecke</div><div style="font-size:13px;color:#4F5B55">Zermatt – Disentis</div></div><button data-a="mode" class="pill" style="padding:0 14px;border:1px solid #C9D3CD;background:#fff">${kids()?'Kinder ⇄ Erwachsene':'Erwachsene ⇄ Kinder'}</button></div>
+<div class="pad">${m}</div>
+<div class="pad" style="margin-top:12px"><div style="padding:12px 14px;border-radius:14px;background:${bg};display:flex;gap:10px;align-items:flex-start"><span style="flex-shrink:0;margin-top:1px">${ic(PIN,20,2)}</span><span style="font-size:14px;line-height:1.45">${st}</span></div></div>
+<div class="pad" style="margin-top:12px;display:flex;gap:10px"><button class="btn" data-a="next" style="flex-grow:1;background:#1D5B42;color:#fff">${ic('M7 4l12 8-12 8z',18,2)}Fahrt simulieren</button>${kids()?`<button class="btn card" data-a="badges" style="padding:0 16px;font-weight:600">Sammelheft ${n}/6</button>`:''}</div>
+<div class="pad" style="margin-top:12px"><button class="card" data-a="lex" style="width:100%;height:56px;padding:0 14px;display:flex;align-items:center;gap:12px;text-align:left"><span style="display:flex;gap:4px">${[I.newt,I.butterfly,I.bird,I.bee].map(d=>`<span style="width:30px;height:30px;border-radius:15px;background:#E3EEE8;color:#1D5B42;display:flex;align-items:center;justify-content:center">${ic(d,18,1.8)}</span>`).join('')}</span><span style="flex-grow:1;font-size:15px;font-weight:700">Tierlexikon</span>${ic(NEXT,20,2)}</button></div>
+<div class="pad" style="margin-top:12px"><div class="card" style="padding:12px 14px;display:flex;align-items:center;gap:12px"><div style="flex-grow:1"><div class="lbl" style="color:#1D5B42">ENTLANG DER GANZEN STRECKE</div><div style="font-size:13px;line-height:1.4;margin-top:2px">Die Matterhorn Gotthard Bahn bekämpft invasive Pflanzen wie den Schmetterlingsflieder.</div></div><button data-a="toast" style="height:44px;padding:0 12px;border:0;border-radius:12px;background:#E3EEE8;color:#1D5B42;font-size:13px;font-weight:700;white-space:nowrap">Fund melden</button></div>
+${S.toast?`<div style="margin-top:8px;padding:10px 14px;border-radius:12px;background:#16201B;color:#fff;font-size:13px;line-height:1.4">Im fertigen Produkt öffnet sich hier die Meldung an InfoFlora – nur von Wanderwegen aus, nie im Gleisbereich.</div>`:''}</div></div>`}
+
+function station(){
+ const c=D.find(s=>s.id===S.sel)||D[0];
+ const an=c.animals.map(id=>`<button class="card" data-an="${id}" style="padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:8px"><span class="ic" style="width:52px;height:52px;border-radius:26px">${ic(A[id].d,30)}</span><span style="font-size:13px;font-weight:700;text-align:center;line-height:1.25">${A[id].name}</span></button>`).join('');
+ return `<div style="background:#1D5B42;color:#fff;padding:16px 20px 24px;display:flex;flex-direction:column;gap:14px">${back(true)}<span style="font-size:13px;font-weight:600;color:#DCEBE3">${c.name} · ${c.habitat}</span><h2 class="h" style="margin:0;font-size:30px;line-height:1.1">${c.theme}</h2></div>
+<div style="padding:20px;display:flex;flex-direction:column;gap:16px"><p style="margin:0;font-size:16px;line-height:1.55">${kids()?c.kids:c.adult}</p>
+${c.animals.length?`<div style="display:flex;flex-direction:column;gap:10px"><span class="lbl" style="color:#4F5B55">${c.animalLabel}</span><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">${an}</div></div>`:''}
+<div style="padding:14px 16px;border-radius:16px;background:#FDF0E8"><div class="lbl" style="color:#8A3A0E">DAS TUT DIE MATTERHORN GOTTHARD BAHN HIER</div><div style="font-size:15px;line-height:1.5;margin-top:6px">${c.mgi}</div></div>
+<div class="card" style="padding:14px 16px;display:flex;gap:12px"><span style="color:#1D5B42;flex-shrink:0;margin-top:2px">${ic(BULB,22,2)}</span><div><div class="lbl" style="color:#1D5B42">WUSSTEST DU?</div><div style="font-size:15px;line-height:1.5;margin-top:4px">${c.fact}</div></div></div>
+${kids()?`<div class="card" style="padding:14px 16px"><div class="lbl" style="color:#1D5B42">DEINE AUFGABE</div><div style="font-size:15px;line-height:1.5;margin-top:6px">${c.task}</div></div><div style="padding:14px 16px;border-radius:16px;background:#1D5B42;color:#fff;display:flex;align-items:center;gap:12px"><span style="width:44px;height:44px;border-radius:22px;background:#fff;color:#1D5B42;display:flex;align-items:center;justify-content:center;flex-shrink:0">${ic(STAR,22,2)}</span><span style="font-size:15px;font-weight:600">Abzeichen gesammelt: ${c.badge}</span></div>`:''}
+<p style="margin:4px 0 0;font-size:12px;line-height:1.5;color:#4F5B55">Quelle: Biodiversitätsbericht 2024 der Matterhorn Gotthard Infrastruktur AG und Handbuch Biodiversität.</p></div>`}
+
+function lexicon(){
+ return `<div style="padding:16px 20px 28px;display:flex;flex-direction:column;gap:12px">${back(false)}<h2 class="h" style="margin:0;font-size:30px">Tierlexikon</h2><p style="margin:0;font-size:15px;line-height:1.5;color:#4F5B55">Diese Tiere und Tiergruppen nennt der Biodiversitätsbericht der Bahn. Tippe für den Steckbrief.</p>
+${Object.keys(A).map(id=>`<button class="card" data-an="${id}" style="min-height:72px;padding:10px 14px;display:flex;align-items:center;gap:14px;text-align:left"><span class="ic">${ic(A[id].d,28)}</span><span style="flex-grow:1"><span style="display:block;font-size:16px;font-weight:700">${A[id].name}</span><span style="display:block;font-size:13px;color:#4F5B55">${whereOf(id)}</span></span>${ic(NEXT,18,2)}</button>`).join('')}</div>`}
+
+function badges(){
+ return `<div style="padding:16px 20px 28px;display:flex;flex-direction:column;gap:16px">${back(false)}<h2 class="h" style="margin:0;font-size:30px">Dein Sammelheft</h2><p style="margin:0;font-size:15px;line-height:1.5;color:#4F5B55">Tippe unterwegs auf die Stationen. Für jede bekommst du ein Abzeichen.</p><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+${D.map(s=>{const g=!!S.earned[s.id];return `<div style="padding:16px 12px;border-radius:16px;background:${g?'#fff':'#ECEFEC'};border:1px solid #DDE4DF;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center"><span style="width:56px;height:56px;border-radius:28px;background:${g?'#1D5B42':'#D5DBD7'};color:${g?'#fff':'#6B756F'};display:flex;align-items:center;justify-content:center">${ic(STAR,26,2)}</span><span style="font-size:14px;font-weight:700;color:${g?'#16201B':'#4F5B55'}">${s.badge}</span><span style="font-size:12px;color:#4F5B55">${s.name}</span></div>`}).join('')}</div></div>`}
+
+function sheet(){
+ if(!S.animal)return '';const a=A[S.animal];
+ return `<div class="sheetbg" data-a="bgclose"><div class="sheet" role="dialog" aria-label="Steckbrief ${a.name}"><div style="display:flex;align-items:center;justify-content:space-between"><span class="lbl" style="color:#4F5B55">STECKBRIEF</span><button data-a="close" aria-label="Steckbrief schließen" style="width:44px;height:44px;border-radius:22px;border:1px solid #DDE4DF;background:#fff;display:flex;align-items:center;justify-content:center">${ic('M6 6l12 12 M18 6L6 18',18,2)}</button></div>
+<div style="display:flex;align-items:center;gap:16px"><span class="ic" style="width:84px;height:84px;border-radius:42px">${ic(a.d,48,1.4)}</span><div><div class="h" style="font-size:26px">${a.name}</div><div style="font-size:14px;color:#4F5B55">${a.group}</div></div></div>
+<p style="margin:0;font-size:16px;line-height:1.55">${kids()?a.kids:a.adult}</p>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px"><div style="padding:12px;border-radius:14px;background:#F4F6F3"><div style="font-size:11px;font-weight:700;color:#4F5B55">QUELLE</div><div style="font-size:14px;font-weight:600;margin-top:4px">${a.source}</div></div><div style="padding:12px;border-radius:14px;background:#F4F6F3"><div style="font-size:11px;font-weight:700;color:#4F5B55">LEBENSRAUM LAUT BERICHT</div><div style="font-size:14px;font-weight:600;margin-top:4px">${a.home}</div></div></div>
+<div style="padding:12px 14px;border-radius:14px;background:#FDF0E8"><div style="font-size:11px;font-weight:700;color:#8A3A0E">SO HILFT DIE BAHN</div><div style="font-size:14px;line-height:1.5;margin-top:4px">${a.help}</div></div>
+<span style="font-size:13px;color:#4F5B55">In der App bei: ${whereOf(S.animal)}</span></div></div>`}
+
+function render(){
+ const v={start,map,station,lex:lexicon,badges}[S.screen]();
+ document.getElementById('app').innerHTML=v+sheet();
+}
+document.addEventListener('click',e=>{
+ const t=e.target.closest('[data-a],[data-st],[data-an]');if(!t)return;
+ const a=t.dataset.a;
+ if(t.dataset.st){S.screen='station';S.sel=t.dataset.st;S.toast=false;if(kids())S.earned[S.sel]=true;scrollTo(0,0)}
+ else if(t.dataset.an){S.animal=t.dataset.an}
+ else if(a==='kids'||a==='adults'){S.mode=a;S.screen='map'}
+ else if(a==='mode'){S.mode=kids()?'adults':'kids'}
+ else if(a==='next'){S.step=(S.step+1)%R.length;S.toast=false}
+ else if(a==='badges'){S.screen='badges';scrollTo(0,0)}
+ else if(a==='lex'){S.screen='lex';S.toast=false;scrollTo(0,0)}
+ else if(a==='map'){S.screen='map';S.animal=null;scrollTo(0,0)}
+ else if(a==='close'){S.animal=null}
+ else if(a==='bgclose'){if(e.target!==t)return;S.animal=null}
+ else if(a==='toast'){S.toast=!S.toast}
+ render();
+});
+render();
+</script>
+</body>
+</html>
