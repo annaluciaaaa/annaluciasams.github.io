@@ -13,6 +13,290 @@ function fehler(g,o){ o.aufgabe+="\n**Im Code stecken "+o.n+" Fehler.** Zuerst �
 /* ======================= LIVETEST 2 ======================= */
 var L2="lt2";
 
+/* --- Hausübungen Bsp04 (Mäxchen) und Bsp05 (Passwort), Angaben aus dem PS --- */
+var M_CODE1=String.raw`// Vorname Nachname, Matrikelnummer
+
+final String PROMPT = "? Dice roll: ";
+
+int getValue(int d1, int d2) {
+  return 10 * Math.max(d1, d2) + Math.min(d1, d2);
+}
+
+boolean isNumericDice(char c) {
+  return c >= '1' && c <= '6';
+}
+
+int parseNumericDice(char c) {
+  return c - '0';
+}
+
+int readDiceRoll() {
+  String input = IO.readln(PROMPT);
+  while (input.length() != 1 || !isNumericDice(input.charAt(0))) {
+    IO.println("Invalid dice roll!");
+    input = IO.readln(PROMPT);
+  }
+  return parseNumericDice(input.charAt(0));
+}
+
+int readPlayerRoll() {
+  int d1 = readDiceRoll();
+  int d2 = readDiceRoll();
+  return getValue(d1, d2);
+}
+`;
+var M_MAIN1=String.raw`
+void main() {
+  IO.println("Wert: " + readPlayerRoll());
+}`;
+var M_TEIL2=String.raw`
+boolean isMaexchen(int roll) {
+  return roll == MAEXCHEN;
+}
+
+boolean isPair(int roll) {
+  return roll / 10 == roll % 10;
+}
+
+int rank(int roll) {
+  if (isMaexchen(roll)) {
+    return 1000;
+  } else if (isPair(roll)) {
+    return 100 + roll;
+  }
+  return roll;
+}
+
+int compareRolls(int roll1, int roll2) {
+  return rank(roll2) - rank(roll1);
+}
+
+int playRound() {
+  IO.println("Player 1:");
+  int roll1 = readPlayerRoll();
+  IO.println("Player 2:");
+  int roll2 = readPlayerRoll();
+  IO.println("Rolls: " + roll1 + " vs. " + roll2);
+  int result = compareRolls(roll1, roll2);
+  if (result < 0) {
+    IO.println("Player 1 wins!");
+  } else if (result > 0) {
+    IO.println("Player 2 wins!");
+  } else {
+    IO.println("Tie!");
+  }
+  return result;
+}
+
+void playMatch(int rounds) {
+  IO.println("Best of " + rounds);
+  int needed = rounds / 2 + 1;
+  int wins1 = 0;
+  int wins2 = 0;
+  int round = 1;
+  while (round <= rounds && wins1 < needed && wins2 < needed) {
+    IO.println("=== Round " + round + " ===");
+    int result = playRound();
+    while (result == 0) {
+      IO.println("Round is repeated...");
+      result = playRound();
+    }
+    if (result < 0) {
+      wins1++;
+    } else {
+      wins2++;
+    }
+    round++;
+  }
+  IO.println("=== End of match ===");
+  if (wins1 > wins2) {
+    IO.println("Player 1 has won the match!");
+  } else if (wins2 > wins1) {
+    IO.println("Player 2 has won the match!");
+  } else {
+    IO.println("Match is a Tie!");
+  }
+}
+
+void main() {
+  int rounds = Integer.parseInt(IO.readln());
+  playMatch(rounds);
+}`;
+var M_TAB="Wurf = zwei Augenzahlen (1–6). Gleiche Zahlen = Paar (z. B. `4er-Paar` = 44). Sonst ist die größere Zahl die Zehnerstelle: 6 und 2 → 62, 2 und 6 → 62. Der kleinste Wert 21 heißt **Maexchen**.\n";
+
+add(L2,{id:"lt2_bsp04_1", titel:"Bsp04 · Mäxchen (Teil 1)", kurz:"Hausübung 4: Methoden, Eingabe prüfen und wiederholen",
+aufgabe:M_TAB+"Schreib die Methoden:\n• `int getValue(int d1, int d2)` – interpretierter Wert (getValue(1, 4) → 41, getValue(6, 6) → 66)\n• `boolean isNumericDice(char c)` – ist c eine gültige Augenzahl `'1'`–`'6'`?\n• `int parseNumericDice(char c)` – wandelt das Zeichen in die Zahl um\n• `int readDiceRoll()` – liest mit `? Dice roll: ` eine Augenzahl ein. Ist die Eingabe nicht **genau eine** Ziffer 1–6 → `Invalid dice roll!` und erneut einlesen.\n• `int readPlayerRoll()` – liest zwei Augenzahlen mit readDiceRoll() und gibt getValue(…) zurück\nNur zum Testen hier: main gibt `Wert: ` + readPlayerRoll() aus.\nBeispiel:\n`? Dice roll: a`\n`Invalid dice roll!`\n`? Dice roll: 2`\n`? Dice roll: 0`\n`Invalid dice roll!`\n`? Dice roll: 2`\n`Wert: 22`",
+start:"// Vorname Nachname, Matrikelnummer\n\n// deine Methoden\n"+M_MAIN1,
+tests:[{in:["2","3"]},{in:["a","2","0","2"]},{in:["7","a","0","1","2"]},{in:["23","","6","6"]},{in:["1","4"]},{in:["5","1"]}],
+muss:[[/int\s+getValue\s*\(\s*int\s+\w+\s*,\s*int\s+\w+\s*\)/,"Schreib die Methode int getValue(int d1, int d2)."],[/boolean\s+isNumericDice\s*\(\s*char\s+\w+\s*\)/,"Schreib die Methode boolean isNumericDice(char c)."],[/int\s+parseNumericDice\s*\(\s*char\s+\w+\s*\)/,"Schreib die Methode int parseNumericDice(char c)."],[/int\s+readDiceRoll\s*\(\s*\)/,"Schreib die Methode int readDiceRoll()."],[/int\s+readPlayerRoll\s*\(\s*\)/,"Schreib die Methode int readPlayerRoll()."],[/IO\.readln\s*\(\s*\w|IO\.readln\s*\(\s*"\? Dice roll: "/,"Der Prompt gehört in IO.readln(\"? Dice roll: \") – nicht in IO.println. Dann steht die Eingabe in derselben Zeile."]],
+tipp:"`'7' - '0'` ergibt 7 (char-Arithmetik). „Genau eine Ziffer“: zuerst `input.length() == 1` prüfen, erst dann `input.charAt(0)` – sonst stürzt die leere Eingabe ab. readDiceRoll: einlesen, `while (ungültig) { Fehlermeldung; neu einlesen }`, dann zurückgeben.",
+loesung:M_CODE1+M_MAIN1});
+
+add(L2,{id:"lt2_bsp04_2", titel:"Bsp04 · Mäxchen (Teil 2)", kurz:"Hausübung 4: Best-of-X, Runde wiederholen, vorzeitiges Ende",
+aufgabe:M_TAB+"Baut auf Teil 1 auf (getValue, isNumericDice, parseNumericDice, readDiceRoll, readPlayerRoll – übernimm sie). Rangfolge (bester zuerst): **Maexchen**, 6er-Paar … 1er-Paar, 65, 64 … 61, 54 … 31.\nNeue Methoden:\n• `boolean isMaexchen(int roll)`, `boolean isPair(int roll)`\n• `int compareRolls(int roll1, int roll2)` – < 0, wenn roll1 besser ist; > 0, wenn roll2 besser ist; 0 bei Gleichstand\n• `int playRound()` – beide Spieler werfen, Ausgabe `Rolls: 53 vs. 66` und `Player 1 wins!` / `Player 2 wins!` / `Tie!`; Rückgabe wie compareRolls\n• `void playMatch(int rounds)` – `Best of 3`, dann je Runde `=== Round 1 ===`. Bei Gleichstand `Round is repeated...` und die Runde nochmal. Hat jemand schon die Mehrheit, wird **nicht** weitergespielt. Am Ende `=== End of match ===` und `Player 1 has won the match!` / `Player 2 has won the match!` / `Match is a Tie!`\nmain liest die Rundenanzahl (ohne Prompt) und ruft playMatch auf.\nBeispiel (playMatch(2), gekürzt):\n`Best of 2`\n`=== Round 1 ===`\n`Player 1:`\n`? Dice roll: 3`\n`? Dice roll: 3`\n`Player 2:`\n`? Dice roll: 3`\n`? Dice roll: 3`\n`Rolls: 33 vs. 33`\n`Tie!`\n`Round is repeated...`\n`Player 1:` …",
+start:LEER,
+tests:[{in:["3","2","2","2","1","6","5","1","3","1","1","3","4"]},{in:["2","3","3","3","3","2","2","4","4","3","2","3","1"]},{in:["1","2","a","1","2","1","2","2","2","a","3"]},{in:["3","1","2","6","6","6","5","6","4"]},{in:["1","3","1","4","1"]},{in:["5","6","6","5","5","1","2","1","1","6","4","6","5","4","4","4","4","3","3","4","4","2","1","3","1"]}],
+muss:[[/boolean\s+isMaexchen\s*\(\s*int\s+\w+\s*\)/,"Schreib die Methode boolean isMaexchen(int roll)."],[/boolean\s+isPair\s*\(\s*int\s+\w+\s*\)/,"Schreib die Methode boolean isPair(int roll)."],[/int\s+compareRolls\s*\(\s*int\s+\w+\s*,\s*int\s+\w+\s*\)/,"Schreib die Methode int compareRolls(int roll1, int roll2)."],[/int\s+playRound\s*\(\s*\)/,"Schreib die Methode int playRound()."],[/void\s+playMatch\s*\(\s*int\s+\w+\s*\)/,"Schreib die Methode void playMatch(int rounds)."],[/\bfinal\b/,"Konstanten (z. B. der Wert 21 fürs Maexchen) mit final anlegen."]],
+tipp:"Trick für compareRolls: Gib jedem Wurf einen Rang – Maexchen 1000, Paar 100 + Wert (111…166), sonst der Wert selbst (31…65). Dann ist `rang(roll2) - rang(roll1)` genau die geforderte Konvention. Für das vorzeitige Ende: Siege nötig = `rounds / 2 + 1`, und das in die Schleifenbedingung.",
+loesung:M_CODE1.replace('final String PROMPT = "? Dice roll: ";','final String PROMPT = "? Dice roll: ";\nfinal int MAEXCHEN = 21;')+M_TEIL2});
+
+var P_KONST=String.raw`// Vorname Nachname, Matrikelnummer
+
+final String PROMPT_PASSWORT = "? Passwort eingeben (STOP für Abbruch):";
+final String PROMPT_WIEDERHOLEN = "? Passwort wiederholen:";
+final String STOP = "STOP";
+final int MIN_LAENGE = 10;
+`;
+var P_CREATE=String.raw`
+String createPassword() {
+  while (true) {
+    String pwd = IO.readln(PROMPT_PASSWORT);
+    if (pwd.equals(STOP)) {
+      return "";
+    }
+    if (!pwd.isEmpty()) {
+      String confirm = IO.readln(PROMPT_WIEDERHOLEN);
+      if (pwd.equals(confirm)) {
+        IO.println("Ident!");
+        return pwd;
+      }
+      IO.println(pwd + " != " + confirm);
+      IO.println("Neuer Versuch");
+    }
+  }
+}
+
+boolean minLength(String pwd, int min) {
+  return pwd.length() >= min;
+}
+
+boolean containsDigit(String pwd) {
+  return minDigits(pwd, 1);
+}
+
+boolean minDigits(String pwd, int amount) {
+  int count = 0;
+  for (int i = 0; i < pwd.length(); i++) {
+    char c = pwd.charAt(i);
+    if (c >= '0' && c <= '9') {
+      count++;
+    }
+  }
+  return count >= amount;
+}
+`;
+var P_MAIN1=String.raw`
+void main() {
+  String pwd = createPassword();
+  if (pwd.isEmpty()) {
+    IO.println("Eingabe abgebrochen!");
+  } else {
+    if (!minLength(pwd, MIN_LAENGE)) {
+      IO.println("Zu kurz!");
+    }
+    if (!containsDigit(pwd)) {
+      IO.println("Ziffer in Passwort fehlt!");
+    }
+  }
+}`;
+var P_TEIL2=String.raw`
+boolean minUppercaseLetters(String pwd, int amount) {
+  int count = 0;
+  for (int i = 0; i < pwd.length(); i++) {
+    char c = pwd.charAt(i);
+    if (c >= 'A' && c <= 'Z') {
+      count++;
+    }
+  }
+  return count >= amount;
+}
+
+int calculateCharacterSum(String pwd) {
+  int sum = 0;
+  for (int i = 0; i < pwd.length(); i++) {
+    sum += pwd.charAt(i);
+  }
+  return sum;
+}
+
+boolean minSpecial(String pwd, int amount) {
+  int count = 0;
+  for (int i = 0; i < pwd.length(); i++) {
+    if (SONDERZEICHEN.indexOf(pwd.charAt(i)) >= 0) {
+      count++;
+    }
+  }
+  return count >= amount;
+}
+
+int calculatePasswordScore(String pwd) {
+  if (!minLength(pwd, MIN_LAENGE) || !containsDigit(pwd)) {
+    return 0;
+  }
+  int score = 0;
+  if (minDigits(pwd, 3)) {
+    score += 2;
+  }
+  if (minUppercaseLetters(pwd, 2)) {
+    score += 1;
+  }
+  if (calculateCharacterSum(pwd) >= MIN_SUMME) {
+    score += 1;
+  }
+  if (minSpecial(pwd, 2)) {
+    score += 3;
+  }
+  return score;
+}
+
+void main() {
+  String pwd = createPassword();
+  if (pwd.isEmpty()) {
+    IO.println("Eingabe abgebrochen!");
+    return;
+  }
+  if (!minLength(pwd, MIN_LAENGE)) {
+    IO.println("Zu kurz!");
+  }
+  if (!containsDigit(pwd)) {
+    IO.println("Ziffer in Passwort fehlt!");
+  }
+  int score = calculatePasswordScore(pwd);
+  IO.println();
+  if (score == 0) {
+    IO.println("Sehr schwaches Passwort!");
+  } else if (score <= 2) {
+    IO.println("Schwaches Passwort!");
+  } else if (score <= 4) {
+    IO.println("Mittelstarkes Passwort!");
+  } else if (score == 5) {
+    IO.println("Starkes Passwort!");
+  } else {
+    IO.println("Sehr starkes Passwort!");
+  }
+  IO.println("Passwortbewertung: " + score);
+}`;
+var P_PS="\n**Achtung:** Hier steht nach dem Doppelpunkt im Prompt **kein** Leerzeichen: `? Passwort eingeben (STOP für Abbruch):` und `? Passwort wiederholen:`.";
+
+add(L2,{id:"lt2_bsp05_1", titel:"Bsp05 · Passwort (Teil 1)", kurz:"Hausübung 5: Eingabe + Bestätigung wiederholen, STOP, Methoden",
+aufgabe:"Schreib `String createPassword()`: Passwort einlesen, dann zur Bestätigung nochmal. Sind beide gleich → `Ident!` und das Passwort zurückgeben. Sonst `<eingabe 1> != <eingabe 2>` und `Neuer Versuch`, dann **beide** Eingaben von vorn. Ist die erste Eingabe leer, wird nur die erste nochmal gefragt. `STOP` bei der ersten Eingabe bricht ab → Rückgabe `\"\"`.\nDazu `boolean minLength(String pwd, int min)` und `boolean containsDigit(String pwd)`.\nmain: bei Abbruch nur `Eingabe abgebrochen!`, sonst falls nötig `Zu kurz!` (unter 10 Zeichen) und/oder `Ziffer in Passwort fehlt!`.\nBeispiel:\n`? Passwort eingeben (STOP für Abbruch):passwort`\n`? Passwort wiederholen:pass`\n`passwort != pass`\n`Neuer Versuch`\n`? Passwort eingeben (STOP für Abbruch):pass`\n`? Passwort wiederholen:pass`\n`Ident!`\n`Zu kurz!`\n`Ziffer in Passwort fehlt!`"+P_PS,
+start:LEER,
+tests:[{in:["passwort","passwort"]},{in:["passwort","pass","pass","pass"]},{in:["passworte1","passworte1"]},{in:["1pa","1pa"]},{in:["STOP"]},{in:["pass","STOP","passwor1","pas1","STOP"]},{in:["","","","a","","a","a"]}],
+muss:[[/String\s+createPassword\s*\(\s*\)/,"Schreib die Methode String createPassword()."],[/boolean\s+minLength\s*\(\s*String\s+\w+\s*,\s*int\s+\w+\s*\)/,"Schreib die Methode boolean minLength(String pwd, int min)."],[/boolean\s+containsDigit\s*\(\s*String\s+\w+\s*\)/,"Schreib die Methode boolean containsDigit(String pwd)."],[/\bfinal\b/,"Konstanten (Mindestlänge, STOP, Prompts) mit final anlegen."]],
+verboten:[[/==\s*"|"\s*==/,"Strings nie mit == vergleichen – nimm .equals(…)."]],
+tipp:"`while (true)` mit `return` drinnen passt hier gut: STOP → `return \"\"`, gleich → `return pwd`. Bei leerer Eingabe einfach nichts tun – die Schleife fragt automatisch wieder.",
+loesung:P_KONST+P_CREATE+P_MAIN1});
+
+add(L2,{id:"lt2_bsp05_2", titel:"Bsp05 · Passwort (Teil 2)", kurz:"Hausübung 5: Passwortstärke 0–7, Zeichen zählen, Unicode-Summe",
+aufgabe:"Baut auf Teil 1 auf (createPassword, minLength, containsDigit – übernimm sie). Punkte für die Stärke:\n• mind. 3 Ziffern → 2 Punkte\n• mind. 2 Großbuchstaben A–Z (keine Umlaute) → 1 Punkt\n• Summe der Unicode-Werte aller Zeichen mind. 600 → 1 Punkt\n• mind. 2 Sonderzeichen aus `!?#%&'()*+,-./@` → 3 Punkte\nErfüllt das Passwort Teil 1 nicht (zu kurz oder ohne Ziffer), ist der Score immer 0.\nMethoden: `boolean minDigits(String pwd, int amount)`, `boolean minUppercaseLetters(String pwd, int amount)`, `int calculateCharacterSum(String pwd)`, `boolean minSpecial(String pwd, int amount)`, `int calculatePasswordScore(String pwd)`.\nmain wie Teil 1, danach eine **Leerzeile**, die Bewertung und `Passwortbewertung: <score>`:\n0 → `Sehr schwaches Passwort!`, 1–2 → `Schwaches Passwort!`, 3–4 → `Mittelstarkes Passwort!`, 5 → `Starkes Passwort!`, ab 6 → `Sehr starkes Passwort!`\nBeispiel:\n`? Passwort eingeben (STOP für Abbruch):PRogr4mm!1(!`\n`? Passwort wiederholen:PRogr4mm!1(!`\n`Ident!`\n``\n`Starkes Passwort!`\n`Passwortbewertung: 5`"+P_PS,
+start:LEER,
+tests:[{in:["PRogr4mm!1(!","PRogr4mm!1(!"]},{in:["passwort","passwort"]},{in:["l33+5P3aK","l33+5P3aK"]},{in:["vULN3r4(3L3!","vULN3r4(3L3!"]},{in:["l337","pass","123()PASSW","123()PASSW"]},{in:["STOP"]},{in:["abcdefghi1","abcdefghi1"]},{in:["ABCDEFGHIJ123","ABCDEFGHIJ123"]}],
+muss:[[/boolean\s+minDigits\s*\(/,"Schreib die Methode boolean minDigits(String pwd, int amount)."],[/boolean\s+minUppercaseLetters\s*\(/,"Schreib die Methode boolean minUppercaseLetters(String pwd, int amount)."],[/int\s+calculateCharacterSum\s*\(/,"Schreib die Methode int calculateCharacterSum(String pwd)."],[/boolean\s+minSpecial\s*\(/,"Schreib die Methode boolean minSpecial(String pwd, int amount)."],[/int\s+calculatePasswordScore\s*\(/,"Schreib die Methode int calculatePasswordScore(String pwd)."],[/\bfinal\b/,"Konstanten mit final anlegen."]],
+verboten:[[/==\s*"|"\s*==/,"Strings nie mit == vergleichen – nimm .equals(…)."]],
+tipp:"`sum += pwd.charAt(i);` addiert den Unicode-Wert direkt (char wird zu int). Sonderzeichen: `SONDERZEICHEN.indexOf(c) >= 0` prüft, ob c in der Zeichenkette vorkommt – spart die zweite Schleife. Leerzeile: `IO.println();`.",
+loesung:P_KONST+"final int MIN_SUMME = 600;\nfinal String SONDERZEICHEN = \"!?#%&'()*+,-./@\";\n"+P_CREATE+P_TEIL2});
+
+
 add(L2,{id:"lt2_noten", titel:"Notenstatistik", kurz:"Array füllen, do-while zur Eingabeprüfung, Durchschnitt",
 aufgabe:"Lies zuerst die Anzahl der Noten ein. Ist sie kleiner als 1 → `Ungueltige Anzahl!` (sonst nichts).\nDann liest du die Noten der Reihe nach in ein `int`-Array ein (`? Note 1: `, `? Note 2: ` …). Ist eine Note nicht zwischen 1 und 5, gib `Ungueltige Note!` aus und frag **dieselbe** Note noch einmal.\nZum Schluss:\n`Noten: [1, 3, 5, 2]` (mit Arrays.toString)\n`Durchschnitt: 2.75` (nicht runden)\n`Beste Note: 1`\n`Nicht genuegend: 1` (Anzahl der Fünfer)\nBeispiel:\n`? Anzahl Noten: 4`\n`? Note 1: 1`\n`? Note 2: 3`\n`? Note 3: 7`\n`Ungueltige Note!`\n`? Note 3: 5`\n`? Note 4: 2`\n`Noten: [1, 3, 5, 2]` …",
 start:LEER,
