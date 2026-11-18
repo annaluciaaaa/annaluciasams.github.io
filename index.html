@@ -337,6 +337,36 @@ details.themen[open]>summary::after{transform:rotate(180deg)}
 details.themen>summary .mut{flex:1;text-align:right;font-weight:400}
 details.themen[open]{padding:0 1rem 1rem}
 details.themen[open]>summary{margin:0 -1rem .5rem;border-bottom:1px solid var(--line)}
+
+/* Offene Prüfungsfragen (UNIX) */
+.ofprio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:1rem}
+@media (max-width:640px){.ofprio{grid-template-columns:minmax(0,1fr)}}
+.ofp{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.8rem .9rem;display:grid;gap:.45rem;align-content:start}
+.ofp .pill{justify-self:start;padding:5px 12px;font-size:13px}
+.ofph{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ofbadge{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 6px;border-radius:6px;font-size:13px;font-weight:700;color:#fff;vertical-align:middle}
+.ofbadge.p1{background:var(--bad)}.ofbadge.p2{background:var(--miss)}.ofbadge.p3{background:var(--muted)}
+@media (prefers-color-scheme:dark){.ofbadge{color:#161514}}
+.ofbar{display:flex;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.ofbar i{display:block;height:100%}.ofbar i.ok{background:var(--ok)}.ofbar i.part{background:var(--miss)}.ofbar i.bad{background:var(--bad)}
+.oflist{display:grid;gap:6px}
+.ofi{display:flex;gap:10px;align-items:baseline;text-decoration:none;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:10px;padding:.55rem .85rem;font-size:14.5px}
+.ofi:hover{background:var(--soft)}
+.ofi .ofn{font-weight:700;color:var(--muted);min-width:2.2em;font-variant-numeric:tabular-nums}
+.ofi .ofq{flex:1;min-width:0}
+.ofi .ofdot{width:10px;height:10px;border-radius:50%;background:var(--line);flex-shrink:0;align-self:center}
+.ofi.ok{border-left-color:var(--ok)}.ofi.ok .ofdot{background:var(--ok)}
+.ofi.part{border-left-color:var(--miss)}.ofi.part .ofdot{background:var(--miss)}
+.ofi.bad{border-left-color:var(--bad)}.ofi.bad .ofdot{background:var(--bad)}
+.ofbarline{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:.8rem}
+.ofst{font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px}
+.ofst.ok{background:var(--ok-bg);color:var(--ok)}.ofst.part{background:var(--miss-bg);color:var(--miss)}.ofst.bad{background:var(--bad-bg);color:var(--bad)}
+.ofcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;margin-bottom:1rem}
+.ofqnum{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.ofqq{font-size:clamp(18px,4vw,22px);line-height:1.35;letter-spacing:-.01em;margin:.25rem 0 .8rem;font-weight:600}
+ul.ofk{list-style:none;margin:.4rem 0 0!important}
+ul.ofk li.y{color:var(--ok)}ul.ofk li.n{color:var(--bad)}
+.ofrate .btn.sel{outline:2px solid var(--accent);outline-offset:1px;font-weight:600}
 </style>
 </head>
 <body>
@@ -348,6 +378,7 @@ details.themen[open]>summary{margin:0 -1rem .5rem;border-bottom:1px solid var(--
 <script src="daten-java-minitests.js"></script>
 <script src="daten-linux.js"></script>
 <script src="daten-linux-pruefung.js"></script>
+<script src="pruefung-unix.js"></script>
 <script src="ablauf-java.js"></script>
 <script src="mini-java.js"></script>
 <script src="uebungen-java.js"></script>
@@ -404,6 +435,10 @@ function subject(f){
            ["4 · Testen","⏱","Prüfungsmodus","Zufällige Aufgaben mit Zeitlimit und ohne Tipps – am Ende Punkte und Note.",last!=null?"Zuletzt: "+last+" %":"5–15 Aufgaben","#/java/pruefung",""]];
     h += '<div class="modes">'+M.map(function(m){return '<a class="mode" href="'+m[5]+'"'+m[6]+'><span class="mstep">'+m[0]+'</span><span class="mic">'+m[1]+'</span><b>'+m[2]+'</b><span class="mt">'+m[3]+'</span><span class="stat">'+m[4]+'</span></a>'}).join("")+'</div>';
     h += '<details class="themen" id="themen"'+(window.JAVA_OPEN?' open':'')+'><summary><span>📖 Themen – Begriffe & Quiz</span><span class="mut sm">'+F.themen.length+' Themen · '+count(f,"terms")+' Begriffe · '+count(f,"quiz")+' Fragen</span></summary>';
+  }
+  if(f==="linux"&&window.OFFEN){
+    var ost=store("of_st")||{}, ook=Object.keys(ost).filter(function(k){return ost[k]==="ok"}).length;
+    h += '<a class="callout" href="#/linux/offen" style="--java:var(--linux);--java-bg:var(--linux-bg)"><span class="ic">✎</span><div><b>Prüfungsfragen WS26 – offen beantworten</b><span class="t">Alle 96 VO-Fragen + PS-Test, nach Priorität sortiert. Antwort selbst schreiben, Kernpunkte werden geprüft.'+(ook?' · '+ook+' von '+OFFEN.fragen.length+' gewusst':'')+'</span></div></a>';
   }
   if(F.hinweis) h += '<p class="note">'+fmt(F.hinweis)+'</p>';
   h += '<div class="row actions">'+(F.zeichen?'<a class="pill" href="#/'+f+'/zeichen">Zeichen & Symbole</a>':'')+
@@ -1142,6 +1177,7 @@ function route(){
   else if(f==="java"&&p[1]==="ablauf"&&window.ABLAUF){ if(p[2]) abShow(p[2]); else abList(); }
   else if(f==="java"&&p[1]==="ueben"&&window.UEBUNG&&window.MJ){ if(p[2]) ueShow(p[2]); else ueList(); }
   else if(f==="java"&&p[1]==="pruefung"&&window.UEBUNG&&window.MJ){ if(p[2]==="laeuft") prRun(); else if(p[2]==="ergebnis") prResult(); else prSetup(); }
+  else if(f==="linux"&&p[1]==="offen"&&window.OFFEN){ if(p[2]) ofShow(p[2]); else ofHome(); }
   else if(FACH[f]){
     if(!p[1]) subject(f);
     else if(p[1]==="zeichen"&&FACH[f].zeichen) symbols(f);
