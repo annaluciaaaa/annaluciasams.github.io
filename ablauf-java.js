@@ -71,6 +71,7 @@ Tracer.prototype={
 };
 
 function run(prog, inputs){
+  if(!prog.run && window.MJ){ var mr=MJ.run(MJ.compile(prog.code), inputs, {trace:true, maxSteps:500000}); return {steps:mr.steps, bad:false, out:mr.stdout}; }
   var T=new Tracer(prog, inputs), err=null, stop=null;
   try{ prog.run(T) }
   catch(e){
@@ -1803,11 +1804,161 @@ run:function(T){
   T.s("ENDE","Zurück in main. Fertig.");
 }});
 
+P.push({id:"bsp05", gruppe:"ps", name:"Bsp05.java", kurz:"PS · Passwort erstellen und bewerten",
+intro:"Deine Abgabe zu Blatt 5: Passwort eingeben, bestätigen und nach Punkten bewerten. Spannend sind die `while (true)`-Schleife in createPassword (sie endet nur durch `return`) und die vielen Zähl-Schleifen über die Zeichen des Strings. Die Konstanten oben (`final`) siehst du rechts als eigenen Kasten.",
+tipp:"Gib z. B. zuerst zwei verschiedene Passwörter ein (→ „Neuer Versuch“), dann zweimal dasselbe. Oder STOP als erste Eingabe. Leere Eingaben kann man hier nicht eintippen.",
+inputs:[{l:"Eingaben (durch Komma): Passwort, Wiederholung, …",d:"l337, pass, 123()PASSW, 123()PASSW",liste:true}],
+code:String.raw`final String promptPassword = "? Passwort eingeben (STOP für Abbruch):";
+final String promptConfirm = "? Passwort wiederholen:";
+final String stop = "STOP";
+
+final int requiredLength = 10;
+
+final int requiredDigits = 3;
+final int requiredUppercase = 2;
+final int requiredCharSum = 600;
+final int requiredSpecial = 2;
+final String specialChars = "!?#%&'()*+,-./@";
+
+final int pointsDigits = 2;
+final int pointsUppercase = 1;
+final int pointsCharSum = 1;
+final int pointsSpecial = 3;
+
+void main() {
+  String pwd = createPassword();
+
+  if (pwd.length() == 0) {
+    IO.println("Eingabe abgebrochen!");
+  } else {
+    if (!minLength(pwd, requiredLength)) {
+      IO.println("Zu kurz!");
+    }
+    if (!containsDigit(pwd)) {
+      IO.println("Ziffer in Passwort fehlt!");
+    }
+
+    int score = calculatePasswordScore(pwd);
+    IO.println();
+    if (score == 0) {
+      IO.println("Sehr schwaches Passwort!");
+    } else if (score <= 2) {
+      IO.println("Schwaches Passwort!");
+    } else if (score <= 4) {
+      IO.println("Mittelstarkes Passwort!");
+    } else if (score == 5) {
+      IO.println("Starkes Passwort!");
+    } else {
+      IO.println("Sehr starkes Passwort!");
+    }
+    IO.println("Passwortbewertung: " + score);
+  }
+}
+
+String createPassword() {
+  while (true) {
+    String pwd = IO.readln(promptPassword);
+
+    if (pwd.equals(stop)) {
+      return "";
+    }
+    if (pwd.length() > 0) {
+      String confirm = IO.readln(promptConfirm);
+      if (pwd.equals(confirm)) {
+        IO.println("Ident!");
+        return pwd;
+      }
+      IO.println(pwd + " != " + confirm);
+      IO.println("Neuer Versuch");
+    }
+  }
+}
+
+boolean minLength(String pwd, int min) {
+  return pwd.length() >= min;
+}
+
+boolean containsDigit(String pwd) {
+  return minDigits(pwd, 1);
+}
+
+boolean minDigits(String pwd, int amount) {
+  int count = 0;
+  for (int i = 0; i < pwd.length(); i++) {
+    char c = pwd.charAt(i);
+    if (c >= '0' && c <= '9') {
+      count++;
+      if (count >= amount) {
+        return true;
+      }
+    }
+  }
+  return count >= amount;
+}
+
+boolean minUppercaseLetters(String pwd, int amount) {
+  int count = 0;
+  for (int i = 0; i < pwd.length(); i++) {
+    char c = pwd.charAt(i);
+    if (c >= 'A' && c <= 'Z') {
+      count++;
+      if (count >= amount) {
+        return true;
+      }
+    }
+  }
+  return count >= amount;
+}
+
+int calculateCharacterSum(String pwd) {
+  int sum = 0;
+  for (int i = 0; i < pwd.length(); i++) {
+    sum += pwd.charAt(i);
+  }
+  return sum;
+}
+
+boolean minSpecial(String pwd, int amount) {
+  int count = 0;
+  for (int i = 0; i < pwd.length(); i++) {
+    char c = pwd.charAt(i);
+    for (int j = 0; j < specialChars.length(); j++) {
+      if (c == specialChars.charAt(j)) {
+        count++;
+        if (count >= amount) {
+          return true;
+        }
+      }
+    }
+  }
+  return count >= amount;
+}
+
+int calculatePasswordScore(String pwd) {
+  if (!minLength(pwd, requiredLength) || !containsDigit(pwd)) {
+    return 0;
+  }
+
+  int score = 0;
+  if (minDigits(pwd, requiredDigits)) {
+    score += pointsDigits;
+  }
+  if (minUppercaseLetters(pwd, requiredUppercase)) {
+    score += pointsUppercase;
+  }
+  if (calculateCharacterSum(pwd) >= requiredCharSum) {
+    score += pointsCharSum;
+  }
+  if (minSpecial(pwd, requiredSpecial)) {
+    score += pointsSpecial;
+  }
+  return score;
+}`});
 var G=[["start","Ganz einfach – zum Reinkommen","Eigene Mini-Beispiele: je ein Grundbaustein pro Programm. Fang hier an!"],
        ["k13","VO Kap. 1–3","Variablen, Eingabe, Rechnen, erste if und while"],
        ["k4","VO Kap. 4","Typen, Casts, Strings, if-Ketten, switch"],
        ["k5","VO Kap. 5","for, verschachtelte Schleifen, do-while, break"],
-       ["ps","Proseminar – deine Abgaben","Bsp02–Bsp04 aus deinem PS-Ordner"]];
+       ["ps","Proseminar – deine Abgaben","Bsp02–Bsp05 aus deinem PS-Ordner"]];
 
 window.ABLAUF={progs:P, gruppen:G, run:run, jd:jd};
 })();
