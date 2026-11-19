@@ -367,6 +367,35 @@ details.themen[open]>summary{margin:0 -1rem .5rem;border-bottom:1px solid var(--
 ul.ofk{list-style:none;margin:.4rem 0 0!important}
 ul.ofk li.y{color:var(--ok)}ul.ofk li.n{color:var(--bad)}
 .ofrate .btn.sel{outline:2px solid var(--accent);outline-offset:1px;font-weight:600}
+
+/* Praxis-Prüfung Terminal */
+.term{background:#14161a;color:#e6e6e6;border-radius:12px;padding:.8rem 1rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-ligatures:none;font-size:14px;line-height:1.55;max-height:420px;min-height:180px;overflow-y:auto;cursor:text}
+.term .tl{white-space:pre-wrap;word-break:break-all}
+.term .tp{color:#7ee787}
+.term .cmt{color:#8b949e}
+.term pre.to{margin:0 0 .2rem;white-space:pre-wrap;color:#c9d1d9;font:inherit}
+.term pre.to.bad{color:#ff7b72}
+.term .tin{display:flex;gap:.5em;align-items:baseline}
+.term input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font:inherit;caret-color:#7ee787;padding:0}
+.pxtask{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:.8rem 1rem;margin-bottom:.8rem;font-size:15.5px}
+.pxtask p{margin:0}
+.pxn{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:700}
+.pxdots{display:flex;gap:4px}.pxdots i{width:18px;height:6px;border-radius:3px;background:var(--line)}
+.pxdots i.ok{background:var(--ok)}.pxdots i.part{background:var(--miss)}.pxdots i.cur{background:var(--accent)}
+.pxcheat{display:grid;gap:6px}
+.pxc{background:var(--card);border:1px solid var(--line);border-radius:10px}
+.pxc summary{display:flex;gap:10px;align-items:center;padding:.6rem .9rem;cursor:pointer;font-size:14.5px;list-style:none}
+.pxc summary::-webkit-details-marker{display:none}
+.pxcb{padding:0 1rem .9rem 3rem;font-size:14px}
+.pxcb ul{margin:.2rem 0 0 1rem}.pxcb li{margin-bottom:.3rem}
+.pxcb pre.code{margin:.4rem 0 .6rem}
+.lblf{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--bad);font-weight:700;margin-top:.6rem}
+ul.pxf li{color:var(--muted)}
+.pxmail{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem;display:grid;gap:.7rem;margin-bottom:.8rem}
+.pxmail label{display:grid;gap:.2rem;font-size:13px;font-weight:600;color:var(--muted)}
+.pxmail input:not([type]){font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem}
+.pxmail .chks label{display:flex;font-weight:400;color:var(--ink);font-size:14.5px}
+@media (max-width:560px){.pxcb{padding-left:1rem}}
 </style>
 </head>
 <body>
@@ -379,6 +408,7 @@ ul.ofk li.y{color:var(--ok)}ul.ofk li.n{color:var(--bad)}
 <script src="daten-linux.js"></script>
 <script src="daten-linux-pruefung.js"></script>
 <script src="pruefung-unix.js"></script>
+<script src="praxis-unix.js"></script>
 <script src="ablauf-java.js"></script>
 <script src="mini-java.js"></script>
 <script src="uebungen-java.js"></script>
@@ -435,6 +465,9 @@ function subject(f){
            ["4 · Testen","⏱","Prüfungsmodus","Zufällige Aufgaben mit Zeitlimit und ohne Tipps – am Ende Punkte und Note.",last!=null?"Zuletzt: "+last+" %":"5–15 Aufgaben","#/java/pruefung",""]];
     h += '<div class="modes">'+M.map(function(m){return '<a class="mode" href="'+m[5]+'"'+m[6]+'><span class="mstep">'+m[0]+'</span><span class="mic">'+m[1]+'</span><b>'+m[2]+'</b><span class="mt">'+m[3]+'</span><span class="stat">'+m[4]+'</span></a>'}).join("")+'</div>';
     h += '<details class="themen" id="themen"'+(window.JAVA_OPEN?' open':'')+'><summary><span>📖 Themen – Begriffe & Quiz</span><span class="mut sm">'+F.themen.length+' Themen · '+count(f,"terms")+' Begriffe · '+count(f,"quiz")+' Fragen</span></summary>';
+  }
+  if(f==="linux"&&window.PRAXIS){
+    h += '<a class="callout" href="#/linux/praxis" style="--java:var(--linux);--java-bg:var(--linux-bg)"><span class="ic">$_</span><div><b>Praxis-Prüfung im Terminal (PS-Test)</b><span class="t">Die 10 Aufgaben vom Praxisblatt (cd, mkdir, wget, wc, tr, sort/uniq, tar, history, Mail) selbst eintippen und sofort prüfen lassen – mit wechselnden Namen.</span></div></a>';
   }
   if(f==="linux"&&window.OFFEN){
     var ost=store("of_st")||{}, ook=Object.keys(ost).filter(function(k){return ost[k]==="ok"}).length;
@@ -1177,6 +1210,7 @@ function route(){
   else if(f==="java"&&p[1]==="ablauf"&&window.ABLAUF){ if(p[2]) abShow(p[2]); else abList(); }
   else if(f==="java"&&p[1]==="ueben"&&window.UEBUNG&&window.MJ){ if(p[2]) ueShow(p[2]); else ueList(); }
   else if(f==="java"&&p[1]==="pruefung"&&window.UEBUNG&&window.MJ){ if(p[2]==="laeuft") prRun(); else if(p[2]==="ergebnis") prResult(); else prSetup(); }
+  else if(f==="linux"&&p[1]==="praxis"&&window.PRAXIS){ if(p[2]==="lauf") pxRun(false); else if(p[2]==="drill") pxRun(true); else pxHome(); }
   else if(f==="linux"&&p[1]==="offen"&&window.OFFEN){ if(p[2]) ofShow(p[2]); else ofHome(); }
   else if(FACH[f]){
     if(!p[1]) subject(f);
