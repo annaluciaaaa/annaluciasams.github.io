@@ -1958,7 +1958,7 @@ var G=[["start","Ganz einfach – zum Reinkommen","Eigene Mini-Beispiele: je ein
        ["k13","VO Kap. 1–3","Variablen, Eingabe, Rechnen, erste if und while"],
        ["k4","VO Kap. 4","Typen, Casts, Strings, if-Ketten, switch"],
        ["k5","VO Kap. 5","for, verschachtelte Schleifen, do-while, break"],
-       ["ps","Proseminar – deine Abgaben","Bsp02–Bsp05 aus deinem PS-Ordner"]];
+       ["ps","Proseminar – deine Abgaben","Bsp02–Bsp06 aus deinem PS-Ordner"]];
 
 window.ABLAUF={progs:P, gruppen:G, run:run, jd:jd};
 })();

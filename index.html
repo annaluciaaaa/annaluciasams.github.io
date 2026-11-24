@@ -369,14 +369,14 @@ ul.ofk li.y{color:var(--ok)}ul.ofk li.n{color:var(--bad)}
 .ofrate .btn.sel{outline:2px solid var(--accent);outline-offset:1px;font-weight:600}
 
 /* Praxis-Prüfung Terminal */
-.term{background:#14161a;color:#e6e6e6;border-radius:12px;padding:.8rem 1rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-ligatures:none;font-size:14px;line-height:1.55;max-height:420px;min-height:180px;overflow-y:auto;cursor:text}
-.term .tl{white-space:pre-wrap;word-break:break-all}
-.term .tp{color:#7ee787}
-.term .cmt{color:#8b949e}
-.term pre.to{margin:0 0 .2rem;white-space:pre-wrap;color:#c9d1d9;font:inherit}
-.term pre.to.bad{color:#ff7b72}
-.term .tin{display:flex;gap:.5em;align-items:baseline}
-.term input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font:inherit;caret-color:#7ee787;padding:0}
+.uxterm{background:#14161a;color:#e6e6e6;border-radius:12px;padding:.8rem 1rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-ligatures:none;font-size:14px;line-height:1.55;max-height:420px;min-height:180px;overflow-y:auto;cursor:text}
+.uxterm .tl{white-space:pre-wrap;word-break:break-all}
+.uxterm .tp{color:#7ee787}
+.uxterm .cmt{color:#8b949e}
+.uxterm pre.to{margin:0 0 .2rem;white-space:pre-wrap;color:#c9d1d9;font:inherit}
+.uxterm pre.to.bad{color:#ff7b72}
+.uxterm .tin{display:flex;gap:.5em;align-items:baseline}
+.uxterm input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font:inherit;caret-color:#7ee787;padding:0}
 .pxtask{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:.8rem 1rem;margin-bottom:.8rem;font-size:15.5px}
 .pxtask p{margin:0}
 .pxn{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:700}
@@ -404,16 +404,18 @@ ul.pxf li{color:var(--muted)}
 <script src="daten-fs.js"></script>
 <script src="daten-dr.js"></script>
 <script src="daten-java.js"></script>
+<script src="daten-java-arrays.js"></script>
 <script src="daten-java-minitests.js"></script>
 <script src="daten-linux.js"></script>
 <script src="daten-linux-pruefung.js"></script>
 <script src="pruefung-unix.js"></script>
-<script src="praxis-unix.js"></script>
-<script src="ablauf-java.js"></script>
+<script src="praxis-unix.js?v=2"></script>
+<script src="ablauf-java.js?v=2"></script>
 <script src="mini-java.js"></script>
 <script src="uebungen-java.js"></script>
 <script src="uebungen-java-livetest.js"></script>
 <script src="uebungen-java-livetest23.js"></script>
+<script src="uebungen-java-vektoren.js"></script>
 <script>
 var ORDER = ["fs","dr","java","linux"];
 var L = "ABCDEFGH";

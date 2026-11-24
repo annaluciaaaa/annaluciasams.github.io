@@ -159,7 +159,7 @@ function draw(){
      (P.drill?'':'<span class="pxdots">'+STEPS.map(function(s,i){return '<i class="'+(i<P.step?(P.err[i]||P.help[i]?"part":"ok"):i===P.step?"cur":"")+'"></i>'}).join("")+'<i></i><i></i></span>')+
      '<span class="sm mut">Verzeichnis <code>'+V.D+'</code> · Datei <code>'+V.F+'</code></span></div>';
   h+='<div class="pxtask"><span class="pxn">'+(P.step+1)+'</span><div><p>'+st.t(V,P)+'</p><p class="sm mut"><i>'+esc(st.en)+'</i></p></div></div>';
-  h+='<div class="term" id="term">';
+  h+='<div class="uxterm" id="term">';
   P.sb.forEach(function(e){
     if(e.cls==="cmt") h+='<div class="tl cmt">'+esc(e.c)+'</div>';
     else h+='<div class="tl"><span class="tp">'+esc(e.p)+'</span> '+esc(e.c)+'</div>'+(e.o?'<pre class="to'+(e.ocls?' '+e.ocls:'')+'">'+esc(e.o)+'</pre>':'');
