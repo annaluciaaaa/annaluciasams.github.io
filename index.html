@@ -406,6 +406,7 @@ ul.pxf li{color:var(--muted)}
 <script src="daten-java.js"></script>
 <script src="daten-java-arrays.js"></script>
 <script src="daten-java-minitests.js"></script>
+<script src="daten-java-minitests-code.js"></script>
 <script src="daten-linux.js"></script>
 <script src="daten-linux-pruefung.js"></script>
 <script src="pruefung-unix.js"></script>
@@ -639,7 +640,7 @@ function result(){
     (sc.i!=null&&!sc.all?'<a class="btn" href="#/'+sc.f+'/'+FACH[sc.f].themen[sc.i].id+'">Begriffe ansehen</a>':'')+'</div>';
   if(S.wrong.length){
     h+='<div class="wl"><h3>Diese Fragen solltest du dir nochmal anschauen:</h3><ul>'+S.wrong.map(function(w){
-      return '<li>'+fmt(w.q.q)+(w.q.code?' <code>'+esc(w.q.code.split("\n")[0])+(w.q.code.indexOf("\n")>=0?' …':'')+'</code>':'')+
+      return '<li>'+fmt(w.q.q)+(w.q.code?'<pre class="code">'+esc(w.q.code)+'</pre>':'')+
         '<small>'+esc(FACH[w.f].kurz)+' · <a href="#/'+w.f+'/'+w.t.id+'">'+esc(w.t.name)+'</a></small></li>'}).join("")+'</ul></div>';
   }
   h+='</div>';
