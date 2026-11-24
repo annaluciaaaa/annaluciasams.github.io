@@ -269,7 +269,7 @@ FACH.java = {
       ["long", "8 Byte, −2⁶³ … 2⁶³−1 (≈ ±9·10¹⁸)"],
       ["float", "4 Byte Gleitkommazahl, bis ±3.4·10³⁸"],
       ["double", "8 Byte Gleitkommazahl, bis ±1.8·10³⁰⁸"],
-      ["char", "2 Byte, alle Unicode-Zeichen"],
+      ["char", "2 Byte, Unicode-Zeichen (0 … 65535)"],
       ["boolean", "Wahrheitswerte true und false (1 Bit)"],
       ["Typ von Numeralen", "Ganzzahlige Numerale haben den Typ int, Gleitkomma-Numerale den Typ double."],
       ["Implizite Typkonversion", "Bei verschiedenen Operandentypen wird der weiter links stehende Typ (byte → short → int → long → float → double) in den anderen umgewandelt. Ergebnis ist mindestens int.", "2 + 1.0 ist double, b + b (byte) ist int"],
